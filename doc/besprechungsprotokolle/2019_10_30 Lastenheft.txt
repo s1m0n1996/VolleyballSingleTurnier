@@ -1,0 +1,47 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Lastenheft
+
+Datum: 13.01.2020
+	10:00 - 10:30 Uhr = 30 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Lea Kesselmeier
+
+------------------------------------------------------------------------------------------------------------------------
+
+Besprechung des vorgefertigten Lastenheftes.
+
+Anmerkungen zum Lastenheft: 
+	- Präziser die Anforderungen formulieren
+	- mehr Struktur und Übersicht in den Verlauf bringen
+	- fehlende Ablauf des Programms (wurde nur anhand der Oberfläche erklärt)
+	- mehr Namenswiederholungen
+	
+Graphische Oberfläche: 
+	- Löschen der Spieler in der Meldestelle hinzufügen
+	- aktuelles Spielmarkieren
+	- Spielplan eins vergangenen Spiels sehen
+	- Richteranzeige auch mit Dartscheibe zum Punkte einstellen ausstatten
+	- bei Ende eines Legs, automatische Beendigung
+	- Spielplan druckbar sein
+	
+Zum Testen: 
+	- Spiele überspringbar machen
+	
+Optionen: 
+	- Drucken machbar
+	- Netzwerkkommunikation zu aufwendig
+	- Autoskalierung des Spielplans machbar mit einem Zoomfaktor
+	- Beachtung des Koordinatensystems.
+
+Ausblick:
+	- Klassendiagramm
+	- Besprechung aktuelle Probleme, Stände
+	
