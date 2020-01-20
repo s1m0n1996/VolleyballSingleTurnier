@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>database/DDL_DatabaseSchema.sql</file>
+        <file>database/DDL_DatabaseInserts.sql</file>
     </qresource>
 </RCC>
