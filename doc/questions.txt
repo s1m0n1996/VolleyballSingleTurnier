@@ -1,0 +1,1 @@
+- .pro/CMakeLists.txt datei im src ordner oder im überordner?
