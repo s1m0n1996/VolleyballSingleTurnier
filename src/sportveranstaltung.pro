@@ -17,11 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Model/model.cpp \
+    Model/sqliteConnector.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Model/model.h \
+    Model/sqliteConnector.h \
     mainwindow.h
 
 FORMS += \

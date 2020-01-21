@@ -1,1 +1,3 @@
 - .pro/CMakeLists.txt datei im src ordner oder im überordner?
+- Fehlermeldungen model oder view?
+    - wollen sie die datei wirklich überschrieben
