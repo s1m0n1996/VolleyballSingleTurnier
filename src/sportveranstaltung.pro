@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Model/model.cpp \
+    Model/player.cpp \
     Model/sqliteConnector.cpp \
     View/dartboard.cpp \
     View/gameboard.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 
 HEADERS += \
     Model/model.h \
+    Model/player.h \
     Model/sqliteConnector.h \
     View/dartboard.h \
     View/gameboard.h \
