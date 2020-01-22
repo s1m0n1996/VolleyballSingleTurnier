@@ -126,7 +126,7 @@ CREATE TABLE leg_list
     CONSTRAINT leg_list_pk
         PRIMARY KEY (id, game_board_id, sport_type_id, game_mode_id, tournament_id),
     CONSTRAINT leg_list_game_board_list_fk
-    FOREIGN KEY (game_board_id, sport_type_id, game_mode_id, tournament_id) REFERENCES game_board_list (id, sport_type_id, game_mode_id, tournament_id)
+        FOREIGN KEY (game_board_id, sport_type_id, game_mode_id, tournament_id) REFERENCES game_board_list (id, sport_type_id, game_mode_id, tournament_id)
 );
 
 --######################################################################################################################
@@ -143,14 +143,17 @@ CREATE TABLE leg_history_list
     tournament_id INT  NOT NULL,
     game_board_id INT  NOT NULL,
     leg_id        INT  NOT NULL,
+    player_id     INT  NOT NULL,
     time          TEXT NOT NULL,
-    value_type_id    INT  NOT NULL,
+    value_type_id INT  NOT NULL,
     value         INT  NOT NULL,
     CONSTRAINT history_list_pk
         PRIMARY KEY (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id),
     CONSTRAINT leg_history_list_leg_list_fk
         FOREIGN KEY (sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id) REFERENCES leg_list (sport_type_id, game_mode_id, tournament_id, game_board_id, id),
     CONSTRAINT leg_history_list_history_value_type_fk
-        FOREIGN KEY (value_type_id, sport_type_id) REFERENCES history_value_type (id, sport_type_id)
+        FOREIGN KEY (value_type_id, sport_type_id) REFERENCES history_value_type (id, sport_type_id),
+    CONSTRAINT leg_history_list_player_list_fk
+        FOREIGN KEY (player_id) REFERENCES player_list (id)
 );
 
