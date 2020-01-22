@@ -17,29 +17,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Model/model.cpp \
-<<<<<<< HEAD
     Model/sqliteConnector.cpp \
-=======
     View/dartboard.cpp \
     View/gameboard.cpp \
     View/refereewindow.cpp \
     View/tournementwindow.cpp \
     View/viewerwindow.cpp \
->>>>>>> View Klassen hinzugefügt
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Model/model.h \
-<<<<<<< HEAD
     Model/sqliteConnector.h \
-=======
     View/dartboard.h \
     View/gameboard.h \
     View/refereewindow.h \
     View/tournementwindow.h \
     View/viewerwindow.h \
->>>>>>> View Klassen hinzugefügt
     mainwindow.h
 
 FORMS += \
