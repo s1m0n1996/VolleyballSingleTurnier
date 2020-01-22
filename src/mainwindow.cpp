@@ -46,7 +46,7 @@ MainWindow::MainWindow(Model* model, QWidget* parent) :
     layoutTopLine->addWidget(load);
     layoutTopLine->setSpacing(0);
 
-    // layoutCompleteWindow->setContentsMargins(0,0,0,1250); //Position bei einem großem Fenster festlegen
+    //layoutCompleteWindow->setContentsMargins(0,0,0,1250); //Position bei einem großem Fenster festlegen
     //layoutCompleteWindow->setMargin(250); // Mitte?
 
     setLayout(layoutCompleteWindow);
