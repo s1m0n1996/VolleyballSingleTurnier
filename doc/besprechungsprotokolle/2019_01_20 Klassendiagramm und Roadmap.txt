@@ -1,0 +1,39 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Lastenheft
+
+Datum: 20.01.2020
+	10:00 - 10:30 Uhr = 30 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Philipp Wietfeld
+
+------------------------------------------------------------------------------------------------------------------------
+
+Besprechung des nun fertiggestellten Lastenheftes.
+
+Anmerkungen und Ideen zum fertigen der Dartscheibengrafik:
+	- Die Koordinaten des Events "Klick" sollen übergeben werden
+	- Aus den Koordinaten dann das passende Feld auf der Dartscheibe berechnen
+	- Zum highlighten der einzelnen Felder soll Event "Fenster betreten" gegeben werden
+	- Einzelne Felder müssen für das highlighten erstellt werden
+
+Roadmap wurde gezeigt.
+	- Keine Anmerkungen
+
+Klassendiagramme wurden gezeigt.
+	- Klassendiagramm in Ordnung und bereitet somit den ersten Anfang
+	- Klassendiagramm soll nicht zu statisch sein, da es Veränderungen geben wird
+	- Klasse "Wurf" soll erstellt werden
+	- Dartenbank darf auf diese Weise verwendet werden
+	- Spiele sollen vor Bekanntgabe der beiden Spieler erstellt werden
+ 
+Optionen/Anregungen
+	- Sollen Spiele vor Fertigstellung gezeigt werden (Spieler sind noch unbekannt)
+	- Bei der Erstellung von Klasse "Game" kann drauf geachtet werden ob es aus zwei Vorgängerspielen oder keinem besteht
