@@ -12,6 +12,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QVariant>
 
 /*
  * the SqliteConnector is a singleton class. It makes the connection to the SqLite database
@@ -26,9 +27,9 @@ public:
 
     void createDatabase(const QString &path);
 
-    void openDatabase(const QString path);
+    void openDatabase(const QString& path);
 
-    auto *sqlQuery(const QString query);
+    QList<QList<QVariant>> sqlQuery(const QString sqlStatement);
 
 
 private:
