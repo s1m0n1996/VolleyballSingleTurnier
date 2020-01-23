@@ -1,3 +1,6 @@
 - .pro/CMakeLists.txt datei im src ordner oder im überordner?
 - Fehlermeldungen model oder view?
     - wollen sie die datei wirklich überschrieben
+- singleton klasse datenbank vererben oder membervariable mit getInstance()
+- methoden sollen nicht vererbet werden, sondern nur in der hauptklasse aufgerufen werden können
+    - datenbank methode create/open soll nur von objekt datenbank aufgerufen werden können aber nicht von kindobjekten
