@@ -41,8 +41,8 @@ HEADERS += \
     View/viewerwindow.h
 
 FORMS += \
-    mainmenu.ui \
-    playermanagment.ui
+    View/mainmenu.ui \
+    View/playermanagment.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts
