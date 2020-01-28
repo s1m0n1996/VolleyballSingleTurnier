@@ -45,7 +45,7 @@ HEADERS += \
 FORMS += \
     View/mainmenu.ui \
     View/playermanagment.ui
-
+    View/dialogdartboard.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts
