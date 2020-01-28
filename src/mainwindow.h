@@ -21,6 +21,7 @@ public:
     ~MainWindow();
 public slots:
     void update(void);
+    void openWindow(void);
 private slots:
     void accept(void);
     void newWindow(void);

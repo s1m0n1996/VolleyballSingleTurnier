@@ -21,11 +21,12 @@ SOURCES += \
     Model/sqliteConnector.cpp \
     View/dartboard.cpp \
     View/gameboard.cpp \
+    View/mainmenu.cpp \
+    View/playermanagment.cpp \
     View/refereewindow.cpp \
     View/tournementwindow.cpp \
     View/viewerwindow.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 HEADERS += \
     Model/model.h \
@@ -33,13 +34,15 @@ HEADERS += \
     Model/sqliteConnector.h \
     View/dartboard.h \
     View/gameboard.h \
+    View/mainmenu.h \
+    View/playermanagment.h \
     View/refereewindow.h \
     View/tournementwindow.h \
-    View/viewerwindow.h \
-    mainwindow.h
+    View/viewerwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainmenu.ui \
+    playermanagment.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts
