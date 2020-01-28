@@ -43,9 +43,9 @@ HEADERS += \
     View/viewerwindow.h
 
 FORMS += \
+    View/dialogdartboard.ui \
     View/mainmenu.ui \
     View/playermanagment.ui
-    View/dialogdartboard.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts
