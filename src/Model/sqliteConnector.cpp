@@ -6,6 +6,16 @@
 
 #include "sqliteConnector.h"
 
+/*!
+ * \brief Create a new database.
+ *
+ * \param[in] path the absolute file path and file name with data type (.sqlite)
+ * \return void
+ *
+ * This method creates a new database at the path you selected.
+ * when the new database is created, the DDL files would execute and the schema was build.
+ *
+ */
 void SqliteConnector::createDatabase(const QString& path) {
     // TODO: checke ob datei bereits vorhanden ist und gebe eine warnung "wollen sie die datei wirklich überschreiben"
     //  aus. dann muss die Alte datei Gelöscht werden und eine neue angelegt werden"
@@ -43,7 +53,7 @@ void SqliteConnector::createDatabase(const QString& path) {
             if (sqlStatement != "") {
                 if (!query.exec(sqlStatement)) {
                     qWarning() << "Failed: " << sqlStatement << "\n Reason: " << query.lastError().driverText()
-                             << query.lastError().databaseText();
+                               << query.lastError().databaseText();
                 }
             }
         }
@@ -52,6 +62,15 @@ void SqliteConnector::createDatabase(const QString& path) {
     }
 }
 
+/*!
+ * \brief Open an existing database.
+ *
+ * \param[in] path the absolute file path and file name with data type (.sqlite)
+ * \return void
+ *
+ * This Method open an existing database.
+ * If you want to open a database file that not exist, the a error was aborted the opening process.
+ */
 void SqliteConnector::openDatabase(const QString& path) {
     if (!QFile::exists(path)) {
         qCritical() << "can't open database file from location " << path;
@@ -65,6 +84,16 @@ void SqliteConnector::openDatabase(const QString& path) {
     }
 }
 
+/*!
+ * \brief Execute a sqlQuery With a QString.
+ *
+ * \param[in] sqlStatement a String with the pure SQL-Query like: "SELECT * FROM player_list;"
+ * \return the requested data from the sqlStatement
+ *
+ * With this method you can execute a pure QString in the database.
+ * You get the requested information from the table in a matrix form (2-dimensional list).
+ * If the Query fails, the function aborted with an error message and returned an empty list.
+ */
 QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement) {
 
     QSqlQuery sqlQuery;
@@ -76,6 +105,23 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement) {
     return _executeQuery(sqlQuery, sqlStatement);
 }
 
+/*!
+ * \brief Execute a sqlQuery With a incomplete sql string and a list of parameter to complete the sql string.
+ *
+ * \param[in] sqlPrepare the SQL-Query with "?" as Placeholder for the variables from the parameters list. For example
+ * "INSERT INTO player_list (name, birthday, country) VALUES (?, ?, ?)"
+ * \param[in] parameters a list to replace the elements with the "?" in the sqlPrepare string
+ * \return the requested data from the sqlStatement
+ *
+ * With this method you can execute a SQL query with 2 parameter.
+ * You get the requested information from the table in a matrix form (2-dimensional list).
+ * If the Query fails, the function aborted with an error message and returned an empty list.
+ *
+ * The sqlPrepare parameter needs a string in this format:
+ * "INSERT INTO player_list (id, name, birthday, country, is_available) VALUES (?, ?, ?, ?, 0);"
+ * You see that this string have 4 placeholder in form of ? char.
+ * So the second parameters parameter list needs 4 elements.
+ */
 QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlPrepare, const QStringList& parameters) {
 
     if (!_db.open()) {
@@ -91,7 +137,7 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlPrepare, cons
     // check parameter count
     if (parameters.count() != sqlPrepare.count("?")) {
         qWarning() << "the number of parameters is wrong. You need " << sqlPrepare.count("?") << "in the sql string "
-                 << sqlPrepare << " but in the list was " << parameters.count();
+                   << sqlPrepare << " but in the list was " << parameters.count();
     }
 
     // add parameter to the prepare string
@@ -102,6 +148,12 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlPrepare, cons
     return _executeQuery(sqlQuery);
 }
 
+/*!
+ * \brief executes a sql query.
+ *
+ * This Function executes an sql query. If the Query fails you get a error message why it fails.
+ * If the sqlQuery successful runs, you get the data in form a matrix form.
+ */
 QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject, const QString& sqlQueryString) {
 
     // if no sql string was given call the .exec() method without parameter because the parameters was
@@ -109,16 +161,16 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
     if (sqlQueryString == "") {
         if (!sqlQueryObject.exec()) {
             qWarning() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
-                     << sqlQueryObject.lastError().driverText()
-                     << sqlQueryObject.lastError().databaseText();
+                       << sqlQueryObject.lastError().driverText()
+                       << sqlQueryObject.lastError().databaseText();
         }
     }
         // if a sql string was given call the .exec() method with this parameter
     else {
         if (!sqlQueryObject.exec(sqlQueryString)) {
             qWarning() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
-                     << sqlQueryObject.lastError().driverText()
-                     << sqlQueryObject.lastError().databaseText();
+                       << sqlQueryObject.lastError().driverText()
+                       << sqlQueryObject.lastError().databaseText();
         }
     }
 
@@ -137,6 +189,10 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
     return data;
 }
 
+/*!
+ * \brief Print a table.
+ * This method print a requested table in qDebug() for easier debugging.
+ */
 void SqliteConnector::printTable(const QList<QList<QVariant>>& table) {
 
     for (auto& row : table) {
