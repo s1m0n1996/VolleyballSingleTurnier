@@ -13,7 +13,7 @@ void SqliteConnector::createDatabase(const QString& path) {
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(path);
     if (!_db.open()) {
-        qDebug() << "can't create or open database file on path " << path;
+        qCritical() << "can't create or open database file on path " << path;
         return;
     }
 
@@ -29,7 +29,7 @@ void SqliteConnector::createDatabase(const QString& path) {
 
     for (const QString& scriptPath : scriptPathList) {
         if (!QFile::exists(scriptPath)) {
-            qDebug() << "can't open script path " << scriptPath;
+            qCritical() << "can't open script path " << scriptPath;
             return;
         }
         file.setFileName(scriptPath);
@@ -42,7 +42,7 @@ void SqliteConnector::createDatabase(const QString& path) {
         for (const QString& sqlStatement : sqlStatements) {
             if (sqlStatement != "") {
                 if (!query.exec(sqlStatement)) {
-                    qDebug() << "Failed: " << sqlStatement << "\n Reason: " << query.lastError().driverText()
+                    qWarning() << "Failed: " << sqlStatement << "\n Reason: " << query.lastError().driverText()
                              << query.lastError().databaseText();
                 }
             }
@@ -54,13 +54,13 @@ void SqliteConnector::createDatabase(const QString& path) {
 
 void SqliteConnector::openDatabase(const QString& path) {
     if (!QFile::exists(path)) {
-        qDebug() << "can't open database file from location " << path;
+        qCritical() << "can't open database file from location " << path;
         return;
     }
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(path);
     if (!_db.open()) {
-        qDebug() << "can't create or open database file on path " << path;
+        qCritical() << "can't create or open database file on path " << path;
         return;
     }
 }
@@ -70,7 +70,7 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement) {
     QSqlQuery sqlQuery;
 
     if (!_db.open()) {
-        qDebug() << "database is not opened";
+        qCritical() << "database is not opened";
     }
 
     return _executeQuery(sqlQuery, sqlStatement);
@@ -79,18 +79,18 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement) {
 QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlPrepare, const QStringList& parameters) {
 
     if (!_db.open()) {
-        qDebug() << "database is not opened";
+        qCritical() << "database is not opened";
     }
 
     QSqlQuery sqlQuery;
     // set prepare string to sqlQuery Object
     if (!sqlQuery.prepare(sqlPrepare)) {
-        qDebug() << sqlQuery.lastError();
+        qWarning() << sqlQuery.lastError();
     }
 
     // check parameter count
     if (parameters.count() != sqlPrepare.count("?")) {
-        qDebug() << "the number of parameters is wrong. You need " << sqlPrepare.count("?") << "in the sql string "
+        qWarning() << "the number of parameters is wrong. You need " << sqlPrepare.count("?") << "in the sql string "
                  << sqlPrepare << " but in the list was " << parameters.count();
     }
 
@@ -108,7 +108,7 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
     // bind at the object before
     if (sqlQueryString == "") {
         if (!sqlQueryObject.exec()) {
-            qDebug() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
+            qWarning() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
                      << sqlQueryObject.lastError().driverText()
                      << sqlQueryObject.lastError().databaseText();
         }
@@ -116,7 +116,7 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
         // if a sql string was given call the .exec() method with this parameter
     else {
         if (!sqlQueryObject.exec(sqlQueryString)) {
-            qDebug() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
+            qWarning() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
                      << sqlQueryObject.lastError().driverText()
                      << sqlQueryObject.lastError().databaseText();
         }
