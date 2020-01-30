@@ -10,15 +10,14 @@
 #include "View/refereewindow.h"
 
 #include <QApplication>
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Model* model = new Model();
-
-  //  mainWindow->setWindowState(Qt::WindowMaximized); // Startet das Fenster von anfang an in Vollbild
-    //mainWindow->show();
-    MainMenu* mainmenu = new MainMenu;
+   
+MainMenu* mainmenu= new MainMenu(model);
     mainmenu -> show();
 
     RefereeWindow* test = new RefereeWindow();

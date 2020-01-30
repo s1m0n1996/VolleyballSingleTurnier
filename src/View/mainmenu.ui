@@ -489,27 +489,23 @@
        </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item alignment="Qt::AlignHCenter">
          <widget class="QPushButton" name="playermanagmentPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="maximumSize">
            <size>
             <width>80</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Meldestelle</string>
           </property>
           <property name="text">
            <string>Meldestelle</string>
@@ -533,7 +529,13 @@
          </spacer>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="tournamnetWindowPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="maximumSize">
            <size>
             <width>300</width>
@@ -562,7 +564,13 @@
          </spacer>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="ViewerPushButton">
+         <widget class="QPushButton" name="viewerPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="maximumSize">
            <size>
             <width>300</width>
@@ -591,7 +599,7 @@
          </spacer>
         </item>
         <item alignment="Qt::AlignHCenter">
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="refereeWindowPushButton">
           <property name="maximumSize">
            <size>
             <width>300</width>
