@@ -277,10 +277,7 @@ bool SqliteConnector::_loadLastDatabase()
         QString path = fileStream.readLine();
         file.close();
 
-        if (openDatabase(path))
-        {
-            return true;
-        }
+        return openDatabase(path);
     } else
     {
         return false;
