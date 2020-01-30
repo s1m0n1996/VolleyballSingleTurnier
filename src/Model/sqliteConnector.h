@@ -16,7 +16,7 @@
 #include <QList>
 
 /*!
- * \file sqliteConnector.cpp
+ * \file sqliteConnector.h
  * \author Simon Flörke
  * \brief A singleton class for the connection to the database.
  *
@@ -33,7 +33,7 @@ public:
 
     void createDatabase(const QString &path);
 
-    void openDatabase(const QString &path);
+    bool openDatabase(const QString &path);
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
 
@@ -44,8 +44,9 @@ public:
 
 private:
     QSqlDatabase _db;
+    const QString _lastOpenedDbFilePath = QCoreApplication::applicationDirPath() + "/" + "lastOpenedDb.tmp";
 
-    SqliteConnector(void) = default;
+    SqliteConnector(void);
 
     ~SqliteConnector(void) = default;
 
@@ -53,6 +54,9 @@ private:
     SqliteConnector &operator=(const SqliteConnector &) = delete; // Kopierzuweisungsoperator
 
     static QList<QList<QVariant>> _executeQuery(QSqlQuery& sqlQueryObject, const QString& sqlQueryString = "");
+
+    void _saveLastPath(QString& path);
+    bool _loadLastDatabase(void);
 
 };
 

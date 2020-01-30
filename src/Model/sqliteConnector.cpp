@@ -6,6 +6,12 @@
 
 #include "sqliteConnector.h"
 
+SqliteConnector::SqliteConnector(void)
+{
+    _loadLastDatabase();
+}
+
+
 /*!
  * \brief Create a new database.
  *
@@ -60,6 +66,7 @@ void SqliteConnector::createDatabase(const QString& path) {
 
         file.close();
     }
+    _saveLastPath(const_cast<QString&>(path));
 }
 
 /*!
@@ -74,14 +81,16 @@ void SqliteConnector::createDatabase(const QString& path) {
 void SqliteConnector::openDatabase(const QString& path) {
     if (!QFile::exists(path)) {
         qCritical() << "can't open database file from location " << path;
-        return;
+        return false;
     }
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(path);
     if (!_db.open()) {
         qCritical() << "can't create or open database file on path " << path;
-        return;
+        return false;
     }
+    _saveLastPath(const_cast<QString&>(path));
+    return true;
 }
 
 /*!
@@ -202,5 +211,51 @@ void SqliteConnector::printTable(const QList<QList<QVariant>>& table) {
             printedColumn.append(", ");
         }
         qDebug() << printedColumn;
+    }
+}
+
+/*!
+ * \brief save the last loaded db file path
+ *
+ * \param[in]path the path from the last loaded db
+ *
+ * This method save the last db file path in a .tmp file near the .exe.
+ */
+void SqliteConnector::_saveLastPath(QString& path)
+{
+    QFile file;
+    file.setFileName(_lastOpenedDbFilePath);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+
+    QTextStream fileStream(&file);
+    fileStream << path;
+
+    file.close();
+}
+
+/*!
+ * \brief load the last db file
+ *
+ * This method load the last used db file path.
+ * load the path from the .tmp file that was stored in the _saveLastPath method.
+ */
+bool SqliteConnector::_loadLastDatabase()
+{
+    QFile file;
+    file.setFileName(_lastOpenedDbFilePath);
+
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream fileStream(&file);
+        QString path = fileStream.readLine();
+        file.close();
+
+        if (openDatabase(path))
+        {
+            return true;
+        }
+    } else
+    {
+        return false;
     }
 }
