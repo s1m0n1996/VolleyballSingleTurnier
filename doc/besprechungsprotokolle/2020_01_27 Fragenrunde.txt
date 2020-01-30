@@ -1,0 +1,39 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 27.01.2020
+	8:45 - 9:00 Uhr = 15 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Nico Meyer
+
+------------------------------------------------------------------------------------------------------------------------
+
+Besprechung der aufgekommenen Fragen während des Programmierens.
+
+Gehört die .pro Datei in  den src- Ordner ?
+->Ja die Datei gehört in den src- Ordner
+
+Wo werden die Fehlermeldungen implementiert?
+->Die Fehlermeldungen werden im View implementiert.
+->Keine Widgets in Model- Klassen
+
+Fragen zu Singleton:
+-> keine Vererbung siehe Seite 265 im Skript
+-> es kann nur eine Instanz erstellt werden, es kann aber von überall drauf zugegriffen werden
+-> Konstruktor ist private -> kann nur mit getInstance() aufgerufen werden
+
+Ui- Desinger gemischt mit Programmcode?
+-> kann man machen sollte man aber besser nicht machen, da die Ui Datei erst zur Laufzeit ensteht und sobald man dort
+   wieder was ändern kann es sein das das selsbt Programierte nicht mehr dazu passt.
+
+
+
+
