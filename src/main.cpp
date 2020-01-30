@@ -7,7 +7,7 @@
 #include "View/mainmenu.h"
 #include "Model/model.h"
 #include "View/dartboard.h"
-#include "View/dialogdartboard.h"
+#include "View/refereewindow.h"
 
 #include <QApplication>
 
@@ -21,9 +21,8 @@ int main(int argc, char *argv[])
     MainMenu* mainmenu = new MainMenu;
     mainmenu -> show();
 
-    DialogDartboard* test = new DialogDartboard();
+    RefereeWindow* test = new RefereeWindow();
     test->show();
-
 
 
 

@@ -25,13 +25,3 @@ void Dartboard::mouseReleaseEvent(QMouseEvent *event)
     emit mouseReleasedOnDartboard();
 }
 
-void Dartboard::valueRingOfDartboard()
-{
-
-}
-
-void Dartboard::valueSectionOfDartboard()
-{
-
-}
-

@@ -20,7 +20,6 @@ SOURCES += \
     Model/player.cpp \
     Model/sqliteConnector.cpp \
     View/dartboard.cpp \
-    View/dialogdartboard.cpp \
     View/gameboard.cpp \
     View/mainmenu.cpp \
     View/playermanagment.cpp \
@@ -34,7 +33,6 @@ HEADERS += \
     Model/player.h \
     Model/sqliteConnector.h \
     View/dartboard.h \
-    View/dialogdartboard.h \
     View/gameboard.h \
     View/mainmenu.h \
     View/playermanagment.h \
@@ -43,9 +41,9 @@ HEADERS += \
     View/viewerwindow.h
 
 FORMS += \
-    View/dialogdartboard.ui \
     View/mainmenu.ui \
-    View/playermanagment.ui
+    View/playermanagment.ui \
+    View/refereewindow.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts
