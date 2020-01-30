@@ -6,13 +6,13 @@
 --
 CREATE TABLE player_list
 (
-    id           INT  NOT NULL,
-    name         TEXT NOT NULL,
+    id           INTEGER NOT NULL
+        CONSTRAINT player_list_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name         TEXT    NOT NULL,
     birthday     TEXT,
     country      TEXT,
-    is_available INT  NOT NULL,
-    CONSTRAINT player_list_pk
-        PRIMARY KEY (id)
+    is_available INT DEFAULT 1 NOT NULL
 );
 
 --######################################################################################################################
@@ -23,7 +23,7 @@ CREATE TABLE player_list
 --
 CREATE TABLE sport_type
 (
-    id   INT  NOT NULL,
+    id   INTEGER  NOT NULL,
     name TEXT NOT NULL,
     CONSTRAINT sport_type_pk
         PRIMARY KEY (id)
@@ -38,8 +38,8 @@ CREATE TABLE sport_type
 --
 CREATE TABLE game_mode_type
 (
-    id            INT NOT NULL,
-    sport_type_id INT NOT NULL,
+    id            INTEGER NOT NULL,
+    sport_type_id INTEGER NOT NULL,
     name          TEXT,
     description   TEXT,
     CONSTRAINT game_mode_type_pk
@@ -57,8 +57,8 @@ CREATE TABLE game_mode_type
 --
 CREATE TABLE history_value_type
 (
-    id            INT  NOT NULL,
-    sport_type_id INT  NOT NULL,
+    id            INTEGER  NOT NULL,
+    sport_type_id INTEGER  NOT NULL,
     name          TEXT NOT NULL,
     description   TEXT,
     CONSTRAINT history_value_type_pk
@@ -75,9 +75,9 @@ CREATE TABLE history_value_type
 --
 CREATE TABLE tournament_list
 (
-    id            INT  NOT NULL,
-    sport_type_id INT  NOT NULL,
-    game_mode_id  INT  NOT NULL,
+    id            INTEGER  NOT NULL,
+    sport_type_id INTEGER  NOT NULL,
+    game_mode_id  INTEGER  NOT NULL,
     name          TEXT NOT NULL,
     date          TEXT NOT NULL,
     CONSTRAINT tournament_list_pk
@@ -94,14 +94,14 @@ CREATE TABLE tournament_list
 --
 CREATE TABLE game_board_list
 (
-    id              INT  NOT NULL,
-    sport_type_id   INT  NOT NULL,
-    game_mode_id    INT  NOT NULL,
-    tournament_id   INT  NOT NULL,
+    id              INTEGER  NOT NULL,
+    sport_type_id   INTEGER  NOT NULL,
+    game_mode_id    INTEGER  NOT NULL,
+    tournament_id   INTEGER  NOT NULL,
     game_board_time TEXT NOT NULL,
-    player_a_id     INT,
-    player_b_id     INT,
-    winner_id       INT,
+    player_a_id     INTEGER,
+    player_b_id     INTEGER,
+    winner_id       INTEGER,
     CONSTRAINT game_board_list_pk
         PRIMARY KEY (id, sport_type_id, game_mode_id, tournament_id),
     CONSTRAINT game_board_list_tournament_list_tournament_id_sport_type_id_game_mode_id_fk
@@ -118,11 +118,11 @@ CREATE TABLE game_board_list
 --
 CREATE TABLE leg_list
 (
-    id            INT NOT NULL,
-    game_board_id INT NOT NULL,
-    sport_type_id INT NOT NULL,
-    game_mode_id  INT NOT NULL,
-    tournament_id INT NOT NULL,
+    id            INTEGER NOT NULL,
+    game_board_id INTEGER NOT NULL,
+    sport_type_id INTEGER NOT NULL,
+    game_mode_id  INTEGER NOT NULL,
+    tournament_id INTEGER NOT NULL,
     CONSTRAINT leg_list_pk
         PRIMARY KEY (id, game_board_id, sport_type_id, game_mode_id, tournament_id),
     CONSTRAINT leg_list_game_board_list_fk
@@ -137,16 +137,16 @@ CREATE TABLE leg_list
 --
 CREATE TABLE leg_history_list
 (
-    id            INT  NOT NULL,
-    sport_type_id INT  NOT NULL,
-    game_mode_id  INT  NOT NULL,
-    tournament_id INT  NOT NULL,
-    game_board_id INT  NOT NULL,
-    leg_id        INT  NOT NULL,
-    player_id     INT  NOT NULL,
+    id            INTEGER  NOT NULL,
+    sport_type_id INTEGER  NOT NULL,
+    game_mode_id  INTEGER  NOT NULL,
+    tournament_id INTEGER  NOT NULL,
+    game_board_id INTEGER  NOT NULL,
+    leg_id        INTEGER  NOT NULL,
+    player_id     INTEGER  NOT NULL,
     time          TEXT NOT NULL,
-    value_type_id INT  NOT NULL,
-    value         INT  NOT NULL,
+    value_type_id INTEGER  NOT NULL,
+    value         INTEGER  NOT NULL,
     CONSTRAINT history_list_pk
         PRIMARY KEY (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id),
     CONSTRAINT leg_history_list_leg_list_fk
