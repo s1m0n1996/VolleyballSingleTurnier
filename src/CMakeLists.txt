@@ -25,23 +25,24 @@ set(MOC_HEADERS
         Model/model.h
         Model/player.h
         Model/sqliteConnector.h
+        Model/tournament.h
         View/dartboard.h
-        View/dialogdartboard.h
         View/gameboard.h
         View/mainmenu.h
         View/playermanagment.h
         View/refereewindow.h
         View/tournementwindow.h
         View/viewerwindow.h
+        main.h
         )
 
 # set .cpp files
-set (SOURCES
+set(SOURCES
         Model/model.cpp
         Model/player.cpp
         Model/sqliteConnector.cpp
+        Model/tournament.cpp
         View/dartboard.cpp
-        View/dialogdartboard.cpp
         View/gameboard.cpp
         View/mainmenu.cpp
         View/playermanagment.cpp
@@ -55,7 +56,7 @@ set (SOURCES
 set(UIS
         View/mainmenu.ui
         View/playermanagment.ui
-        View/dialogdartboard.ui
+        View/refereewindow.ui
         )
 
 # set ressources
