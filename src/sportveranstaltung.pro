@@ -19,7 +19,7 @@ SOURCES += \
     Model/model.cpp \
     Model/player.cpp \
     Model/sqliteConnector.cpp \
-    Model/tournement.cpp \
+    Model/playermanagement.cpp \
     View/dartboard.cpp \
     View/gameboard.cpp \
     View/mainmenu.cpp \
@@ -33,7 +33,7 @@ HEADERS += \
     Model/model.h \
     Model/player.h \
     Model/sqliteConnector.h \
-    Model/tournement.h \
+    Model/playermanagement.h \
     View/dartboard.h \
     View/gameboard.h \
     View/mainmenu.h \

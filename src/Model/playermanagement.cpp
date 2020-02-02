@@ -1,8 +1,8 @@
 
-#include "Model/tournament.h"
+#include "Model/playermanagement.h"
 
 
-Tournament::Tournament(void){
+PlayerManagement::PlayerManagement(void){
     _db = &SqliteConnector::instance();
 }
 
@@ -40,7 +40,7 @@ Tournament::Tournament(void){
  *  	)
  *  )
  */
-QList<QList<QVariant>> Tournament::getAllStoredPlayers(bool onlyAvailable) {
+QList<QList<QVariant>> PlayerManagement::getAllStoredPlayers(bool onlyAvailable) {
 
     QString sqlPrepare = R"(
 SELECT name, birthday, country
