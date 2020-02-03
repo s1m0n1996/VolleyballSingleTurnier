@@ -20,6 +20,7 @@ private slots:
     void mouseReleasedOnDartboard();
     void on_naechsterSpieler_released();
     void on_undoLetzterWurf_released();
+    void remainScore();
 
     int valueMultiplikator();
     int valueScoreWithoutMultiplikator();
@@ -31,9 +32,12 @@ private:
     const int _double                = 2;
     const int _trible                = 3;
     int _throwScore                  = 0;
-    int _mittelpunktXY               = 0;
+    int _centralPointXY              = 0;
     int _throwCounter                = 0;
     int _radius                      = 0;
+    int _numberOfSubtraction         = 3;
+    int _remainScore[2]      = {501,501};
+    int _player                      = 0;
 
 
 

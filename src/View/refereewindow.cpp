@@ -21,49 +21,41 @@ RefereeWindow::~RefereeWindow()
 
 void RefereeWindow::mouseCurrentPos()
 {
-    ui->Koordinaten->setText(QString("X = %1, Y = %2")
-                             .arg(ui->DartboardView->x)
-                             .arg(ui->DartboardView->y));
+
 }
 
 int RefereeWindow::valueMultiplikator()
 {
     int multiplikator = 0;
-    _mittelpunktXY = ui->DartboardView->width() / 2;
+    _centralPointXY = ui->DartboardView->width() / 2;
 
-    double deltaX = _mittelpunktXY - ui->DartboardView->x;
-    double deltaY = _mittelpunktXY - ui->DartboardView->y;
+    double deltaX = _centralPointXY - ui->DartboardView->x;
+    double deltaY = _centralPointXY - ui->DartboardView->y;
     // Radius berechnen um die Art des Feldes anzugeben
-    //FIXME: wenn genau der Mittelpunkt gedrückt wird dann Wurzel von 0 --> Programm stürzt ab
     _radius = qSqrt(qPow((deltaX), 2) + qPow((deltaY), 2));
 
+    // Variable zur Berechnung für den Prozentualen Anteil eines Feldes
+    int areaPercentage = ((_radius * 100) / _centralPointXY);
+
     // Prüfen in welchen Bereich man sich befindet.
-    if (((((_radius * 100) / _mittelpunktXY) >= 3) and (((_radius * 100) / _mittelpunktXY) <= 6)) or
-            ((((_radius * 100) / _mittelpunktXY) >= 7) and (((_radius * 100) / _mittelpunktXY) <= 42)) or
-            ((((_radius * 100) / _mittelpunktXY) >= 49) and (((_radius * 100) / _mittelpunktXY) <= 69)))
+    if ((areaPercentage >= 3 and areaPercentage <= 6) or
+        (areaPercentage >= 7 and areaPercentage <= 42) or
+        (areaPercentage >= 49 and areaPercentage <= 69))
     {
         multiplikator = _single;
-        ui->Multiplikator->setText(QString("Feld Typ = %1")
-                                   .arg(multiplikator));
     }
-    else if ((((_radius * 100) / _mittelpunktXY) <= 2) or
-             ((((_radius * 100) / _mittelpunktXY) >= 70) and (((_radius * 100) / _mittelpunktXY) <= 75)))
+    else if ((areaPercentage <= 2) or
+             (areaPercentage >= 70 and areaPercentage <= 75))
     {
         multiplikator = _double;
-        ui->Multiplikator->setText(QString("Feld Typ = %1")
-                                   .arg(multiplikator));
     }
-    else if (((_radius * 100) / _mittelpunktXY) >= 43 and ((_radius * 100) / _mittelpunktXY) <= 48)
+    else if (areaPercentage >= 43 and areaPercentage <= 48)
     {
         multiplikator = _trible;
-        ui->Multiplikator->setText(QString("Feld Typ = %1")
-                                   .arg(multiplikator));
     }
     else
     {
         multiplikator = _miss;
-        ui->Multiplikator->setText(QString("Feld Typ = %1")
-                                   .arg(multiplikator));
     }
 
     return  multiplikator;
@@ -73,8 +65,8 @@ int RefereeWindow::valueMultiplikator()
 int RefereeWindow::valueScoreWithoutMultiplikator()
 {
     double angle = 0.0;
-    double deltaX = _mittelpunktXY - ui->DartboardView->x;
-    double deltaY = _mittelpunktXY - ui->DartboardView->y;
+    double deltaX = _centralPointXY - ui->DartboardView->x;
+    double deltaY = _centralPointXY - ui->DartboardView->y;
     int scoreWithoutMultiplikator = 0;
 
     // Quadrant 1
@@ -98,12 +90,14 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
         angle = 270 - qRadiansToDegrees(qAtan(deltaY / deltaX));
     }
 
+    //Damit der Kreis nicht in der Mitte der 20 beginnt, sonder um ganz links von der 20.
     double shiftedAngle = angle - 9;
     if (shiftedAngle < 0)
     {
         shiftedAngle += 360;
     }
 
+    // Die Dartscheibe in die 20 Felder einteilen und den Punktwert festlegen
     int scoreSection = static_cast<int>(shiftedAngle / 18);
     switch (scoreSection)
     {
@@ -209,7 +203,68 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
         break;
     }
 
+    // Bulls-Eye berechnung
+    int areaPercentage = ((_radius * 100) / _centralPointXY);
+    if ((areaPercentage >= 3 and areaPercentage <= 6) or (areaPercentage <= 2))
+    {
+        scoreWithoutMultiplikator = 25;
+    }
+
     return scoreWithoutMultiplikator;
+
+}
+
+void RefereeWindow::remainScore()
+{
+    if (_throwCounter == 1 and _numberOfSubtraction == 3)
+    {
+        if (_player == 0)
+        {
+            _remainScore[0] = _remainScore[0] - ui->throw1->text().toInt();
+            _numberOfSubtraction--;
+        }
+        else if (_player > 0)
+        {
+            _remainScore[1] = _remainScore[1] - ui->throw1->text().toInt();
+            _numberOfSubtraction--;
+        }
+
+    }
+    else if (_throwCounter == 2 and _numberOfSubtraction == 2)
+    {
+        if (_player == 0)
+        {
+            _remainScore[0] = _remainScore[0] - ui->throw2->text().toInt();
+            _numberOfSubtraction--;
+        }
+        else if (_player > 0)
+        {
+            _remainScore[1] = _remainScore[1] - ui->throw2->text().toInt();
+            _numberOfSubtraction--;
+        }
+    }
+    else if (_throwCounter == 3 and _numberOfSubtraction == 1)
+    {
+        if (_player == 0)
+        {
+            _remainScore[0] = _remainScore[0] - ui->throw3->text().toInt();
+            _numberOfSubtraction--;
+        }
+        else if (_player > 0)
+        {
+            _remainScore[1] = _remainScore[1] - ui->throw3->text().toInt();
+            _numberOfSubtraction--;
+        }
+    }
+
+    if (_player == 0)
+    {
+        ui->remainScore->setText(QString::number(_remainScore[0]));
+    }
+    else if (_player > 0)
+    {
+        ui->remainScore->setText(QString::number(_remainScore[1]));
+    }
 
 }
 
@@ -221,31 +276,47 @@ void RefereeWindow::mouseReleasedOnDartboard()
 
     if (_throwCounter == 0)
     {
-        _throwCounter++;
         _throwScore = scoreWithoutMultiplikator * multiplikator;
-        ui->wurf1->setText(QString::number(_throwScore));
+        ui->throw1->setText(QString::number(_throwScore));
+        _throwCounter++;
     }
     else if (_throwCounter == 1)
-    {
-        _throwCounter++;
+    {      
         _throwScore = scoreWithoutMultiplikator * multiplikator;
-        ui->wurf2->setText(QString::number(_throwScore));
+        ui->throw2->setText(QString::number(_throwScore));
+        _throwCounter++;
     }
     else if (_throwCounter == 2)
-    {
-        _throwCounter++;
+    {  
         _throwScore = scoreWithoutMultiplikator * multiplikator;
-        ui->wurf3->setText(QString::number(_throwScore));
+        ui->throw3->setText(QString::number(_throwScore));
+        _throwCounter++;
     }
+
+    remainScore();
 }
 
 //Nächster Spieler ist an der Reihe
 void RefereeWindow::on_naechsterSpieler_released()
 {
     _throwCounter = 0;
-    ui->wurf1->setText(QString::number(0));
-    ui->wurf2->setText(QString::number(0));
-    ui->wurf3->setText(QString::number(0));
+    _numberOfSubtraction = 3;
+
+    if (_player == 0)
+    {
+        ui->remainScore->setText(QString::number(_remainScore[1]));
+        _player++;
+    }
+    else
+    {
+        ui->remainScore->setText(QString::number(_remainScore[0]));
+        _player = 0;
+    }
+
+    ui->throw1->setText(QString::number(0));
+    ui->throw2->setText(QString::number(0));
+    ui->throw3->setText(QString::number(0));
+
 }
 
 // Setzt den letzten Wurf zurück. Notwendig, da man sich verklicken kann
@@ -253,19 +324,55 @@ void RefereeWindow::on_undoLetzterWurf_released()
 {
     if (_throwCounter == 3)
     {
-        ui->wurf3->setText(QString::number(0));
+        if (_player == 0)
+        {
+            _remainScore[0] = _remainScore[0] + ui->throw3->text().toInt();
+            ui->remainScore->setText(QString::number(_remainScore[0]));
+        }
+        else if (_player > 0)
+        {
+            _remainScore[1] = _remainScore[1] + ui->throw3->text().toInt();
+            ui->remainScore->setText(QString::number(_remainScore[1]));
+        }
+
+        ui->throw3->setText(QString::number(0));
         _throwCounter--;
+        _numberOfSubtraction++;
     }
     else if ((_throwCounter == 1 or _throwCounter == 2)
-             and ui->wurf2->text().toInt() != 0 and ui->wurf3->text().toInt() == 0)
+             and ui->throw2->text().toInt() != 0 and ui->throw3->text().toInt() == 0)
     {
-        ui->wurf2->setText(QString::number(0));
+        if (_player == 0)
+        {
+            _remainScore[0] = _remainScore[0] + ui->throw2->text().toInt();
+            ui->remainScore->setText(QString::number(_remainScore[0]));
+        }
+        else if (_player > 0)
+        {
+            _remainScore[1] = _remainScore[1] + ui->throw2->text().toInt();
+            ui->remainScore->setText(QString::number(_remainScore[1]));
+        }
+
+        ui->throw2->setText(QString::number(0));
         _throwCounter--;
+        _numberOfSubtraction++;
     }
     else if ((_throwCounter == 1 or _throwCounter == 0)
-             and ui->wurf2->text().toInt() == 0)
+             and ui->throw2->text().toInt() == 0 and ui->throw1->text().toInt() != 0)
     {
-        ui->wurf1->setText(QString::number(0));
+        if (_player == 0)
+        {
+            _remainScore[0] = _remainScore[0] + ui->throw1->text().toInt();
+            ui->remainScore->setText(QString::number(_remainScore[0]));
+        }
+        else if (_player > 0)
+        {
+            _remainScore[1] = _remainScore[1] + ui->throw1->text().toInt();
+            ui->remainScore->setText(QString::number(_remainScore[1]));
+        }
+
+        ui->throw1->setText(QString::number(0));
         _throwCounter = 0;
+        _numberOfSubtraction++;
     }
 }

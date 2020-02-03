@@ -1,6 +1,7 @@
 #include <QMouseEvent>
 #include "dartboard.h"
-#include "ui_dialogdartboard.h"
+#include "View/refereewindow.h"
+#include "ui_refereewindow.h"
 #include <QImage>
 #include <QPixmap>
 #include <QWidget>
