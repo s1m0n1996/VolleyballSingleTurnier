@@ -1,11 +1,11 @@
 #include "Model/player.h"
 
-Player::Player(const QString firstName, const QString lastName, const QString country, const QString birthday) {
+Player::Player(const QString name, const QString birthday, const QString country) {
     _db = &SqliteConnector::instance();
-    _firstName = firstName;
-    _lastName = lastName;
-    _country = country;
+    _name = name;
     _birthday = birthday;
+    _country = country;
+    qDebug() << name;
     if (isPlayerUnknown()) {
         addPlayerToDatabase();
     }
@@ -13,6 +13,17 @@ Player::Player(const QString firstName, const QString lastName, const QString co
 
 Player::Player(const int id){
     _db = &SqliteConnector::instance();
+    QString sqlPrepare = R"(
+SELECT *
+FROM player_list
+WHERE id = ?;
+    )";
+    QList<QString> sqlParameters;
+    sqlParameters.append(QString::number(id));
+    QList<QVariant> player = _db->sqlQuery(sqlPrepare, sqlParameters)[0];
+    _name = player[1].toString();
+    _birthday= player[2].toString();
+    _country = player[3].toString();
 }
 
 /// To add a Player to the SqLite Database.
@@ -22,9 +33,12 @@ Player::Player(const int id){
  */
 void Player::addPlayerToDatabase() {
 
-    QString sqlPrepare = "INSERT INTO player_list (name, birthday, country) VALUES (?, ?, ?)";
+    QString sqlPrepare = R"(
+INSERT INTO player_list (name, birthday, country)
+VALUES (?, ?, ?
+)";
     QList<QString> sqlParameters;
-    sqlParameters.append(_firstName + ", " + _lastName); // TODO in 2 spalten aufteilen
+    sqlParameters.append(_name);
     sqlParameters.append(_birthday);
     sqlParameters.append(_country);
 
@@ -33,5 +47,17 @@ void Player::addPlayerToDatabase() {
 
 
 bool Player::isPlayerUnknown() {
-    return true;
+    QString sqlPrepare = R"(
+SELECT *
+FROM player_list
+WHERE name = ?
+AND birthday = ?
+AND country = ?;
+    )";
+    QList<QString> sqlParameters;
+    sqlParameters.append(_name);
+    sqlParameters.append(_birthday);
+    sqlParameters.append(_country);
+    return _db->sqlQuery(sqlPrepare, sqlParameters).isEmpty();
+
 }

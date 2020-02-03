@@ -7,10 +7,9 @@
 
 class Player {
 public:
-    Player(const QString playerfirstname,
-           const QString playername,
-           const QString country,
-           const QString birthday);
+    Player(const QString name,
+           const QString birthday,
+           const QString country);
 
     Player(const int id);
 
@@ -22,10 +21,11 @@ public:
 
 private:
     SqliteConnector* _db;
-    QString _firstName;
-    QString _lastName;
-    QString _country;
+    int _id;
+    QString _name;
     QString _birthday;
+    QString _country;
+
 };
 
 #endif // PLAYER_H
