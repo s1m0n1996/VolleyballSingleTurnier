@@ -29,6 +29,7 @@ set(MOC_HEADERS
         View/dartboard.h
         View/gameboard.h
         View/mainmenu.h
+        View/menubutton.h
         View/playermanagment.h
         View/refereewindow.h
         View/tournementwindow.h
@@ -45,6 +46,7 @@ set(SOURCES
         View/dartboard.cpp
         View/gameboard.cpp
         View/mainmenu.cpp
+        View/menubutton.cpp
         View/playermanagment.cpp
         View/refereewindow.cpp
         View/tournementwindow.cpp
@@ -57,6 +59,7 @@ set(UIS
         View/mainmenu.ui
         View/playermanagment.ui
         View/refereewindow.ui
+        View/viewerWindow.ui
         )
 
 # set ressources
