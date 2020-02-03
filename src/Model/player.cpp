@@ -5,7 +5,6 @@ Player::Player(const QString name, const QString birthday, const QString country
     _name = name;
     _birthday = birthday;
     _country = country;
-    qDebug() << name;
     if (isPlayerUnknown()) {
         addPlayerToDatabase();
     }
@@ -41,7 +40,6 @@ VALUES (?, ?, ?
     sqlParameters.append(_name);
     sqlParameters.append(_birthday);
     sqlParameters.append(_country);
-
     _db->sqlQuery(sqlPrepare, sqlParameters);
 }
 
