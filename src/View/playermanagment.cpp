@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Playermanagment::Playermanagment(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Playermanagment)
+Playermanagment::Playermanagment(QWidget *parent):
+    QMainWindow(parent),
+    ui(new Ui::Playermanagment)
 {
     ui->setupUi(this);
     connect(ui->maxPlayerLabel, SIGNAL(ValueChanged()), this, SLOT(setMaxPlayerLabel));

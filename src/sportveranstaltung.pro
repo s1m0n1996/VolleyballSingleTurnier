@@ -23,6 +23,7 @@ SOURCES += \
     View/dartboard.cpp \
     View/gameboard.cpp \
     View/mainmenu.cpp \
+    View/menubutton.cpp \
     View/playermanagment.cpp \
     View/refereewindow.cpp \
     View/tournementwindow.cpp \
@@ -33,10 +34,11 @@ HEADERS += \
     Model/model.h \
     Model/player.h \
     Model/sqliteConnector.h \
-    Model/playermanagement.h \
+Model/playermanagement.h \
     View/dartboard.h \
     View/gameboard.h \
     View/mainmenu.h \
+    View/menubutton.h \
     View/playermanagment.h \
     View/refereewindow.h \
     View/tournementwindow.h \
@@ -45,7 +47,8 @@ HEADERS += \
 FORMS += \
     View/mainmenu.ui \
     View/playermanagment.ui \
-    View/refereewindow.ui
+    View/refereewindow.ui \
+    View/viewerWindow.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts

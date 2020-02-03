@@ -2,14 +2,17 @@
 #define VIEWERWINDOW_H
 
 #include <QMainWindow>
-
+namespace Ui {
+    class ViewerWindow;
+}
 class ViewerWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit ViewerWindow(QWidget *parent = nullptr);
 
-signals:
+private:
+     Ui::ViewerWindow *ui;
 
 };
 
