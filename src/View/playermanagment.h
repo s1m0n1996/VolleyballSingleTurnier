@@ -2,6 +2,7 @@
 #define PLAYERMANAGMENT_H
 
 #include <QMainWindow>
+#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Playermanagment; }
@@ -12,16 +13,22 @@ class Playermanagment : public QMainWindow
     Q_OBJECT
 
 public:
-    Playermanagment(QWidget *parent = nullptr);
+    explicit Playermanagment(QWidget *parent = nullptr);
     ~Playermanagment();
-    //void addPlayer(string playername);
+
 
 signals:
+public slots:
+    void addPlayer(void);
+    void setMaxPlayerLabel(void);
+    void test(void);
 
 private slots:
-   void setMaxPlayerLabel(int playerNumber);
+
 
 private:
     Ui::Playermanagment *ui;
+    QPushButton* _addPlayer = nullptr;
+    QPushButton* _startTournement = nullptr;
 };
 #endif // PLAYERMANAGMENT_H

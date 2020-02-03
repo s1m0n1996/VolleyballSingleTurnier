@@ -17,6 +17,9 @@
 #include <QPalette>
 #include <QWidget>
 #include <QLabel>
+#include <QFileDialog>
+#include <QAction>
+#include "Model/sqliteConnector.h"
 
 MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
@@ -36,6 +39,8 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     connect(_tournement, SIGNAL(clicked()), this, SLOT(openTournementWindow()));
     connect(_viewer, SIGNAL(clicked()), this, SLOT(openViewerWindow()));
     connect(_referee, SIGNAL(clicked()), this, SLOT(openRefereeWindow()));
+    connect(_new,SIGNAL(triggered()),this, SLOT(createDatabase()));
+    connect(_load,SIGNAL(triggered()),this, SLOT(loadDatabase()));
 
 }
 MainMenu::~MainMenu()
@@ -92,32 +97,45 @@ void MainMenu::openRefereeWindow()
 //                }
 //}
 
-void MainMenu:: createButton()
+void MainMenu::createButton()
 {
-    _playermanagment = new MenuButton("Meldestelle");
+        _playermanagment =  new MenuButton("Meldestelle");
        _tournement = new MenuButton("Spielplan");
        _viewer = new MenuButton("Zuschaueransicht");
        _referee = new MenuButton("Richteransicht");
-    _loadSave = new QLabel("Spiel:");
-       _load = new QPushButton("Laden");
-       _save = new QPushButton("Speichern");
+       _load = new QAction("Laden");
+       _new = new QAction("Neu");
 
-       _loadSave -> setStyleSheet("font-size: 20px; font-family: Bahnschrift Light; font: bold");
-       _load->setStyleSheet("Border: false; text-decoration: underline; font-size: 20px; font-family: Bahnschrift Light; font: bold");
-       _save->setStyleSheet("Border: false; text-decoration: underline; font-size: 20px; font-family: Bahnschrift Light; font: bold");
 }
 
-
-void MainMenu:: setButtonsLayout()
+void MainMenu::setButtonsLayout()
 {
-    ui->loadSaveGridLayout->addWidget(_loadSave,0,2);
-    ui->loadSaveGridLayout->addWidget(_load,1,Qt::AlignLeft);
-    ui->loadSaveGridLayout->addWidget(_save,1,Qt::AlignRight);
+    ui->verticalLayout->setSpacing(30);
+    ui->verticalLayout->addWidget(_playermanagment,0,Qt::AlignCenter);
+    ui->verticalLayout->addWidget(_tournement,0,Qt::AlignCenter);
+    ui->verticalLayout->addWidget(_viewer,0,Qt::AlignCenter);
+    ui->verticalLayout->addWidget(_referee,0,Qt::AlignCenter);
+    ui->menuGame->addAction(_new);
+    ui->menuGame->addAction(_load);
 
-    ui->buttonsLayout->setSpacing(30);
-    ui->buttonsLayout->addWidget(_playermanagment,0,Qt::AlignCenter);
-    ui->buttonsLayout->addWidget(_tournement,0,Qt::AlignCenter);
-    ui->buttonsLayout->addWidget(_viewer,0,Qt::AlignCenter);
-    ui->buttonsLayout->addWidget(_referee,0,Qt::AlignCenter);
+}
 
+void MainMenu::createDatabase()
+{
+    QString path = QFileDialog::getSaveFileName(this,
+                                        tr("Datenbank anlegen"), "",
+                                        tr("Database File (*.sqlite) ;; All Files (*.*)"));
+
+    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+    sqlitConnector->createDatabase(path);
+}
+
+void MainMenu::loadDatabase()
+{
+    QString path = QFileDialog::getOpenFileName(this,
+                                        tr("Datenbank laden"), "",
+                                        tr("Database File (*.sqlite) ;; All Files (*.*)"));
+
+    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+    sqlitConnector->openDatabase(path);
 }

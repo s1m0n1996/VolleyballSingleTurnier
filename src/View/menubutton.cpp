@@ -17,7 +17,7 @@ MenuButton::MenuButton(QString text, QWidget *parent) : QPushButton(parent)
                  "font-size: 20px;"
                  "font-family: Bahnschrift Light;"
                  "font: bold};"
-                 "QPushButton:!hover{"
+                 "QPushButton:hover{"
                  "color: #dcdcdc;"
                  "background-color: #515151;"
                  "border-width: 1px};");

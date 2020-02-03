@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <Model/model.h>
 #include "View/menubutton.h"
+#include <QAction>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainMenu; }
@@ -30,6 +31,8 @@ public slots:
     void openRefereeWindow();
     void createButton();
     void setButtonsLayout();
+    void createDatabase();
+    void loadDatabase();
 
 private:
     Ui::MainMenu *ui;
@@ -38,9 +41,8 @@ private:
     MenuButton* _tournement = nullptr;
     MenuButton* _viewer = nullptr;
     MenuButton* _referee = nullptr;
-    QLabel* _loadSave = nullptr;
-    QPushButton* _load = nullptr;
-    QPushButton* _save = nullptr;
+    QAction* _load = nullptr;
+    QAction* _new = nullptr;
 
 
 };
