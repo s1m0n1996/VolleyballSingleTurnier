@@ -80,10 +80,8 @@ AND country = ?;
     sqlParameters.append(_name);
     sqlParameters.append(_birthday);
     sqlParameters.append(_country);
-    qDebug() << "para:" << sqlParameters;
 
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlPrepare, sqlParameters);
-    qDebug() << rawData;
     if (rawData.isEmpty())
     {
         qWarning() << "can't get the id from the player because the player does not exists.";
