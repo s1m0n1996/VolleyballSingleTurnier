@@ -24,7 +24,7 @@
  * This Class handles the full connection to the database.
  *
 */
-class SqliteConnector : public QWidget { // TODO: entferne vererbung von QWidget (nur zum besseren testen von öffnen/erstellen einer datenbank genutzt)
+class SqliteConnector {
 
 public:
     static SqliteConnector &instance(void) {
@@ -32,9 +32,9 @@ public:
         return instance;
     }
 
-    void createDatabase(QString path= ""); // TODO delete default value
+    void createDatabase(const QString path);
 
-    bool openDatabase(QString path= ""); // TODO delete default value
+    bool openDatabase(const QString path);
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
 

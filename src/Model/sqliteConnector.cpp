@@ -22,21 +22,12 @@ SqliteConnector::SqliteConnector(void)
  * when the new database is created, the DDL files would execute and the schema was build.
  *
  */
-void SqliteConnector::createDatabase(QString path)
+void SqliteConnector::createDatabase(const QString path)
 {
     // TODO: checke ob datei bereits vorhanden ist und gebe eine warnung "wollen sie die datei wirklich überschreiben"
     //  aus. dann muss die Alte datei Gelöscht werden und eine neue angelegt werden"
     // TODO: logging system einführen
     _db = QSqlDatabase::addDatabase("QSQLITE");
-
-    // TODO: QFileDialog in view klasse verschieben
-    if ("" == path)
-    {
-        path = QFileDialog::getSaveFileName(this,
-                                            tr("Open Image"), "",
-                                            tr("Database File (*.sqlite) ;; All Files (*.*)"));
-    }
-
     _db.setDatabaseName(path);
 
     if (!_db.open())
@@ -97,14 +88,6 @@ void SqliteConnector::createDatabase(QString path)
  */
 bool SqliteConnector::openDatabase(QString path)
 {
-    // TODO: QFileDialog in view klasse verschieben
-    if ("" == path)
-    {
-        path = QFileDialog::getOpenFileName(this,
-                                            tr("Open Image"), "",
-                                            tr("Database File (*.sqlite) ;; All Files (*.*)"));
-    }
-
     if (!QFile::exists(path))
     {
         qCritical() << "can't open database file from location " << path;
