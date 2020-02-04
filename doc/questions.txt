@@ -1,6 +1,20 @@
 - .pro/CMakeLists.txt datei im src ordner oder im überordner?
+    --> im src ordner
 - Fehlermeldungen model oder view?
     - wollen sie die datei wirklich überschrieben
+    -> view. Keine Fenster in Model
 - singleton klasse datenbank vererben oder membervariable mit getInstance()
+    -> Membervariable
 - methoden sollen nicht vererbet werden, sondern nur in der hauptklasse aufgerufen werden können
     - datenbank methode create/open soll nur von objekt datenbank aufgerufen werden können aber nicht von kindobjekten
+    -> Konstruktor
+
+
+- Bei Fehler (Funktion kann nicht sinnvoll weiter ausgeführt werden) ein return? welchen rückgabetyp?
+    Speziell: SQL Abfrage rückgabe QList<Qlist<Qstring>> immer leere Liste zurückgeben
+- __init__ class/Function? sinnvoll??
+- Kommunikation model view oder objekte oder zeiger auf objekten? gefahr dass referenzen verloren gehen wenn fenster geschlosen werden
+- includes in .h oder .cpp datei
+- wer ruft was auf Model das Viwe oder anders herum
+- Skalierung: verschiedene Bildschirme (Ausläsung) verschiedene anzeigegröße. Kann Qt auf den vom Betriebssystem eingestellten Skalierungsfaktor zugreifen?
+- doxygen wo sollen welche dateien liegen wie ausführen?
