@@ -8,8 +8,12 @@
 #include "Model/model.h"
 #include "View/dartboard.h"
 #include "View/refereewindow.h"
-
 #include <QApplication>
+
+
+void test(){
+
+}
 
 int main(int argc, char *argv[])
 {
