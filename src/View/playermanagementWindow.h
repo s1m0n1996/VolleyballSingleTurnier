@@ -3,20 +3,20 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include "ui_playermanagment.h"
+#include "ui_playermanagementWindow.h"
 #include <cmath>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Playermanagment; }
+namespace Ui { class PlayermanagementWindow; }
 QT_END_NAMESPACE
 
-class Playermanagment : public QMainWindow
+class PlayermanagementWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit Playermanagment(QWidget *parent = nullptr);
-    ~Playermanagment();
+    explicit PlayermanagementWindow(QWidget *parent = nullptr);
+    ~PlayermanagementWindow();
 
 
 signals:
@@ -33,7 +33,7 @@ private:
     void connecting();
     void createButtons(void);
     void setButtonLayout(void);
-    Ui::Playermanagment *ui;
+    Ui::PlayermanagementWindow *ui;
     QPushButton* _addPlayer = nullptr;
     QPushButton* _startTournement = nullptr;
 };

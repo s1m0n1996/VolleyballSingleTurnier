@@ -28,7 +28,7 @@ void MainMenu:: connecting()
 }
 void MainMenu::openPlayermanagmentWindow()
 {
-    Playermanagment* playermanagment = new Playermanagment;
+    PlayermanagementWindow* playermanagment = new PlayermanagementWindow;
     playermanagment->showMaximized();
 }
 void MainMenu::openTournementWindow()

@@ -1,9 +1,9 @@
-#include "playermanagment.h"
+#include "playermanagementWindow.h"
 
 
-Playermanagment::Playermanagment(QWidget *parent):
+PlayermanagementWindow::PlayermanagementWindow(QWidget *parent):
     QMainWindow(parent),
-    ui(new Ui::Playermanagment)
+    ui(new Ui::PlayermanagementWindow)
 {
     ui->setupUi(this);
     createButtons();
@@ -13,16 +13,16 @@ Playermanagment::Playermanagment(QWidget *parent):
 
 }
 
-Playermanagment::~Playermanagment()
+PlayermanagementWindow::~PlayermanagementWindow()
 {
     delete ui;
 }
 
-void Playermanagment::test()
+void PlayermanagementWindow::test()
 {
     ui->maxPlayerLabel->setText("0");
 }
-void Playermanagment:: connecting()
+void PlayermanagementWindow:: connecting()
 {
     connect(ui->maxPlayerLabel, SIGNAL(ValueChanged()), this, SLOT(setMaxPlayerLabel()));
     connect(_startTournement, SIGNAL(clicked()),this, SLOT(test()));
@@ -32,20 +32,20 @@ void Playermanagment:: connecting()
         connect(_addPlayer, SIGNAL(clicked()),this, SLOT(addPlayer()));
     }
 }
-void Playermanagment::createButtons()
+void PlayermanagementWindow::createButtons()
 {
     _addPlayer = new QPushButton("Spieler hinzufügen");
     _startTournement = new QPushButton("Turnier starten");
 }
 
-void Playermanagment::setButtonLayout()
+void PlayermanagementWindow::setButtonLayout()
 {
     ui->startTournementLayout->addWidget(_startTournement);
     ui->verticalLayout_2->addWidget(_addPlayer);
 }
 
 
-void Playermanagment::setMaxPlayerLabel()
+void PlayermanagementWindow::setMaxPlayerLabel()
 {
     int playerNumber= 1;
     if (round(log(playerNumber)/log(2)) == playerNumber)
@@ -60,7 +60,7 @@ void Playermanagment::setMaxPlayerLabel()
     }
 }
 
-void Playermanagment::addPlayer()
+void PlayermanagementWindow::addPlayer()
 {
     ui->maxPlayerLabel->setText("Anna");
 }

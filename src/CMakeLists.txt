@@ -30,7 +30,7 @@ set(MOC_HEADERS
         View/gameboard.h
         View/mainmenu.h
         View/menubutton.h
-        View/playermanagment.h
+        View/playermanagementWindow.h
         View/refereewindow.h
         View/tournementwindow.h
         View/viewerwindow.h
@@ -47,7 +47,7 @@ set(SOURCES
         View/gameboard.cpp
         View/mainmenu.cpp
         View/menubutton.cpp
-        View/playermanagment.cpp
+        View/playermanagementWindow.cpp
         View/refereewindow.cpp
         View/tournementwindow.cpp
         View/viewerwindow.cpp
@@ -57,7 +57,7 @@ set(SOURCES
 # set .ui files
 set(UIS
         View/mainmenu.ui
-        View/playermanagment.ui
+        View/playermanagementWindow.ui
         View/refereewindow.ui
         View/viewerWindow.ui
         )

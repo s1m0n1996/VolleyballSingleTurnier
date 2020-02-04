@@ -6,7 +6,7 @@
 #include "Model/sqliteConnector.h"
 
 #include "View/menubutton.h"
-#include "View/playermanagment.h"
+#include "View/playermanagementWindow.h"
 #include "View/refereewindow.h"
 #include "View/tournementwindow.h"
 #include "View/viewerwindow.h"
