@@ -20,10 +20,5 @@ int main(int argc, char *argv[])
     mainmenu->setFixedSize(700,600);
     mainmenu -> show();
 
-    RefereeWindow* test = new RefereeWindow();
-    //test->show();
-
-
-
     return a.exec();
 }

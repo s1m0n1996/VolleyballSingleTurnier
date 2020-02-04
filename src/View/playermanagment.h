@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include "ui_playermanagment.h"
+#include <cmath>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Playermanagment; }
@@ -20,13 +22,17 @@ public:
 signals:
 public slots:
     void addPlayer(void);
-    void setMaxPlayerLabel(void);
+    void setMaxPlayerLabel(void);   
     void test(void);
+
 
 private slots:
 
 
 private:
+    void connecting();
+    void createButtons(void);
+    void setButtonLayout(void);
     Ui::Playermanagment *ui;
     QPushButton* _addPlayer = nullptr;
     QPushButton* _startTournement = nullptr;

@@ -34,7 +34,7 @@ HEADERS += \
     Model/model.h \
     Model/player.h \
     Model/sqliteConnector.h \
-Model/playermanagement.h \
+    Model/playermanagement.h \
     View/dartboard.h \
     View/gameboard.h \
     View/mainmenu.h \

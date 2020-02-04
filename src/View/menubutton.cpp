@@ -1,17 +1,14 @@
 #include "menubutton.h"
-#include <QPushButton>
 
 
 MenuButton::MenuButton(QString text, QWidget *parent) : QPushButton(parent)
 {
 
     int fixSizeX = 50;
-    int fixSizeY = 250;
+    int fixSizeY = 250;    
 
     setFixedSize(fixSizeY,fixSizeX);
-
-   setFixedSize(fixSizeY,fixSizeX);
-   setStyleSheet("QPushButton:!pressed{"
+    setStyleSheet("QPushButton:!pressed{"
                  "color: #dcdcdc;"
                  "background-color: #3f3f3f;"
                  "font-size: 20px;"

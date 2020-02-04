@@ -1,13 +1,31 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include <QMainWindow>
-#include <QWidget>
-#include <QDialog>
-#include <QLabel>
-#include <Model/model.h>
+#include "ui_mainmenu.h"
+#include "Model/model.h"
+#include "Model/sqliteConnector.h"
+
 #include "View/menubutton.h"
+#include "View/playermanagment.h"
+#include "View/refereewindow.h"
+#include "View/tournementwindow.h"
+#include "View/viewerwindow.h"
+
+#include <QPalette>
 #include <QAction>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QFileDialog>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMainWindow>
+#include <QPalette>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QWidget>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainMenu; }
@@ -24,17 +42,21 @@ public:
     ~MainMenu();
 
 public slots:
-//    void openWindow();
     void openPlayermanagmentWindow();
     void openTournementWindow();
     void openViewerWindow();
     void openRefereeWindow();
-    void createButton();
-    void setButtonsLayout();
+
+
+
     void createDatabase();
     void loadDatabase();
 
+
 private:
+    void connecting();
+    void createButton();
+    void setButtonsLayout();
     Ui::MainMenu *ui;
     Model* _model = nullptr;
     MenuButton* _playermanagment = nullptr;
