@@ -14,10 +14,10 @@ public:
 
     Player(const int id);
 
-    int getId() const { return _id; };
-    QString getName() const { return _name; };
-    QString getBirthday() const { return _birthday; };
-    QString getCountry() const { return _country; };
+    int getId() const { return _id; }
+    QString getName() const { return _name; }
+    QString getBirthday() const { return _birthday; }
+    QString getCountry() const { return _country; }
 
 private:
     SqliteConnector* _db;
