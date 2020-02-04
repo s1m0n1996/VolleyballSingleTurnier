@@ -1,17 +1,20 @@
 #include "Model/player.h"
 
-Player::Player(const QString name, const QString birthday, const QString country) {
+Player::Player(const QString name, const QString birthday, const QString country)
+{
     _db = &SqliteConnector::instance();
     _name = name;
     _birthday = birthday;
     _country = country;
-    if (_isPlayerUnknown()) {
+    if (_isPlayerUnknown())
+    {
         _addPlayerToDatabase();
     }
     _id = _getPlayerIdFromDatabase();
 }
 
-Player::Player(const int id){
+Player::Player(const int id)
+{
     _db = &SqliteConnector::instance();
     _id = id;
     QString sqlPrepare = R"(
@@ -23,7 +26,7 @@ WHERE id = ?;
     sqlParameters.append(QString::number(_id));
     QList<QVariant> player = _db->sqlQuery(sqlPrepare, sqlParameters)[0];
     _name = player[1].toString();
-    _birthday= player[2].toString();
+    _birthday = player[2].toString();
     _country = player[3].toString();
 }
 
@@ -32,7 +35,8 @@ WHERE id = ?;
  * this method add a player to the SqLite Database. In the Database the id was increment up automatic
  * and the default value for the column is_available is 0.
  */
-const void Player::_addPlayerToDatabase() {
+void Player::_addPlayerToDatabase()
+{
 
     QString sqlPrepare = R"(
 INSERT INTO player_list (name, birthday, country)
@@ -46,7 +50,8 @@ VALUES (?, ?, ?);
 }
 
 
-const bool Player::_isPlayerUnknown() {
+bool Player::_isPlayerUnknown()
+{
     QString sqlPrepare = R"(
 SELECT *
 FROM player_list
@@ -62,7 +67,7 @@ AND country = ?;
 
 }
 
-const int Player::_getPlayerIdFromDatabase()
+int Player::_getPlayerIdFromDatabase()
 {
     QString sqlPrepare = R"(
 SELECT id
@@ -79,7 +84,8 @@ AND country = ?;
 
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlPrepare, sqlParameters);
     qDebug() << rawData;
-    if (rawData.isEmpty()){
+    if (rawData.isEmpty())
+    {
         qWarning() << "can't get the id from the player because the player does not exists.";
         return -1;
     }
