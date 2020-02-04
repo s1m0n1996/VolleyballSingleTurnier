@@ -5,7 +5,8 @@
 #include <QDebug>
 #include "Model/sqliteConnector.h"
 
-class Player {
+class Player
+{
 public:
     Player(const QString name,
            const QString birthday,
@@ -13,11 +14,10 @@ public:
 
     Player(const int id);
 
-    QString getName(const int id);
-
-    void addPlayerToDatabase();
-
-    bool isPlayerUnknown();
+    const int getId() const { return _id; };
+    const QString getName() const { return _name; };
+    const QString getBirthday() const { return _birthday; };
+    const QString getCountry() const { return _country; };
 
 private:
     SqliteConnector* _db;
@@ -26,6 +26,9 @@ private:
     QString _birthday;
     QString _country;
 
+    const int _getPlayerIdFromDatabase();
+    const void _addPlayerToDatabase();
+    const bool _isPlayerUnknown();
 };
 
 #endif // PLAYER_H
