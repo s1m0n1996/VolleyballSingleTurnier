@@ -22,36 +22,39 @@ include_directories(../)
 
 # set .h files
 set(MOC_HEADERS
-        Model/model.h
-        Model/player.h
-        Model/sqliteConnector.h
-        Model/playermanagement.h
-        View/dartboard.h
-        View/gameboardWindow.h
-        View/mainmenu.h
-        View/menubutton.h
-        View/playermanagementWindow.h
-        View/refereewindow.h
-        View/tournementwindow.h
-        View/viewerwindow.h
-        main.h
+        Model/gameboard.h
+    Model/model.h
+    Model/player.h
+    Model/referee.h
+    Model/sqliteConnector.h
+    Model/playermanagement.h
+    View/dartboard.h
+    View/gameboardWindow.h
+    View/mainmenu.h
+    View/menubutton.h
+    View/playermanagementWindow.h
+    View/refereewindow.h
+    View/tournementwindow.h
+    View/viewerwindow.h
         )
 
 # set .cpp files
 set(SOURCES
-        Model/model.cpp
-        Model/player.cpp
-        Model/sqliteConnector.cpp
-        Model/playermanagement.cpp
-        View/dartboard.cpp
-        View/gameboardWindow.cpp
-        View/mainmenu.cpp
-        View/menubutton.cpp
-        View/playermanagementWindow.cpp
-        View/refereewindow.cpp
-        View/tournementwindow.cpp
-        View/viewerwindow.cpp
-        main.cpp
+        Model/gameboard.cpp
+    Model/model.cpp
+    Model/player.cpp
+    Model/referee.cpp
+    Model/sqliteConnector.cpp
+    Model/playermanagement.cpp
+    View/dartboard.cpp
+    View/gameboardWindow.cpp
+    View/mainmenu.cpp
+    View/menubutton.cpp
+    View/playermanagementWindow.cpp
+    View/refereewindow.cpp
+    View/tournementwindow.cpp
+    View/viewerwindow.cpp
+    main.cpp
         )
 
 # set .ui files
