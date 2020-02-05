@@ -2,6 +2,7 @@
 #define REFEREEWINDOW_H
 
 #include <QMainWindow>
+#include "Model/referee.h"
 
 namespace Ui {
 class RefereeWindow;
@@ -16,7 +17,6 @@ public:
     ~RefereeWindow();
 
 private slots:
-    void mouseCurrentPos();
     void mouseReleasedOnDartboard();
     void on_naechsterSpieler_released();
     void on_undoLetzterWurf_released();
@@ -27,6 +27,7 @@ private slots:
 
 private:
     Ui::RefereeWindow *ui;
+    Referee* referee = new Referee;
     const int _miss                  = 0;
     const int _single                = 1;
     const int _double                = 2;

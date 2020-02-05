@@ -18,12 +18,6 @@ RefereeWindow::~RefereeWindow()
     delete ui;
 }
 
-
-void RefereeWindow::mouseCurrentPos()
-{
-
-}
-
 int RefereeWindow::valueMultiplikator()
 {
     int multiplikator = 0;
@@ -60,7 +54,6 @@ int RefereeWindow::valueMultiplikator()
 
     return  multiplikator;
 }
-
 
 int RefereeWindow::valueScoreWithoutMultiplikator()
 {
@@ -205,7 +198,7 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
 
     // Bulls-Eye berechnung
     int areaPercentage = ((_radius * 100) / _centralPointXY);
-    if ((areaPercentage >= 3 and areaPercentage <= 6) or (areaPercentage <= 2))
+    if (areaPercentage >= 0 and areaPercentage <= 6)
     {
         scoreWithoutMultiplikator = 25;
     }
@@ -216,6 +209,10 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
 
 void RefereeWindow::remainScore()
 {
+
+//    ui->remainScore->setText(QString::number(referee->getRemainingScore()));
+
+
     if (_throwCounter == 1 and _numberOfSubtraction == 3)
     {
         if (_player == 0)
@@ -281,13 +278,13 @@ void RefereeWindow::mouseReleasedOnDartboard()
         _throwCounter++;
     }
     else if (_throwCounter == 1)
-    {      
+    {
         _throwScore = scoreWithoutMultiplikator * multiplikator;
         ui->throw2->setText(QString::number(_throwScore));
         _throwCounter++;
     }
     else if (_throwCounter == 2)
-    {  
+    {
         _throwScore = scoreWithoutMultiplikator * multiplikator;
         ui->throw3->setText(QString::number(_throwScore));
         _throwCounter++;
