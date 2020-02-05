@@ -8,6 +8,7 @@
 class Player
 {
 public:
+    Player();
     Player(const QString name,
            const QString birthday,
            const QString country);
