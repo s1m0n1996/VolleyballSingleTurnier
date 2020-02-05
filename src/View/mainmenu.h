@@ -46,9 +46,6 @@ public slots:
     void openTournementWindow();
     void openViewerWindow();
     void openRefereeWindow();
-
-
-
     void createDatabase();
     void loadDatabase();
 

@@ -17,15 +17,7 @@ MainMenu::~MainMenu()
 {
     delete ui;
 }
-void MainMenu:: connecting()
-{
-    connect(_playermanagment, SIGNAL(clicked()), this, SLOT(openPlayermanagmentWindow()));
-    connect(_tournement, SIGNAL(clicked()), this, SLOT(openTournementWindow()));
-    connect(_viewer, SIGNAL(clicked()), this, SLOT(openViewerWindow()));
-    connect(_referee, SIGNAL(clicked()), this, SLOT(openRefereeWindow()));
-    connect(_new,SIGNAL(triggered()),this, SLOT(createDatabase()));
-    connect(_load,SIGNAL(triggered()),this, SLOT(loadDatabase()));
-}
+
 void MainMenu::openPlayermanagmentWindow()
 {
     PlayermanagementWindow* playermanagment = new PlayermanagementWindow;
@@ -48,6 +40,35 @@ void MainMenu::openRefereeWindow()
     refereeWindow->show();
 }
 
+void MainMenu::createDatabase()
+{
+    QString path = QFileDialog::getSaveFileName(this,
+                                        tr("Datenbank anlegen"), "",
+                                        tr("Database File (*.sqlite) ;; All Files (*.*)"));
+
+    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+    sqlitConnector->createDatabase(path);
+}
+
+void MainMenu::loadDatabase()
+{
+    QString path = QFileDialog::getOpenFileName(this,
+                                        tr("Datenbank laden"), "",
+                                        tr("Database File (*.sqlite) ;; All Files (*.*)"));
+
+    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+    sqlitConnector->openDatabase(path);
+}
+
+void MainMenu:: connecting()
+{
+    connect(_playermanagment, SIGNAL(released()), this, SLOT(openPlayermanagmentWindow()));
+    connect(_tournement, SIGNAL(released()), this, SLOT(openTournementWindow()));
+    connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
+    connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
+    connect(_new,SIGNAL(triggered()),this, SLOT(createDatabase()));
+    connect(_load,SIGNAL(triggered()),this, SLOT(loadDatabase()));
+}
 
 void MainMenu::createButton()
 {
@@ -72,22 +93,4 @@ void MainMenu::setButtonsLayout()
 
 }
 
-void MainMenu::createDatabase()
-{
-    QString path = QFileDialog::getSaveFileName(this,
-                                        tr("Datenbank anlegen"), "",
-                                        tr("Database File (*.sqlite) ;; All Files (*.*)"));
 
-    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-    sqlitConnector->createDatabase(path);
-}
-
-void MainMenu::loadDatabase()
-{
-    QString path = QFileDialog::getOpenFileName(this,
-                                        tr("Datenbank laden"), "",
-                                        tr("Database File (*.sqlite) ;; All Files (*.*)"));
-
-    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-    sqlitConnector->openDatabase(path);
-}

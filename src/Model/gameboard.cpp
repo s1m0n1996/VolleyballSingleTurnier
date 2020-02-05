@@ -10,7 +10,6 @@ void Gameboard::prepareGameRandomly()
     QRandomGenerator randomZahl;
     for(int i = 0; i < (_players.length()-1); i++)
     {
-        _players.swap(i , randomZahl.bounded(_players.length()-1));
+        //_players.swap(i , randomZahl.bounded(_players.length()-1));
     }
 }
-

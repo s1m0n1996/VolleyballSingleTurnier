@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include "ui_playermanagementWindow.h"
 #include <cmath>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class PlayermanagementWindow; }
