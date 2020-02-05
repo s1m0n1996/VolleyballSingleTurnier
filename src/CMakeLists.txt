@@ -27,7 +27,7 @@ set(MOC_HEADERS
         Model/sqliteConnector.h
         Model/playermanagement.h
         View/dartboard.h
-        View/gameboard.h
+        View/gameboardWindow.h
         View/mainmenu.h
         View/menubutton.h
         View/playermanagementWindow.h
@@ -44,7 +44,7 @@ set(SOURCES
         Model/sqliteConnector.cpp
         Model/playermanagement.cpp
         View/dartboard.cpp
-        View/gameboard.cpp
+        View/gameboardWindow.cpp
         View/mainmenu.cpp
         View/menubutton.cpp
         View/playermanagementWindow.cpp

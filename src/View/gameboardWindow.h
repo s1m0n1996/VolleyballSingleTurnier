@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 
-class Gameboard : public QMainWindow
+class GameboardWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit Gameboard(QWidget *parent = nullptr);
+    explicit GameboardWindow(QWidget *parent = nullptr);
 
 signals:
 
