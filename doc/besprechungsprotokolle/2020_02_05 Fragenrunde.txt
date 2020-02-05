@@ -1,0 +1,58 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 05.02.2020
+	8:15 - 8:53 Uhr = 38 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Simon Flörke
+
+------------------------------------------------------------------------------------------------------------------------
+
+Besprechung der aufgekommenen Fragen während des Programmierens.
+
+Fragen von Lea:
+    - Variablenbenennung: Schreibt man den Datentyp bei Oberflächenementen mit an den variablennamen?
+        -> normalerweise nicht, aber bei Oberflächenelementen macht man das gerne.
+    - Kann man den QTtDesigner und Manuelle Programmierung in einem Fenster Mischen?
+        -> ja das geht, aber man hat dann probleme wenn man im QtDesigner etwas ändert. Also lieber nicht.
+        -> Man kann natürlich verschiedene fenster machen und jeweils einheitlich bleiben also es muss nicht pro
+            Projekt sondern pro Fenster einheitlich sein.
+    - Highliting von Buttons: durch hinzufügen von StyleSheet geht das design verloren
+        -> jeder Push button hat einen Default StyleSheet. Beim Mac und Windows sehen Buttons standartmäßig ehwas anders aus.
+            wenn man jetzt die einen eigenen Styleshet nutzt werde alle Defaultwerte überschrieben.
+    - Buttons werden nicht bei Push sondern bei released (loslassen) ausgelöst
+    - Wie kann man Buttons sperren?
+        -> es gibt die Methode setEnable(bool).
+    - Wie nutzt man spacer bei QLineEdit?
+        -> Spacern gibt man einen Faktor wie viel sie prozentual zum fenster spacen sollen.
+        -> per Default werden QLineEdit nur länger nicht insgesamt größer. Mann kann die Methode aber überschrieben.
+
+Fragen von Philipp:
+    - wo ist der index beim range basierten for?
+        -> einen direkten index gibt es nicht mann kann die QList aber fragen welcher index gerade der aktuelle ist.
+
+Fragen von Nico:
+    - Skalierungsproblem: IPS Monitor und Normaler
+        -> Beim Mac geht das automatisch....
+        -> Qt hat dieses Problem bereits gelöst. siehe doku.
+    - Beim Skalieren muss die Dartscheibe Quadratisch bleiben
+        -> gibt es nicht fertig man muss die methode zum zeichnen der Grafik überschrieben (methode draw)
+    - Highliting der Dartscheibe beim schweben mit cursor über Feld
+        -> nicht so einfach: Mann kann die Dartscheibe selber malen
+
+Fragen von Simon:
+    - Was wird beim Fehler (Methode kann nicht sinnvoll ausgeführt werden) zurückgegeben?
+        -> Software Engeneering 2
+        -> Stichwort Exceptions/TryCatch
+        -> Allen von wo die Methode aufgerufen wurd muss wissen, dass auch Exceptions zurückkommen können und entsprechend reagieren.
+    - Komminukation Model/View
+        -> Model bleibt immer view nicht.
+        -> Um Tabellen zu erstellen QTableModel und QTableViwe oder QListTable/Viwe nutzen
