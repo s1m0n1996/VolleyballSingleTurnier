@@ -4,11 +4,13 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QPushButton>
 #include "ui_playermanagementWindow.h"
 #include "windowbutton.h"
 #include "windowedit.h"
 #include "windowlabel.h"
+#include "View/tournementwindow.h"
 #include <cmath>
 #include <QDebug>
 
@@ -28,8 +30,8 @@ public:
 signals:
 public slots:
     void addPlayer(void);
-    void setMaxPlayerLabel(void);   
-    void test(void);
+    void setMaxPlayerLabel(void);
+    void tournementName();
 
 
 private slots:
