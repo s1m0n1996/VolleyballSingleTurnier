@@ -10,13 +10,13 @@ MenuButton::MenuButton(QString text, QWidget *parent) : QPushButton(parent)
     setFixedSize(fixSizeY,fixSizeX);
     setStyleSheet("QPushButton:!hover{"
                  "color: #dcdcdc;"
-                 "background-color: #3f3f3f;"
-                 "font-size: 20px;"
-                 "font-family: Bahnschrift Light;"
+                 "background-color: #333333;"
+                 "font-size: 22px;"
+                 "font-family: Candara;"
                  "font: bold;}"
                  "QPushButton:hover{"
                  "color: #dcdcdc;"
-                 "background-color: #515151;"
+                 "background-color: #414141;"
                  "border-width: 1px};");
 
     setText(text);

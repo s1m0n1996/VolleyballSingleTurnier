@@ -31,6 +31,8 @@ SOURCES += \
     View/refereewindow.cpp \
     View/tournementwindow.cpp \
     View/viewerwindow.cpp \
+    View/windowbutton.cpp \
+    View/windowedit.cpp \
     main.cpp
 
 HEADERS += \
@@ -48,7 +50,9 @@ HEADERS += \
     View/playermanagementWindow.h \
     View/refereewindow.h \
     View/tournementwindow.h \
-    View/viewerwindow.h
+    View/viewerwindow.h \
+    View/windowbutton.h \
+    View/windowedit.h
 
 FORMS += \
     View/mainmenu.ui \

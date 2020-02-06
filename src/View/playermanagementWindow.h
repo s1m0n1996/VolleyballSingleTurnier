@@ -1,9 +1,12 @@
 #ifndef PLAYERMANAGMENT_H
 #define PLAYERMANAGMENT_H
 
+#include <QLabel>
+#include <QLineEdit>
 #include <QMainWindow>
 #include <QPushButton>
 #include "ui_playermanagementWindow.h"
+#include "windowbutton.h"
 #include <cmath>
 #include <QDebug>
 
@@ -32,10 +35,17 @@ private slots:
 
 private:
     void connecting();
+    void createAddPlayerEdit();
     void createButtons(void);
     void setButtonLayout(void);
     Ui::PlayermanagementWindow *ui;
-    QPushButton* _addPlayer = nullptr;
-    QPushButton* _startTournement = nullptr;
+    WindowButton* _addPlayerButton = nullptr;
+    WindowButton* _startTournementButton = nullptr;
+    QLabel* _playernameLabel = nullptr;
+    QLabel* _bithdayLabel = nullptr;
+    QLabel* _countryLabel = nullptr;
+    QLineEdit* _playernameEdit = nullptr;
+    QLineEdit* _birthdayEdit = nullptr;
+    QLineEdit* _countryEdit = nullptr;
 };
 #endif // PLAYERMANAGMENT_H
