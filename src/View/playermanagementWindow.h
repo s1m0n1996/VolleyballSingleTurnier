@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include "ui_playermanagementWindow.h"
 #include "windowbutton.h"
+#include "windowedit.h"
+#include "windowlabel.h"
 #include <cmath>
 #include <QDebug>
 
@@ -37,15 +39,18 @@ private:
     void connecting();
     void createAddPlayerEdit();
     void createButtons(void);
-    void setButtonLayout(void);
+    void createMaxPlayer();
+    void setAllLayout(void);
     Ui::PlayermanagementWindow *ui;
     WindowButton* _addPlayerButton = nullptr;
     WindowButton* _startTournementButton = nullptr;
-    QLabel* _playernameLabel = nullptr;
-    QLabel* _bithdayLabel = nullptr;
-    QLabel* _countryLabel = nullptr;
-    QLineEdit* _playernameEdit = nullptr;
-    QLineEdit* _birthdayEdit = nullptr;
-    QLineEdit* _countryEdit = nullptr;
+    WindowLabel* _playernameLabel = nullptr;
+    WindowLabel* _birthdayLabel = nullptr;
+    WindowLabel* _countryLabel = nullptr;
+    WindowLabel* _nameMaxPlayerLabel = nullptr;
+    WindowLabel* _valueMaxPlayerLabel = nullptr;
+    WindowEdit* _playernameEdit = nullptr;
+    WindowEdit* _birthdayEdit = nullptr;
+    WindowEdit* _countryEdit = nullptr;
 };
 #endif // PLAYERMANAGMENT_H

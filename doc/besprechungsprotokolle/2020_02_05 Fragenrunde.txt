@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+﻿------------------------------------------------------------------------------------------------------------------------
 Thema: Fragenrunde
 
 Datum: 05.02.2020
@@ -27,7 +27,7 @@ Fragen von Lea:
             Projekt sondern pro Fenster einheitlich sein.
     - Highliting von Buttons: durch hinzufügen von StyleSheet geht das design verloren
         -> jeder Push button hat einen Default StyleSheet. Beim Mac und Windows sehen Buttons standartmäßig ehwas anders aus.
-            wenn man jetzt die einen eigenen Styleshet nutzt werde alle Defaultwerte überschrieben.
+            wenn man jetzt die einen eigenen Stylesheet nutzt werden alle Defaultwerte überschrieben.
     - Buttons werden nicht bei Push sondern bei released (loslassen) ausgelöst
     - Wie kann man Buttons sperren?
         -> es gibt die Methode setEnable(bool).

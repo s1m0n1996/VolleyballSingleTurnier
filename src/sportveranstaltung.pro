@@ -33,6 +33,7 @@ SOURCES += \
     View/viewerwindow.cpp \
     View/windowbutton.cpp \
     View/windowedit.cpp \
+    View/windowlabel.cpp \
     main.cpp
 
 HEADERS += \
@@ -52,7 +53,8 @@ HEADERS += \
     View/tournementwindow.h \
     View/viewerwindow.h \
     View/windowbutton.h \
-    View/windowedit.h
+    View/windowedit.h \
+    View/windowlabel.h
 
 FORMS += \
     View/mainmenu.ui \

@@ -11,7 +11,8 @@ PlayermanagementWindow::PlayermanagementWindow(QWidget *parent):
     ui->setupUi(this);
     createButtons();
     createAddPlayerEdit();
-    setButtonLayout();
+    createMaxPlayer();
+    setAllLayout();
     connecting();
 }
 
@@ -28,12 +29,25 @@ void PlayermanagementWindow:: connecting()
 }
 void PlayermanagementWindow::test()
 {
-    ui->maxPlayerLabel->setText("0");
+   _valueMaxPlayerLabel->setText("0");
 
 }
 
+void PlayermanagementWindow::createMaxPlayer()
+{
+    _nameMaxPlayerLabel = new WindowLabel("benötigte Spieler:");
+    _valueMaxPlayerLabel = new WindowLabel("2");
+
+}
 void PlayermanagementWindow::createAddPlayerEdit()
 {
+    _playernameEdit     = new WindowEdit("Max Mustermann");
+    _countryEdit        = new WindowEdit("Deutschland");
+    _birthdayEdit       = new WindowEdit("1900-01-01");
+
+    _playernameLabel    = new WindowLabel("Spielername");
+    _countryLabel       = new WindowLabel("Land");
+    _birthdayLabel      = new WindowLabel("Gebrurtsdatum");
 
 }
 
@@ -42,28 +56,47 @@ void PlayermanagementWindow::createButtons()
     _addPlayerButton        = new WindowButton("Spieler hinzufügen");
     _startTournementButton  = new WindowButton("Turnier starten");
     _startTournementButton->setEnabled(false);
+    _startTournementButton->setStyleSheet("QPushButton{"
+                                          "color: #dcdcdc;"
+                                          "background-color: #40b946;"
+                                          "font-size: 20px;"
+                                          "font-family: Candara;}"
+                                          "QPushButton:disabled{"
+                                          "background-color: #acacac;}");
 }
 
 
-void PlayermanagementWindow::setButtonLayout()
+void PlayermanagementWindow::setAllLayout()
 {
-    ui->startTournementLayout->addWidget(_startTournementButton, Qt::AlignBottom,0);
-    ui->verticalLayout_2->addWidget(_addPlayerButton);
-}
+    ui->maxPlayerLayout->addWidget(_nameMaxPlayerLabel);
+    ui->maxPlayerLayout->addWidget(_valueMaxPlayerLabel,0,Qt::AlignCenter);
+    ui->startTournementLayout->addWidget(_startTournementButton,0 ,Qt::AlignBottom);
+    ui->addPlayerLayout->addWidget(_playernameLabel,1,0);
+    ui->addPlayerLayout->addWidget(_countryLabel,2,0);
+    ui->addPlayerLayout->addWidget(_birthdayLabel,3,0);
 
+    ui->addPlayerLayout->setSpacing(2);
+    ui->addPlayerLayout->setMargin(5);
+
+    ui->addPlayerLayout->addWidget(_playernameEdit,1,1);
+    ui->addPlayerLayout->addWidget(_countryEdit,2,1);
+    ui->addPlayerLayout->addWidget(_birthdayEdit,3,1);
+
+    ui->addPlayerLayout->addWidget(_addPlayerButton,5,Qt::AlignRight);
+}
 
 void PlayermanagementWindow::setMaxPlayerLabel()
 {
     int playerNumber= 1;
     if (round(log(playerNumber)/log(2)) == playerNumber)
     {
-        ui->maxPlayerLabel->setText("0");
+        _valueMaxPlayerLabel->setText("0");
         _startTournementButton->setEnabled(true);
     }
     else
     {
         int neededPlayerNumber = 4;
-        ui->maxPlayerLabel->setText(QString::number(neededPlayerNumber));
+        _valueMaxPlayerLabel->setText(QString::number(neededPlayerNumber));
     }
 
 }
@@ -71,6 +104,7 @@ void PlayermanagementWindow::setMaxPlayerLabel()
 
 void PlayermanagementWindow::addPlayer()
 {
-    ui->maxPlayerLabel->setText("0");
+    _valueMaxPlayerLabel->setText("0");
+    _startTournementButton->setEnabled(true);
 }
 

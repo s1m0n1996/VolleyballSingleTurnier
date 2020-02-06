@@ -3,10 +3,10 @@
 
 #include <QLineEdit>
 
-class windowEdit: public QLineEdit
+class WindowEdit: public QLineEdit
 {
 public:
-    windowEdit(QString text, QWidget *parent = nullptr);
+    WindowEdit(QString text, QWidget *parent = nullptr);
 };
 
 #endif // WINDOWEDIT_H

@@ -83,6 +83,7 @@ void MainMenu::createButton()
 
 void MainMenu::setButtonsLayout()
 {
+
     ui->verticalLayout->setSpacing(30);
     ui->verticalLayout->addWidget(_playermanagment,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_tournement,0,Qt::AlignCenter);
