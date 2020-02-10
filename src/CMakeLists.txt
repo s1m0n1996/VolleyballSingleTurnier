@@ -22,7 +22,8 @@ include_directories(../)
 
 # set .h files
 set(MOC_HEADERS
-        Model/gameboard.h
+    Model/game.h
+    Model/gameboard.h
     Model/model.h
     Model/player.h
     Model/referee.h
@@ -36,11 +37,15 @@ set(MOC_HEADERS
     View/refereewindow.h
     View/tournementwindow.h
     View/viewerwindow.h
+    View/windowbutton.h
+    View/windowedit.h
+    View/windowlabel.h
         )
 
 # set .cpp files
 set(SOURCES
-        Model/gameboard.cpp
+        Model/game.cpp
+    Model/gameboard.cpp
     Model/model.cpp
     Model/player.cpp
     Model/referee.cpp
@@ -54,6 +59,9 @@ set(SOURCES
     View/refereewindow.cpp
     View/tournementwindow.cpp
     View/viewerwindow.cpp
+    View/windowbutton.cpp
+    View/windowedit.cpp
+    View/windowlabel.cpp
     main.cpp
         )
 
