@@ -4,13 +4,18 @@
 #include <QtMath>
 
 
-RefereeWindow::RefereeWindow(QWidget *parent) :
+RefereeWindow::RefereeWindow(Referee* referee, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::RefereeWindow)
+    ui(new Ui::RefereeWindow),
+    _referee(referee)
 {
     ui->setupUi(this);
     connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
     connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
+    connect(ui->DartboardView,SIGNAL(valueChanged()),this, SLOT(writeScore()));
+    connect(ui->nextPlayer,SIGNAL(released),this, SLOT(nextPlayer));
+    connect(ui->undoLastThrow,SIGNAL(released),this, SLOT(undoLastThrow));
+
 }
 
 RefereeWindow::~RefereeWindow()
@@ -207,169 +212,26 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
 
 }
 
-void RefereeWindow::remainScore()
+void RefereeWindow::nextPlayer()
 {
-
-//    ui->remainScore->setText(QString::number(referee->getRemainingScore()));
-
-
-    if (_throwCounter == 1 and _numberOfSubtraction == 3)
-    {
-        if (_player == 0)
-        {
-            _remainScore[0] = _remainScore[0] - ui->throw1->text().toInt();
-            _numberOfSubtraction--;
-        }
-        else if (_player > 0)
-        {
-            _remainScore[1] = _remainScore[1] - ui->throw1->text().toInt();
-            _numberOfSubtraction--;
-        }
-
-    }
-    else if (_throwCounter == 2 and _numberOfSubtraction == 2)
-    {
-        if (_player == 0)
-        {
-            _remainScore[0] = _remainScore[0] - ui->throw2->text().toInt();
-            _numberOfSubtraction--;
-        }
-        else if (_player > 0)
-        {
-            _remainScore[1] = _remainScore[1] - ui->throw2->text().toInt();
-            _numberOfSubtraction--;
-        }
-    }
-    else if (_throwCounter == 3 and _numberOfSubtraction == 1)
-    {
-        if (_player == 0)
-        {
-            _remainScore[0] = _remainScore[0] - ui->throw3->text().toInt();
-            _numberOfSubtraction--;
-        }
-        else if (_player > 0)
-        {
-            _remainScore[1] = _remainScore[1] - ui->throw3->text().toInt();
-            _numberOfSubtraction--;
-        }
-    }
-
-    if (_player == 0)
-    {
-        ui->remainScore->setText(QString::number(_remainScore[0]));
-    }
-    else if (_player > 0)
-    {
-        ui->remainScore->setText(QString::number(_remainScore[1]));
-    }
-
+    _referee->nextPlayer();
 }
 
+void RefereeWindow::undoLastThrow()
+{
+    _referee->undoThrow();
+}
 
 void RefereeWindow::mouseReleasedOnDartboard()
 {
-    int multiplikator = valueMultiplikator();
-    int scoreWithoutMultiplikator = valueScoreWithoutMultiplikator();
-
-    if (_throwCounter == 0)
-    {
-        _throwScore = scoreWithoutMultiplikator * multiplikator;
-        ui->throw1->setText(QString::number(_throwScore));
-        _throwCounter++;
-    }
-    else if (_throwCounter == 1)
-    {
-        _throwScore = scoreWithoutMultiplikator * multiplikator;
-        ui->throw2->setText(QString::number(_throwScore));
-        _throwCounter++;
-    }
-    else if (_throwCounter == 2)
-    {
-        _throwScore = scoreWithoutMultiplikator * multiplikator;
-        ui->throw3->setText(QString::number(_throwScore));
-        _throwCounter++;
-    }
-
-    remainScore();
+    _referee->singleThrowScore(valueMultiplikator(), valueScoreWithoutMultiplikator());
+    _referee->setRemainScore();
 }
 
-//Nächster Spieler ist an der Reihe
-void RefereeWindow::on_naechsterSpieler_released()
+void RefereeWindow::writeScore()
 {
-    _throwCounter = 0;
-    _numberOfSubtraction = 3;
-
-    if (_player == 0)
-    {
-        ui->remainScore->setText(QString::number(_remainScore[1]));
-        _player++;
-    }
-    else
-    {
-        ui->remainScore->setText(QString::number(_remainScore[0]));
-        _player = 0;
-    }
-
-    ui->throw1->setText(QString::number(0));
-    ui->throw2->setText(QString::number(0));
-    ui->throw3->setText(QString::number(0));
-
-}
-
-// Setzt den letzten Wurf zurück. Notwendig, da man sich verklicken kann
-void RefereeWindow::on_undoLetzterWurf_released()
-{
-    if (_throwCounter == 3)
-    {
-        if (_player == 0)
-        {
-            _remainScore[0] = _remainScore[0] + ui->throw3->text().toInt();
-            ui->remainScore->setText(QString::number(_remainScore[0]));
-        }
-        else if (_player > 0)
-        {
-            _remainScore[1] = _remainScore[1] + ui->throw3->text().toInt();
-            ui->remainScore->setText(QString::number(_remainScore[1]));
-        }
-
-        ui->throw3->setText(QString::number(0));
-        _throwCounter--;
-        _numberOfSubtraction++;
-    }
-    else if ((_throwCounter == 1 or _throwCounter == 2)
-             and ui->throw2->text().toInt() != 0 and ui->throw3->text().toInt() == 0)
-    {
-        if (_player == 0)
-        {
-            _remainScore[0] = _remainScore[0] + ui->throw2->text().toInt();
-            ui->remainScore->setText(QString::number(_remainScore[0]));
-        }
-        else if (_player > 0)
-        {
-            _remainScore[1] = _remainScore[1] + ui->throw2->text().toInt();
-            ui->remainScore->setText(QString::number(_remainScore[1]));
-        }
-
-        ui->throw2->setText(QString::number(0));
-        _throwCounter--;
-        _numberOfSubtraction++;
-    }
-    else if ((_throwCounter == 1 or _throwCounter == 0)
-             and ui->throw2->text().toInt() == 0 and ui->throw1->text().toInt() != 0)
-    {
-        if (_player == 0)
-        {
-            _remainScore[0] = _remainScore[0] + ui->throw1->text().toInt();
-            ui->remainScore->setText(QString::number(_remainScore[0]));
-        }
-        else if (_player > 0)
-        {
-            _remainScore[1] = _remainScore[1] + ui->throw1->text().toInt();
-            ui->remainScore->setText(QString::number(_remainScore[1]));
-        }
-
-        ui->throw1->setText(QString::number(0));
-        _throwCounter = 0;
-        _numberOfSubtraction++;
-    }
+    ui->throw1->setText(QString::number(_referee->getThrows()[0]));
+    ui->throw2->setText(QString::number(_referee->getThrows()[1]));
+    ui->throw3->setText(QString::number(_referee->getThrows()[2]));
+    ui->remainScore->setText(QString::number(_referee->getRemainScore()));
 }

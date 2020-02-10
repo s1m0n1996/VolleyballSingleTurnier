@@ -4,43 +4,38 @@
 #include <QMainWindow>
 #include "Model/referee.h"
 
-namespace Ui {
-class RefereeWindow;
-}
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class RefereeWindow; }
+QT_END_NAMESPACE
 
 class RefereeWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit RefereeWindow(QWidget *parent = nullptr);
+    explicit RefereeWindow(Referee* referee, QWidget *parent = nullptr);
     ~RefereeWindow();
 
-private slots:
-    void mouseReleasedOnDartboard();
-    void on_naechsterSpieler_released();
-    void on_undoLetzterWurf_released();
-    void remainScore();
-
+public slots:
     int valueMultiplikator();
     int valueScoreWithoutMultiplikator();
+    void mouseReleasedOnDartboard();
+    void writeScore();
+    void nextPlayer();
+    void undoLastThrow();
+
+
 
 private:
     Ui::RefereeWindow *ui;
-    Referee* referee = new Referee;
+    Referee* _referee                = nullptr;
     const int _miss                  = 0;
     const int _single                = 1;
     const int _double                = 2;
     const int _trible                = 3;
-    int _throwScore                  = 0;
     int _centralPointXY              = 0;
-    int _throwCounter                = 0;
     int _radius                      = 0;
-    int _numberOfSubtraction         = 3;
-    int _remainScore[2]      = {501,501};
-    int _player                      = 0;
-
-
 
 };
 

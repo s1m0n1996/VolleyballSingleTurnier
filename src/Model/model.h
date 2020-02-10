@@ -18,7 +18,7 @@ public:
     void setValue(const int value);
 
 signals:
-    void valueChanged(void);
+   // void valueChanged(void);
 
 public slots:
 

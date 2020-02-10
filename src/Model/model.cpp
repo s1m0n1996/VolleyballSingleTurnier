@@ -18,5 +18,5 @@ int Model::value(void) const
 void Model::setValue(const int value)
 {
     _value = value * value;
-    emit valueChanged();
+   // emit valueChanged();
 }

@@ -36,7 +36,8 @@ void MainMenu::openViewerWindow()
 
 void MainMenu::openRefereeWindow()
 {
-    RefereeWindow* refereeWindow = new RefereeWindow;
+    Referee* referee = new Referee;
+    RefereeWindow* refereeWindow = new RefereeWindow(referee);
     refereeWindow->show();
 }
 
