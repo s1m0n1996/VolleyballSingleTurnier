@@ -5,6 +5,7 @@
 PlayerManagement::PlayerManagement()
 {
     _db = &SqliteConnector::instance();
+    _createPlayerTable();
 }
 
 /*!
@@ -140,4 +141,22 @@ void PlayerManagement::printPlayersList()
     }
 }
 
+void PlayerManagement::_createPlayerTable(){
 
+    // give the opened database to the table
+    //_playerTable = new QSqlTableModel(nullptr, *_db->getDb());
+    _playerTable = new QSqlQueryModel();
+
+    //_playerTable->setTable("player_list");
+    _playerTable->setQuery("SELECT name, birthday, country FROM player_list where is_available >= 1");
+    //_playerTable->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    //_playerTable->select();
+
+    //_playerTable->setFilter("is_available>=1");
+
+    //_playerTable->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+    _playerTable->setHeaderData(0, Qt::Horizontal, QObject::tr("Name"));
+    _playerTable->setHeaderData(1, Qt::Horizontal, QObject::tr("Geburtstag"));
+    _playerTable->setHeaderData(2, Qt::Horizontal, QObject::tr("Land"));
+    //_playerTable->setHeaderData(0, Qt::Horizontal, QObject::tr("is_available"));
+}

@@ -6,6 +6,9 @@
 #include <QString>
 #include <QList>
 #include <QVariant>
+#include <QSqlTableModel>
+#include <QSqlQueryModel>
+
 
 #include "Model/sqliteConnector.h"
 #include "Model/player.h"
@@ -24,6 +27,8 @@ public:
 
     QList<Player> getAllStoredPlayers(bool onlyAvailable = true);
 
+    QSqlQueryModel* getDatabaseTableModel(){return _playerTable;}
+
     void addPlayerForNewGame(const Player addPlayer);
 
     void dropPlayerForNewGame(Player dropPlayer);
@@ -37,6 +42,10 @@ public:
 private:
     SqliteConnector* _db;
     QList<Player> _selectedPlayersForNewGame;
+
+    QSqlQueryModel* _playerTable;
+
+    void _createPlayerTable();
 };
 
 
