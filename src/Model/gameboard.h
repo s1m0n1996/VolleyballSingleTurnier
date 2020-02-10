@@ -6,6 +6,7 @@
 #include "Model/game.h"
 #include <QList>
 #include <ctime>
+#include "QDate"
 
 
 class Gameboard
@@ -14,13 +15,15 @@ public:
     Gameboard(QList <Player> players);
     void addGame(Player player1, Player player2);
     void prepareGameRandomly();
-    void addPlayerToDatabank();
+    void addWinnerToDatabank(int winnerId, int gameId);
     void getNewTournamentId();
     void randomInitialisation();
-    void createGame();
+    void createFirstGame(QString tournemantName);
+    void gameFlow();
 
 private:
     QList <Player> _players;
+    QList <int> _gameIds;
     SqliteConnector* _db;
     int _tournamentId;
 };
