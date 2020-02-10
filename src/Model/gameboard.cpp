@@ -10,18 +10,19 @@ void Gameboard::prepareGameRandomly()
 {
     randomInitialisation();
     int i = 0;
-
     for(const Player& item : _players)                                       //Kein rangebasiertes For, da ein integer für swap() benötigt wird
     {
-        _players.swap(i , rand() % _players.size());
+        int k = rand()%_players.size();
+        _players.swap(i,k);
         i++;
     }
 }
 
 void Gameboard::createGame()                                        //Noch nicht getestet
 {
+    getNewTournamentId();
     QList <Game> games;
-    for (int i = 0; i < _players.size()/2 ; i = i+2)
+    for (int i = 0; i <= _players.size()/2 ; i=i+2)
     {
         games.append(Game(_players[i], _players[i+1]));
         QString sqlPrepare = R"(
@@ -30,7 +31,6 @@ void Gameboard::createGame()                                        //Noch nicht
                  from game_board_list
                  where sport_type_id = 1
                  and game_mode_id = 1
-                 and tournament_id = 1
                  order by id desc
                  limit 1) + 1,
                  1, 1, ?, 'Test', ?, ?, 0))";                        //Testtime
@@ -39,6 +39,8 @@ void Gameboard::createGame()                                        //Noch nicht
         sqlParameters.append(QString::number(_players[i].getId()));
         sqlParameters.append(QString::number(_players[i+1].getId()));
         _db->sqlQuery(sqlPrepare, sqlParameters);
+        qDebug() << 1;
+
     }
 }
 
