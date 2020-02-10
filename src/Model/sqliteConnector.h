@@ -14,7 +14,6 @@
 #include <QSqlQueryModel>
 #include <QVariant>
 #include <QList>
-#include <QFileDialog>
 
 /*!
  * \file sqliteConnector.h
@@ -35,6 +34,8 @@ public:
     void createDatabase(const QString path);
 
     bool openDatabase(const QString path);
+
+    QSqlDatabase* getDb(){return &_db;}
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
 
