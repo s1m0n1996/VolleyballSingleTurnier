@@ -14,12 +14,14 @@ class Gameboard
 public:
     Gameboard(QList <Player> players);
     void addGame(Player player1, Player player2);
-    void prepareGameRandomly();
+    void prepareGameRandomly(void);
     void addWinnerToDatabank(int winnerId, int gameId);
-    void getNewTournamentId();
-    void randomInitialisation();
+    void getNewTournamentId(void);
+    void randomInitialisation(void);
     void createFirstGame(QString tournemantName);
-    void gameFlow();
+    void gameFlow(void);
+    int getLastGameIdInSameTournament(void);
+    int getGameId(void);
 
 private:
     QList <Player> _players;

@@ -32,14 +32,9 @@ void Gameboard::createFirstGame(QString tournemantName)
         games.append(Game(_players[i], _players[i+1]));
         QString sqlPrepare = R"(
         insert into game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time, player_a_id, player_b_id, winner_id)
-        values ((select id
-                 from game_board_list
-                 where sport_type_id = 1
-                 and game_mode_id = 1
-                 order by id desc
-                 limit 1) + 1,
-                 1, 1, ?, 'Test', ?, ?, 0))";                        //Testtime
+        values (?, 1, 1, ?, 'Test', ?, ?, 0))";                        //Testtime
         QList<QString> sqlParameters;
+        sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
         sqlParameters.append(QString::number(_tournamentId));
         sqlParameters.append(QString::number(_players[i].getId()));
         sqlParameters.append(QString::number(_players[i+1].getId()));
@@ -80,9 +75,37 @@ void Gameboard::getNewTournamentId()
                             FROM game_board_list)";
     QList<QVariant> tournament = _db->sqlQuery(sqlPrepare)[0];
     _tournamentId = tournament[0].toInt()+1;                        //Neue TunierId wird erzeugt
-
 }
 
+int Gameboard::getLastGameIdInSameTournament()
+{
+    QString sqlPrepare = R"(SELECT id
+                         FROM game_board_list
+                         WHERE sport_type_id = 1
+                         AND game_mode_id = 1
+                         AND tournament_id = ?
+                         ORDER by id desc
+                         limit 1)";
+    QList<QString> sqlParameters;
+    sqlParameters.append(QString::number(_tournamentId));
+    QList<QList<QVariant>> id = _db->sqlQuery(sqlPrepare, sqlParameters);
+    int lastId;
+    if(id.isEmpty())
+    {
+        lastId = 0;
+    }
+    else
+    {
+        lastId = id[0][0].toInt();
+    }
+
+    return lastId;
+}
+
+int Gameboard::getGameId()
+{
+
+}
 
 
 void Gameboard::randomInitialisation()
