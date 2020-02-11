@@ -15,11 +15,8 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1" rowspan="2">
-     <layout class="QVBoxLayout" name="startTournementLayout"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QTableView" name="tableView"/>
+    <item row="1" column="1">
+     <layout class="QVBoxLayout" name="maxPlayerLayout"/>
     </item>
     <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="colorLabel">
@@ -473,6 +470,9 @@
       </property>
      </widget>
     </item>
+    <item row="4" column="0">
+     <layout class="QGridLayout" name="addPlayerLayout"/>
+    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="headlineLabel">
       <property name="font">
@@ -486,11 +486,11 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <layout class="QVBoxLayout" name="maxPlayerLayout"/>
+    <item row="3" column="1" rowspan="2">
+     <layout class="QVBoxLayout" name="startTournementLayout"/>
     </item>
-    <item row="3" column="0">
-     <layout class="QGridLayout" name="addPlayerLayout"/>
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="tabelViewLayout"/>
     </item>
    </layout>
   </widget>
