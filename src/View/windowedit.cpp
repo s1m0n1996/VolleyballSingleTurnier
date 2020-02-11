@@ -2,9 +2,9 @@
 #include <QRegExp>
 #include <QRegExpValidator>
 
-WindowEdit::WindowEdit(QString text, QWidget *parent) : QLineEdit(parent)
+WindowEdit::WindowEdit(QString placeholder, QWidget *parent) : QLineEdit(parent)
 {
-    setPlaceholderText(text);
+    setPlaceholderText(placeholder);
     setFixedWidth(300);
     setStyleSheet("QLineEdit{"
                "font-size: 20px;"
@@ -15,17 +15,17 @@ WindowEdit::WindowEdit(QString text, QWidget *parent) : QLineEdit(parent)
 
 
 
-    if (text == "Max Mustermann")
+    if (placeholder == "Max Mustermann")
     {
         QRegExp re("[a-zA-Z ]*");
         validator->setRegExp(re);
     }
-    else if (text == "Deutschland")
+    else if (placeholder == "Deutschland")
     {
         QRegExp re("[a-zA-Z]*");
         validator->setRegExp(re);
     }
-    else if (text == "1990-01-30")
+    else if (placeholder == "1990-01-30")
     {
         QRegExp re("(\\d{4})(\\-)(\\d{2})(\\-)(\\d{2})");
         validator->setRegExp(re);

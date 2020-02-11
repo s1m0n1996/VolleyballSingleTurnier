@@ -6,7 +6,7 @@
 class WindowEdit: public QLineEdit
 {
 public:
-    WindowEdit(QString text, QWidget *parent = nullptr);
+    WindowEdit(QString placeholder, QWidget *parent = nullptr);
 };
 
 #endif // WINDOWEDIT_H
