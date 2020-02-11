@@ -2,12 +2,14 @@
 #define REFEREE_H
 
 #include <QList>
+#include <QObject>
 
 #include "Model/game.h"
 
 
-class Referee
+class Referee : public QObject
 {
+    Q_OBJECT
 public:
     Referee();
 
@@ -18,15 +20,20 @@ public:
     void setWinner();
     void legWinningCondition();
 
+
    // Game getAktivePlayer();
     QList<int> getThrows();
     int getAktivePlayer();
     int getRemainScore();
     QString getWinner();
     int getCountOfWinningLegs();
+    int getGameStart();
+    int  getThrowScore();
 
 signals:
     void valueChanged(void);
+    void playerBust(void);
+    void playerWinsLeg(void);
 
 private:
      int _valueMultiplikator        = 0;
@@ -34,6 +41,7 @@ private:
      int _throwCounter              = 0;
      int _player                    = 0;
      int _winner                    = 0;
+     int _throwScore                = 0;
      QList<int> _winningLegCounter  = {0,0};
      QList<int> _remainScore        = {501,501};
      QList<int> _allThrows          = {0,0,0};

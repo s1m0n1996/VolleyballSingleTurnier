@@ -2,6 +2,7 @@
 #include "ui_refereewindow.h"
 #include "View/dartboard.h"
 #include <QtMath>
+#include <QtDebug>
 
 
 RefereeWindow::RefereeWindow(Referee* referee, QWidget *parent) :
@@ -12,10 +13,12 @@ RefereeWindow::RefereeWindow(Referee* referee, QWidget *parent) :
     ui->setupUi(this);
     connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
     connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
-    connect(ui->DartboardView,SIGNAL(valueChanged()),this, SLOT(writeScore()));
+    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
     connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
     connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
     connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
+    connect(ui->gameStart,SIGNAL(released()),this, SLOT(gameStart()));
+    connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
 }
 
 RefereeWindow::~RefereeWindow()
@@ -207,8 +210,12 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
     {
         scoreWithoutMultiplikator = 25;
     }
-
     return scoreWithoutMultiplikator;
+
+}
+
+void RefereeWindow::mouseCurrentPos()
+{
 
 }
 
@@ -227,10 +234,23 @@ void RefereeWindow::writeNextPlayer()
     ui->playerName->setText(QString::number(_referee->getAktivePlayer()));
 }
 
+void RefereeWindow::gameStart()
+{
+    ui->playerName->setText(QString::number(_referee->getGameStart()));
+
+}
+
+void RefereeWindow::playerBust()
+{
+
+}
+
 void RefereeWindow::mouseReleasedOnDartboard()
 {
-    _referee->singleThrowScore(valueMultiplikator(), valueScoreWithoutMultiplikator());
-    _referee->setRemainScore();
+   _valueMultiplikator = valueMultiplikator();
+   _valueScoreWithoutMultiplikator =valueScoreWithoutMultiplikator();
+
+    _referee->singleThrowScore(_valueMultiplikator, _valueScoreWithoutMultiplikator);
     _referee->legWinningCondition();
 }
 
@@ -239,6 +259,7 @@ void RefereeWindow::writeScore()
     ui->throw1->setText(QString::number(_referee->getThrows()[0]));
     ui->throw2->setText(QString::number(_referee->getThrows()[1]));
     ui->throw3->setText(QString::number(_referee->getThrows()[2]));
+    ui->gesmatpunkte->setText(QString::number(_referee->getThrowScore()));
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
     ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
 }

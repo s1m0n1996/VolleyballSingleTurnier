@@ -20,23 +20,28 @@ public:
 public slots:
     int valueMultiplikator();
     int valueScoreWithoutMultiplikator();
+    void mouseCurrentPos();
     void mouseReleasedOnDartboard();
     void writeScore();
     void nextPlayer();
     void undoLastThrow();
     void writeNextPlayer();
+    void gameStart();
+    void playerBust();
 
 
 
 private:
     Ui::RefereeWindow *ui;
-    Referee* _referee                = nullptr;
-    const int _miss                  = 0;
-    const int _single                = 1;
-    const int _double                = 2;
-    const int _trible                = 3;
-    int _centralPointXY              = 0;
-    int _radius                      = 0;
+    Referee* _referee;
+    const int _miss                     = 0;
+    const int _single                   = 1;
+    const int _double                   = 2;
+    const int _trible                   = 3;
+    int _centralPointXY                 = 0;
+    int _radius                         = 0;
+    int _valueMultiplikator             = 0;
+    int _valueScoreWithoutMultiplikator = 0;
 
 };
 

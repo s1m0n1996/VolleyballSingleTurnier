@@ -16,6 +16,12 @@ void Referee::nextPlayer()
     {
         _player = 0;
     }
+    _throwCounter = 0;
+    _allThrows[0] = 0;
+    _allThrows[1] = 0;
+    _allThrows[2] = 0;
+
+    emit valueChanged();
 }
 
 int Referee::getAktivePlayer()
@@ -25,15 +31,16 @@ int Referee::getAktivePlayer()
 
 void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplikator)
 {
-    if (3 <= _throwCounter)
+    if (_throwCounter < 3)
     {
         _singleThrowScore = scoreWithoutMultiplikator * valueMultiplikator;
         _allThrows[_throwCounter] = _singleThrowScore;
+        qDebug()<<_singleThrowScore;
         _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
+        setRemainScore();
+        emit valueChanged();
     }
-
-    //emit valueChanged();
 }
 
 QList<int> Referee::getThrows()
@@ -59,6 +66,15 @@ void Referee::legWinningCondition()
     if (_remainScore[_player] == 0 and _valueMultiplikator == 2 and _winningLegCounter[_player] <= 3)
     {
         _winningLegCounter[_player]++;
+        _throwCounter = 3;
+        emit valueChanged();
+        emit playerWinsLeg();
+    }
+    else if (_remainScore[_player] == 0 and _valueMultiplikator != 2)
+    {
+        // es soll sich ein Popup öffnen indem man auswählen kann ob man UNDO auswählen möchte oder
+        //nächster Spieler wegen Bust dort muss dann der letzte Wurf zurück gesetzt werden.
+        emit playerBust();
     }
 }
 
@@ -82,7 +98,7 @@ void Referee::undoThrow()
         _allThrows[0] = 0;
         _throwCounter--;
     }
-    //emit valueChanged();
+    emit valueChanged();
 }
 
 int Referee::getRemainScore()
@@ -98,6 +114,16 @@ int Referee::getRemainScore()
 int Referee::getCountOfWinningLegs()
 {
     return _winningLegCounter[_player];
+}
+
+int Referee::getGameStart()
+{
+    return _player;
+}
+
+int Referee::getThrowScore()
+{
+    return _throwScore = _allThrows[0] + _allThrows[1] +_allThrows[2];
 }
 
 //Game Referee::getAktivePlayer()
