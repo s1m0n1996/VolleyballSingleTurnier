@@ -12,22 +12,22 @@
 class Gameboard
 {
 public:
-    Gameboard(QList <Player> players);
-    void addGame(Player player1, Player player2);
-    void prepareGameRandomly(void);
-    void addWinnerToDatabank(int winnerId, int gameId);
-    void getNewTournamentId(void);
-    void randomInitialisation(void);
-    void createFirstGame(QString tournemantName);
-    void gameFlow(void);
-    int getLastGameIdInSameTournament(void);
-    int getGameId(void);
+    Gameboard(QList <Player> players, QString tournamentName);
+    void addWinnerToDatabase(int winnerId, int gameId);
 
 private:
     QList <Player> _players;
     QList <int> _gameIds;
     SqliteConnector* _db;
     int _tournamentId;
+    int _totalGames;
+    int getLastGameIdInSameTournament(void);
+    void createFirstGames();
+    void prepareGameRandomly(void);
+    void getNewTournamentId(void);
+    void randomInitialisation(void);
+    void createRemainingGames();
+    void createNewTournament(QString tournamentName);
 };
 
 #endif // GAMEBOARD_H

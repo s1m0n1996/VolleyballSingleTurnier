@@ -1,15 +1,30 @@
 #include "gameboard.h"
 
-Gameboard::Gameboard(QList <Player> players)
+Gameboard::Gameboard(QList <Player> players, QString tournamentName)
 {
     _db = &SqliteConnector::instance();
     _players = players;
+    createNewTournament(tournamentName);
+    prepareGameRandomly();
+    createFirstGames();
+    createRemainingGames();
 }
 
-void Gameboard::gameFlow()
+
+void Gameboard::createNewTournament(QString tournamentName)
 {
-    prepareGameRandomly();
+    getNewTournamentId();
+    QString sqlPrepare = R"(
+            insert into tournament_list (id, sport_type_id, game_mode_id, name, date)
+            values(?, 1, 1, ?, ?))";
+    QList<QString> sqlParameters;
+    sqlParameters.append(QString::number(_tournamentId));
+    sqlParameters.append(tournamentName);
+    QDate date;
+    sqlParameters.append(date.currentDate().toString("yyyy-MM-dd"));
+    _db->sqlQuery(sqlPrepare, sqlParameters);
 }
+
 
 void Gameboard::prepareGameRandomly()
 {
@@ -23,36 +38,47 @@ void Gameboard::prepareGameRandomly()
     }
 }
 
-void Gameboard::createFirstGame(QString tournemantName)
+
+void Gameboard::createFirstGames()
 {
-    getNewTournamentId();
-    QList <Game> games;
-    for (int i = 0; i <= _players.size()/2 ; i=i+2)
+    for (int i = 1; i < _players.size() ; i=i+2)
     {
-        games.append(Game(_players[i], _players[i+1]));
         QString sqlPrepare = R"(
-        insert into game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time, player_a_id, player_b_id, winner_id)
-        values (?, 1, 1, ?, 'Test', ?, ?, 0))";                        //Testtime
+        insert into game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time, player_a_id, player_b_id)
+        values (?, 1, 1, ?, 'Test', ?, ?))";                        //Testtime
         QList<QString> sqlParameters;
         sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
         sqlParameters.append(QString::number(_tournamentId));
+        sqlParameters.append(QString::number(_players[i-1].getId()));
         sqlParameters.append(QString::number(_players[i].getId()));
-        sqlParameters.append(QString::number(_players[i+1].getId()));
         _db->sqlQuery(sqlPrepare, sqlParameters);
     }
-    QString sqlPrepare = R"(
-            insert into tournament_list (id, sport_type_id, game_mode_id, name, date)
-            values(?, 1, 1, ?, ?))";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(_tournamentId));
-    sqlParameters.append(tournemantName);
-    QDate date;
-    sqlParameters.append(date.currentDate().toString("yyyy-MM-dd"));
-    _db->sqlQuery(sqlPrepare, sqlParameters);
 }
 
 
-void Gameboard::addWinnerToDatabank(int winnerId, int gameId)
+void Gameboard::createRemainingGames()
+{
+    int numberOfGames = 0;
+    for (int i=_players.size(); i > 1; i=i/2)
+    {
+        numberOfGames+= i/2;
+    }
+    numberOfGames -= _players.size()/2;
+
+    for (int k = 0; k<numberOfGames; k++)
+    {
+        QString sqlPrepare = R"(
+        insert into game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time)
+        values (?, 1, 1, ?, 'Test'))";                        //Testtime
+        QList<QString> sqlParameters;
+        sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
+        sqlParameters.append(QString::number(_tournamentId));
+        _db->sqlQuery(sqlPrepare, sqlParameters);
+    }
+}
+
+
+void Gameboard::addWinnerToDatabase(int winnerId, int gameId)
 {
     QString sqlPrepare = R"(
                          UPDATE game_board_list
@@ -63,7 +89,7 @@ void Gameboard::addWinnerToDatabank(int winnerId, int gameId)
                            AND tournament_id = ?;)";
     QList<QString> sqlParameters;
     sqlParameters.append(QString::number(winnerId));
-    sqlParameters.append(QString::number(gameId));               //TODO: Id des Spieles, wo der Gewinner hizu kommt herausfinden
+    sqlParameters.append(QString::number(gameId));               //TODO: Id des Spieles, wo der Gewinner hinzu kommt herausfinden
     sqlParameters.append(QString::number(_tournamentId));
     _db->sqlQuery(sqlPrepare, sqlParameters);
 }
@@ -76,6 +102,7 @@ void Gameboard::getNewTournamentId()
     QList<QVariant> tournament = _db->sqlQuery(sqlPrepare)[0];
     _tournamentId = tournament[0].toInt()+1;                        //Neue TunierId wird erzeugt
 }
+
 
 int Gameboard::getLastGameIdInSameTournament()
 {
@@ -102,16 +129,9 @@ int Gameboard::getLastGameIdInSameTournament()
     return lastId;
 }
 
-int Gameboard::getGameId()
-{
-
-}
-
 
 void Gameboard::randomInitialisation()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
     rand();
 }
-
-
