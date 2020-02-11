@@ -29,6 +29,8 @@ SOURCES += \
     View/menubutton.cpp \
     View/playermanagementWindow.cpp \
     View/refereewindow.cpp \
+    View/tabelview.cpp \
+    View/tournementnamepopup.cpp \
     View/tournementwindow.cpp \
     View/viewerwindow.cpp \
     View/windowbutton.cpp \
@@ -50,6 +52,8 @@ HEADERS += \
     View/menubutton.h \
     View/playermanagementWindow.h \
     View/refereewindow.h \
+    View/tabelview.h \
+    View/tournementnamepopup.h \
     View/tournementwindow.h \
     View/viewerwindow.h \
     View/windowbutton.h \
