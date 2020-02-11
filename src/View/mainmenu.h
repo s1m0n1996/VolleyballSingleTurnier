@@ -10,6 +10,7 @@
 #include "View/refereewindow.h"
 #include "View/tournementwindow.h"
 #include "View/viewerwindow.h"
+#include "View/windowlabel.h"
 
 #include <QPalette>
 #include <QAction>
@@ -56,6 +57,7 @@ private:
     void setButtonsLayout();
     Ui::MainMenu *ui;
     Model* _model = nullptr;
+    WindowLabel* _note = nullptr;
     MenuButton* _playermanagment = nullptr;
     MenuButton* _tournement = nullptr;
     MenuButton* _viewer = nullptr;

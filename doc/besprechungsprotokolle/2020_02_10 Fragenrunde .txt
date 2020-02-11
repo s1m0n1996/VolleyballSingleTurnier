@@ -1,0 +1,40 @@
+﻿------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 05.02.2020
+	10:16 - 10:40 Uhr = 24 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Simon Flörke
+
+------------------------------------------------------------------------------------------------------------------------
+
+Besprechung der aufgekommenen Fragen während des Programmierens.
+
+Fragen von Lea:
+
+    - SetStyleSheet funktioniert in Funktion nicht
+        -> Klassenname vor der Funktionsdefinition vergessen.
+    - Fenster lies sich nicht über connect finden
+	-> Q_OBJEKT in header Datei einfügen. Dann alles neu erstellen, qmake ausführen und dann compilen 
+
+
+Fragen von Simon:
+    - Includes in der Header Datei?
+        -> Kein Standart
+        -> Includes so spät wie möglich, sonst Compilezeit länger
+        -> Trick: in Header Datei andeuten und in Cpp DAtei includen ( FUnktioniert nur wenn in der Header Datei nur ein Zeiger benötogt wird)
+    - Doxygeb Files: sollen erzuegte Dateien auch in GIT?
+        -> erzeugte Dateien müssen nicht ins GIT
+    - Tabelle Model/View: Welche Klasse besser QSqlTabel oder QSql
+	-> Keine Angaben
+	-> nahc Versionsnummer gucken und die aktuellere nehmen
+    - Wo werden Model und View Objekte erzeugt?
+	-> Main sol kurz bleiben, also Verwaltung auslagern in eine eigene "Erbauerklasse"

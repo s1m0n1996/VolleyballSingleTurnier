@@ -42,7 +42,7 @@ public slots:
     void showTabel(void);
     void highlightRow(void);
     void giveModel(void);
-
+    void deleteByModel(void);
 
 
 private slots:

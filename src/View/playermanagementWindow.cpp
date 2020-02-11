@@ -50,25 +50,44 @@ void PlayermanagementWindow::connecting()
     connect(_addPlayerButton,SIGNAL(released()), this, SLOT(addPlayer()));
     connect(_startTournementButton, SIGNAL(released()), this, SLOT(tournementName()));
     connect(_add,SIGNAL(released()), this, SLOT(giveModel()));
+    connect(_delete,SIGNAL(released()), this, SLOT(deleteByModel()));
 }
 QList<QList<QString>> PlayermanagementWindow::getList()
 {
  return _listAll;
 }
+
+void PlayermanagementWindow::deleteByModel()
+{   // TODO: model für _gamePlayer setzen
+//    QAbstractItemModel* modelGame = _gamePlayer->model();
+//    QModelIndexList selectionGame = _gamePlayer->selectionModel()->selectedRows();
+
+
+//    for (QModelIndex index : selectionGame)
+//    {
+//        QList<QString> listSingel;
+//        listSingel.append(modelGame->index(index.row() , 0).data().toString());
+//        listSingel.append(modelGame->index(index.row() , 1).data().toString());
+//        listSingel.append(modelGame->index(index.row() , 2).data().toString());
+
+//        _listAll.append(listSingel);
+//    }
+
+//    qDebug()<< _listAll;
+}
 void PlayermanagementWindow::giveModel()
 {
 
-    QAbstractItemModel* model = _allPlayer->model();
-    QModelIndexList selection = _allPlayer->selectionModel()->selectedRows();
+    QAbstractItemModel* modelAll = _allPlayer->model();
+    QModelIndexList selectionAll = _allPlayer->selectionModel()->selectedRows();
 
 
-    for (QModelIndex index : selection)
+    for (QModelIndex index : selectionAll)
     {
         QList<QString> listSingel;
-
-        listSingel.append(model->index(index.row() , 0).data().toString());
-        listSingel.append(model->index(index.row() , 1).data().toString());
-        listSingel.append(model->index(index.row() , 2).data().toString());
+        listSingel.append(modelAll->index(index.row() , 0).data().toString());
+        listSingel.append(modelAll->index(index.row() , 1).data().toString());
+        listSingel.append(modelAll->index(index.row() , 2).data().toString());
 
         _listAll.append(listSingel);
     }
@@ -143,8 +162,12 @@ void PlayermanagementWindow::setAllLayout()
 
     ui->addPlayerLayout->addWidget(_addPlayerButton,5,Qt::AlignRight);
 
+    QVBoxLayout* addDeleteLayout = new QVBoxLayout;
+
     ui->tabelViewLayout->addWidget(_allPlayer);
-    ui->tabelViewLayout->addWidget(_add);
+    ui->tabelViewLayout->addLayout(addDeleteLayout);
+    addDeleteLayout->addWidget(_add);
+    addDeleteLayout->addWidget(_delete);
     ui->tabelViewLayout->addWidget(_gamePlayer);
 
 }

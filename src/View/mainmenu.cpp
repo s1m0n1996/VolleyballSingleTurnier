@@ -73,7 +73,8 @@ void MainMenu:: connecting()
 
 void MainMenu::createButton()
 {
-        _playermanagment    = new MenuButton("Meldestelle");
+       _note                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
+       _playermanagment     = new MenuButton("Meldestelle");
        _tournement          = new MenuButton("Spielplan");
        _viewer              = new MenuButton("Zuschaueransicht");
        _referee             = new MenuButton("Richteransicht");
@@ -86,6 +87,7 @@ void MainMenu::setButtonsLayout()
 {
 
     ui->verticalLayout->setSpacing(30);
+    ui->verticalLayout->addWidget(_note,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_playermanagment,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_tournement,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_viewer,0,Qt::AlignCenter);
