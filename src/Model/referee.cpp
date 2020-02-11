@@ -18,12 +18,18 @@ void Referee::nextPlayer()
     }
 }
 
+int Referee::getAktivePlayer()
+{
+    return _player;
+}
+
 void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplikator)
 {
     if (3 <= _throwCounter)
     {
         _singleThrowScore = scoreWithoutMultiplikator * valueMultiplikator;
         _allThrows[_throwCounter] = _singleThrowScore;
+        _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
     }
 
@@ -38,6 +44,22 @@ QList<int> Referee::getThrows()
 void Referee::setRemainScore()
 {
     _remainScore[_player] = _remainScore[_player] - _singleThrowScore;
+}
+
+void Referee::setWinner()
+{
+    if (_winningLegCounter[_player] == 3)
+    {
+        _winner = _player;
+    }
+}
+
+void Referee::legWinningCondition()
+{
+    if (_remainScore[_player] == 0 and _valueMultiplikator == 2 and _winningLegCounter[_player] <= 3)
+    {
+        _winningLegCounter[_player]++;
+    }
 }
 
 void Referee::undoThrow()
@@ -66,6 +88,16 @@ void Referee::undoThrow()
 int Referee::getRemainScore()
 {
     return _remainScore[_player];
+}
+
+//QString Referee::getWinner()
+//{
+
+//}
+
+int Referee::getCountOfWinningLegs()
+{
+    return _winningLegCounter[_player];
 }
 
 //Game Referee::getAktivePlayer()

@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QEvent>
 #include <QDebug>
+#include <QWidget>
 
 class Dartboard : public QLabel
 {

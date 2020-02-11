@@ -23,10 +23,10 @@
    <widget class="Dartboard" name="DartboardView">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>100</y>
-      <width>1300</width>
-      <height>1300</height>
+      <x>-1</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>1000</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -67,7 +67,7 @@
     <property name="geometry">
      <rect>
       <x>1550</x>
-      <y>980</y>
+      <y>1050</y>
       <width>221</width>
       <height>61</height>
      </rect>
@@ -81,8 +81,8 @@
      <rect>
       <x>1520</x>
       <y>480</y>
-      <width>281</width>
-      <height>391</height>
+      <width>421</width>
+      <height>461</height>
      </rect>
     </property>
     <property name="title">
@@ -90,11 +90,22 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="playerName">
-       <property name="text">
-        <string>Spieler Name</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Aktiver Spieler:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="playerName">
+         <property name="text">
+          <string>Max Mustermann</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -186,13 +197,31 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Anzahl gewonnener Legs:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="countWinningLegs">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="nextPlayer">
     <property name="geometry">
      <rect>
       <x>1550</x>
-      <y>910</y>
+      <y>980</y>
       <width>221</width>
       <height>61</height>
      </rect>

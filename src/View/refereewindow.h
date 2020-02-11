@@ -24,6 +24,7 @@ public slots:
     void writeScore();
     void nextPlayer();
     void undoLastThrow();
+    void writeNextPlayer();
 
 
 

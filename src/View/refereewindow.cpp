@@ -13,9 +13,9 @@ RefereeWindow::RefereeWindow(Referee* referee, QWidget *parent) :
     connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
     connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
     connect(ui->DartboardView,SIGNAL(valueChanged()),this, SLOT(writeScore()));
-    connect(ui->nextPlayer,SIGNAL(released),this, SLOT(nextPlayer));
-    connect(ui->undoLastThrow,SIGNAL(released),this, SLOT(undoLastThrow));
-
+    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
+    connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
+    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
 }
 
 RefereeWindow::~RefereeWindow()
@@ -222,10 +222,16 @@ void RefereeWindow::undoLastThrow()
     _referee->undoThrow();
 }
 
+void RefereeWindow::writeNextPlayer()
+{
+    ui->playerName->setText(QString::number(_referee->getAktivePlayer()));
+}
+
 void RefereeWindow::mouseReleasedOnDartboard()
 {
     _referee->singleThrowScore(valueMultiplikator(), valueScoreWithoutMultiplikator());
     _referee->setRemainScore();
+    _referee->legWinningCondition();
 }
 
 void RefereeWindow::writeScore()
@@ -234,4 +240,5 @@ void RefereeWindow::writeScore()
     ui->throw2->setText(QString::number(_referee->getThrows()[1]));
     ui->throw3->setText(QString::number(_referee->getThrows()[2]));
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
+    ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
 }
