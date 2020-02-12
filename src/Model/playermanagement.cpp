@@ -81,6 +81,8 @@ VALUES ((SELECT id FROM player_list WHERE name = '?' AND birthday = '?' AND coun
 
     _db->sqlQuery(sqlQuery);
     _refreshNextGamePlayerTable();
+
+    emit valueChanged();
 }
 
 /*!
@@ -140,6 +142,7 @@ WHERE player_id =
 
     _db->sqlQuery(sqlQuery);
     _refreshNextGamePlayerTable();
+    emit valueChanged();
 }
 
 /*!

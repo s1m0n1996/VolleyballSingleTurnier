@@ -20,8 +20,9 @@
  *
  *
 */
-class PlayerManagement {
+class PlayerManagement : public QObject{
 
+    Q_OBJECT
 public:
     PlayerManagement();
 
@@ -42,6 +43,10 @@ public:
     int countMissingPlayersForNewGame();
 
     void refreshDatabasePlayerTable();
+
+signals:
+    void valueChanged(void);
+
 
 private:
     SqliteConnector* _db;

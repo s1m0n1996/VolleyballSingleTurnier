@@ -43,10 +43,6 @@ public slots:
     void giveModel(void);
     void deleteByModel(void);
 
-
-private slots:
-
-
 private:
     void connecting();
     void createAddPlayerEdit();

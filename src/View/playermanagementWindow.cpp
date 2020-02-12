@@ -51,6 +51,7 @@ void PlayermanagementWindow::connecting()
     connect(_startTournementButton, SIGNAL(released()), this, SLOT(tournementName()));
     connect(_add,SIGNAL(released()), this, SLOT(giveModel()));
     connect(_delete,SIGNAL(released()), this, SLOT(deleteByModel()));
+    connect(_model,SIGNAL(valueChanged()), this, SLOT(setMaxPlayerLabel()));
 }
 QList<QList<QString>> PlayermanagementWindow::getList()
 {
