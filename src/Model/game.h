@@ -1,18 +1,25 @@
 #ifndef GAME_H
 #define GAME_H
 #include "Model/player.h"
+#include "Model/sqliteConnector.h"
 
 
 class Game
 {
 public:
-    explicit Game(const Player playerA, const Player playerB);
+    explicit Game(const int _tournamentId);
 
-    Player callWinner(void);
+
+    void loadNextGame(void);
+    void setNextWinner(int winnerId);
+    void prepareNextGame(void);
 
 private:
-    Player _playerA = Player(1);
-    Player _playerB = Player(1);
+    SqliteConnector* _db;
+    int _tournamentId;
+    int _gameId;
+    Player _playerA;
+    Player _playerB;
 };
 
 #endif // GAME_H

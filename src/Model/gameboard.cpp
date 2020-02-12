@@ -15,8 +15,8 @@ void Gameboard::createNewTournament(QString tournamentName)
 {
     getNewTournamentId();
     QString sqlPrepare = R"(
-            insert into tournament_list (id, sport_type_id, game_mode_id, name, date)
-            values(?, 1, 1, ?, ?))";
+            INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
+            VALUES(?, 1, 1, ?, ?))";
     QList<QString> sqlParameters;
     sqlParameters.append(QString::number(_tournamentId));
     sqlParameters.append(tournamentName);
@@ -44,8 +44,8 @@ void Gameboard::createFirstGames()
     for (int i = 1; i < _players.size() ; i=i+2)
     {
         QString sqlPrepare = R"(
-        insert into game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time, player_a_id, player_b_id)
-        values (?, 1, 1, ?, 'Test', ?, ?))";                        //Testtime
+        INSERT INTO game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time, player_a_id, player_b_id)
+        VALUES (?, 1, 1, ?, 'Test', ?, ?))";                        //Testtime
         QList<QString> sqlParameters;
         sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
         sqlParameters.append(QString::number(_tournamentId));
@@ -68,30 +68,13 @@ void Gameboard::createRemainingGames()
     for (int k = 0; k<numberOfGames; k++)
     {
         QString sqlPrepare = R"(
-        insert into game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time)
-        values (?, 1, 1, ?, 'Test'))";                        //Testtime
+        INSERT INTO game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time)
+        VALUES (?, 1, 1, ?, 'Test'))";                        //Testtime
         QList<QString> sqlParameters;
         sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
         sqlParameters.append(QString::number(_tournamentId));
         _db->sqlQuery(sqlPrepare, sqlParameters);
     }
-}
-
-
-void Gameboard::addWinnerToDatabase(int winnerId, int gameId)
-{
-    QString sqlPrepare = R"(
-                         UPDATE game_board_list
-                         SET winner_id = ?
-                         WHERE id = ?
-                           AND sport_type_id = 1
-                           AND game_mode_id = 1
-                           AND tournament_id = ?;)";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(winnerId));
-    sqlParameters.append(QString::number(gameId));               //TODO: Id des Spieles, wo der Gewinner hinzu kommt herausfinden
-    sqlParameters.append(QString::number(_tournamentId));
-    _db->sqlQuery(sqlPrepare, sqlParameters);
 }
 
 
