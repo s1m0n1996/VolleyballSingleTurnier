@@ -188,7 +188,7 @@ void PlayermanagementWindow::addPlayer()
 
     Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
 
-    _model-> addPlayerForNewGame(*newplayer);
+    //_model-> addPlayerForNewGame(*newplayer);
 
     _allPlayer->setModel(_model->getDatabaseTableModel());
     _playernameEdit->clear();
