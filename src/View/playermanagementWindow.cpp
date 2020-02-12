@@ -84,16 +84,13 @@ void PlayermanagementWindow::giveModel()
 
     for (QModelIndex index : selectionAll)
     {
-        QList<QString> listSingel;
-        listSingel.append(modelAll->index(index.row() , 0).data().toString());
-        listSingel.append(modelAll->index(index.row() , 1).data().toString());
-        listSingel.append(modelAll->index(index.row() , 2).data().toString());
-
-        _listAll.append(listSingel);
+        _model->addPlayerForNewGame(Player(
+                modelAll->index(index.row() , 0).data().toString(),
+                modelAll->index(index.row() , 1).data().toString(),
+                modelAll->index(index.row() , 2).data().toString()));
     }
-
-    qDebug()<< _listAll;
 }
+
 void PlayermanagementWindow::showTabel()
 {
     _model      = new PlayerManagement;
@@ -103,6 +100,11 @@ void PlayermanagementWindow::showTabel()
     _allPlayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     _allPlayer->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     _allPlayer->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+
+    _gamePlayer->setModel(_model->getNextGamePlayerTableModel());
+    _gamePlayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    _gamePlayer->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    _gamePlayer->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
 }
 void PlayermanagementWindow::tournementName()
@@ -115,7 +117,7 @@ void PlayermanagementWindow::tournementName()
 void PlayermanagementWindow::createMaxPlayer()
 {
     _nameMaxPlayerLabel = new WindowLabel("benötigte Spieler:");
-    _valueMaxPlayerLabel = new WindowLabel("2");
+    _valueMaxPlayerLabel = new WindowLabel(QString::number(_model->countMissingPlayersForNewGame()));
 
 }
 void PlayermanagementWindow::createAddPlayerEdit()
@@ -191,5 +193,7 @@ void PlayermanagementWindow::addPlayer()
     _playernameEdit->clear();
     _birthdayEdit->clear();
     _countryEdit->clear();
+
+    _model->refreshDatabasePlayerTable();
 }
 
