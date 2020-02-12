@@ -40,7 +40,6 @@ public slots:
     void setMaxPlayerLabel(void);
     void tournementName(void);
     void showTabel(void);
-    void highlightRow(void);
     void giveModel(void);
     void deleteByModel(void);
 

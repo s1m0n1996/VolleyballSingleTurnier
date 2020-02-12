@@ -74,6 +74,10 @@ void MainMenu:: connecting()
 void MainMenu::createButton()
 {
        _note                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
+       _note->setStyleSheet("QLabel{"
+                            "font-size: 25px;"
+                            "font-family: Candara;"
+                            "color: red;}");
        _playermanagment     = new MenuButton("Meldestelle");
        _tournement          = new MenuButton("Spielplan");
        _viewer              = new MenuButton("Zuschaueransicht");
