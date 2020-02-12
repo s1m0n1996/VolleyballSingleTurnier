@@ -27,25 +27,27 @@ public:
 
     QList<Player> getAllStoredPlayers(bool onlyAvailable = true);
 
-    QSqlQueryModel* getDatabaseTableModel(){return _playerTable;}
+    QSqlQueryModel* getDatabaseTableModel(){return _databasePlayerTable;}
+
+    QSqlQueryModel* getNextGamePlayerTableModel(){return _nextGamePlayerTableModel;}
 
     void addPlayerForNewGame(const Player addPlayer);
 
-    void dropPlayerForNewGame(Player dropPlayer);
+    void dropPlayerForNewGame(const Player dropPlayer);
 
     int countSelectedPlayersForNewGame();
 
     int countMissingPlayersForNewGame();
 
-    void printPlayersList();
+    void refreshDatabasePlayerTable();
 
 private:
     SqliteConnector* _db;
-    QList<Player> _selectedPlayersForNewGame;
 
-    QSqlQueryModel* _playerTable;
+    QSqlQueryModel* _databasePlayerTable = new QSqlQueryModel();
+    QSqlQueryModel* _nextGamePlayerTableModel = new QSqlQueryModel();
 
-    void _createPlayerTable();
+    void _refreshNextGamePlayerTable();
 };
 
 

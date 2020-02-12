@@ -1,3 +1,6 @@
+
+PRAGMA foreign_keys = ON;
+
 --######################################################################################################################
 -- create player_list table
 --######################################################################################################################
@@ -155,5 +158,24 @@ CREATE TABLE leg_history_list
         FOREIGN KEY (value_type_id, sport_type_id) REFERENCES history_value_type (id, sport_type_id),
     CONSTRAINT leg_history_list_player_list_fk
         FOREIGN KEY (player_id) REFERENCES player_list (id)
+);
+
+--######################################################################################################################
+-- create tournament_players_list table
+--######################################################################################################################
+--
+-- on this table are the players for the next tournier. So you can select and store players without start a game.
+--
+create table tournament_players_list
+(
+    player_id INTEGER not null
+        references player_list,
+    sport_type_id integer not null,
+    game_mode_id INTEGER not null,
+    tournament_id INTEGER not null,
+    constraint tournament_players_list_pk
+        primary key (player_id, sport_type_id, game_mode_id, tournament_id),
+    constraint tournament_players_list_tournament_list_sport_type_id_game_mode_id_id_fk
+        foreign key (sport_type_id, game_mode_id, tournament_id) references tournament_list (sport_type_id, game_mode_id, id)
 );
 

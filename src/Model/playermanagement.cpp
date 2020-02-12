@@ -5,7 +5,8 @@
 PlayerManagement::PlayerManagement()
 {
     _db = &SqliteConnector::instance();
-    _createPlayerTable();
+    refreshDatabasePlayerTable();
+    _refreshNextGamePlayerTable();
 }
 
 /*!
@@ -57,7 +58,29 @@ ORDER BY name;
  */
 void PlayerManagement::addPlayerForNewGame(const Player addPlayer)
 {
-    _selectedPlayersForNewGame.append(addPlayer);
+    // TODO: Wieder Prepare system verwenden wenn der bug gefunden ist
+    QString sqlPrepare = R"(
+INSERT INTO tournament_players_list
+VALUES ((SELECT id FROM player_list WHERE name = '?' AND birthday = '?' AND country = '?'), 1, 1, ?);
+)";
+
+    QList<QString> sqlParameters;
+    sqlParameters.append(addPlayer.getName());
+    sqlParameters.append(addPlayer.getBirthday());
+    sqlParameters.append(addPlayer.getCountry());
+    // TODO: mehrere turniere auswählen
+    sqlParameters.append("1"); //tournemant id
+
+    QString sqlQuery = "INSERT INTO tournament_players_list VALUES ((SELECT id FROM player_list WHERE name = '";
+    sqlQuery += addPlayer.getName() + "'";
+    sqlQuery += " AND birthday = '";
+    sqlQuery += addPlayer.getBirthday() + "'";
+    sqlQuery += "AND country = '";
+    sqlQuery += addPlayer.getCountry() + "'";
+    sqlQuery += "), 1, 1, 1);";
+
+    _db->sqlQuery(sqlQuery);
+    _refreshNextGamePlayerTable();
 }
 
 /*!
@@ -67,28 +90,68 @@ void PlayerManagement::addPlayerForNewGame(const Player addPlayer)
  *
  * This method is the undo function for addPlayerForNewGame
  */
-void PlayerManagement::dropPlayerForNewGame(Player dropPlayer)
+void PlayerManagement::dropPlayerForNewGame(const Player dropPlayer)
 {
-    int i = 0;
-    for (const Player& player : _selectedPlayersForNewGame)
-    {
-        if (dropPlayer.getId() == player.getId())
-        {
-            _selectedPlayersForNewGame.removeAt(i);
-            return;
-        }
-        i++;
-    }
+    // TODO: Wieder Prepare system verwenden wenn der bug gefunden ist
+    QString sqlPrepare = R"(
+DELETE
+FROM tournament_players_list
+WHERE player_id =
+      (SELECT id FROM player_list WHERE name = '?' AND birthday = '?' AND country = '?')
+  AND sport_type_id = 1
+  AND game_mode_id = 1
+  AND tournament_id = ?
+)";
+
+    QList<QString> sqlParameters;
+    sqlParameters.append(dropPlayer.getName());
+    sqlParameters.append(dropPlayer.getBirthday());
+    sqlParameters.append(dropPlayer.getCountry());
+    // TODO: mehrere turniere auswählen
+    sqlParameters.append("1"); //tournemant id
+
+    QString sqlQuery = R"(
+DELETE
+FROM tournament_players_list
+WHERE player_id =
+      (SELECT id FROM player_list WHERE name = ')";
+
+    sqlQuery += dropPlayer.getName() + "'";
+    sqlQuery += " AND birthday = '";
+    sqlQuery += dropPlayer.getBirthday() + "'";
+    sqlQuery += "AND country = '";
+    sqlQuery += dropPlayer.getCountry() + "')";
+    sqlQuery += "  AND sport_type_id = 1\n"
+                "  AND game_mode_id = 1\n"
+                "  AND tournament_id = 1";
+
+    _db->sqlQuery(sqlQuery);
+    _refreshNextGamePlayerTable();
 }
 
 /*!
- * \brief count the players they are on the list for the next game
+ * \brief count the players that are selected for the new game
  *
- * \return players of the list
+ * \return number of players
  */
 int PlayerManagement::countSelectedPlayersForNewGame()
 {
-    return _selectedPlayersForNewGame.length();
+
+    QString sqlQuery = R"(
+SELECT Count(*)
+FROM tournament_players_list
+WHERE sport_type_id = 1
+  AND game_mode_id = 1
+  AND tournament_id = 1;)";
+
+    QList<QList<QVariant>> data = _db->sqlQuery(sqlQuery);
+
+    if (data.length() <= 0)
+    {
+        return 0;
+    }
+
+    return data[0][0].toInt();
 }
 
 /*!
@@ -105,10 +168,11 @@ int PlayerManagement::countSelectedPlayersForNewGame()
  */
 int PlayerManagement::countMissingPlayersForNewGame()
 {
-    int nActualPlayers = _selectedPlayersForNewGame.length();
+    int nActualPlayers = countSelectedPlayersForNewGame();
 
     // the calculation not works with 0 because the log(<1) is negative.
-    if (0 == nActualPlayers){
+    if (0 == nActualPlayers)
+    {
         return 2;
     }
     // the calculation not works with 1 because the log(1) = 0
@@ -118,7 +182,6 @@ int PlayerManagement::countMissingPlayersForNewGame()
     }
 
     double actualExponent = log(nActualPlayers) / log(2);
-    qDebug() << "Exp: " << actualExponent;
     if ((actualExponent - static_cast<int>(actualExponent)) == 0)
     {
         // the exponent is direct number, so the list is complete
@@ -130,33 +193,27 @@ int PlayerManagement::countMissingPlayersForNewGame()
 }
 
 /*!
- * \brief print the player list for easier debugging
- * count the players they are missing to the next 2^n kompatibität
+ * \brief create or refresh the player table from the database
+ *
+ * this method refresh the model data from the table. After a call the same data from the database are in the model.
  */
-void PlayerManagement::printPlayersList()
+void PlayerManagement::refreshDatabasePlayerTable()
 {
-    for (const Player& player : _selectedPlayersForNewGame)
-    {
-        qDebug() << player.getId() << player.getName() << player.getBirthday() << player.getCountry();
-    }
+    _databasePlayerTable->setQuery("SELECT name, birthday, country FROM player_list where is_available >= 1");
 }
 
-void PlayerManagement::_createPlayerTable(){
-
-    // give the opened database to the table
-    //_playerTable = new QSqlTableModel(nullptr, *_db->getDb());
-    _playerTable = new QSqlQueryModel();
-
-    //_playerTable->setTable("player_list");
-    _playerTable->setQuery("SELECT name, birthday, country FROM player_list where is_available >= 1");
-    //_playerTable->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    //_playerTable->select();
-
-    //_playerTable->setFilter("is_available>=1");
-
-    //_playerTable->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-    _playerTable->setHeaderData(0, Qt::Horizontal, QObject::tr("Name"));
-    _playerTable->setHeaderData(1, Qt::Horizontal, QObject::tr("Geburtstag"));
-    _playerTable->setHeaderData(2, Qt::Horizontal, QObject::tr("Land"));
-    //_playerTable->setHeaderData(0, Qt::Horizontal, QObject::tr("is_available"));
+/*!
+ * \brief create or refresh the player tablefor the next game from the database
+ *
+ * this method refresh the model data from the table. After a call the same data from the database are in the model.
+ */
+void PlayerManagement::_refreshNextGamePlayerTable()
+{
+    _nextGamePlayerTableModel->setQuery(R"(
+SELECT pl.name, pl.country, pl.birthday
+FROM tournament_players_list
+         INNER JOIN player_list pl ON tournament_players_list.player_id = pl.id
+WHERE sport_type_id = 1
+  AND game_mode_id = 1
+  AND tournament_id = 1;)");
 }
