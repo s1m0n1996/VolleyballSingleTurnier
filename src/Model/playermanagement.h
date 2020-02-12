@@ -33,6 +33,8 @@ public:
 
     void addPlayerForNewGame(const Player addPlayer);
 
+    void addPlayerForNewGame(const QList<Player> addPlayers);
+
     void dropPlayerForNewGame(const Player dropPlayer);
 
     int countSelectedPlayersForNewGame();

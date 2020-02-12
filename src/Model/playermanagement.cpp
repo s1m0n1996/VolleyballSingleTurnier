@@ -84,6 +84,19 @@ VALUES ((SELECT id FROM player_list WHERE name = '?' AND birthday = '?' AND coun
 }
 
 /*!
+ * \brief add a player to the actual turnier gameboard
+ *
+ * \param[in] addPlayer the player that would be added to the actual turnier gameboard
+ */
+void PlayerManagement::addPlayerForNewGame(const QList<Player> addPlayer)
+{
+    for (Player player : addPlayer)
+    {
+        addPlayerForNewGame(player);
+    }
+}
+
+/*!
  * \brief drop a player to the actual turnier gameboard
  *
  * \param[in] dropPlayer the player from the list that would be added to the actual turnier gameboard
