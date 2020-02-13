@@ -18,6 +18,8 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
 
+    _playerManagementModel = new PlayerManagement();
+    _playerManagementModel->getDatabaseTableModel();
 
 }
 MainMenu::~MainMenu()
@@ -27,7 +29,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::openPlayermanagmentWindow()
 {
-    PlayermanagementWindow* playermanagment = new PlayermanagementWindow;
+    PlayermanagementWindow* playermanagment = new PlayermanagementWindow(_playerManagementModel);
     playermanagment->showMaximized();
 }
 void MainMenu::openTournementWindow()

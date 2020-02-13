@@ -11,6 +11,7 @@
 #include "View/tournementwindow.h"
 #include "View/viewerwindow.h"
 #include "View/windowlabel.h"
+#include "Model/playermanagement.h"
 
 #include <QPalette>
 #include <QAction>
@@ -64,6 +65,7 @@ private:
     MenuButton* _referee = nullptr;
     QAction* _load = nullptr;
     QAction* _new = nullptr;
+    PlayerManagement* _playerManagementModel;
 
 
 };

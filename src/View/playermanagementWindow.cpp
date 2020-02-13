@@ -7,11 +7,15 @@
 
 
 
-PlayermanagementWindow::PlayermanagementWindow(QWidget *parent):
+PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
     QMainWindow(parent),
  
     ui(new Ui::PlayermanagementWindow)
 {
+    _playerManagementModel = playerManagementModel;
+    _playerManagementModel->refreshDatabasePlayerTable();
+    _playerManagementModel->refreshNextGamePlayerTable();
+
     ui->setupUi(this);
     showTable();
     createButtons();
@@ -38,9 +42,8 @@ PlayermanagementWindow::~PlayermanagementWindow()
     delete _playernameEdit;
     delete _birthdayEdit;
     delete _countryEdit;
-    delete _playerManagementModel;
-    delete _allPlayer;
-    delete _gamePlayer;
+    delete _allPlayerTableView;
+    delete _gamePlayerTableView;
 
 }
 
@@ -56,10 +59,10 @@ void PlayermanagementWindow::connecting()
 
 void PlayermanagementWindow::dropPlayerForNewGame()
 {
-    QAbstractItemModel* modelAll = _allPlayer->model();
-    QModelIndexList selectionAll = _allPlayer->selectionModel()->selectedRows();
+    QAbstractItemModel* modelAll = _gamePlayerTableView->model();
+    QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
 
-    for (QModelIndex index : selectionAll)
+    for (QModelIndex index : selectedRows)
     {
         _playerManagementModel->dropPlayerForNewGame(Player(
                 modelAll->index(index.row() , 0).data().toString(),
@@ -69,33 +72,33 @@ void PlayermanagementWindow::dropPlayerForNewGame()
 }
 void PlayermanagementWindow::addPlayerForNewGame()
 {
-    QAbstractItemModel* modelAll = _allPlayer->model();
-    QModelIndexList selectionAll = _allPlayer->selectionModel()->selectedRows();
+    QAbstractItemModel* modelAll = _allPlayerTableView->model();
+    QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
 
-    for (QModelIndex index : selectionAll)
+    for (QModelIndex index : selectedRows)
     {
         _playerManagementModel->addPlayerForNewGame(Player(
                 modelAll->index(index.row() , 0).data().toString(),
                 modelAll->index(index.row() , 1).data().toString(),
                 modelAll->index(index.row() , 2).data().toString()));
+        qDebug() << modelAll->index(index.row() , 0).data().toString();
     }
 }
 
 void PlayermanagementWindow::showTable()
 {
-    _playerManagementModel      = new PlayerManagement;
-    _allPlayer  = new TableView;
-    _gamePlayer = new TableView;
+    _allPlayerTableView  = new TableView;
+    _gamePlayerTableView = new TableView;
 
-    _allPlayer->setModel(_playerManagementModel->getDatabaseTableModel());
-    _allPlayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-    _allPlayer->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    _allPlayer->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    _allPlayerTableView->setModel(_playerManagementModel->getDatabaseTableModel());
+    _allPlayerTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    _allPlayerTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    _allPlayerTableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
-    _gamePlayer->setModel(_playerManagementModel->getNextGamePlayerTableModel());
-    _gamePlayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-    _gamePlayer->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    _gamePlayer->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    _gamePlayerTableView->setModel(_playerManagementModel->getNextGamePlayerTableModel());
+    _gamePlayerTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    _gamePlayerTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    _gamePlayerTableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 }
 
 void PlayermanagementWindow::tournamentName()
@@ -161,11 +164,11 @@ void PlayermanagementWindow::setAllLayout()
 
     QVBoxLayout* addDeleteLayout = new QVBoxLayout;
 
-    ui->tabelViewLayout->addWidget(_allPlayer);
+    ui->tabelViewLayout->addWidget(_allPlayerTableView);
     ui->tabelViewLayout->addLayout(addDeleteLayout);
     addDeleteLayout->addWidget(_addPlayerForNewTournament);
     addDeleteLayout->addWidget(_deletePlayerForNewTournament);
-    ui->tabelViewLayout->addWidget(_gamePlayer);
+    ui->tabelViewLayout->addWidget(_gamePlayerTableView);
 
 }
 

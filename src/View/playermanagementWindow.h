@@ -29,7 +29,7 @@ class PlayermanagementWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit PlayermanagementWindow(QWidget *parent = nullptr);
+    explicit PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent = nullptr);
     ~PlayermanagementWindow();
 
 
@@ -63,8 +63,8 @@ private:
     WindowEdit* _birthdayEdit               = nullptr;
     WindowEdit* _countryEdit                = nullptr;
     PlayerManagement* _playerManagementModel                = nullptr;
-    TableView* _allPlayer                   = nullptr;
-    TableView* _gamePlayer                  = nullptr;
+    TableView* _allPlayerTableView          = nullptr;
+    TableView* _gamePlayerTableView         = nullptr;
 
 };
 #endif // PLAYERMANAGMENT_H

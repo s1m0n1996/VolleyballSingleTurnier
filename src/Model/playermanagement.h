@@ -44,6 +44,8 @@ public:
 
     void refreshDatabasePlayerTable();
 
+    void refreshNextGamePlayerTable();
+
 signals:
     void valueChanged(void);
 
@@ -54,7 +56,6 @@ private:
     QSqlQueryModel* _databasePlayerTable = new QSqlQueryModel();
     QSqlQueryModel* _nextGamePlayerTableModel = new QSqlQueryModel();
 
-    void _refreshNextGamePlayerTable();
 };
 
 

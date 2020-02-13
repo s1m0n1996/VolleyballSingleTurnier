@@ -6,7 +6,7 @@ PlayerManagement::PlayerManagement()
 {
     _db = &SqliteConnector::instance();
     refreshDatabasePlayerTable();
-    _refreshNextGamePlayerTable();
+    refreshNextGamePlayerTable();
 }
 
 /*!
@@ -80,7 +80,7 @@ VALUES ((SELECT id FROM player_list WHERE name = '?' AND birthday = '?' AND coun
     sqlQuery += "), 1, 1, 1);";
 
     _db->sqlQuery(sqlQuery);
-    _refreshNextGamePlayerTable();
+    refreshNextGamePlayerTable();
 
     emit valueChanged();
 }
@@ -141,7 +141,7 @@ WHERE player_id =
                 "  AND tournament_id = 1";
 
     _db->sqlQuery(sqlQuery);
-    _refreshNextGamePlayerTable();
+    refreshNextGamePlayerTable();
     emit valueChanged();
 }
 
@@ -223,10 +223,10 @@ void PlayerManagement::refreshDatabasePlayerTable()
  *
  * this method refresh the model data from the table. After a call the same data from the database are in the model.
  */
-void PlayerManagement::_refreshNextGamePlayerTable()
+void PlayerManagement::refreshNextGamePlayerTable()
 {
     _nextGamePlayerTableModel->setQuery(R"(
-SELECT pl.name, pl.country, pl.birthday
+SELECT pl.name, pl.birthday, pl.country
 FROM tournament_players_list
          INNER JOIN player_list pl ON tournament_players_list.player_id = pl.id
 WHERE sport_type_id = 1
