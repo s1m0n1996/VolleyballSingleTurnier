@@ -81,7 +81,6 @@ void PlayermanagementWindow::addPlayerForNewGame()
                 modelAll->index(index.row() , 0).data().toString(),
                 modelAll->index(index.row() , 1).data().toString(),
                 modelAll->index(index.row() , 2).data().toString()));
-        qDebug() << modelAll->index(index.row() , 0).data().toString();
     }
 }
 
