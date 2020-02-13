@@ -53,35 +53,26 @@ void PlayermanagementWindow::connecting()
     connect(_delete,SIGNAL(released()), this, SLOT(deleteByModel()));
     connect(_model,SIGNAL(valueChanged()), this, SLOT(setMaxPlayerLabel()));
 }
-QList<QList<QString>> PlayermanagementWindow::getList()
-{
- return _listAll;
-}
+
 
 void PlayermanagementWindow::deleteByModel()
-{   // TODO: model für _gamePlayer setzen
-//    QAbstractItemModel* modelGame = _gamePlayer->model();
-//    QModelIndexList selectionGame = _gamePlayer->selectionModel()->selectedRows();
+{
+    QAbstractItemModel* modelAll = _allPlayer->model();
+    QModelIndexList selectionAll = _allPlayer->selectionModel()->selectedRows();
 
-
-//    for (QModelIndex index : selectionGame)
-//    {
-//        QList<QString> listSingel;
-//        listSingel.append(modelGame->index(index.row() , 0).data().toString());
-//        listSingel.append(modelGame->index(index.row() , 1).data().toString());
-//        listSingel.append(modelGame->index(index.row() , 2).data().toString());
-
-//        _listAll.append(listSingel);
-//    }
-
-//    qDebug()<< _listAll;
+    for (QModelIndex index : selectionAll)
+    {
+        _model->dropPlayerForNewGame(Player(
+                modelAll->index(index.row() , 0).data().toString(),
+                modelAll->index(index.row() , 1).data().toString(),
+                modelAll->index(index.row() , 2).data().toString()));
+    }
 }
 void PlayermanagementWindow::giveModel()
 {
 
     QAbstractItemModel* modelAll = _allPlayer->model();
     QModelIndexList selectionAll = _allPlayer->selectionModel()->selectedRows();
-
 
     for (QModelIndex index : selectionAll)
     {
@@ -97,6 +88,7 @@ void PlayermanagementWindow::showTabel()
     _model      = new PlayerManagement;
     _allPlayer  = new TableView;
     _gamePlayer = new TableView;
+
     _allPlayer->setModel(_model->getDatabaseTableModel());
     _allPlayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     _allPlayer->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -106,8 +98,8 @@ void PlayermanagementWindow::showTabel()
     _gamePlayer->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     _gamePlayer->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     _gamePlayer->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-
 }
+
 void PlayermanagementWindow::tournementName()
 {
     TournementNamePopUp* tournementName = new TournementNamePopUp;
@@ -119,6 +111,10 @@ void PlayermanagementWindow::createMaxPlayer()
 {
     _nameMaxPlayerLabel = new WindowLabel("benötigte Spieler:");
     _valueMaxPlayerLabel = new WindowLabel(QString::number(_model->countMissingPlayersForNewGame()));
+    _valueMaxPlayerLabel->setStyleSheet("QLabel{"
+                                        "font-size: 25px;"
+                                        "font-family: Candara;"
+                                        "color: red;}");
 
 }
 void PlayermanagementWindow::createAddPlayerEdit()
@@ -190,7 +186,7 @@ void PlayermanagementWindow::addPlayer()
 
     //_model-> addPlayerForNewGame(*newplayer);
 
-    _allPlayer->setModel(_model->getDatabaseTableModel());
+
     _playernameEdit->clear();
     _birthdayEdit->clear();
     _countryEdit->clear();

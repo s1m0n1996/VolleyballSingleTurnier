@@ -31,7 +31,6 @@ class PlayermanagementWindow : public QMainWindow
 public:
     explicit PlayermanagementWindow(QWidget *parent = nullptr);
     ~PlayermanagementWindow();
-    QList<QList<QString>> getList(void);
 
 
 signals:
@@ -67,6 +66,6 @@ private:
     PlayerManagement* _modelGame            = nullptr;
     TableView* _allPlayer                   = nullptr;
     TableView* _gamePlayer                  = nullptr;
-    QList<QList<QString>> _listAll;
+
 };
 #endif // PLAYERMANAGMENT_H
