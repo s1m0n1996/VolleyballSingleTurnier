@@ -66,6 +66,7 @@ private:
     QAction* _load = nullptr;
     QAction* _new = nullptr;
     PlayerManagement* _playerManagementModel;
+    Referee* _refereeModel;
 
 
 };

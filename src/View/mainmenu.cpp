@@ -19,7 +19,7 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
 
     _playerManagementModel = new PlayerManagement();
-    _playerManagementModel->getDatabaseTableModel();
+    _refereeModel = new Referee();
 
 }
 MainMenu::~MainMenu()
@@ -45,8 +45,7 @@ void MainMenu::openViewerWindow()
 
 void MainMenu::openRefereeWindow()
 {
-    Referee* referee = new Referee;
-    RefereeWindow* refereeWindow = new RefereeWindow(referee);
+    RefereeWindow* refereeWindow = new RefereeWindow(_refereeModel);
     refereeWindow->show();
 }
 
