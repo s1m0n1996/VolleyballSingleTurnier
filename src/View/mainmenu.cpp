@@ -11,6 +11,13 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     setButtonsLayout();
     connecting();
 
+    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
+    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+
 
 }
 MainMenu::~MainMenu()
@@ -49,6 +56,11 @@ void MainMenu::createDatabase()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
     sqlitConnector->createDatabase(path);
+    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
+    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
 }
 
 void MainMenu::loadDatabase()
