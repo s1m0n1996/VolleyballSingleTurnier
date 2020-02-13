@@ -35,35 +35,34 @@ public:
 
 signals:
 public slots:
-    void addPlayer(void);
-    void setMaxPlayerLabel(void);
-    void tournementName(void);
-    void showTabel(void);
-    void giveModel(void);
-    void deleteByModel(void);
+    void addPlayerToDatabase(void);
+    void setMissingPlayersForNewTournamentLabel(void);
+    void tournamentName(void);
+    void showTable(void);
+    void addPlayerForNewGame(void);
+    void dropPlayerForNewGame(void);
 
 private:
     void connecting();
     void createAddPlayerEdit();
     void createButtons(void);
-    void createMaxPlayer();
+    void createMissingPlayersForNewTournamentLabel();
     void setAllLayout(void);
 
     Ui::PlayermanagementWindow *ui;
     WindowButton* _addPlayerButton          = nullptr;
     WindowButton* _startTournementButton    = nullptr;
-    WindowButton* _add                      = nullptr;
-    WindowButton* _delete                   = nullptr;
+    WindowButton* _addPlayerForNewTournament                      = nullptr;
+    WindowButton* _deletePlayerForNewTournament                   = nullptr;
     WindowLabel* _playernameLabel           = nullptr;
     WindowLabel* _birthdayLabel             = nullptr;
     WindowLabel* _countryLabel              = nullptr;
-    WindowLabel* _nameMaxPlayerLabel        = nullptr;
-    WindowLabel* _valueMaxPlayerLabel       = nullptr;
+    WindowLabel* _nameMissingPlayersLabel        = nullptr;
+    WindowLabel* _valueMissingPlayersLabel       = nullptr;
     WindowEdit* _playernameEdit             = nullptr;
     WindowEdit* _birthdayEdit               = nullptr;
     WindowEdit* _countryEdit                = nullptr;
-    PlayerManagement* _model                = nullptr;
-    PlayerManagement* _modelGame            = nullptr;
+    PlayerManagement* _playerManagementModel                = nullptr;
     TableView* _allPlayer                   = nullptr;
     TableView* _gamePlayer                  = nullptr;
 
