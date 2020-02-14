@@ -109,11 +109,7 @@ void PlayermanagementWindow::createMissingPlayersForNewTournamentLabel()
 {
     _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-    _valueMissingPlayersLabel->setStyleSheet("QLabel{"
-                                        "font-size: 25px;"
-                                        "font-family: Candara;"
-                                        "color: red;}");
-
+    _valueMissingPlayersLabel->setNotStartTournementStyle();
 }
 void PlayermanagementWindow::createAddPlayerEdit()
 {
@@ -172,6 +168,13 @@ void PlayermanagementWindow::setAllLayout()
 void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 {
     _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
+    qDebug()<< _valueMissingPlayersLabel->text();
+    qDebug()<< "0";
+
+    if(_valueMissingPlayersLabel->text() == "0")
+    {
+        _valueMissingPlayersLabel->setStartTournementStyle();
+    }
 }
 
 
@@ -181,8 +184,6 @@ void PlayermanagementWindow::addPlayerToDatabase()
     _startTournementButton->setEnabled(true);
 
     Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
-
-
     _playerManagementModel-> addPlayerForNewGame(*newplayer);
 
     _playernameEdit->clear();
