@@ -8,8 +8,7 @@
 
 
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
-    QMainWindow(parent),
- 
+    QMainWindow(parent), 
     ui(new Ui::PlayermanagementWindow)
 {
     _playerManagementModel = playerManagementModel;
@@ -59,15 +58,14 @@ void PlayermanagementWindow::connecting()
 
 void PlayermanagementWindow::dropPlayerForNewGame()
 {
-    QAbstractItemModel* modelAll = _gamePlayerTableView->model();
+    QAbstractItemModel* modelGame = _gamePlayerTableView->model();
     QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
-
-    for (QModelIndex index : selectedRows)
+ for (QModelIndex index : selectedRows)
     {
         _playerManagementModel->dropPlayerForNewGame(Player(
-                modelAll->index(index.row() , 0).data().toString(),
-                modelAll->index(index.row() , 1).data().toString(),
-                modelAll->index(index.row() , 2).data().toString()));
+                modelGame->index(index.row() , 0).data().toString(),
+                modelGame->index(index.row() , 1).data().toString(),
+                modelGame->index(index.row() , 2).data().toString()));
     }
 }
 void PlayermanagementWindow::addPlayerForNewGame()
@@ -182,10 +180,10 @@ void PlayermanagementWindow::addPlayerToDatabase()
     _valueMissingPlayersLabel->setText("0");
     _startTournementButton->setEnabled(true);
 
-    //Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
+    Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
 
-    //_playerManagementModel-> addPlayerForNewGame(*newplayer);
 
+    _playerManagementModel-> addPlayerForNewGame(*newplayer);
 
     _playernameEdit->clear();
     _birthdayEdit->clear();
