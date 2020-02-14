@@ -23,6 +23,9 @@ TournementNamePopUp::TournementNamePopUp(QWidget *parent) : QWidget (parent)
 
         connect(_createTournement, SIGNAL(released()), this, SLOT(openTournementWindow()));
 
+
+        setWindowFlags(Qt::WindowStaysOnTopHint|Qt::WindowCloseButtonHint);
+
 }
 
 
@@ -31,4 +34,6 @@ void TournementNamePopUp::openTournementWindow(void)
 
     TournementWindow* tournementWindow2 = new TournementWindow;
     tournementWindow2->show();
+
+     setWindowFlags(Qt::Window);
 }

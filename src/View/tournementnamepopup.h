@@ -9,12 +9,13 @@
 #include "View/windowedit.h"
 #include "View/windowlabel.h"
 #include <QDebug>
+#include "View/windowpopup.h"
 
 class TournementNamePopUp : public QWidget
 {
     Q_OBJECT
 public:
-    TournementNamePopUp(QWidget *parent = nullptr);
+    explicit TournementNamePopUp(QWidget *parent = nullptr);
 
 
 public slots:
