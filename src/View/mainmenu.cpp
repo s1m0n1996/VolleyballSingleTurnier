@@ -18,9 +18,9 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
 
+    setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
     _playerManagementModel = new PlayerManagement();
     _refereeModel = new Referee();
-
 }
 MainMenu::~MainMenu()
 {
