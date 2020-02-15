@@ -1,3 +1,10 @@
+/*!
+* \file refereewindow.h
+* \brief Diese Klasse ist das View für den Richter
+* \author Nico Meyer
+*/
+
+
 #ifndef REFEREEWINDOW_H
 #define REFEREEWINDOW_H
 

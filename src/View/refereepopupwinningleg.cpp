@@ -1,3 +1,9 @@
+/*!
+* \file refereepopupwinningleg.cpp
+* \brief Diese Klasse ist ein Popup welches für den Richter dient
+* \author Nico Meyer
+*/
+
 #include "refereepopupwinningleg.h"
 
 RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent)

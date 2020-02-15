@@ -1,3 +1,9 @@
+/*!
+* \file refereewindow.cpp
+* \brief Diese Klasse ist die View Klasse des Richters
+* \author Nico Meyer
+*/
+
 #include "View/refereewindow.h"
 #include "ui_refereewindow.h"
 #include "View/dartboard.h"
@@ -42,6 +48,17 @@ RefereeWindow::~RefereeWindow()
     delete ui;
 }
 
+/*!
+ * \brief Gibt den Wert des Multiplikators des Wurfes zurück.
+ *
+ * \return int
+ *
+ * Diese Metohde berechnet den Multiplikator des Wurfes anhand der Position wo die Maus auf der
+ * Dartscheibe geklickt wurde. Der Multiplikatorbereich der Dartscheibe ist prozentual aufgeteilt.
+ * Es wurde der Radius der Dartscheibe berechnet und prozentual vom Mittelpunkt der Dartscheibe
+ * wird der Multiplikator bestimmt.
+ *
+ */
 int RefereeWindow::valueMultiplikator()
 {
     int multiplikator = 0;
@@ -79,6 +96,14 @@ int RefereeWindow::valueMultiplikator()
     return  multiplikator;
 }
 
+/*!
+ * \brief Gibt den Wert des geworfenen Pfeils ohne Multiplikator zurück.
+ *
+ * \return int
+ *
+ * Diese Metohde gibt anhand der Position wo die Maus auf der Dartscheibe geklickt wurde einen Zahlenwert aus.
+ *
+ */
 int RefereeWindow::valueScoreWithoutMultiplikator()
 {
     double angle = 0.0;

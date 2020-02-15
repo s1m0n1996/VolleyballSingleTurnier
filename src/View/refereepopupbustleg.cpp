@@ -1,3 +1,9 @@
+/*!
+* \file refereepopupbustleg.cpp
+* \brief Diese Klasse ist ein Popup welches für den Richter dient
+* \author Nico Meyer
+*/
+
 #include "refereepopupbustleg.h"
 
 RefereePopupBustLeg::RefereePopupBustLeg(QWidget *parent) : QWidget(parent)

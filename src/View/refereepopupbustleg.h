@@ -1,3 +1,9 @@
+/*!
+* \file refereepopupbustleg.h
+* \brief Diese Klasse ist ein Popup welches für den Richter dient
+* \author Nico Meyer
+*/
+
 #ifndef REFEREEPOPUPBUSTLEG_H
 #define REFEREEPOPUPBUSTLEG_H
 

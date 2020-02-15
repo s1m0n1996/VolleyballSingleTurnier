@@ -1,3 +1,9 @@
+/*!
+* \file referee.cpp
+* \brief Diese Klasse repräsentiert den Richter der das Dartspiel leitet
+* \author Nico Meyer
+*/
+
 #include "Model/referee.h"
 
 
@@ -6,6 +12,15 @@ Referee::Referee()
 
 }
 
+/*!
+ * \brief Setzt den nächsten Spieler während eines Legs.
+ *
+ * \return void
+ *
+ * Diese Metohde setzt den nächsten aktiven Spieler im Leg
+ * und gibt dieses als Signal an das View weiter
+ *
+ */
 void Referee::nextPlayer()
 {
     if (_wasLastThrowInLegToBust)
@@ -31,6 +46,15 @@ void Referee::nextPlayer()
     emit valueChanged();
 }
 
+/*!
+ * \brief Setzt den nächsten aktiven Spieler nach einem gewonnen Leg.
+ *
+ * \return void
+ *
+ * Diese Metohde setzt den nächsten aktiven Spieler nach einem gewonnen Leg
+ * und gibt dieses als Signal an das View weiter
+ *
+ */
 void Referee::nextPlayerAfterWinningLeg()
 {
     int allWonLegsInMatch = _winningLegCounter[0] + _winningLegCounter[1];
@@ -61,6 +85,15 @@ int Referee::getAktivePlayer()
     return _player;
 }
 
+/*!
+ * \brief Berechnet den Wert des geworfenen Dartpfeils.
+ * \param[in,in] Den Multiplikator des Wurf [int], die Punktzahl des Wurf's ohne Multiplikator [int]
+ * \return void
+ *
+ * Diese Metohde berechent den Wert des geworfenen Dartpfeils
+ * indem dort der Wert des Wurfes mit dem Multiplikator multipliziert wird
+ *
+ */
 void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplikator)
 {
     if (_throwCounter < 3)
@@ -93,6 +126,17 @@ void Referee::setWinner()
     }
 }
 
+/*!
+ * \brief Es wird geprüft ob das Leg gewonwen wurde.
+ *
+ * \return void
+ *
+ * Es wird geprüft ob das Leg auf korrekten Weg gewonnen wurde, das heißt: Der letzte Wurf war ein Doppel
+ * und der Restscore ist bei Null.
+ * Wenn es nicht auf korrekten Weg beendet wurde.
+ * In beiden Fällen wird ein Signal an das View rausgegebn.
+ *
+ */
 void Referee::legWinningCondition()
 {
     if (_remainScore[_player] == 0 and _valueMultiplikator == 2
@@ -118,6 +162,14 @@ void Referee::legWinningCondition()
     }
 }
 
+/*!
+ * \brief Setzt den zu letzt geworfenen Wurf zurück.
+ *
+ * \return void
+ *
+ * Diese Metohde setzt den zuletzt geworfenen Pfeil zurück und gibt ein Signal an das View heraus.
+ *
+ */
 void Referee::undoThrow()
 {
     if (3 == _throwCounter)

@@ -6,7 +6,12 @@
 
 #include "Model/game.h"
 
-
+/*!
+ * \file referee.h
+ * \author Nico Meyer
+ * \brief Eine Klasse für den Richter
+ *
+*/
 class Referee : public QObject
 {
     Q_OBJECT
