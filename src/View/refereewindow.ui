@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>RefereeWindow</string>
+   <string>Richteransicht</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="Dartboard" name="DartboardView">
@@ -261,12 +261,17 @@
    </property>
    <widget class="QMenu" name="menuSchiedsrichter_Fenster">
     <property name="title">
-     <string>Schiedsrichter Fenster</string>
+     <string/>
     </property>
    </widget>
    <addaction name="menuSchiedsrichter_Fenster"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actiond">
+   <property name="text">
+    <string>d </string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

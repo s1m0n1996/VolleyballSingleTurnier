@@ -63,18 +63,24 @@ void Referee::setWinner()
 
 void Referee::legWinningCondition()
 {
-    if (_remainScore[_player] == 0 and _valueMultiplikator == 2 and _winningLegCounter[_player] <= 3)
+    if (_remainScore[_player] == 0 and _valueMultiplikator == 2
+        and _throwCounter <= 3 and _winningLegCounter[_player] < 3)
     {
         _winningLegCounter[_player]++;
         _throwCounter = 3;
+        qDebug()<<"win" <<_throwCounter <<_winningLegCounter;
         emit valueChanged();
         emit playerWinsLeg();
     }
-    else if (_remainScore[_player] == 0 and _valueMultiplikator != 2)
+    else if ((_remainScore[_player] == 0 and _valueMultiplikator != 2)
+             or (_remainScore[_player] < 0 and _throwCounter <= 3))
     {
         // es soll sich ein Popup öffnen indem man auswählen kann ob man UNDO auswählen möchte oder
         //nächster Spieler wegen Bust dort muss dann der letzte Wurf zurück gesetzt werden.
+        _throwCounter = 3;
+        emit valueChanged();
         emit playerBust();
+        qDebug()<<"bust" <<_throwCounter;
     }
 }
 

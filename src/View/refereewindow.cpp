@@ -243,15 +243,17 @@ void RefereeWindow::gameStart()
 void RefereeWindow::playerBust()
 {
 
+
 }
 
 void RefereeWindow::mouseReleasedOnDartboard()
 {
-   _valueMultiplikator = valueMultiplikator();
-   _valueScoreWithoutMultiplikator =valueScoreWithoutMultiplikator();
+    _valueMultiplikator = valueMultiplikator();
+    _valueScoreWithoutMultiplikator =valueScoreWithoutMultiplikator();
 
     _referee->singleThrowScore(_valueMultiplikator, _valueScoreWithoutMultiplikator);
     _referee->legWinningCondition();
+
 }
 
 void RefereeWindow::writeScore()
