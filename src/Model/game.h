@@ -12,7 +12,7 @@ public:
 
     void loadNextGame(void);
     void setNextWinner(int winnerId);
-    void prepareNextGame(void);
+    void prepareNextGame(int winnerId);
 
 private:
     SqliteConnector* _db;
