@@ -28,6 +28,8 @@ SOURCES += \
     View/mainmenu.cpp \
     View/menubutton.cpp \
     View/playermanagementWindow.cpp \
+    View/refereepopupbustleg.cpp \
+    View/refereepopupwinningleg.cpp \
     View/refereewindow.cpp \
     View/tabelview.cpp \
     View/tournementnamepopup.cpp \
@@ -51,6 +53,8 @@ HEADERS += \
     View/mainmenu.h \
     View/menubutton.h \
     View/playermanagementWindow.h \
+    View/refereepopupbustleg.h \
+    View/refereepopupwinningleg.h \
     View/refereewindow.h \
     View/tabelview.h \
     View/tournementnamepopup.h \
