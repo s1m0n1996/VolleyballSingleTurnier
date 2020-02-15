@@ -14,13 +14,6 @@ void Referee::nextPlayer()
         _wasLastThrowInLegToBust = false;
     }
 
-    if (_wasLastThrowInLegToWin)
-    {
-        _remainScore[0] = 501;
-        _remainScore[1] = 501;
-        _wasLastThrowInLegToWin = false;
-    }
-
     if (0 == _player)
     {
         _player = 1;
@@ -36,6 +29,31 @@ void Referee::nextPlayer()
     _allThrows[2] = 0;
 
     emit valueChanged();
+}
+
+void Referee::nextPlayerAfterWinningLeg()
+{
+    int allWonLegsInMatch = _winningLegCounter[0] + _winningLegCounter[1];
+    qDebug() << allWonLegsInMatch << "Alle Legs gewonnen";
+    if ((allWonLegsInMatch % 2) == 0)
+    {
+        _player = 0;
+        qDebug() << _player << "Spieler 0";
+    }
+    else
+    {
+        _player = 1;
+        qDebug() << _player << "Spieler 1";
+    }
+
+    _remainScore[0] = 501;
+    _remainScore[1] = 501;
+    _throwCounter = 0;
+    _allThrows[0] = 0;
+    _allThrows[1] = 0;
+    _allThrows[2] = 0;
+
+     emit valueChanged();
 }
 
 int Referee::getAktivePlayer()

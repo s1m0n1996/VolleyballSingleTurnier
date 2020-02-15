@@ -16,6 +16,7 @@ public:
     void singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplikator);
     void undoThrow();
     void nextPlayer();
+    void nextPlayerAfterWinningLeg();
     void setRemainScore();
     void setWinner();
     void legWinningCondition();

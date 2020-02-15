@@ -29,7 +29,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     connect(ui->gameStart,SIGNAL(released()),this, SLOT(gameStart()));
 
     connect(_referee,SIGNAL(playerWinsLeg()),this, SLOT(playerWinsLeg()));
-    connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayer()));
+    connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayerAfterWinningLeg()));
     connect(_popupWinningLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
 
     connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
@@ -240,6 +240,11 @@ void RefereeWindow::nextPlayer()
     _referee->nextPlayer();
 }
 
+void RefereeWindow::nextPlayerAfterWinningLeg()
+{
+    _referee->nextPlayerAfterWinningLeg();
+}
+
 void RefereeWindow::undoLastThrow()
 {
     qDebug() <<"kommt das was ??";
@@ -285,4 +290,5 @@ void RefereeWindow::writeScore()
     ui->gesmatpunkte->setText(QString::number(_referee->getThrowScore()));
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
     ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
+    writeNextPlayer();
 }
