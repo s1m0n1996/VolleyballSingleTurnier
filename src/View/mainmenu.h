@@ -12,6 +12,7 @@
 #include "View/viewerwindow.h"
 #include "View/windowlabel.h"
 #include "Model/playermanagement.h"
+#include "View/refereepopupwinningleg.h"
 
 #include <QPalette>
 #include <QAction>
@@ -67,6 +68,8 @@ private:
     QAction* _new = nullptr;
     PlayerManagement* _playerManagementModel;
     Referee* _refereeModel;
+    RefereepopupWinningLeg* _refereePopupModel;
+
 
 
 };

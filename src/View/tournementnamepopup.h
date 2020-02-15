@@ -9,7 +9,7 @@
 #include "View/windowedit.h"
 #include "View/windowlabel.h"
 #include <QDebug>
-#include "View/windowpopup.h"
+//#include "View/windowpopup.h"
 
 class TournementNamePopUp : public QWidget
 {

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "Model/referee.h"
+#include "View/refereepopupwinningleg.h"
+#include "View/refereepopupbustleg.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -14,7 +16,8 @@ class RefereeWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit RefereeWindow(Referee* referee, QWidget *parent = nullptr);
+    explicit RefereeWindow(Referee* referee, RefereepopupWinningLeg* popupWinningLeg = nullptr,
+                           RefereePopupBustLeg* popupBustLeg = nullptr, QWidget *parent = nullptr);
     ~RefereeWindow();
 
 public slots:
@@ -28,12 +31,15 @@ public slots:
     void writeNextPlayer();
     void gameStart();
     void playerBust();
+    void playerWinsLeg();
 
 
 
 private:
     Ui::RefereeWindow *ui;
     Referee* _referee;
+    RefereepopupWinningLeg* _popupWinningLeg;
+    RefereePopupBustLeg* _popupBustLeg;
     const int _miss                     = 0;
     const int _single                   = 1;
     const int _double                   = 2;

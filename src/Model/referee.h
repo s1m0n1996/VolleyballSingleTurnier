@@ -42,6 +42,8 @@ private:
      int _player                    = 0;
      int _winner                    = 0;
      int _throwScore                = 0;
+     bool _wasLastThrowInLegToWin   = false;
+     bool _wasLastThrowInLegToBust  = false;
      QList<int> _winningLegCounter  = {0,0};
      QList<int> _remainScore        = {501,501};
      QList<int> _allThrows          = {0,0,0};

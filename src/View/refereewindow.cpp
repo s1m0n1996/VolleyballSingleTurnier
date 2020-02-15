@@ -5,20 +5,36 @@
 #include <QtDebug>
 
 
-RefereeWindow::RefereeWindow(Referee* referee, QWidget *parent) :
+RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinningLeg, RefereePopupBustLeg *popupBustLeg, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::RefereeWindow),
-    _referee(referee)
+    _referee(referee),
+    _popupWinningLeg(popupWinningLeg),
+    _popupBustLeg(popupBustLeg)
 {
+    RefereepopupWinningLeg* test = new RefereepopupWinningLeg;
+    _popupWinningLeg =test;
+
+    RefereePopupBustLeg* bustLeg = new RefereePopupBustLeg;
+    _popupBustLeg = bustLeg;
+
     ui->setupUi(this);
     connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
     connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
+
     connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
     connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
     connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
     connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
     connect(ui->gameStart,SIGNAL(released()),this, SLOT(gameStart()));
+
+    connect(_referee,SIGNAL(playerWinsLeg()),this, SLOT(playerWinsLeg()));
+    connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayer()));
+    connect(_popupWinningLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+
     connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
+    connect(_popupBustLeg,SIGNAL(playerBustLeg()),this,SLOT(nextPlayer()));
+    connect(_popupBustLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
 }
 
 RefereeWindow::~RefereeWindow()
@@ -41,8 +57,8 @@ int RefereeWindow::valueMultiplikator()
 
     // Prüfen in welchen Bereich man sich befindet.
     if ((areaPercentage >= 3 and areaPercentage <= 6) or
-        (areaPercentage >= 7 and areaPercentage <= 42) or
-        (areaPercentage >= 49 and areaPercentage <= 69))
+            (areaPercentage >= 7 and areaPercentage <= 42) or
+            (areaPercentage >= 49 and areaPercentage <= 69))
     {
         multiplikator = _single;
     }
@@ -174,7 +190,7 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
         break;
     case 14:
     {
-        scoreWithoutMultiplikator = 9;
+        scoreWithoutMultiplikator = 6;
     }
         break;
     case 15:
@@ -226,6 +242,7 @@ void RefereeWindow::nextPlayer()
 
 void RefereeWindow::undoLastThrow()
 {
+    qDebug() <<"kommt das was ??";
     _referee->undoThrow();
 }
 
@@ -242,8 +259,12 @@ void RefereeWindow::gameStart()
 
 void RefereeWindow::playerBust()
 {
+    _popupBustLeg->show();
+}
 
-
+void RefereeWindow::playerWinsLeg()
+{
+    _popupWinningLeg->show();
 }
 
 void RefereeWindow::mouseReleasedOnDartboard()
