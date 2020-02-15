@@ -490,9 +490,9 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>770</x>
+      <x>610</x>
       <y>20</y>
-      <width>331</width>
+      <width>651</width>
       <height>71</height>
      </rect>
     </property>
@@ -562,8 +562,8 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>90</y>
-      <width>361</width>
+      <y>100</y>
+      <width>401</width>
       <height>531</height>
      </rect>
     </property>
@@ -581,7 +581,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_20">
+        <widget class="QLabel" name="nameOfPlayer1">
          <property name="text">
           <string>Name des Spielers</string>
          </property>
@@ -599,7 +599,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_12">
+        <widget class="QLabel" name="throw1FromPlayer1">
          <property name="text">
           <string/>
          </property>
@@ -617,7 +617,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_13">
+        <widget class="QLabel" name="throw2FromPlayer1">
          <property name="text">
           <string/>
          </property>
@@ -635,7 +635,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_14">
+        <widget class="QLabel" name="throw3FromPlayer1">
          <property name="text">
           <string/>
          </property>
@@ -655,21 +655,21 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="possibleWayToFinishThrow1FromPlayer1">
            <property name="text">
             <string>1</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_8">
+          <widget class="QLabel" name="possibleWayToFinishThrow2FromPlayer1">
            <property name="text">
             <string>2</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="possibleWayToFinishThrow3FromPlayer1">
            <property name="text">
             <string>3</string>
            </property>
@@ -689,7 +689,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_15">
+        <widget class="QLabel" name="all3ThrowsPlayer1">
          <property name="text">
           <string/>
          </property>
@@ -707,7 +707,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_16">
+        <widget class="QLabel" name="remainScorePlayer1">
          <property name="text">
           <string/>
          </property>
@@ -725,7 +725,184 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_18">
+        <widget class="QLabel" name="countOfWinningLegsPlayer1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>1500</x>
+      <y>100</y>
+      <width>441</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>Spieler 2:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="nameOfPlayer2">
+         <property name="text">
+          <string>Name des Spielers</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QLabel" name="label_23">
+         <property name="text">
+          <string>Wurf1:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="throw1FromPlayer2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QLabel" name="label_25">
+         <property name="text">
+          <string>Wurf2:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="throw2FromPlayer2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QLabel" name="label_27">
+         <property name="text">
+          <string>Wurf3:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="throw3FromPlayer2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_29">
+         <property name="text">
+          <string>Möglicher Weg das Leg zu gewinnen:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="QLabel" name="possibleWayToFinishThrow1FromPlayer2">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="possibleWayToFinishThrow2FromPlayer2">
+           <property name="text">
+            <string>2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="possibleWayToFinishThrow3FromPlayer2">
+           <property name="text">
+            <string>3</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item row="5" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
+       <item>
+        <widget class="QLabel" name="label_33">
+         <property name="text">
+          <string>Gesmatpunktzahl der drei Würfe:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="all3ThrowsPlayer2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="6" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <item>
+        <widget class="QLabel" name="label_35">
+         <property name="text">
+          <string>Restpunktzahl:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="remainScorePlayer2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="7" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_16">
+       <item>
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Anzahl der gewonnen Legs:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="countOfWinningLegsPlayer2">
          <property name="text">
           <string/>
          </property>
