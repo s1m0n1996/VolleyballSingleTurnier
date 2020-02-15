@@ -23,6 +23,7 @@ SOURCES += \
     Model/referee.cpp \
     Model/sqliteConnector.cpp \
     Model/playermanagement.cpp \
+    Model/viewer.cpp \
     View/dartboard.cpp \
     View/gameboardWindow.cpp \
     View/mainmenu.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     Model/referee.h \
     Model/sqliteConnector.h \
     Model/playermanagement.h \
+    Model/viewer.h \
     View/dartboard.h \
     View/gameboardWindow.h \
     View/mainmenu.h \
