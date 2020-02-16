@@ -16,6 +16,7 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5 COMPONENTS Core REQUIRED)
 find_package(Qt5 COMPONENTS Sql REQUIRED)
+find_package(Qt5 COMPONENTS Gui REQUIRED)
 
 include_directories(../doc)
 include_directories(../)
@@ -23,50 +24,58 @@ include_directories(../)
 # set .h files
 set(MOC_HEADERS
         Model/game.h
-    Model/gameboard.h
-    Model/model.h
-    Model/player.h
-    Model/referee.h
-    Model/sqliteConnector.h
-    Model/playermanagement.h
-    View/dartboard.h
-    View/gameboardWindow.h
-    View/mainmenu.h
-    View/menubutton.h
-    View/playermanagementWindow.h
-    View/refereewindow.h
-    View/tabelview.h
-    View/tournementnamepopup.h
-    View/tournementwindow.h
-    View/viewerwindow.h
-    View/windowbutton.h
-    View/windowedit.h
-    View/windowlabel.h
+        Model/gameboard.h
+        Model/model.h
+        Model/player.h
+        Model/referee.h
+        Model/sqliteConnector.h
+        Model/playermanagement.h
+        Model/viewer.h
+        View/dartboard.h
+        View/gameboardWindow.h
+        View/mainmenu.h
+        View/menubutton.h
+        View/playermanagementWindow.h
+        View/refereepopupbustleg.h
+        View/refereepopupwinningleg.h
+        View/refereewindow.h
+        View/tabelview.h
+        View/tournamentnamepopup.h
+        View/tournamentwindow.h
+        View/viewerwindow.h
+        View/windowbutton.h
+        View/windowedit.h
+        View/windowlabel.h
+        Model/gameManagement.h
         )
 
 # set .cpp files
 set(SOURCES
         Model/game.cpp
-    Model/gameboard.cpp
-    Model/model.cpp
-    Model/player.cpp
-    Model/referee.cpp
-    Model/sqliteConnector.cpp
-    Model/playermanagement.cpp
-    View/dartboard.cpp
-    View/gameboardWindow.cpp
-    View/mainmenu.cpp
-    View/menubutton.cpp
-    View/playermanagementWindow.cpp
-    View/refereewindow.cpp
-    View/tabelview.cpp
-    View/tournementnamepopup.cpp
-    View/tournementwindow.cpp
-    View/viewerwindow.cpp
-    View/windowbutton.cpp
-    View/windowedit.cpp
-    View/windowlabel.cpp
-    main.cpp
+        Model/gameboard.cpp
+        Model/model.cpp
+        Model/player.cpp
+        Model/referee.cpp
+        Model/sqliteConnector.cpp
+        Model/playermanagement.cpp
+        Model/viewer.cpp
+        View/dartboard.cpp
+        View/gameboardWindow.cpp
+        View/mainmenu.cpp
+        View/menubutton.cpp
+        View/playermanagementWindow.cpp
+        View/refereepopupbustleg.cpp
+        View/refereepopupwinningleg.cpp
+        View/refereewindow.cpp
+        View/tabelview.cpp
+        View/tournamentnamepopup.cpp
+        View/tournamentwindow.cpp
+        View/viewerwindow.cpp
+        View/windowbutton.cpp
+        View/windowedit.cpp
+        View/windowlabel.cpp
+        Model/gameManagement.cpp
+        main.cpp
         )
 
 # set .ui files
@@ -94,3 +103,4 @@ add_executable(Sportveranstaltung
 target_link_libraries(Sportveranstaltung Qt5::Widgets)
 target_link_libraries(Sportveranstaltung Qt5::Core)
 target_link_libraries(Sportveranstaltung Qt5::Sql)
+target_link_libraries(Sportveranstaltung Qt5::Gui)

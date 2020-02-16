@@ -39,6 +39,7 @@ SOURCES += \
     View/windowbutton.cpp \
     View/windowedit.cpp \
     View/windowlabel.cpp \
+    Model/gameManagement.cpp \
     main.cpp
 
 HEADERS += \
@@ -64,7 +65,8 @@ HEADERS += \
     View/viewerwindow.h \
     View/windowbutton.h \
     View/windowedit.h \
-    View/windowlabel.h
+    View/windowlabel.h \
+    Model/gameManagement.h
 
 FORMS += \
     View/mainmenu.ui \
