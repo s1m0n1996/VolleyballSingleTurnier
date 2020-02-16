@@ -8,8 +8,8 @@ class WindowLabel: public QLabel
     Q_OBJECT
 public:
     explicit WindowLabel(QString text, QWidget *parent = nullptr);
-    void setNotStartTournementStyle(void);
-    void setStartTournementStyle(void);
+    void setNotStartTournamentStyle(void);
+    void setStartTournamentStyle(void);
 
 
 public:

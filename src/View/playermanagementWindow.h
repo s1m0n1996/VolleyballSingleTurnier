@@ -13,7 +13,7 @@
 #include "windowbutton.h"
 #include "windowedit.h"
 #include "windowlabel.h"
-#include "View/tournementnamepopup.h"
+#include "View/tournamentnamepopup.h"
 #include "Model/playermanagement.h"
 #include "View/tabelview.h"
 
@@ -51,7 +51,7 @@ private:
 
     Ui::PlayermanagementWindow *ui;
     WindowButton* _addPlayerButton          = nullptr;
-    WindowButton* _startTournementButton    = nullptr;
+    WindowButton* _startTournamentButton    = nullptr;
     WindowButton* _addPlayerForNewTournament                      = nullptr;
     WindowButton* _deletePlayerForNewTournament                   = nullptr;
     WindowLabel* _playernameLabel           = nullptr;

@@ -4,22 +4,22 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QGridLayout>
-#include <View/tournementwindow.h>
+#include <View/tournamentwindow.h>
 #include "View/windowbutton.h"
 #include "View/windowedit.h"
 #include "View/windowlabel.h"
 #include <QDebug>
 //#include "View/windowpopup.h"
 
-class TournementNamePopUp : public QWidget
+class TournamentNamePopUp : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TournementNamePopUp(QWidget *parent = nullptr);
+    explicit TournamentNamePopUp(QWidget *parent = nullptr);
 
 
 public slots:
-    void openTournementWindow(void);
+    void openTournamentWindow(void);
 
 
 private:
@@ -29,7 +29,7 @@ private:
     WindowLabel* _nameLabel = nullptr;
     WindowEdit* _nameEdit = nullptr;
 
-    WindowButton* _createTournement = nullptr;
+    WindowButton* _createTournament = nullptr;
 };
 
 #endif // TOURNEMENTNAMEPOPUP_H

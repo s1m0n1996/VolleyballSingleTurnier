@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 
-class TournementWindow : public QMainWindow
+class TournamentWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit TournementWindow(QWidget *parent = nullptr);
+    explicit TournamentWindow(QWidget *parent = nullptr);
 
 signals:
 

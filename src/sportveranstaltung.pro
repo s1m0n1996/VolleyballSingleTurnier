@@ -33,8 +33,8 @@ SOURCES += \
     View/refereepopupwinningleg.cpp \
     View/refereewindow.cpp \
     View/tabelview.cpp \
-    View/tournementnamepopup.cpp \
-    View/tournementwindow.cpp \
+    View/tournamentnamepopup.cpp \
+    View/tournamentwindow.cpp \
     View/viewerwindow.cpp \
     View/windowbutton.cpp \
     View/windowedit.cpp \
@@ -59,8 +59,8 @@ HEADERS += \
     View/refereepopupwinningleg.h \
     View/refereewindow.h \
     View/tabelview.h \
-    View/tournementnamepopup.h \
-    View/tournementwindow.h \
+    View/tournamentnamepopup.h \
+    View/tournamentwindow.h \
     View/viewerwindow.h \
     View/windowbutton.h \
     View/windowedit.h \

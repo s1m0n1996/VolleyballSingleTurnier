@@ -12,9 +12,9 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     connecting();
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
 
@@ -32,10 +32,10 @@ void MainMenu::openPlayermanagmentWindow()
     PlayermanagementWindow* playermanagment = new PlayermanagementWindow(_playerManagementModel);
     playermanagment->showMaximized();
 }
-void MainMenu::openTournementWindow()
+void MainMenu::openTournamentWindow()
 {
-    TournementWindow* tournementWindow = new TournementWindow;
-    tournementWindow->show();
+    TournamentWindow* tournamentWindow = new TournamentWindow;
+    tournamentWindow->show();
 }
 void MainMenu::openViewerWindow()
 {
@@ -57,9 +57,9 @@ void MainMenu::createDatabase()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
     sqlitConnector->createDatabase(path);
-    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-    _tournement->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
 }
@@ -77,7 +77,7 @@ void MainMenu::loadDatabase()
 void MainMenu:: connecting()
 {
     connect(_playermanagment, SIGNAL(released()), this, SLOT(openPlayermanagmentWindow()));
-    connect(_tournement, SIGNAL(released()), this, SLOT(openTournementWindow()));
+    connect(_tournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
     connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
     connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
     connect(_new,SIGNAL(triggered()),this, SLOT(createDatabase()));
@@ -92,7 +92,7 @@ void MainMenu::createButton()
                             "font-family: Candara;"
                             "color: red;}");
        _playermanagment     = new MenuButton("Meldestelle");
-       _tournement          = new MenuButton("Spielplan");
+       _tournament          = new MenuButton("Spielplan");
        _viewer              = new MenuButton("Zuschaueransicht");
        _referee             = new MenuButton("Richteransicht");
        _load                = new QAction("Laden");
@@ -106,7 +106,7 @@ void MainMenu::setButtonsLayout()
     ui->verticalLayout->setSpacing(30);
     ui->verticalLayout->addWidget(_note,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_playermanagment,0,Qt::AlignCenter);
-    ui->verticalLayout->addWidget(_tournement,0,Qt::AlignCenter);
+    ui->verticalLayout->addWidget(_tournament,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_viewer,0,Qt::AlignCenter);
     ui->verticalLayout->addWidget(_referee,0,Qt::AlignCenter);
     ui->menuGame->addAction(_new);

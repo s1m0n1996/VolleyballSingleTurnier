@@ -1,6 +1,6 @@
-#include "tournementnamepopup.h"
+#include "tournamentnamepopup.h"
 
-TournementNamePopUp::TournementNamePopUp(QWidget *parent) : QWidget (parent)
+TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 {
 
         _dateLabel = new WindowLabel("Turnierdatum");
@@ -9,7 +9,7 @@ TournementNamePopUp::TournementNamePopUp(QWidget *parent) : QWidget (parent)
         _nameLabel = new WindowLabel("Turniername");
         _nameEdit = new WindowEdit("Max Mustermann");
 
-        _createTournement = new WindowButton("Erstelle Spielplan");
+        _createTournament = new WindowButton("Erstelle Spielplan");
 
 
         QGridLayout* layout = new QGridLayout;
@@ -18,10 +18,10 @@ TournementNamePopUp::TournementNamePopUp(QWidget *parent) : QWidget (parent)
         layout -> addWidget(_dateEdit,0,1);
         layout -> addWidget(_nameLabel,1,0);
         layout -> addWidget(_nameEdit,1,1);
-        layout -> addWidget(_createTournement,2,2);
+        layout -> addWidget(_createTournament,2,2);
         setLayout(layout);
 
-        connect(_createTournement, SIGNAL(released()), this, SLOT(openTournementWindow()));
+        connect(_createTournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
 
 
         setWindowFlags(Qt::WindowStaysOnTopHint|Qt::WindowCloseButtonHint);
@@ -29,11 +29,11 @@ TournementNamePopUp::TournementNamePopUp(QWidget *parent) : QWidget (parent)
 }
 
 
-void TournementNamePopUp::openTournementWindow(void)
+void TournamentNamePopUp::openTournamentWindow(void)
 {
 
-    TournementWindow* tournementWindow2 = new TournementWindow;
-    tournementWindow2->show();
+    TournamentWindow* tournamentWindow2 = new TournamentWindow;
+    tournamentWindow2->show();
 
      setWindowFlags(Qt::Window);
 }

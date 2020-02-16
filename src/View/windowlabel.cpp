@@ -8,7 +8,7 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
     setText(text);
 }
 
-void WindowLabel:: setNotStartTournementStyle()
+void WindowLabel:: setNotStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
@@ -16,7 +16,7 @@ void WindowLabel:: setNotStartTournementStyle()
                   "color: red;}");
 }
 
-void WindowLabel:: setStartTournementStyle()
+void WindowLabel:: setStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"

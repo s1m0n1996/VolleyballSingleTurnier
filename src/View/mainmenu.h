@@ -8,7 +8,7 @@
 #include "View/menubutton.h"
 #include "View/playermanagementWindow.h"
 #include "View/refereewindow.h"
-#include "View/tournementwindow.h"
+#include "View/tournamentwindow.h"
 #include "View/viewerwindow.h"
 #include "View/windowlabel.h"
 #include "Model/playermanagement.h"
@@ -46,7 +46,7 @@ public:
 
 public slots:
     void openPlayermanagmentWindow();
-    void openTournementWindow();
+    void openTournamentWindow();
     void openViewerWindow();
     void openRefereeWindow();
     void createDatabase();
@@ -61,7 +61,7 @@ private:
     Model* _model = nullptr;
     WindowLabel* _note = nullptr;
     MenuButton* _playermanagment = nullptr;
-    MenuButton* _tournement = nullptr;
+    MenuButton* _tournament = nullptr;
     MenuButton* _viewer = nullptr;
     MenuButton* _referee = nullptr;
     QAction* _load = nullptr;

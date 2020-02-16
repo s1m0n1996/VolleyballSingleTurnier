@@ -5,7 +5,7 @@
 #include "QAbstractItemView"
 #include <QModelIndex>
 
-
+// TODO: Markieung weg wenn -> gedrückt wurde
 
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
     QMainWindow(parent), 
@@ -17,9 +17,9 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
 
     ui->setupUi(this);
     showTable();
-    createButtons();
-    createAddPlayerEdit();
     createMissingPlayersForNewTournamentLabel();
+    createButtons();
+    createAddPlayerEdit();    
     setAllLayout();
     connecting();
 
@@ -29,7 +29,7 @@ PlayermanagementWindow::~PlayermanagementWindow()
 {
     delete ui;
     delete _addPlayerButton;
-    delete _startTournementButton;
+    delete _startTournamentButton;
     delete _addPlayerForNewTournament;
     delete _deletePlayerForNewTournament;
     delete _playernameLabel;
@@ -62,7 +62,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
 void PlayermanagementWindow::addPlayerToDatabase()
 {
     _valueMissingPlayersLabel->setText("0");
-    _startTournementButton->setEnabled(true);
+    _startTournamentButton->setEnabled(true);
 
     Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
     _playerManagementModel-> addPlayerForNewGame(*newplayer);
@@ -77,7 +77,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
 void PlayermanagementWindow::connecting()
 {
     connect(_addPlayerButton,SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_startTournementButton, SIGNAL(released()), this, SLOT(tournamentName()));
+    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(tournamentName()));
     connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
     connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
     connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
@@ -98,18 +98,25 @@ void PlayermanagementWindow::createAddPlayerEdit()
 void PlayermanagementWindow::createButtons()
 {
     _addPlayerButton        = new WindowButton("Spieler hinzufügen");
-    _startTournementButton  = new WindowButton("Turnier starten");
+    _startTournamentButton  = new WindowButton("Turnier starten");
     _addPlayerForNewTournament      = new WindowButton("->");
     _deletePlayerForNewTournament   = new WindowButton("<-");
-    _startTournementButton->setEnabled(false);
-    _startTournementButton->setEnableStyle();
+    _startTournamentButton->setEnabled(false);
+    _startTournamentButton->setEnableStyle();
+
+    if(_valueMissingPlayersLabel->text() == "0")
+    {
+        _valueMissingPlayersLabel->setStartTournamentStyle();
+        _startTournamentButton->setEnabled(true);
+    }
+
 }
 
 void PlayermanagementWindow::createMissingPlayersForNewTournamentLabel()
 {
     _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-    _valueMissingPlayersLabel->setNotStartTournementStyle();
+    _valueMissingPlayersLabel->setNotStartTournamentStyle();
 }
 
 void PlayermanagementWindow::dropPlayerForNewGame()
@@ -147,7 +154,7 @@ void PlayermanagementWindow::setAllLayout()
 
     ui->maxPlayerLayout->addWidget(_nameMissingPlayersLabel, 0, Qt::AlignCenter);
     ui->maxPlayerLayout->addWidget(_valueMissingPlayersLabel, 0, Qt::AlignCenter);
-    ui->startTournementLayout->addWidget(_startTournementButton,0 ,Qt::AlignBottom);
+    ui->startTournementLayout->addWidget(_startTournamentButton,0 ,Qt::AlignBottom);
 
     ui->addPlayerLayout->addWidget(_playernameLabel,1,0);
     ui->addPlayerLayout->addWidget(_birthdayLabel,2,0);
@@ -179,19 +186,19 @@ void PlayermanagementWindow::setAllLayout()
 void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 {
     _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-     _startTournementButton->setEnabled(false);
-     _valueMissingPlayersLabel->setNotStartTournementStyle();
+     _startTournamentButton->setEnabled(false);
+     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 
     if(_valueMissingPlayersLabel->text() == "0")
     {
-        _valueMissingPlayersLabel->setStartTournementStyle();
-        _startTournementButton->setEnabled(true);
+        _valueMissingPlayersLabel->setStartTournamentStyle();
+        _startTournamentButton->setEnabled(true);
     }
 }
 
 void PlayermanagementWindow::tournamentName()
 {
-    TournementNamePopUp* tournamentName = new TournementNamePopUp;
+    TournamentNamePopUp* tournamentName = new TournamentNamePopUp;
     tournamentName->show();
 
 }
