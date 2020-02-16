@@ -29,6 +29,7 @@ void ViewerWindow::writeScore()
         ui->throw2FromPlayer1->setText(QString::number(_referee->getThrows()[1]));
         ui->throw3FromPlayer1->setText(QString::number(_referee->getThrows()[2]));
         ui->all3ThrowsPlayer1->setText(QString::number(_referee->getThrowScore()));
+        ui->remainingThrowsForPlayer1->setText(QString::number(_referee->getRemainingThrows()));
     }
     else
     {
@@ -36,6 +37,7 @@ void ViewerWindow::writeScore()
         ui->throw2FromPlayer2->setText(QString::number(_referee->getThrows()[1]));
         ui->throw3FromPlayer2->setText(QString::number(_referee->getThrows()[2]));
         ui->all3ThrowsPlayer2->setText(QString::number(_referee->getThrowScore()));
+        ui->remainingThrowsForPlayer2->setText(QString::number(_referee->getRemainingThrows()));
     }
 
     ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
