@@ -36,6 +36,11 @@ public:
     int getGameStart();
     int  getThrowScore();
 
+    // Methoden für den Zuschauer
+    QList<int> getRemainScoreForViewer();
+    QList<int> getWinningLegCounterForViewer();
+    QList<int> getAllPlayersForViewer();
+
 signals:
     void valueChanged(void);
     void playerBust(void);
@@ -53,6 +58,8 @@ private:
      QList<int> _winningLegCounter  = {0,0};
      QList<int> _remainScore        = {501,501};
      QList<int> _allThrows          = {0,0,0};
+     //TODO: Muss noch ein String werden. Mit der Game Klasse absprechen
+     QList<int> _allPlayers         ={1,2};
 };
 
 #endif // REFEREE_H

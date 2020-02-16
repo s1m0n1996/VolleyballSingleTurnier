@@ -18,8 +18,8 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     _popupWinningLeg(popupWinningLeg),
     _popupBustLeg(popupBustLeg)
 {
-    RefereepopupWinningLeg* test = new RefereepopupWinningLeg;
-    _popupWinningLeg =test;
+    RefereepopupWinningLeg* winLeg = new RefereepopupWinningLeg;
+    _popupWinningLeg =winLeg;
 
     RefereePopupBustLeg* bustLeg = new RefereePopupBustLeg;
     _popupBustLeg = bustLeg;

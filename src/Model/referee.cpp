@@ -224,10 +224,28 @@ int Referee::getThrowScore()
     return _throwScore = _allThrows[0] + _allThrows[1] +_allThrows[2];
 }
 
+
 //Game Referee::getAktivePlayer()
 //{
 //
 //}
 
+
+
+
+QList<int> Referee::getRemainScoreForViewer()
+{
+    return  _remainScore;
+}
+
+QList<int> Referee::getWinningLegCounterForViewer()
+{
+    return _winningLegCounter;
+}
+
+QList<int> Referee::getAllPlayersForViewer()
+{
+    return  _allPlayers;
+}
 
 

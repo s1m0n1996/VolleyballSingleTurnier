@@ -39,7 +39,7 @@ void MainMenu::openTournementWindow()
 }
 void MainMenu::openViewerWindow()
 {
-    ViewerWindow* viewerWindow = new ViewerWindow;
+    ViewerWindow* viewerWindow = new ViewerWindow(_refereeModel);
     viewerWindow->showMaximized();
 }
 
