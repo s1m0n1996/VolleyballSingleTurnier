@@ -315,5 +315,6 @@ void RefereeWindow::writeScore()
     ui->gesmatpunkte->setText(QString::number(_referee->getThrowScore()));
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
     ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
+    ui->remainingThrows->setText(QString::number(_referee->getRemainingThrows()));
     writeNextPlayer();
 }

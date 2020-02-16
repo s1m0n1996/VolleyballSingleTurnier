@@ -81,8 +81,8 @@
      <rect>
       <x>1120</x>
       <y>280</y>
-      <width>421</width>
-      <height>461</height>
+      <width>381</width>
+      <height>481</height>
      </rect>
     </property>
     <property name="title">
@@ -154,6 +154,24 @@
        </item>
        <item>
         <widget class="QLabel" name="throw3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Verbleibende Würfe:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="remainingThrows">
          <property name="text">
           <string/>
          </property>

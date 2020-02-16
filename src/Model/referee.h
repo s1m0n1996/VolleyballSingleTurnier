@@ -35,6 +35,7 @@ public:
     int getCountOfWinningLegs();
     int getGameStart();
     int  getThrowScore();
+    int getRemainingThrows();
 
     // Methoden für den Zuschauer
     QList<int> getRemainScoreForViewer();
@@ -53,6 +54,7 @@ private:
      int _player                    = 0;
      int _winner                    = 0;
      int _throwScore                = 0;
+     int _remainingThrows           = 0;
      bool _wasLastThrowInLegToWin   = false;
      bool _wasLastThrowInLegToBust  = false;
      QList<int> _winningLegCounter  = {0,0};

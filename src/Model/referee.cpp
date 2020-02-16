@@ -224,6 +224,11 @@ int Referee::getThrowScore()
     return _throwScore = _allThrows[0] + _allThrows[1] +_allThrows[2];
 }
 
+int Referee::getRemainingThrows()
+{
+    return _remainingThrows = 3 - _throwCounter;
+}
+
 
 //Game Referee::getAktivePlayer()
 //{
