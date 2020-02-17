@@ -127,6 +127,17 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement)
     return _executeQuery(sqlQuery, sqlStatement);
 }
 
+/*!
+ * \brief Execute a sql query with sqlQuery oject
+ * \param[in] sqlQuery object
+ * \return the requested data from the sqlStatement
+ */
+QList<QList<QVariant>> SqliteConnector::sqlQuery(QSqlQuery& sqlQuery)
+{
+    sqlQuery.exec();
+    return _convertReturnedData(sqlQuery);
+}
+
 // TODO: drop this function and use the better with the QList<QVariant>!!!
 /*!
  * \brief Execute a sqlQuery With a incomplete sql string and a list of parameter to complete the sql string.
@@ -256,20 +267,7 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
     }
 
     // convert the returned data in a pretty 2-dimensional list
-    QList<QList<QVariant>> data; // the complete returned table
-    while (sqlQueryObject.next())
-    {
-
-        int column_id = 0;
-        QList<QVariant> columns;
-        while (sqlQueryObject.value(column_id).isValid())
-        {
-            columns.append(sqlQueryObject.value(column_id));
-            column_id++;
-        }
-        data.append(columns);
-    }
-    return data;
+    return _convertReturnedData(sqlQueryObject);
 }
 
 /*!
@@ -332,4 +330,31 @@ bool SqliteConnector::_loadLastDatabase()
     {
         return false;
     }
+}
+
+/*!
+ * \brief convert the returnes sql data
+ *
+ * \param[in] the sql query data object
+ *
+ * This method converts the sql query objekt in a 2 dimensional list.
+ * The sqlQuery object must be executed before.
+ */
+QList<QList<QVariant>> SqliteConnector::_convertReturnedData(QSqlQuery& sqlQuery)
+{
+    // convert the returned data in a pretty 2-dimensional list
+    QList<QList<QVariant>> data; // the complete returned table
+    while (sqlQuery.next())
+    {
+
+        int column_id = 0;
+        QList<QVariant> columns;
+        while (sqlQuery.value(column_id).isValid())
+        {
+            columns.append(sqlQuery.value(column_id));
+            column_id++;
+        }
+        data.append(columns);
+    }
+    return data;
 }

@@ -38,9 +38,8 @@ public:
     QSqlDatabase* getDb(){return &_db;}
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
-
+    QList<QList<QVariant>> sqlQuery(QSqlQuery& sqlQuery);
     QList<QList<QVariant>> sqlQuery(const QString &sqlPrepare, const QStringList &parameters);
-
     QList<QList<QVariant>> sqlQuery(const QString &sqlPrepare, const QList<QVariant> &parameters);
 
     static void printTable(const QList<QList<QVariant>> &table);
@@ -58,6 +57,7 @@ private:
     SqliteConnector &operator=(const SqliteConnector &) = delete; // Kopierzuweisungsoperator
 
     static QList<QList<QVariant>> _executeQuery(QSqlQuery& sqlQueryObject, const QString& sqlQueryString = "");
+    static QList<QList<QVariant>> _convertReturnedData(QSqlQuery& sqlQuery);
     void _saveLastPath(QString& path);
     bool _loadLastDatabase(void);
 
