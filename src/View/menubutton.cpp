@@ -19,7 +19,7 @@ MenuButton::MenuButton(QString text, QWidget *parent) : QPushButton(parent)
                    "QPushButton:hover{"
                    "color: #dcdcdc;"
                    "background-color: #414141;"
-                   "border-width: 1px};");
+                   "border-width: 1px;}");
 
     setText(text);
     setToolTip(text);
