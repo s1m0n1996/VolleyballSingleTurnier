@@ -24,6 +24,12 @@ WHERE id = ?;
     )";
     QList<QString> sqlParameters;
     sqlParameters.append(QString::number(_id));
+
+    if (_db->sqlQuery(sqlPrepare, sqlParameters).length() <= 0)
+    {
+        qWarning() << "no player with id: " << id << " found";
+        return;
+    }
     QList<QVariant> player = _db->sqlQuery(sqlPrepare, sqlParameters)[0];
     _name = player[1].toString();
     _birthday = player[2].toString();
