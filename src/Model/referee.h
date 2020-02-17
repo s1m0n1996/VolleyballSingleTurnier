@@ -3,7 +3,9 @@
 
 #include <QList>
 #include <QObject>
+#include <QDebug>
 
+#include "Model/sqliteConnector.h"
 #include "Model/game.h"
 
 /*!
@@ -27,15 +29,17 @@ public:
     void legWinningCondition();
 
 
-   // Game getAktivePlayer();
+    int getAktivePlayer();              //TODO: Name des Spielers
+    int getAktivePlayerId();
     QList<int> getThrows();
-    int getAktivePlayer();
     int getRemainScore();
     QString getWinner();
     int getCountOfWinningLegs();
     int getGameStart();
     int  getThrowScore();
     int getRemainingThrows();
+    int getLastLegIdInSameGame();
+    int getNumberOfCurrentLeg();
 
     // Methoden für den Zuschauer
     QList<int> getRemainScoreForViewer();
@@ -55,6 +59,10 @@ private:
      int _winner                    = 0;
      int _throwScore                = 0;
      int _remainingThrows           = 0;
+     int _tournamentId              = 7;            //TODO: tournamentId übergeben oder durch singletonklasse bekommen
+     int _gameId                    = 5;            // Hier auch!
+     int _playerAId;
+     int _playerBId;
      bool _wasLastThrowInLegToWin   = false;
      bool _wasLastThrowInLegToBust  = false;
      QList<int> _winningLegCounter  = {0,0};
@@ -62,6 +70,7 @@ private:
      QList<int> _allThrows          = {0,0,0};
      //TODO: Muss noch ein String werden. Mit der Game Klasse absprechen
      QList<int> _allPlayers         ={1,2};
+     SqliteConnector* _db;
 };
 
 #endif // REFEREE_H

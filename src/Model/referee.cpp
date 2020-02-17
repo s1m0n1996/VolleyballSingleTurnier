@@ -9,7 +9,9 @@
 
 Referee::Referee()
 {
-
+    _db = &SqliteConnector::instance();
+    _playerAId = 0;
+    _playerBId = 1;
 }
 
 /*!
@@ -85,6 +87,12 @@ int Referee::getAktivePlayer()
     return _player;
 }
 
+/*QString Referee::getAktivePlayer()
+{
+    Player aktivePlayer(getAktivePlayerId());
+    return aktivePlayer.getName();
+}*/
+
 /*!
  * \brief Berechnet den Wert des geworfenen Dartpfeils.
  * \param[in,in] Den Multiplikator des Wurf [int], die Punktzahl des Wurf's ohne Multiplikator [int]
@@ -103,6 +111,29 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         qDebug()<<_singleThrowScore;
         _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
+
+        QString sqlPrepare = R"(
+                             INSERT INTO leg_history_list (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id, player_id, time, value_type_id, value)
+                             VALUES (?, 1, 1, ?, ?, ?, ?, ?, ?, ?)
+                             )";
+        QList <QString> sqlParameters;
+        sqlParameters.append(QString::number(getLastLegIdInSameGame()+1));
+        sqlParameters.append(QString::number(_tournamentId));
+        sqlParameters.append(QString::number(_gameId));
+        sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
+        sqlParameters.append(QString::number(getAktivePlayerId()));
+        sqlParameters.append("Uhrzeit");
+        sqlParameters.append(QString::number(valueMultiplikator));
+        if(valueMultiplikator == 0)
+        {
+            sqlParameters.append(QString::number(0));
+        }
+        else
+        {
+            sqlParameters.append(QString::number(scoreWithoutMultiplikator));
+        }
+        _db->sqlQuery(sqlPrepare, sqlParameters);
+
         setRemainScore();
         emit valueChanged();
     }
@@ -173,6 +204,35 @@ void Referee::legWinningCondition()
  */
 void Referee::undoThrow()
 {
+    if (_wasLastThrowInLegToWin)
+    {
+        _winningLegCounter[_player]--;
+        _wasLastThrowInLegToWin = false;
+    }
+    QString sqlPrepare = R"(DELETE
+                         from leg_history_list
+                         WHERE sport_type_id = 1
+                           AND id = (SELECT MAX (id)
+                         FROM leg_history_list
+                         WHERE sport_type_id = 1
+                           AND game_mode_id = 1
+                           AND tournament_id = ?
+                           AND game_board_id = ?
+                           AND leg_id = ?)
+                           AND game_mode_id = 1
+                           AND tournament_id = ?
+                           AND game_board_id = ?
+                           AND leg_id = ?
+                         )";
+    QList <QString> sqlParameters;
+    sqlParameters.append(QString::number(_tournamentId));
+    sqlParameters.append(QString::number(_gameId));
+    sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
+    sqlParameters.append(QString::number(_tournamentId));
+    sqlParameters.append(QString::number(_gameId));
+    sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
+    _db->sqlQuery(sqlPrepare, sqlParameters);
+
     if (3 == _throwCounter)
     {
         _remainScore[_player] = _remainScore[_player] + _allThrows[2];
@@ -191,14 +251,9 @@ void Referee::undoThrow()
         _allThrows[0] = 0;
         _throwCounter--;
     }
-
-    if (_wasLastThrowInLegToWin)
-    {
-        _winningLegCounter[_player]--;
-        _wasLastThrowInLegToWin = false;
-    }
     emit valueChanged();
 }
+
 
 int Referee::getRemainScore()
 {
@@ -231,10 +286,17 @@ int Referee::getRemainingThrows()
 }
 
 
-//Game Referee::getAktivePlayer()
-//{
-//
-//}
+int Referee::getAktivePlayerId()
+{
+    if(_player == 0)
+    {
+        return _playerAId;
+    }
+    else
+    {
+        return _playerBId;
+    }
+}
 
 
 
@@ -255,3 +317,41 @@ QList<int> Referee::getAllPlayersForViewer()
 }
 
 
+int Referee::getLastLegIdInSameGame()
+{
+    QString sqlPrepare = R"(SELECT id
+                         FROM leg_history_list
+                         WHERE sport_type_id = 1
+                         AND game_mode_id = 1
+                         AND tournament_id = ?
+                         AND game_board_id = ?
+                         AND leg_id = ?
+                         ORDER by id desc
+                         limit 1)";
+    QList<QString> sqlParameters;
+    sqlParameters.append(QString::number(_tournamentId));
+    sqlParameters.append(QString::number(_gameId));
+    sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
+    QList<QList<QVariant>> id = _db->sqlQuery(sqlPrepare, sqlParameters);
+    int lastId;
+    if(id.isEmpty())
+    {
+        lastId = 0;
+    }
+    else
+    {
+        lastId = id[0][0].toInt();
+    }
+    return lastId;
+}
+
+
+int Referee::getNumberOfCurrentLeg()
+{
+    int legId = 1;
+    for (int i = 0; i < 2; i++)           //TODO: Testen ob damit alle legs aufgegriffen werden
+    {
+        legId += _winningLegCounter[i];
+    }
+    return legId;
+}
