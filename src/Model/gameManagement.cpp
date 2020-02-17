@@ -23,7 +23,7 @@ void GameManagement::loadOtherTournament(QString& name, QString& date)
 SELECT id, name, date, sport_type_id, game_mode_id
 FROM tournament_list
 WHERE name = ?
-  AND date = ?;
+  AND date = ?
 )";
     QList<QString> sqlParameters;
     sqlParameters.append(name);
@@ -116,7 +116,7 @@ void GameManagement::loadLastTournament(void)
 SELECT max(id), name, date
 FROM tournament_list
 WHERE sport_type_id = ?
-  AND game_mode_id = ?;)";
+  AND game_mode_id = ?)";
 
     QList<QString> sqlParameters;
     sqlParameters.append(QString::number(_sportTypeId));
