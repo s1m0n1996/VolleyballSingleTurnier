@@ -19,7 +19,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     showTable();
     createMissingPlayersForNewTournamentLabel();
     createButtons();
-    createAddPlayerEdit();    
+    createAddPlayerEdit();
     setAllLayout();
     connecting();
 
@@ -53,9 +53,9 @@ void PlayermanagementWindow::addPlayerForNewGame()
     for (QModelIndex index : selectedRows)
     {
         _playerManagementModel->addPlayerForNewGame(Player(
-                modelAll->index(index.row() , 0).data().toString(),
-                modelAll->index(index.row() , 1).data().toString(),
-                modelAll->index(index.row() , 2).data().toString()));
+                modelAll->index(index.row(), 0).data().toString(),
+                modelAll->index(index.row(), 1).data().toString(),
+                modelAll->index(index.row(), 2).data().toString()));
     }
 }
 
@@ -65,7 +65,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
     _startTournamentButton->setEnabled(true);
 
     Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
-    _playerManagementModel-> addPlayerForNewGame(*newplayer);
+    _playerManagementModel->addPlayerForNewGame(*newplayer);
 
     _playernameEdit->clear();
     _birthdayEdit->clear();
@@ -76,7 +76,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
 void PlayermanagementWindow::connecting()
 {
-    connect(_addPlayerButton,SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
+    connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
     connect(_startTournamentButton, SIGNAL(released()), this, SLOT(tournamentName()));
     connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
     connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
@@ -104,7 +104,7 @@ void PlayermanagementWindow::createButtons()
     _startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
 
-    if(_valueMissingPlayersLabel->text() == "0")
+    if (_valueMissingPlayersLabel->text() == "0")
     {
         _valueMissingPlayersLabel->setStartTournamentStyle();
         _startTournamentButton->setEnabled(true);
@@ -115,20 +115,22 @@ void PlayermanagementWindow::createButtons()
 void PlayermanagementWindow::createMissingPlayersForNewTournamentLabel()
 {
     _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
-    _valueMissingPlayersLabel = new WindowLabel(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
+    _valueMissingPlayersLabel = new WindowLabel(
+            QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 }
 
 void PlayermanagementWindow::dropPlayerForNewGame()
 {
+    // FIXME: wenn man mehrere spieler aufeinmal entfernt wird jeder 2. nicht gelösch
     QAbstractItemModel* modelGame = _gamePlayerTableView->model();
     QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
- for (QModelIndex index : selectedRows)
+    for (QModelIndex index : selectedRows)
     {
         _playerManagementModel->dropPlayerForNewGame(Player(
-                modelGame->index(index.row() , 0).data().toString(),
-                modelGame->index(index.row() , 1).data().toString(),
-                modelGame->index(index.row() , 2).data().toString()));
+                modelGame->index(index.row(), 0).data().toString(),
+                modelGame->index(index.row(), 1).data().toString(),
+                modelGame->index(index.row(), 2).data().toString()));
     }
 }
 
@@ -154,27 +156,26 @@ void PlayermanagementWindow::setAllLayout()
 
     ui->maxPlayerLayout->addWidget(_nameMissingPlayersLabel, 0, Qt::AlignCenter);
     ui->maxPlayerLayout->addWidget(_valueMissingPlayersLabel, 0, Qt::AlignCenter);
-    ui->startTournementLayout->addWidget(_startTournamentButton,0 ,Qt::AlignBottom);
+    ui->startTournementLayout->addWidget(_startTournamentButton, 0, Qt::AlignBottom);
 
-    ui->addPlayerLayout->addWidget(_playernameLabel,1,0);
-    ui->addPlayerLayout->addWidget(_birthdayLabel,2,0);
-    ui->addPlayerLayout->addWidget(_countryLabel,3,0);
+    ui->addPlayerLayout->addWidget(_playernameLabel, 1, 0);
+    ui->addPlayerLayout->addWidget(_birthdayLabel, 2, 0);
+    ui->addPlayerLayout->addWidget(_countryLabel, 3, 0);
 
 
     ui->addPlayerLayout->setSpacing(2);
     ui->addPlayerLayout->setMargin(5);
 
-    ui->addPlayerLayout->addWidget(_playernameEdit,1,1);
-    ui->addPlayerLayout->addWidget(_birthdayEdit,2,1);
-    ui->addPlayerLayout->addWidget(_countryEdit,3,1);
+    ui->addPlayerLayout->addWidget(_playernameEdit, 1, 1);
+    ui->addPlayerLayout->addWidget(_birthdayEdit, 2, 1);
+    ui->addPlayerLayout->addWidget(_countryEdit, 3, 1);
 
 
-    ui->addPlayerLayout->addWidget(_addPlayerButton,5,Qt::AlignRight);    
+    ui->addPlayerLayout->addWidget(_addPlayerButton, 5, Qt::AlignRight);
 
     ui->tabelViewLayout->addWidget(_allPlayerTableView);
     ui->tabelViewLayout->addLayout(addDeleteLayout);
     ui->tabelViewLayout->addWidget(_gamePlayerTableView);
-
 
 
     addDeleteLayout->addWidget(_addPlayerForNewTournament);
@@ -186,10 +187,10 @@ void PlayermanagementWindow::setAllLayout()
 void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 {
     _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-     _startTournamentButton->setEnabled(false);
-     _valueMissingPlayersLabel->setNotStartTournamentStyle();
+    _startTournamentButton->setEnabled(false);
+    _valueMissingPlayersLabel->setNotStartTournamentStyle();
 
-    if(_valueMissingPlayersLabel->text() == "0")
+    if (_valueMissingPlayersLabel->text() == "0")
     {
         _valueMissingPlayersLabel->setStartTournamentStyle();
         _startTournamentButton->setEnabled(true);
