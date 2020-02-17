@@ -1,6 +1,6 @@
 #include "Model/game.h"
 
-Game::Game(const int tournamentId)
+Game::Game(const int tournamentId):_playerA(2),_playerB(4)
 {
     _db = &SqliteConnector::instance();
     _tournamentId = tournamentId;
@@ -46,6 +46,7 @@ void Game::setNextWinner(int winnerId)
     prepareNextGame(winnerId);
 }
 
+
 void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
 {
     QString sqlPrepare = R"(SELECT *
@@ -73,7 +74,8 @@ void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
         QList<QString> sqlParameters2;
         sqlParameters2.append(QString::number(winnerId));
         sqlParameters2.append(nextGames[0][0].toString());
-        sqlParameters.append(QString::number(_tournamentId));
+        sqlParameters2.append(QString::number(_tournamentId));
+        _db->sqlQuery(sqlPrepare2, sqlParameters2);
     }
     else
     {
@@ -87,7 +89,8 @@ void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
         QList<QString> sqlParameters2;
         sqlParameters2.append(QString::number(winnerId));
         sqlParameters2.append(nextGames[0][0].toString());
-        sqlParameters.append(QString::number(_tournamentId));
+        sqlParameters2.append(QString::number(_tournamentId));
+        _db->sqlQuery(sqlPrepare2, sqlParameters2);
     }
 }
 
