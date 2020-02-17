@@ -12,6 +12,13 @@
 
 
 void test(){
+    QList<Player> list;
+    for(const Player& pla : list)
+    {
+
+    }
+    Game test(65);
+    test.prepareNextGame(7);
 
 }
 
@@ -23,6 +30,7 @@ int main(int argc, char *argv[])
     MainMenu* mainmenu= new MainMenu(model);
 //    mainmenu->setFixedSize(700,600);
     mainmenu -> show();
+    test();
 
     return a.exec();
 }

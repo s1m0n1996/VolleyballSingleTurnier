@@ -1,0 +1,42 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 17.02.2020
+	9:05 - 9:35 Uhr = 30 mins
+Raum: ZME Raum 1.0.1
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Philipp Wietfeld
+
+------------------------------------------------------------------------------------------------------------------------
+Frage von Simon:
+	-Fehler "Parameter count mismatch"
+	-> Fehlersuche in den vermeintlich betroffenen Zeilen durch qDebug() nach zu wenig übergegebenen Parametern in SQL-Übergabe
+	-> Möglicherweise Fehler an anderer Stelle mit dem gleichen Aufbau 
+	-> Fehlersuche zuhause, da Fehler nicht gefunden werden konnte in der zuvor gedachten Codestelle
+
+Frage Philipp:
+	-Fehler "Erstellen von Membervariablen vom Typ einer anderen Klasse"
+	-> Die Definition der Variablen sind zu spät geschehen und müssen erfolgen, sobald der Speicher reserviert wird
+	-> Variablen werden nun vor dem Konstruktor der eigenen Klasse erstellt
+	-> Es soll keinen Defaultkonstruktor von Klasse "Player" geben
+
+Frage Lea:
+	-Wie sollen Funktionen geordnet werden?
+	-> Alphabetische Reihenfolge ist nicht sinnig
+	-> Sortierung von Methoden in der Headerdatei nach Funktionalität und Zusammengehörigkeit
+	-> Nach eigenem Empfinden, so wie man es am besten selber lesen könnte wenn man die Klasse nicht kennen würde
+
+	-Fehler "QPushButton"
+	-> Möglicherweise Stylesheet fehlerhaft
+	-> Zeilen einzeld auskommentieren um den Fehler zu finden
+
+	-Frage"Gameboard zeichnen"
+	-> Von QWidget eine Unterklasse erzeugen und selber zeichnen möglich aber nicht zu empfehlen
+	-> Mit QGraphics das Gameboard aufbauen, da durch die Klasse schon einige elementare Funktionen wie z.B. zoomen gegeben ist
