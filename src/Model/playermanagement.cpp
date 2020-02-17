@@ -32,14 +32,15 @@ QList<Player> PlayerManagement::getAllStoredPlayers(bool onlyAvailable)
     QString sqlPrepare = R"(
 SELECT id
 FROM player_list
-WHERE is_available >= ?
+WHERE is_available >= :isAvailable
 ORDER BY name;
     )";
 
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(onlyAvailable));
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":isAvailable", onlyAvailable);
 
-    QList<QList<QVariant>> playerIds = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QList<QList<QVariant>> playerIds = _db->sqlQuery(sqlQuery);
 
     QList<Player> storedPlayers;
 
@@ -60,20 +61,19 @@ void PlayerManagement::addPlayerForNewGame(const Player addPlayer)
 {
     QString sqlPrepare = R"(
 INSERT INTO tournament_players_list (player_id, sport_type_id, game_mode_id, tournament_id)
-VALUES ((SELECT id FROM player_list WHERE name = ? AND birthday = ? AND country = ?), ?, ?, ?)
+VALUES ((SELECT id FROM player_list WHERE name = :name AND birthday = :birthday AND country = :country), :sportTypeId, :gameModeId, :tournamentId)
 )";
 
-    QList<QVariant> sqlParameters;
-    sqlParameters.append(addPlayer.getName());
-    sqlParameters.append(addPlayer.getBirthday());
-    sqlParameters.append(addPlayer.getCountry());
-    sqlParameters.append(_gameManagement->getSportTypeId());
-    sqlParameters.append(_gameManagement->getGameModeId());
-    sqlParameters.append(_gameManagement->getTournamentId());
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":name", addPlayer.getName());
+    sqlQuery.bindValue(":birthday", addPlayer.getBirthday());
+    sqlQuery.bindValue(":country", addPlayer.getCountry());
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
 
-    qDebug() << _gameManagement->getSportTypeId() << _gameManagement->getGameModeId() << _gameManagement->getTournamentId();
-
-    _db->sqlQuery(sqlPrepare, sqlParameters);
+    _db->sqlQuery(sqlQuery);
     refreshNextGamePlayerTable();
 
     emit valueChanged();
@@ -105,21 +105,22 @@ void PlayerManagement::dropPlayerForNewGame(const Player dropPlayer)
 DELETE
 FROM tournament_players_list
 WHERE player_id =
-      (SELECT id FROM player_list WHERE name = ? AND birthday = ? AND country = ?)
-  AND sport_type_id = ?
-  AND game_mode_id = ?
-  AND tournament_id = ?
+      (SELECT id FROM player_list WHERE name = :name AND birthday = :birthday AND country = :country)
+  AND sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
 )";
 
-    QList<QVariant> sqlParameters;
-    sqlParameters.append(dropPlayer.getName());
-    sqlParameters.append(dropPlayer.getBirthday());
-    sqlParameters.append(dropPlayer.getCountry());
-    sqlParameters.append(_gameManagement->getSportTypeId());
-    sqlParameters.append(_gameManagement->getGameModeId());
-    sqlParameters.append(_gameManagement->getTournamentId());
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":name", dropPlayer.getName());
+    sqlQuery.bindValue(":birthday", dropPlayer.getBirthday());
+    sqlQuery.bindValue(":country", dropPlayer.getCountry());
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
 
-    _db->sqlQuery(sqlPrepare, sqlParameters);
+    _db->sqlQuery(sqlQuery);
     refreshNextGamePlayerTable();
     emit valueChanged();
 }
@@ -131,19 +132,21 @@ WHERE player_id =
  */
 int PlayerManagement::countSelectedPlayersForNewGame()
 {
-    QString sqlQuery = R"(
+    QString sqlPrepare = R"(
 SELECT Count(*)
 FROM tournament_players_list
-WHERE sport_type_id = ?
-  AND game_mode_id = ?
-  AND tournament_id = ?;)";
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+)";
 
-    QList<QVariant> sqlParameters;
-    sqlParameters.append(_gameManagement->getSportTypeId());
-    sqlParameters.append(_gameManagement->getGameModeId());
-    sqlParameters.append(_gameManagement->getTournamentId());
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
 
-    QList<QList<QVariant>> data = _db->sqlQuery(sqlQuery, sqlParameters);
+    QList<QList<QVariant>> data = _db->sqlQuery(sqlQuery);
 
     if (data.length() <= 0)
     {
@@ -208,7 +211,7 @@ void PlayerManagement::refreshDatabasePlayerTable()
  */
 void PlayerManagement::refreshNextGamePlayerTable()
 {
-    QSqlQuery query;
+    QSqlQuery sqlQuery;
 
     QString sqlPrepare = R"(
 SELECT pl.name, pl.birthday, pl.country
@@ -219,29 +222,25 @@ WHERE sport_type_id = :sportTypeId
   AND tournament_id = :tournamentId
 )";
 
-    query.prepare(sqlPrepare);
-
-    query.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
-    query.bindValue(":gameModeId", _gameManagement->getGameModeId());
-    query.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     // TODO: wieder prepare system verwenden
-    //qDebug() << "isValid: " << query.isValid();
-    //_nextGamePlayerTableModel->setQuery(query);
+    //qDebug() << "isValid: " << sqlQuery.isValid();
+    //_nextGamePlayerTableModel->setQuery(sqlQuery);
 
-    QString sqlQuery;
-    sqlQuery = R"(
+    QString sqlQueryString;
+    sqlQueryString = R"(
 SELECT pl.name, pl.birthday, pl.country
 FROM tournament_players_list
          INNER JOIN player_list pl ON tournament_players_list.player_id = pl.id
 WHERE sport_type_id = )";
-    sqlQuery += QString::number(_gameManagement->getSportTypeId());
-    sqlQuery += " AND game_mode_id = ";
-    sqlQuery += QString::number(_gameManagement->getGameModeId());
-    sqlQuery += " AND tournament_id = ";
-    sqlQuery += QString::number(_gameManagement->getTournamentId());
-
+    sqlQueryString += QString::number(_gameManagement->getSportTypeId());
+    sqlQueryString += " AND game_mode_id = ";
+    sqlQueryString += QString::number(_gameManagement->getGameModeId());
+    sqlQueryString += " AND tournament_id = ";
+    sqlQueryString += QString::number(_gameManagement->getTournamentId());
 
     _nextGamePlayerTableModel->setQuery(sqlQuery);
-
-
 }

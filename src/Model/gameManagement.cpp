@@ -22,14 +22,15 @@ void GameManagement::loadOtherTournament(QString& name, QString& date)
     QString sqlPrepare = R"(
 SELECT id, name, date, sport_type_id, game_mode_id
 FROM tournament_list
-WHERE name = ?
-  AND date = ?
+WHERE name = :name
+  AND date = :date
 )";
-    QList<QString> sqlParameters;
-    sqlParameters.append(name);
-    sqlParameters.append(date);
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":name", name);
+    sqlQuery.bindValue(":date", date);
 
-    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
 
     if (rawData.length() == 0)
     {
@@ -42,7 +43,6 @@ WHERE name = ?
     _tournamentDate = rawData[0][2].toString();
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
-
 }
 
 /*!
@@ -55,16 +55,17 @@ void GameManagement::loadOtherTournament(int& id)
     QString sqlPrepare = R"(
 SELECT id, name, date, sport_type_id, game_mode_id
 FROM tournament_list
-WHERE id = ?
- AND sport_type_id = ?
- AND game_mode_id = ?;
+WHERE id = :id
+ AND sport_type_id = :sportTypeId
+ AND game_mode_id = :gameModeId
 )";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(id));
-    sqlParameters.append(QString::number(_sportTypeId));
-    sqlParameters.append(QString::number(_gameModeId));
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":id", id);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
 
-    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
 
     if (rawData.length() == 0)
     {
@@ -77,7 +78,6 @@ WHERE id = ?
     _tournamentDate = rawData[0][2].toString();
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
-
 }
 
 /*!
@@ -93,16 +93,17 @@ void GameManagement::createNewTournament(QString& name, QString& date)
 {
     QString sqlPrepare = R"(
 INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
-VALUES ((SELECT max(id + 1) FROM tournament_list WHERE sport_type_id = ? AND game_mode_id = ?), ?, ?, ?, ?)
+VALUES ((SELECT max(id + 1) FROM tournament_list WHERE sport_type_id = :sportTypeId AND game_mode_id = :gameModeId), :sportTypeId, :gameModeId, :name, :date)
 )";
-    QList<QVariant> sqlParameters;
-    sqlParameters.append(QVariant(_sportTypeId));
-    sqlParameters.append(QVariant(_gameModeId));
-    sqlParameters.append(QVariant(_sportTypeId));
-    sqlParameters.append(QVariant(_gameModeId));
-    sqlParameters.append(QVariant(name));
-    sqlParameters.append(QVariant(date));
-    _db->sqlQuery(sqlPrepare, sqlParameters);
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
+    sqlQuery.bindValue(":name", name);
+    sqlQuery.bindValue(":date", date);
+
+    _db->sqlQuery(sqlQuery);
 }
 
 /*!
@@ -115,14 +116,16 @@ void GameManagement::loadLastTournament(void)
     QString sqlPrepare = R"(
 SELECT max(id), name, date
 FROM tournament_list
-WHERE sport_type_id = ?
-  AND game_mode_id = ?)";
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+)";
 
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(_sportTypeId));
-    sqlParameters.append(QString::number(_gameModeId));
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
 
-    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
 
     if (rawData.length() <= 0)
     {

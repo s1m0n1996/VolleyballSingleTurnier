@@ -1,3 +1,5 @@
+#include <QSqlQuery>
+
 #include "Model/player.h"
 
 Player::Player(const QString name, const QString birthday, const QString country)
@@ -20,17 +22,21 @@ Player::Player(const int id)
     QString sqlPrepare = R"(
 SELECT *
 FROM player_list
-WHERE id = ?;
+WHERE id = :id;
     )";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(_id));
 
-    if (_db->sqlQuery(sqlPrepare, sqlParameters).length() <= 0)
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":id", _id);
+
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
+
+    if (rawData.length() <= 0)
     {
         qWarning() << "no player with id: " << id << " found";
         return;
     }
-    QList<QVariant> player = _db->sqlQuery(sqlPrepare, sqlParameters)[0];
+    QList<QVariant> player = rawData[0];
     _name = player[1].toString();
     _birthday = player[2].toString();
     _country = player[3].toString();
@@ -46,13 +52,15 @@ void Player::_addPlayerToDatabase()
 
     QString sqlPrepare = R"(
 INSERT INTO player_list (name, birthday, country)
-VALUES (?, ?, ?);
+VALUES (:name, :birthday, :country);
 )";
-    QList<QString> sqlParameters;
-    sqlParameters.append(_name);
-    sqlParameters.append(_birthday);
-    sqlParameters.append(_country);
-    _db->sqlQuery(sqlPrepare, sqlParameters);
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":name", _name);
+    sqlQuery.bindValue(":birthday", _birthday);
+    sqlQuery.bindValue(":country", _country);
+
+    _db->sqlQuery(sqlQuery);
 }
 
 
@@ -61,15 +69,18 @@ bool Player::_isPlayerUnknown()
     QString sqlPrepare = R"(
 SELECT *
 FROM player_list
-WHERE name = ?
-AND birthday = ?
-AND country = ?;
+WHERE name = :name
+AND birthday = :birthday
+AND country = :country
     )";
-    QList<QString> sqlParameters;
-    sqlParameters.append(_name);
-    sqlParameters.append(_birthday);
-    sqlParameters.append(_country);
-    return _db->sqlQuery(sqlPrepare, sqlParameters).isEmpty();
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":name", _name);
+    sqlQuery.bindValue(":birthday", _birthday);
+    sqlQuery.bindValue(":country", _country);
+
+    return _db->sqlQuery(sqlQuery).isEmpty();
 
 }
 
@@ -78,16 +89,18 @@ int Player::_getPlayerIdFromDatabase()
     QString sqlPrepare = R"(
 SELECT id
 FROM player_list
-WHERE name = ?
-AND birthday = ?
-AND country = ?;
+WHERE name = :name
+AND birthday = :birthday
+AND country = :country
     )";
-    QList<QString> sqlParameters;
-    sqlParameters.append(_name);
-    sqlParameters.append(_birthday);
-    sqlParameters.append(_country);
 
-    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":name", _name);
+    sqlQuery.bindValue(":birthday", _birthday);
+    sqlQuery.bindValue(":country", _country);
+
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
     if (rawData.isEmpty())
     {
         qWarning() << "can't get the id from the player because the player does not exists.";
