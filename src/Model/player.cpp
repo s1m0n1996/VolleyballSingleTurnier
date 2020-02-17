@@ -30,12 +30,6 @@ WHERE id = ?;
     _country = player[3].toString();
 }
 
-Player::Player()            //TODO : Fix Defaultconstructor
-{
-
-}
-
-
 /// To add a Player to the SqLite Database.
 /*
  * this method add a player to the SqLite Database. In the Database the id was increment up automatic
