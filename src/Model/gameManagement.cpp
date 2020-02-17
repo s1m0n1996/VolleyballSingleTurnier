@@ -4,7 +4,7 @@
 
 #include "gameManagement.h"
 
-gameManagement::gameManagement(void)
+GameManagement::GameManagement(void)
 {
     _db = &SqliteConnector::instance();
 
@@ -17,7 +17,7 @@ gameManagement::gameManagement(void)
  * \param[in] name the tournament name
  * \param[in] date the tournament date in format: "YYYY-MM-dd"
  */
-void gameManagement::loadOtherTournament(QString& name, QString& date)
+void GameManagement::loadOtherTournament(QString& name, QString& date)
 {
     QString sqlPrepare = R"(
 SELECT id, name, date, sport_type_id, game_mode_id
@@ -50,7 +50,7 @@ WHERE name = ?
  *
  * \param[in] id the tournament name
  */
-void gameManagement::loadOtherTournament(int& id)
+void GameManagement::loadOtherTournament(int& id)
 {
     QString sqlPrepare = R"(
 SELECT id, name, date, sport_type_id, game_mode_id
@@ -89,7 +89,7 @@ WHERE id = ?
  * this method creates a new tournament in the database.
  * Attention this method only create a new tournament if you wil use the new tournament you must load it!
  */
-void gameManagement::createNewTournament(QString& name, QString& date)
+void GameManagement::createNewTournament(QString& name, QString& date)
 {
     QString sqlPrepare = R"(
 INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
@@ -110,7 +110,7 @@ VALUES ((SELECT max(id + 1) FROM tournament_list WHERE sport_type_id = ? AND gam
  *
  * this method load the last tournament from the database.
  */
-void gameManagement::loadLastTournament(void)
+void GameManagement::loadLastTournament(void)
 {
     QString sqlPrepare = R"(
 SELECT max(id), name, date

@@ -12,6 +12,7 @@
 
 #include "Model/sqliteConnector.h"
 #include "Model/player.h"
+#include "Model/gameManagement.h"
 
 /*!
  * \file playermanagement.h
@@ -52,6 +53,7 @@ signals:
 
 private:
     SqliteConnector* _db;
+    GameManagement* _gameManagement;
 
     QSqlQueryModel* _databasePlayerTable = new QSqlQueryModel();
     QSqlQueryModel* _nextGamePlayerTableModel = new QSqlQueryModel();

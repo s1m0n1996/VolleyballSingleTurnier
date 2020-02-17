@@ -12,12 +12,12 @@
  * Thia class is a singleton class and would be used as global parameters that all models works with
  * the same tournament and game.
 */
-class gameManagement
+class GameManagement
 {
 public:
-    static gameManagement& instance(void)
+    static GameManagement& instance(void)
     {
-        static gameManagement instance;
+        static GameManagement instance;
         return instance;
     }
     int getTournamentId(void){ return _tournamentId;}
@@ -32,10 +32,10 @@ public:
     void loadLastTournament(void);
 
 private:
-    gameManagement(void);
-    ~gameManagement(void) = default;
-    gameManagement(const gameManagement&) = delete; // Copy-Konstruktor
-    gameManagement& operator=(const gameManagement&) = delete; // Kopierzuweisungsoperator
+    GameManagement(void);
+    ~GameManagement(void) = default;
+    GameManagement(const GameManagement&) = delete; // Copy-Konstruktor
+    GameManagement& operator=(const GameManagement&) = delete; // Kopierzuweisungsoperator
     int _sportTypeId = 1;
     int _gameModeId = 1;
     int _tournamentId;
