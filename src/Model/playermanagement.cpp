@@ -242,5 +242,5 @@ WHERE sport_type_id = )";
     sqlQueryString += " AND tournament_id = ";
     sqlQueryString += QString::number(_gameManagement->getTournamentId());
 
-    _nextGamePlayerTableModel->setQuery(sqlQuery);
+    _nextGamePlayerTableModel->setQuery(sqlQueryString);
 }
