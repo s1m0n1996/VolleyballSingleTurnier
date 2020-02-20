@@ -244,3 +244,30 @@ WHERE sport_type_id = )";
 
     _nextGamePlayerTableModel->setQuery(sqlQueryString);
 }
+
+/*!
+ * \brief drop a player from the database
+ *
+ * \param[in] player object that would be dropped
+ *
+ * This method drop a player from the database virtual.
+ * So the Player would not delete from the database really. Only the is_available flag was set to false.
+ * The reason that the player can not delete really from the database is that the foreign keys needs the players.
+ */
+void PlayerManagement::dropPlayerFromDatabase(Player dropPlayer)
+{
+
+    QString sqlPrepare = R"(
+UPDATE player_list
+SET is_available = 0
+WHERE id = :id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":id", dropPlayer.getId());
+
+    _db->sqlQuery(sqlQuery);
+
+    refreshDatabasePlayerTable();
+}

@@ -47,6 +47,8 @@ public:
 
     void refreshNextGamePlayerTable();
 
+    void dropPlayerFromDatabase(Player dropPlayer);
+
 signals:
     void valueChanged(void);
 
