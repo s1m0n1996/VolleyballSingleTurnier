@@ -41,6 +41,8 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
     connect(_popupBustLeg,SIGNAL(playerBustLeg()),this,SLOT(nextPlayer()));
     connect(_popupBustLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+
+    writeScore();
 }
 
 RefereeWindow::~RefereeWindow()

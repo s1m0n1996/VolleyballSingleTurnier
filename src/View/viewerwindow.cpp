@@ -9,6 +9,7 @@ ViewerWindow::ViewerWindow(Referee *referee, QWidget *parent) :
     ui->setupUi(this);
     connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
 
+    writeScore();
 }
 
 void ViewerWindow::writeScore()
