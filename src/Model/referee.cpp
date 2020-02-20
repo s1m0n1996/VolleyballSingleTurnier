@@ -31,14 +31,8 @@ void Referee::nextPlayer()
         _wasLastThrowInLegToBust = false;
     }
 
-    if (0 == _player)
-    {
-        _player = 1;
-    }
-    else
-    {
-        _player = 0;
-    }
+    // switch player id
+    _player = !_player;
 
     _throwCounter = 0;
     _allThrows[0] = 0;
@@ -233,22 +227,11 @@ void Referee::undoThrow()
     sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
     _db->sqlQuery(sqlPrepare, sqlParameters);
 
-    if (3 == _throwCounter)
+    if (0 < _throwCounter)
     {
-        _remainScore[_player] = _remainScore[_player] + _allThrows[2];
-        _allThrows[2] = 0;
-        _throwCounter--;
-    }
-    else if (2 == _throwCounter)
-    {
-        _remainScore[_player] = _remainScore[_player] + _allThrows[1];
-        _allThrows[1] = 0;
-        _throwCounter--;;
-    }
-    else if (1 == _throwCounter)
-    {
-        _remainScore[_player] = _remainScore[_player] + _allThrows[0];
-        _allThrows[0] = 0;
+        // last throw is actual throw - 1
+        _remainScore[_player] = _remainScore[_player] + _allThrows[_throwCounter - 1];
+        _allThrows[_throwCounter - 1] = 0;
         _throwCounter--;
     }
     emit valueChanged();
