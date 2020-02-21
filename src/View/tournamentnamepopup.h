@@ -16,12 +16,16 @@ class TournamentNamePopUp : public QWidget
     Q_OBJECT
 public:
     explicit TournamentNamePopUp(QWidget *parent = nullptr);
+    QString getName();
+    WindowEdit* getDate(){return _dateEdit;}
+    bool isTournament =  false;
 
 
 public slots:
     void openTournamentWindow(void);
 
-
+signals:
+    void tournamentName();
 private:
     WindowLabel* _dateLabel = nullptr;
     WindowEdit* _dateEdit = nullptr;

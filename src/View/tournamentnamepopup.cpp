@@ -1,4 +1,5 @@
 #include "tournamentnamepopup.h"
+#include "View/mainmenu.h"
 
 TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 {
@@ -24,6 +25,7 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
         connect(_createTournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
 
 
+
         setWindowFlags(Qt::WindowStaysOnTopHint|Qt::WindowCloseButtonHint);
 
 }
@@ -31,9 +33,14 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 
 void TournamentNamePopUp::openTournamentWindow(void)
 {
-
-    TournamentWindow* tournamentWindow2 = new TournamentWindow;
-    tournamentWindow2->show();
-
      setWindowFlags(Qt::Window);
+     isTournament = true;
+     qDebug()<<getName();
+     emit tournamentName();
+}
+
+QString TournamentNamePopUp::getName()
+{
+    return _nameEdit -> text();
+
 }
