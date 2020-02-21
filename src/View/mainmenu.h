@@ -70,13 +70,16 @@ private:
     MenuButton* _tournament = nullptr;
     MenuButton* _viewer = nullptr;
     MenuButton* _referee = nullptr;
-    QAction* _load = nullptr;
-    QAction* _new = nullptr;
+    QAction* _loadPlayer = nullptr;
+    QAction* _newPlayer = nullptr;
+    QAction* _loadTournament = nullptr;
+    QAction* _newTournament = nullptr;
     PlayerManagement* _playerManagementModel;
     Referee* _refereeModel;
     RefereepopupWinningLeg* _refereePopupModel;
     TournamentNamePopUp* _tournamentName = nullptr;
-    QMenuBar* _playerData = nullptr;
+    QMenu* _playerData = nullptr;
+    QMenu* _tournamentData= nullptr;
 
 
 

@@ -1,4 +1,5 @@
 #include "mainmenu.h"
+#include <QVBoxLayout>
 
 MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
@@ -89,9 +90,9 @@ void MainMenu:: connecting()
     connect(_tournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
     connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
     connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
-    connect(_new,SIGNAL(triggered()),this, SLOT(createDatabase()));
-    connect(_load,SIGNAL(triggered()),this, SLOT(loadDatabase()));
-    connect(ui->labelErstellen,SIGNAL(triggered()),this,SLOT(tournamentName()));
+    connect(_newPlayer,SIGNAL(triggered()),this, SLOT(createDatabase()));
+    connect(_loadPlayer,SIGNAL(triggered()),this, SLOT(loadDatabase()));
+    connect(_newTournament,SIGNAL(triggered()),this,SLOT(tournamentName()));
 //    connect(_tournamentName, SIGNAL(tournamentName()), this, SLOT(setTouenamentName()));
 }
 
@@ -118,26 +119,38 @@ void MainMenu::createButton()
        _tournament          = new MenuButton("Spielplan");
        _viewer              = new MenuButton("Zuschaueransicht");
        _referee             = new MenuButton("Richteransicht");
-       _load                = new QAction("Laden");
-       _new                 = new QAction("Neu");
+       _loadPlayer                = new QAction("Laden");
+       _newPlayer                 = new QAction("Erstellen");
+       _loadTournament                = new QAction("Laden");
+       _newTournament                 = new QAction("Erstellen");
        _title               = new WindowLabel("Hauptmenü - DartsTurnier");
        _title->titleStyel();
-       _playerData = new QMenuBar();
+       _playerData = new QMenu();
+       _playerData= menuBar()->addMenu(tr("Spielerdateien"));
+       _playerData->addAction(_newPlayer);
+       _playerData->addAction(_loadPlayer);
+       _tournamentData = new QMenu();
+       _tournamentData= menuBar()->addMenu(tr("Turnier"));
+       _tournamentData->addAction(_newTournament);
+       _tournamentData->addAction(_loadTournament);
+
 
 }
 
 void MainMenu::setButtonsLayout()
 {
-    ui->verticalLayout->addWidget(_title,0,Qt::AlignCenter);
-    ui->verticalLayout->setSpacing(30);
-    ui->verticalLayout->addWidget(_noteDatabase,0,Qt::AlignCenter);
-    ui->verticalLayout->addWidget(_noteTournament,0,Qt::AlignCenter);
-    ui->verticalLayout->addWidget(_playermanagment,0,Qt::AlignCenter);
-    ui->verticalLayout->addWidget(_tournament,0,Qt::AlignCenter);
-    ui->verticalLayout->addWidget(_viewer,0,Qt::AlignCenter);
-    ui->verticalLayout->addWidget(_referee,0,Qt::AlignCenter);
-    ui->menuGame->addAction(_new);
-    ui->menuGame->addAction(_load);
-}
+    QWidget* widget= new QWidget;
+    setCentralWidget(widget);
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(_title,0,Qt::AlignCenter);
+    layout->setSpacing(30);
+    layout->addWidget(_noteDatabase,0,Qt::AlignCenter);
+    layout->addWidget(_noteTournament,0,Qt::AlignCenter);
+    layout->addWidget(_playermanagment,0,Qt::AlignCenter);
+    layout->addWidget(_tournament,0,Qt::AlignCenter);
+    layout->addWidget(_viewer,0,Qt::AlignCenter);
+    layout->addWidget(_referee,0,Qt::AlignCenter);
+    widget->setLayout(layout);
+ }
 
 
