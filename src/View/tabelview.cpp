@@ -16,7 +16,6 @@ TableView::TableView(QWidget* parent) : QTableView(parent)
 
      setSelectionBehavior(QAbstractItemView::SelectRows);
      setSelectionMode(QAbstractItemView::MultiSelection);
-     //selectionModel()->selectedRows();
      horizontalHeader()->setFont(QFont("Candara", 15));
 
 
