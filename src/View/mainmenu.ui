@@ -16,21 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-       <widget class="QLabel" name="label_2">
-        <property name="font">
-         <font>
-          <pointsize>24</pointsize>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Hauptmenü - DartsTurnier</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <layout class="QVBoxLayout" name="verticalLayout"/>
     </item>
    </layout>
   </widget>
@@ -46,10 +32,18 @@
    </property>
    <widget class="QMenu" name="menuGame">
     <property name="title">
-     <string>Spiel</string>
+     <string>Spielerdatei</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuTurnier">
+    <property name="title">
+     <string>Turnier</string>
+    </property>
+    <addaction name="labelLaden"/>
+    <addaction name="labelErstellen"/>
+   </widget>
    <addaction name="menuGame"/>
+   <addaction name="menuTurnier"/>
   </widget>
   <action name="actionsdf">
    <property name="text">
@@ -64,6 +58,16 @@
   <action name="actionLaden">
    <property name="text">
     <string>Laden</string>
+   </property>
+  </action>
+  <action name="labelLaden">
+   <property name="text">
+    <string>Laden</string>
+   </property>
+  </action>
+  <action name="labelErstellen">
+   <property name="text">
+    <string>Erstellen</string>
    </property>
   </action>
  </widget>

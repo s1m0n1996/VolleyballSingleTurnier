@@ -27,6 +27,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QMenuBar>
 
 
 
@@ -43,6 +44,7 @@ class MainMenu : public QMainWindow
 public:
     MainMenu(Model* model, QMainWindow* parent = nullptr);
     ~MainMenu();
+    WindowLabel* getNote(){return _noteDatabase;}
 
 public slots:
     void openPlayermanagmentWindow();
@@ -51,6 +53,8 @@ public slots:
     void openRefereeWindow();
     void createDatabase();
     void loadDatabase();
+    void tournamentName();
+    void setTouenamentName();
 
 
 private:
@@ -59,7 +63,9 @@ private:
     void setButtonsLayout();
     Ui::MainMenu *ui;
     Model* _model = nullptr;
-    WindowLabel* _note = nullptr;
+    WindowLabel* _noteDatabase = nullptr;
+    WindowLabel* _noteTournament = nullptr;
+    WindowLabel* _title = nullptr;
     MenuButton* _playermanagment = nullptr;
     MenuButton* _tournament = nullptr;
     MenuButton* _viewer = nullptr;
@@ -69,6 +75,10 @@ private:
     PlayerManagement* _playerManagementModel;
     Referee* _refereeModel;
     RefereepopupWinningLeg* _refereePopupModel;
+    TournamentNamePopUp* _tournamentName = nullptr;
+    QMenuBar* _playerData = nullptr;
+
+
 
 
 
