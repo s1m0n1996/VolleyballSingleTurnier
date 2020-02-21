@@ -1,9 +1,9 @@
 #ifndef TOURNEMENTWINDOW_H
 #define TOURNEMENTWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
 
-class TournamentWindow : public QMainWindow
+class TournamentWindow : public QWidget
 {
     Q_OBJECT
 public:
