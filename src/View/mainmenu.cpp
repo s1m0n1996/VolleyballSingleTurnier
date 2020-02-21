@@ -8,26 +8,12 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
 
 {
     ui->setupUi(this);
-    createButton();
-    setButtonsLayout();
-
+    createWidgets();
+    setwholeLayout();
     connecting();
 
-    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
-    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
-
-    if  (sqlitConnector->getDb()->isOpen())
-    {
-        _noteDatabase->setVisible(false);
-    }
-
     setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
-    _playerManagementModel = new PlayerManagement();
-    _refereeModel = new Referee();
+
 }
 MainMenu::~MainMenu()
 {
@@ -80,6 +66,7 @@ void MainMenu::loadDatabase()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
     sqlitConnector->openDatabase(path);
+
 }
 
 void MainMenu:: connecting()
@@ -107,7 +94,7 @@ void MainMenu::setTouenamentName()
 {
     _noteTournament->setText("Das Turnier LEa ist ");
 }
-void MainMenu::createButton()
+void MainMenu::createWidgets()
 {
        _noteDatabase                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
        _noteDatabase->setStyleSheet("QLabel{"
@@ -134,14 +121,29 @@ void MainMenu::createButton()
        _tournamentData->addAction(_newTournament);
        _tournamentData->addAction(_loadTournament);
 
+       _playerManagementModel = new PlayerManagement();
+       _refereeModel = new Referee();
+
+       SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+       _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
+       _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
+       _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
+       _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
+       _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+
+       if  (sqlitConnector->getDb()->isOpen())
+       {
+           _noteDatabase->setVisible(false);
+       }
 
 }
 
-void MainMenu::setButtonsLayout()
+void MainMenu::setwholeLayout()
 {
     QWidget* widget= new QWidget;
     setCentralWidget(widget);
-    QVBoxLayout* layout = new QVBoxLayout;
+
+    QVBoxLayout* layout = new QVBoxLayout;    
     layout->addWidget(_title,0,Qt::AlignCenter);
     layout->setSpacing(30);
     layout->addWidget(_noteDatabase,0,Qt::AlignCenter);
@@ -150,7 +152,10 @@ void MainMenu::setButtonsLayout()
     layout->addWidget(_tournament,0,Qt::AlignCenter);
     layout->addWidget(_viewer,0,Qt::AlignCenter);
     layout->addWidget(_referee,0,Qt::AlignCenter);
+
     widget->setLayout(layout);
+
+
  }
 
 

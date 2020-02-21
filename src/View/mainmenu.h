@@ -59,8 +59,8 @@ public slots:
 
 private:
     void connecting();
-    void createButton();
-    void setButtonsLayout();
+    void createWidgets();
+    void setwholeLayout();
     Ui::MainMenu *ui;
     Model* _model = nullptr;
     WindowLabel* _noteDatabase = nullptr;
