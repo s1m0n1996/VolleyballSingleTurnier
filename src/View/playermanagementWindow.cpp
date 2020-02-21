@@ -5,7 +5,6 @@
 #include "QAbstractItemView"
 #include <QModelIndex>
 
-// TODO: Markieung weg wenn -> gedrückt wurde
 
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
     QMainWindow(parent), 
@@ -57,6 +56,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
                 modelAll->index(index.row(), 1).data().toString(),
                 modelAll->index(index.row(), 2).data().toString()));
     }
+    _allPlayerTableView->selectionModel()->clearSelection();
 }
 
 void PlayermanagementWindow::addPlayerToDatabase()
@@ -72,6 +72,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
     _countryEdit->clear();
 
     _playerManagementModel->refreshDatabasePlayerTable();
+
 }
 
 void PlayermanagementWindow::connecting()
@@ -132,6 +133,8 @@ void PlayermanagementWindow::dropPlayerForNewGame()
                 modelGame->index(index.row(), 1).data().toString(),
                 modelGame->index(index.row(), 2).data().toString()));
     }
+
+    _gamePlayerTableView->selectionModel()->clearSelection();
 }
 
 void PlayermanagementWindow::showTable()
@@ -199,8 +202,8 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 
 void PlayermanagementWindow::tournamentName()
 {
-    TournamentNamePopUp* tournamentName = new TournamentNamePopUp;
-    tournamentName->show();
+    TournamentWindow* tournamentWindow2 = new TournamentWindow;
+    tournamentWindow2->showMaximized();
 
 }
 
