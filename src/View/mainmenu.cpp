@@ -66,13 +66,16 @@ void MainMenu::loadDatabase()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
     sqlitConnector->openDatabase(path);
-
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
+    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
+    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
+    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+    _noteDatabase->setVisible(false);
 }
 
 void MainMenu:: connecting()
 {
-//    TournamentNamePopUp* _tournamentName = new TournamentNamePopUp;
-
     connect(_playermanagment, SIGNAL(released()), this, SLOT(openPlayermanagmentWindow()));
     connect(_tournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
     connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
