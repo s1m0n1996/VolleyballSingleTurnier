@@ -10,6 +10,7 @@ public:
     explicit WindowLabel(QString text, QWidget *parent = nullptr);
     void setNotStartTournamentStyle(void);
     void setStartTournamentStyle(void);
+    void titleStyel(void);
 
 
 public:

@@ -8,7 +8,7 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
     setText(text);
 }
 
-void WindowLabel:: setNotStartTournamentStyle()
+void WindowLabel::setNotStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
@@ -16,9 +16,20 @@ void WindowLabel:: setNotStartTournamentStyle()
                   "color: red;}");
 }
 
-void WindowLabel:: setStartTournamentStyle()
+void WindowLabel::setStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
                   "font-family: Candara;}");
+}
+
+void WindowLabel::titleStyel()
+{
+    setStyleSheet("QLabel{"
+                  "font-size: 45px;"
+                  "font-family: Candara;"
+                  "border-bottom-width: 1px;"
+                  "border-bottom-style: solid;"
+                  "border-radius: 0px;"
+                  "font-weight: bold;}");
 }
