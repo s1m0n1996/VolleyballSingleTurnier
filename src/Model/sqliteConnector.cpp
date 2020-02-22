@@ -27,6 +27,11 @@ void SqliteConnector::createDatabase(const QString path)
     // TODO: checke ob datei bereits vorhanden ist und gebe eine warnung "wollen sie die datei wirklich überschreiben"
     //  aus. dann muss die Alte datei Gelöscht werden und eine neue angelegt werden"
     // TODO: logging system einführen
+    if (_db.isOpen())
+    {
+        _db.close();
+    }
+
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(path);
 
@@ -62,7 +67,7 @@ void SqliteConnector::createDatabase(const QString path)
         QStringList sqlStatements = sqlScript.split(";", QString::SkipEmptyParts);
         for (const QString& sqlStatement : sqlStatements)
         {
-            if (sqlStatement != "")
+            if (sqlStatement.length() > 5)
             {
                 if (!query.exec(sqlStatement))
                 {
@@ -93,6 +98,12 @@ bool SqliteConnector::openDatabase(QString path)
         qCritical() << "can't open database file from location " << path;
         return false;
     }
+
+    if (_db.isOpen())
+    {
+        _db.close();
+    }
+
     _db = QSqlDatabase::addDatabase("QSQLITE");
     _db.setDatabaseName(path);
     if (!_db.open())
