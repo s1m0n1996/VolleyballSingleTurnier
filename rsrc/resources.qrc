@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>database/DDL_DatabaseSchema.sql</file>
         <file>database/DDL_DatabaseInserts.sql</file>
+        <file>database/FinishCombination.json</file>
 		<file>img/Dartboard.png</file>
     </qresource>
 </RCC>
