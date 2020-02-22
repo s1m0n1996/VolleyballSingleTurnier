@@ -80,7 +80,6 @@ set(SOURCES
 
 # set .ui files
 set(UIS
-        View/mainmenu.ui
         View/playermanagementWindow.ui
         View/refereewindow.ui
         View/viewerWindow.ui

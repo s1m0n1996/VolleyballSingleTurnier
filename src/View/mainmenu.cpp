@@ -20,17 +20,14 @@
 #include "View/tournamentwindow.h"
 #include "View/viewerwindow.h"
 #include "View/windowlabel.h"
-#include "ui_mainmenu.h"
 
 // TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
 
 MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
-    ui(new Ui::MainMenu),
     _model(model)
 {
-    ui->setupUi(this);
     createWidgets();
     setwholeLayout();
     connecting();
@@ -40,8 +37,6 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
 
 MainMenu::~MainMenu()
 {
-    delete ui;
-
     delete  _playerData;
     delete  _loadPlayer;
     delete  _newPlayer;

@@ -59,8 +59,6 @@ private:
     void createWidgets();
     void setwholeLayout();
 
-    Ui::MainMenu* ui;
-
     Model*      _model = nullptr;
 
     QMenu*      _playerData    = nullptr;
