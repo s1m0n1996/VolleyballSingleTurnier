@@ -4,7 +4,7 @@
 #include <QLineEdit>
 /*!
  * \file windowedit.h
- * \brief Die Klasse WondoEdit erzeugt Edits
+ * \brief Die Klasse WindoEdit erzeugt Edits
  * \author Lea Kesselmeier
  *
  * Jedes Edit bekommt das selbe StyleSheet und die selbe Größe beim Erzeugen

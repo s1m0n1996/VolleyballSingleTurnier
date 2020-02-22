@@ -5,7 +5,7 @@
 
 /*!
  * \file windowbutton.h
- * \brief Die Klasse WondowButton erzeugt PushButtons
+ * \brief Die Klasse WindowButton erzeugt PushButtons
  * \author Lea Kesselmeier
  *
  * Jeder Button bekommt das selbe StyleSheet beim Erzeugen

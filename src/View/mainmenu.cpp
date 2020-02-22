@@ -182,7 +182,7 @@ void MainMenu::createWidgets()
     _tournamentData->addAction(_loadTournament);
 
     _title               = new WindowLabel("Hauptmenü - DartsTurnier");
-    _title->titleStyel();
+    _title->setTitleStyel();
 
     _noteDatabase                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
     _noteDatabase->setStyleSheet("QLabel{"
