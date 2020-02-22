@@ -27,7 +27,6 @@ SOURCES += \
     View/dartboard.cpp \
     View/gameboardWindow.cpp \
     View/mainmenu.cpp \
-    View/menubutton.cpp \
     View/playermanagementWindow.cpp \
     View/refereepopupbustleg.cpp \
     View/refereepopupwinningleg.cpp \
@@ -54,7 +53,6 @@ HEADERS += \
     View/dartboard.h \
     View/gameboardWindow.h \
     View/mainmenu.h \
-    View/menubutton.h \
     View/playermanagementWindow.h \
     View/refereepopupbustleg.h \
     View/refereepopupwinningleg.h \
