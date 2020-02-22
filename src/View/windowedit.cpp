@@ -1,19 +1,30 @@
+/*!
+* \file windowedit.cpp
+* \brief Diese Klasse besitzt die Informationen zu den Edits
+* \author Lea Kesselmeier
+*/
 #include "windowedit.h"
 #include <QRegExp>
 #include <QRegExpValidator>
 
-WindowEdit::WindowEdit(QString placeholder, QWidget *parent) : QLineEdit(parent)
+/*!
+ * \brief WindowEdit::WindowEdit ist Konstruktor der Klasse WindowEdit
+ * \param placeholder ist der Text, den das Edit anzeigen soll, der Default ist leer
+ * \param parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Je nachdem welches playeholder es ist, können nur bestimmte Zeichen eingegben werden, um Fehler zu minimieren
+ */
+WindowEdit::WindowEdit(QString placeholder, QWidget* parent) : QLineEdit(parent)
 {
     setPlaceholderText(placeholder);
     setFixedWidth(300);
+
     setStyleSheet("QLineEdit{"
                "font-size: 20px;"
                "font-family: Candara;}");
-    QRegularExpression nummber ("\\d");
-    QRegularExpression letter ("[a-zA-Z]");
+
     QRegExpValidator* validator = new QRegExpValidator();
-
-
 
     if (placeholder == "Max Mustermann")
     {
@@ -31,7 +42,6 @@ WindowEdit::WindowEdit(QString placeholder, QWidget *parent) : QLineEdit(parent)
         validator->setRegExp(re);
         //CAN: Abfrage anch realem Datum
     }
+
     setValidator(validator);
-
-
 }
