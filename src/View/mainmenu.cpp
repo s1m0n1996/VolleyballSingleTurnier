@@ -41,6 +41,25 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
 MainMenu::~MainMenu()
 {
     delete ui;
+
+    delete  _playerData;
+    delete  _loadPlayer;
+    delete  _newPlayer;
+
+    delete  _tournamentData;
+    delete  _loadTournament;
+    delete  _newTournament;
+
+    delete  _title;
+
+    delete  _noteDatabase;
+    delete  _noteTournament;
+    delete  _tournamentName;
+
+    delete  _playermanagment;
+    delete  _tournament;
+    delete  _viewer;
+    delete  _referee;
 }
 
 void MainMenu::openPlayermanagmentWindow()
