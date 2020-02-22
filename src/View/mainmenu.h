@@ -29,6 +29,15 @@
 #include <QWidget>
 #include <QMenuBar>
 
+/*!
+ * \file mainmenu.h
+ * \brief Die Klasse MainMenu erzeugt ein Hauptmenu aus dem die verschieden Fenster geöffnet werden können
+ * \author Lea Kesselmeier
+ *
+ * In der Menüleiste lassen sich Spielerdatenbanken und Turniere erstellen oder starten
+ * Eine Warnung erscheint, wenn keine Datenbank geöfnnet ist und welches Turnier gerade laden ist
+ * Über die verschiedenen Buttons gelangt man zu der Meldestelle, dem Spielplan, der Zuschaueransicht und dem Richterfenster
+*/
 
 
 QT_BEGIN_NAMESPACE
@@ -80,10 +89,6 @@ private:
     TournamentNamePopUp* _tournamentName = nullptr;
     QMenu* _playerData = nullptr;
     QMenu* _tournamentData= nullptr;
-
-
-
-
 
 };
 #endif // MAINMENU_H

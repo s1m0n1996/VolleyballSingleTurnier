@@ -1,3 +1,8 @@
+/*!
+* \file mainmenu.cpp
+* \brief Diese Klasse ist die View Klasse des Hauptmenüs
+* \author Lea Kesselmeier
+*/
 #include "mainmenu.h"
 #include <QVBoxLayout>
 
@@ -5,7 +10,6 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
     ui(new Ui::MainMenu),
     _model(model)
-
 {
     ui->setupUi(this);
     createWidgets();
@@ -15,6 +19,7 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
 
 }
+
 MainMenu::~MainMenu()
 {
     delete ui;
@@ -25,11 +30,13 @@ void MainMenu::openPlayermanagmentWindow()
     PlayermanagementWindow* playermanagment = new PlayermanagementWindow(_playerManagementModel);
     playermanagment->showMaximized();
 }
+
 void MainMenu::openTournamentWindow()
 {
     TournamentWindow* tournamentWindow = new TournamentWindow;
     tournamentWindow->showMaximized();
 }
+
 void MainMenu::openViewerWindow()
 {
     ViewerWindow* viewerWindow = new ViewerWindow(_refereeModel);
@@ -42,6 +49,15 @@ void MainMenu::openRefereeWindow()
     refereeWindow->show();
 }
 
+/*!
+ * \brief Erstellt eine Datenbank
+ *
+ * \param void
+ * \return void
+ *
+ * Ein Pfad wird von dem Benutzer festgelegt und dort wird eine sqlite Datenbank mit dem gewünschten Namen erzeugt
+ * Wenn diese Datenbank geöffnet wurde, werden die Buttons wieder freigeschaltet und die Warnung entfernt
+ */
 void MainMenu::createDatabase()
 {
     QString path = QFileDialog::getSaveFileName(this,
@@ -50,14 +66,25 @@ void MainMenu::createDatabase()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
     sqlitConnector->createDatabase(path);
+
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+
     _noteDatabase->setVisible(false);
 }
 
+/*!
+ * \brief Laden einer existierenden Datenbank
+ *
+ * \param void
+ * \return void
+ *
+ * Der Pfad, indem die bereits erstellten DAtenbank gespeichert wurden, wird geöffnet und der Benutzer kann eine Datenbank zu öffnen auswählen
+ * Wenn eine sqlite Datenbank geöffnet wurde, werden die Buttons wieder freigeschaltet und die Warnung entfernt
+ */
 void MainMenu::loadDatabase()
 {
     QString path = QFileDialog::getOpenFileName(this,
@@ -66,6 +93,7 @@ void MainMenu::loadDatabase()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
     sqlitConnector->openDatabase(path);
+
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
@@ -97,6 +125,7 @@ void MainMenu::setTouenamentName()
 {
     _noteTournament->setText("Das Turnier LEa ist ");
 }
+
 void MainMenu::createWidgets()
 {
        _noteDatabase                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
@@ -138,7 +167,6 @@ void MainMenu::createWidgets()
        {
            _noteDatabase->setVisible(false);
        }
-
 }
 
 void MainMenu::setwholeLayout()
@@ -157,8 +185,6 @@ void MainMenu::setwholeLayout()
     layout->addWidget(_referee,0,Qt::AlignCenter);
 
     widget->setLayout(layout);
-
-
  }
 
 
