@@ -23,6 +23,7 @@
 
 // TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
+#include <QSizePolicy>
 
 MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
@@ -32,6 +33,7 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     setwholeLayout();
     connecting();
 
+    setMinimumSize(700,600);
     setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
 }
 
@@ -222,6 +224,7 @@ void MainMenu::setwholeLayout()
 {
     QWidget* widget= new QWidget;
     setCentralWidget(widget);
+
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_title,0,Qt::AlignCenter);
