@@ -3,7 +3,13 @@
 
 #include <QWidget>
 #include <QTableView>
-
+/*!
+ * \file tabelview.h
+ * \brief Die Klasse TabelView erzeugt TabelViews
+ * \author Lea Kesselmeier
+ *
+ * Erzeugt einheiltiche TabelViews mit Möglichkeiten von markierung mehrer Reihen und deren Farbwechsel
+*/
 class TableView : public QTableView
 {
     Q_OBJECT

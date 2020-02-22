@@ -1,10 +1,20 @@
+/*!
+* \file tabelview.cpp
+* \brief Diese Klasse besitzt Informationen über das Aussehen eines TabelViews
+* \author Lea Kesselmeier
+*/
 #include "tabelview.h"
 #include <QHeaderView>
-
+/*!
+ * \brief TabelView::TabelView ist Konstruktor der Klasse TabelView
+ * \param parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Man kann Reihen makrieren und neu einfärben
+ * Man kann mehrere Reihen auswählen
+ */
 TableView::TableView(QWidget* parent) : QTableView(parent)
 {
-
-
      setAlternatingRowColors(true);
      setStyleSheet("color: black;"
                    "background-color: white;"
@@ -17,8 +27,4 @@ TableView::TableView(QWidget* parent) : QTableView(parent)
      setSelectionBehavior(QAbstractItemView::SelectRows);
      setSelectionMode(QAbstractItemView::MultiSelection);
      horizontalHeader()->setFont(QFont("Candara", 15));
-
-
-
-
 }
