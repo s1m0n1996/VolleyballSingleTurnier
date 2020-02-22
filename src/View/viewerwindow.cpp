@@ -67,7 +67,9 @@ void ViewerWindow::scoreIsUnder170InLeg()
 
 void ViewerWindow::possibleWayToFinishLeg()
 {
+    qDebug() << "emit";
     _aktivePlayer = _referee->getAktivePlayer();
+    qDebug() << _aktivePlayer;
 
     if ((_aktivePlayer + 1) == _player1)
     {

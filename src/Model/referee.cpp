@@ -39,6 +39,8 @@ void Referee::nextPlayer()
     _allThrows[1] = 0;
     _allThrows[2] = 0;
 
+    qDebug() << _remainScore[_player];
+
     scoreIsUnder170InLeg();
     emit valueChanged();
 }
@@ -186,8 +188,10 @@ void Referee::legWinningCondition()
 
 void Referee::scoreIsUnder170InLeg()
 {
-    if ((_remainScore[0] <= 170 or _remainScore[1] <= 170) and _remainingThrows > 0)
+    if ((_remainScore[_player] <= 170 and _remainScore[_player] >= 0) and _remainingThrows > 0)
+
     {
+        qDebug() << "Emit Score uner 170";
         emit scoreIsUnder170();
     }
 }
