@@ -3,8 +3,27 @@
 * \brief Diese Klasse ist die View Klasse des Hauptmenüs
 * \author Lea Kesselmeier
 */
-#include "mainmenu.h"
+#include <QAction>
+#include <QFileDialog>
+#include <QMenuBar>
 #include <QVBoxLayout>
+#include <QWidget>
+
+#include "Model/model.h"
+#include "Model/playermanagement.h"
+#include "Model/sqliteConnector.h"
+#include "View/mainmenu.h"
+#include "View/menubutton.h"
+#include "View/playermanagementWindow.h"
+#include "View/refereewindow.h"
+#include "View/refereepopupwinningleg.h"
+#include "View/tournamentwindow.h"
+#include "View/viewerwindow.h"
+#include "View/windowlabel.h"
+#include "ui_mainmenu.h"
+
+// TODO: Trunier anzeigen, welches gerade geladen ist.
+#include <QDebug>
 
 MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
@@ -17,7 +36,6 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     connecting();
 
     setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
-
 }
 
 MainMenu::~MainMenu()

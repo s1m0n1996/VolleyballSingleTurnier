@@ -1,33 +1,22 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include "ui_mainmenu.h"
-#include "Model/model.h"
-#include "Model/sqliteConnector.h"
-
-#include "View/menubutton.h"
-#include "View/playermanagementWindow.h"
-#include "View/refereewindow.h"
-#include "View/tournamentwindow.h"
-#include "View/viewerwindow.h"
-#include "View/windowlabel.h"
-#include "Model/playermanagement.h"
-#include "View/refereepopupwinningleg.h"
-
-#include <QPalette>
-#include <QAction>
-#include <QCoreApplication>
-#include <QDebug>
-#include <QFileDialog>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QLineEdit>
 #include <QMainWindow>
-#include <QPalette>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QWidget>
-#include <QMenuBar>
+
+class MenuButton;
+class Model;
+class PlayermanagementWindow;
+class PlayerManagement;
+class QAction;
+class QMenu;
+class Referee;
+class RefereepopupWinningLeg;
+class RefereeWindow;
+class SqliteConnector;
+class TournamentNamePopUp;
+class TournamentWindow;
+class ViewerWindow;
+class WindowLabel;
 
 /*!
  * \file mainmenu.h
@@ -39,12 +28,9 @@
  * Über die verschiedenen Buttons gelangt man zu der Meldestelle, dem Spielplan, der Zuschaueransicht und dem Richterfenster
 */
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainMenu; }
 QT_END_NAMESPACE
-
-
 
 class MainMenu : public QMainWindow
 {
@@ -53,9 +39,12 @@ class MainMenu : public QMainWindow
 public:
     MainMenu(Model* model, QMainWindow* parent = nullptr);
     ~MainMenu();
+
     WindowLabel* getNote(){return _noteDatabase;}
 
 public slots:
+
+private slots:
     void openPlayermanagmentWindow();
     void openTournamentWindow();
     void openViewerWindow();
@@ -65,30 +54,39 @@ public slots:
     void tournamentName();
     void setTouenamentName();
 
-
 private:
     void connecting();
     void createWidgets();
     void setwholeLayout();
-    Ui::MainMenu *ui;
-    Model* _model = nullptr;
-    WindowLabel* _noteDatabase = nullptr;
-    WindowLabel* _noteTournament = nullptr;
+
+    Ui::MainMenu* ui;
+
+    Model*      _model = nullptr;
+
+    QMenu*      _playerData    = nullptr;
+    QAction*    _loadPlayer    = nullptr;
+    QAction*    _newPlayer     = nullptr;
+
+    QMenu*      _tournamentData    = nullptr;
+    QAction*    _loadTournament    = nullptr;
+    QAction*    _newTournament     = nullptr;
+
     WindowLabel* _title = nullptr;
-    MenuButton* _playermanagment = nullptr;
-    MenuButton* _tournament = nullptr;
-    MenuButton* _viewer = nullptr;
-    MenuButton* _referee = nullptr;
-    QAction* _loadPlayer = nullptr;
-    QAction* _newPlayer = nullptr;
-    QAction* _loadTournament = nullptr;
-    QAction* _newTournament = nullptr;
-    PlayerManagement* _playerManagementModel;
-    Referee* _refereeModel;
+
+    WindowLabel*            _noteDatabase   = nullptr;
+    WindowLabel*            _noteTournament = nullptr;
+    TournamentNamePopUp*    _tournamentName = nullptr;
+
+    MenuButton* _playermanagment    = nullptr;
+    MenuButton* _tournament         = nullptr;
+    MenuButton* _viewer             = nullptr;
+    MenuButton* _referee            = nullptr;
+
+    PlayerManagement*       _playerManagementModel;
+    Referee*                _refereeModel;
     RefereepopupWinningLeg* _refereePopupModel;
-    TournamentNamePopUp* _tournamentName = nullptr;
-    QMenu* _playerData = nullptr;
-    QMenu* _tournamentData= nullptr;
+
+
 
 };
 #endif // MAINMENU_H
