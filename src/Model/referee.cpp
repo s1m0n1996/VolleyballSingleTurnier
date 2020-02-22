@@ -39,6 +39,7 @@ void Referee::nextPlayer()
     _allThrows[1] = 0;
     _allThrows[2] = 0;
 
+    scoreIsUnder170InLeg();
     emit valueChanged();
 }
 
@@ -54,16 +55,13 @@ void Referee::nextPlayer()
 void Referee::nextPlayerAfterWinningLeg()
 {
     int allWonLegsInMatch = _winningLegCounter[0] + _winningLegCounter[1];
-    qDebug() << allWonLegsInMatch << "Alle Legs gewonnen";
     if ((allWonLegsInMatch % 2) == 0)
     {
         _player = 0;
-        qDebug() << _player << "Spieler 0";
     }
     else
     {
         _player = 1;
-        qDebug() << _player << "Spieler 1";
     }
 
     _remainScore[0] = 501;
@@ -102,7 +100,6 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
     {
         _singleThrowScore = scoreWithoutMultiplikator * valueMultiplikator;
         _allThrows[_throwCounter] = _singleThrowScore;
-        qDebug()<<_singleThrowScore;
         _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
 
@@ -129,6 +126,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         _db->sqlQuery(sqlPrepare, sqlParameters);
 
         setRemainScore();
+
         emit valueChanged();
     }
 }
@@ -170,7 +168,6 @@ void Referee::legWinningCondition()
         _winningLegCounter[_player]++;
         _wasLastThrowInLegToWin = true;
         _wasLastThrowInLegToBust = false;
-        qDebug()<<"win" <<_winningLegCounter <<_wasLastThrowInLegToWin;
         emit valueChanged();
         emit playerWinsLeg();
     }
@@ -184,7 +181,22 @@ void Referee::legWinningCondition()
         _wasLastThrowInLegToWin = false;
         emit valueChanged();
         emit playerBust();
-        qDebug()<<"bust";
+    }
+}
+
+void Referee::scoreIsUnder170InLeg()
+{
+    if ((_remainScore[0] <= 170 or _remainScore[1] <= 170) and _remainingThrows > 0)
+    {
+        emit scoreIsUnder170();
+    }
+}
+
+void Referee::remainingThrowsAreZeroInLeg()
+{
+    if (_remainingThrows == 0)
+    {
+        emit remainingThrowsAreZero();
     }
 }
 
@@ -234,6 +246,7 @@ void Referee::undoThrow()
         _allThrows[_throwCounter - 1] = 0;
         _throwCounter--;
     }
+    scoreIsUnder170InLeg();
     emit valueChanged();
 }
 
@@ -268,7 +281,6 @@ int Referee::getRemainingThrows()
     return _remainingThrows = 3 - _throwCounter;
 }
 
-
 int Referee::getAktivePlayerId()
 {
     if(_player == 0)
@@ -281,17 +293,9 @@ int Referee::getAktivePlayerId()
     }
 }
 
-
-
-
 QList<int> Referee::getRemainScoreForViewer()
 {
     return  _remainScore;
-}
-
-QList<int> Referee::getWinningLegCounterForViewer()
-{
-    return _winningLegCounter;
 }
 
 QList<int> Referee::getAllPlayersForViewer()

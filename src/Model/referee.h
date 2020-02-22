@@ -24,10 +24,7 @@ public:
     void undoThrow();
     void nextPlayer();
     void nextPlayerAfterWinningLeg();
-    void setRemainScore();
-    void setWinner();
     void legWinningCondition();
-
 
     int getAktivePlayer();              //TODO: Name des Spielers
     int getAktivePlayerId();
@@ -36,22 +33,28 @@ public:
     QString getWinner();
     int getCountOfWinningLegs();
     int getGameStart();
-    int  getThrowScore();
+    int getThrowScore();
     int getRemainingThrows();
     int getLastLegIdInSameGame();
     int getNumberOfCurrentLeg();
 
     // Methoden für den Zuschauer
+    void scoreIsUnder170InLeg();
+    void remainingThrowsAreZeroInLeg();
     QList<int> getRemainScoreForViewer();
-    QList<int> getWinningLegCounterForViewer();
     QList<int> getAllPlayersForViewer();
 
 signals:
     void valueChanged(void);
     void playerBust(void);
     void playerWinsLeg(void);
+    void scoreIsUnder170(void);
+    void remainingThrowsAreZero(void);
 
 private:
+    void setRemainScore();
+    void setWinner();
+
      int _valueMultiplikator        = 0;
      int _singleThrowScore          = 0;
      int _throwCounter              = 0;

@@ -10,6 +10,7 @@
 
 #include <QMainWindow>
 #include "Model/referee.h"
+#include "Model/viewer.h"
 #include "View/refereepopupwinningleg.h"
 #include "View/refereepopupbustleg.h"
 
@@ -46,6 +47,7 @@ public slots:
 private:
     Ui::RefereeWindow *ui;
     Referee* _referee;
+    Viewer* _viewer;
     RefereepopupWinningLeg* _popupWinningLeg;
     RefereePopupBustLeg* _popupBustLeg;
     const int _miss                     = 0;

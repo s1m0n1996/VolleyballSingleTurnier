@@ -41,5 +41,3 @@ void RefereepopupWinningLeg::openRefereeUndoLastThrow(void)
     emit undoLastThrow();
     setWindowFlags(Qt::Window);
 }
-
-

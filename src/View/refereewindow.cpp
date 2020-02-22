@@ -19,7 +19,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     _popupBustLeg(popupBustLeg)
 {
     RefereepopupWinningLeg* winLeg = new RefereepopupWinningLeg;
-    _popupWinningLeg =winLeg;
+    _popupWinningLeg = winLeg;
 
     RefereePopupBustLeg* bustLeg = new RefereePopupBustLeg;
     _popupBustLeg = bustLeg;
@@ -174,7 +174,6 @@ void RefereeWindow::nextPlayerAfterWinningLeg()
 
 void RefereeWindow::undoLastThrow()
 {
-    qDebug() <<"kommt das was ??";
     _referee->undoThrow();
 }
 
@@ -205,6 +204,8 @@ void RefereeWindow::mouseReleasedOnDartboard()
     _valueScoreWithoutMultiplikator =valueScoreWithoutMultiplikator();
 
     _referee->singleThrowScore(_valueMultiplikator, _valueScoreWithoutMultiplikator);
+    _referee->scoreIsUnder170InLeg();
+    _referee->remainingThrowsAreZeroInLeg();
     _referee->legWinningCondition();
 
 }
