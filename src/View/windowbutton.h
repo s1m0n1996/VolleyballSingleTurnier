@@ -8,7 +8,8 @@ class WindowButton : public QPushButton
     Q_OBJECT
 public:
     explicit WindowButton(QString text, QWidget *parent = nullptr);
-    void setEnableStyle();
+    void setEnableStyle(void);
+    void mainMenuStyle(void);
 
 signals:
 

@@ -1,3 +1,8 @@
+/*!
+* \file menubutton.cpp
+* \brief Diese Klasse ist beihnaltet die Informationen zu den Menübutton
+* \author Lea Kesselmeier
+*/
 #include "menubutton.h"
 
 
@@ -5,7 +10,7 @@ MenuButton::MenuButton(QString text, QWidget *parent) : QPushButton(parent)
 {
 
     int fixSizeX = 50;
-    int fixSizeY = 250;    
+    int fixSizeY = 250;
 
     setFixedSize(fixSizeY,fixSizeX);
     setStyleSheet("QPushButton:disabled{"

@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 
-class MenuButton;
 class Model;
 class PlayermanagementWindow;
 class PlayerManagement;
@@ -16,7 +15,9 @@ class SqliteConnector;
 class TournamentNamePopUp;
 class TournamentWindow;
 class ViewerWindow;
+class WindowButton;
 class WindowLabel;
+
 
 /*!
  * \file mainmenu.h
@@ -75,10 +76,10 @@ private:
     WindowLabel*            _noteTournament = nullptr;
     TournamentNamePopUp*    _tournamentName = nullptr;
 
-    MenuButton* _playermanagment    = nullptr;
-    MenuButton* _tournament         = nullptr;
-    MenuButton* _viewer             = nullptr;
-    MenuButton* _referee            = nullptr;
+    WindowButton* _playermanagment    = nullptr;
+    WindowButton* _tournament         = nullptr;
+    WindowButton* _viewer             = nullptr;
+    WindowButton* _referee            = nullptr;
 
     PlayerManagement*       _playerManagementModel;
     Referee*                _refereeModel;

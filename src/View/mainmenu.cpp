@@ -13,14 +13,13 @@
 #include "Model/playermanagement.h"
 #include "Model/sqliteConnector.h"
 #include "View/mainmenu.h"
-#include "View/menubutton.h"
 #include "View/playermanagementWindow.h"
 #include "View/refereewindow.h"
 #include "View/refereepopupwinningleg.h"
 #include "View/tournamentwindow.h"
 #include "View/viewerwindow.h"
+#include "View/windowbutton.h"
 #include "View/windowlabel.h"
-#include "ui_mainmenu.h"
 
 // TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
@@ -193,10 +192,14 @@ void MainMenu::createWidgets()
 
     _noteTournament      = new WindowLabel("");
 
-    _playermanagment     = new MenuButton("Meldestelle");
-    _tournament          = new MenuButton("Spielplan");
-    _viewer              = new MenuButton("Zuschaueransicht");
-    _referee             = new MenuButton("Richteransicht");
+    _playermanagment     = new WindowButton("Meldestelle");
+    _playermanagment->mainMenuStyle();
+    _tournament          = new WindowButton("Spielplan");
+    _tournament->mainMenuStyle();
+    _viewer              = new WindowButton("Zuschaueransicht");
+    _viewer->mainMenuStyle();
+    _referee             = new WindowButton("Richteransicht");
+    _referee->mainMenuStyle();
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
 
