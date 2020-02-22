@@ -20,6 +20,7 @@
 #include "View/tournamentwindow.h"
 #include "View/viewerwindow.h"
 #include "View/windowlabel.h"
+#include "ui_mainmenu.h"
 
 // TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
@@ -131,6 +132,7 @@ void MainMenu::loadDatabase()
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+
     _noteDatabase->setVisible(false);
 }
 
@@ -160,45 +162,57 @@ void MainMenu::setTouenamentName()
 
 void MainMenu::createWidgets()
 {
-       _noteDatabase                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
-       _noteDatabase->setStyleSheet("QLabel{"
-                            "font-size: 25px;"
-                            "font-family: Candara;"
-                            "color: red;}");
-       _noteTournament      = new WindowLabel("");
-       _playermanagment     = new MenuButton("Meldestelle");
-       _tournament          = new MenuButton("Spielplan");
-       _viewer              = new MenuButton("Zuschaueransicht");
-       _referee             = new MenuButton("Richteransicht");
-       _loadPlayer                = new QAction("Laden");
-       _newPlayer                 = new QAction("Erstellen");
-       _loadTournament                = new QAction("Laden");
-       _newTournament                 = new QAction("Erstellen");
-       _title               = new WindowLabel("Hauptmenü - DartsTurnier");
-       _title->titleStyel();
-       _playerData = new QMenu();
-       _playerData= menuBar()->addMenu(tr("Spielerdateien"));
-       _playerData->addAction(_newPlayer);
-       _playerData->addAction(_loadPlayer);
-       _tournamentData = new QMenu();
-       _tournamentData= menuBar()->addMenu(tr("Turnier"));
-       _tournamentData->addAction(_newTournament);
-       _tournamentData->addAction(_loadTournament);
+    setWindowTitle("Hauptmenü");
 
-       _playerManagementModel = new PlayerManagement();
-       _refereeModel = new Referee();
+    _playerData = new QMenu();
+    _playerData= menuBar()->addMenu(tr("Spielerdateien"));
 
-       SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-       _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-       _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-       _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-       _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
-       _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+    _loadPlayer = new QAction("Laden");
+    _newPlayer  = new QAction("Erstellen");
 
-       if  (sqlitConnector->getDb()->isOpen())
-       {
-           _noteDatabase->setVisible(false);
-       }
+    _playerData->addAction(_newPlayer);
+    _playerData->addAction(_loadPlayer);
+
+    _tournamentData = new QMenu();
+    _tournamentData= menuBar()->addMenu(tr("Turnier"));
+
+    _loadTournament  = new QAction("Laden");
+    _newTournament   = new QAction("Erstellen");
+
+    _tournamentData->addAction(_newTournament);
+    _tournamentData->addAction(_loadTournament);
+
+    _title               = new WindowLabel("Hauptmenü - DartsTurnier");
+    _title->titleStyel();
+
+    _noteDatabase                = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
+    _noteDatabase->setStyleSheet("QLabel{"
+                          "font-size: 25px;"
+                          "font-family: Candara;"
+                          "color: red;}");
+
+    _noteTournament      = new WindowLabel("");
+
+    _playermanagment     = new MenuButton("Meldestelle");
+    _tournament          = new MenuButton("Spielplan");
+    _viewer              = new MenuButton("Zuschaueransicht");
+    _referee             = new MenuButton("Richteransicht");
+
+    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
+
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
+    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
+    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
+    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+
+    if (sqlitConnector->getDb()->isOpen())
+    {
+        _noteDatabase->setVisible(false);
+    }
+
+    _playerManagementModel = new PlayerManagement();
+    _refereeModel = new Referee();
 }
 
 void MainMenu::setwholeLayout()
@@ -206,7 +220,7 @@ void MainMenu::setwholeLayout()
     QWidget* widget= new QWidget;
     setCentralWidget(widget);
 
-    QVBoxLayout* layout = new QVBoxLayout;    
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_title,0,Qt::AlignCenter);
     layout->setSpacing(30);
     layout->addWidget(_noteDatabase,0,Qt::AlignCenter);
