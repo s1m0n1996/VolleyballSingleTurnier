@@ -112,7 +112,7 @@ void PlayermanagementWindow::createButtons()
     _startTournamentButton  = new WindowButton("Turnier starten");
 
     _addPhoto = new WindowButton("Foto hinzufügen");
-    _addPhoto->setIcon(QIcon(":/img/add-user.png"));
+    _addPhoto->setIcon(QIcon(":/img/addPlayer.png"));
     _addPhoto->setIconSize(QSize(65,65));
 
     _addPlayerForNewTournament      = new WindowButton("->");

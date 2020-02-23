@@ -6,10 +6,10 @@
         <file>img/Dartboard.png</file>
         <file>img/darts.png</file>
         <file>img/dart (1).png</file>
-        <file>img/add-user.png</file>
-        <file>img/family-tree.png</file>
+        <file>img/addPlayer.png</file>
+        <file>img/gameplan.png</file>
         <file>img/referee.png</file>
-        <file>img/teamwork.png</file>
+        <file>img/viewer.png</file>
         <file>img/user.png</file>
     </qresource>
 </RCC>

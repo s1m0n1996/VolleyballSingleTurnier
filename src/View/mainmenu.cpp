@@ -197,12 +197,23 @@ void MainMenu::createWidgets()
 
     _playermanagment     = new WindowButton("Meldestelle");
     _playermanagment->mainMenuStyle();
+    _playermanagment->setIcon(QIcon(":/img/addPlayer.png"));
+    _playermanagment->setIconSize(QSize(65,65));
+
     _tournament          = new WindowButton("Spielplan");
     _tournament->mainMenuStyle();
+    _tournament->setIcon(QIcon(":/img/gameplan.png"));
+    _tournament->setIconSize(QSize(65,65));
+
     _viewer              = new WindowButton("Zuschaueransicht");
     _viewer->mainMenuStyle();
+    _viewer->setIcon(QIcon(":/img/viewer.png"));
+    _viewer->setIconSize(QSize(60,60));
+
     _referee             = new WindowButton("Richteransicht");
     _referee->mainMenuStyle();
+    _referee->setIcon(QIcon(":/img/referee.png"));
+    _referee->setIconSize(QSize(65,65));
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
 
