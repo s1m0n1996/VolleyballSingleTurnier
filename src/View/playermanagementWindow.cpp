@@ -115,8 +115,15 @@ void PlayermanagementWindow::createButtons()
     _addPhoto->setIcon(QIcon(":/img/addPlayer.png"));
     _addPhoto->setIconSize(QSize(65,65));
 
-    _addPlayerForNewTournament      = new WindowButton("->");
-    _deletePlayerForNewTournament   = new WindowButton("<-");
+    _addPlayerForNewTournament      = new WindowButton("");
+    _addPlayerForNewTournament->setIcon(QIcon(":/img/right.png"));
+    _addPlayerForNewTournament->setIconSize(QSize(65,65));
+
+    _deletePlayerForNewTournament   = new WindowButton("");
+    _deletePlayerForNewTournament->setIcon(QIcon(":/img/left.png"));
+    _deletePlayerForNewTournament->setIconSize(QSize(65,65));
+
+
     _startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
     _startTournamentButton->setIcon(QIcon(":/img/dart (1).png"));

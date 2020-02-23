@@ -108,14 +108,14 @@ TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
 void TournamentWindow::createWidges()
 {
     setWindowTitle("Spielplan");
-    setWindowIcon(QIcon(":/img/family-tree.png"));
+    setWindowIcon(QIcon(":/img/gameplan.png"));
 
     _color       = new QLabel;
     _color->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Spielplan");
     _title->setTitleStyel();
 
-    _startGame = new WindowButton("Spielstarten");
+    _startGame = new WindowButton("Spiel starten");
 
 
 

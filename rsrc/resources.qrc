@@ -11,5 +11,6 @@
         <file>img/referee.png</file>
         <file>img/viewer.png</file>
         <file>img/user.png</file>
+        <file>img/right.png</file>
     </qresource>
 </RCC>
