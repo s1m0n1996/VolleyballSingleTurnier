@@ -33,7 +33,6 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     setAllLayout();
     connecting();
     setWindowIcon(QIcon(":/img/darts.png"));
-
 }
 
 PlayermanagementWindow::~PlayermanagementWindow()
@@ -53,6 +52,28 @@ PlayermanagementWindow::~PlayermanagementWindow()
     delete _allPlayerTableView;
     delete _gamePlayerTableView;
 
+}
+
+/*!
+ * \brief Anzeige der benötigten Spieler zum Turnierbeginn
+ *
+ * \param void
+ * \return void
+ *
+ * Das Label mit der Überschrift und der Spieleranzahl wird erzeugt, und aktualisiert
+ * Der Button zum Start wird, freigeschlatet oder bleibt nicht drückbar, wenn die benötigte Spieleranzahl Null beträgt
+ */
+void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
+{
+    _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
+    _startTournamentButton->setEnabled(false);
+    _valueMissingPlayersLabel->setNotStartTournamentStyle();
+
+    if (_valueMissingPlayersLabel->text() == "0")
+    {
+        _valueMissingPlayersLabel->setStartTournamentStyle();
+        _startTournamentButton->setEnabled(true);
+    }
 }
 
 /*!
@@ -80,6 +101,31 @@ void PlayermanagementWindow::addPlayerForNewGame()
 }
 
 /*!
+ * \brief Löschen eines oder mehrere neuen Spieler zu einem Spiel
+ *
+ * \param void
+ * \return void
+ *
+ * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
+ * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
+ */
+void PlayermanagementWindow::dropPlayerForNewGame()
+{
+    // FIXME: wenn man mehrere spieler aufeinmal entfernt wird jeder 2. nicht gelösch
+    QAbstractItemModel* modelGame = _gamePlayerTableView->model();
+    QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
+    for (QModelIndex index : selectedRows)
+    {
+        _playerManagementModel->dropPlayerForNewGame(Player(
+                modelGame->index(index.row(), 0).data().toString(),
+                modelGame->index(index.row(), 1).data().toString(),
+                modelGame->index(index.row(), 2).data().toString()));
+    }
+
+    _gamePlayerTableView->selectionModel()->clearSelection();
+}
+
+/*!
  * \brief Einfügen eines neuen Spieler zu gesamten Spielerdatenbank
  *
  * \param void
@@ -87,7 +133,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
  *
  * Ein Objekt der Klasse Player wird erzeugt, dem erden die neuen Varibalen mitgegeben
  * Dieser wird dann sowohl dem aktuellen Spiel als auch der gesamten Spielerdatenabnk hinzugefügt
- * Die Edits der Namen,Geburtstag und LAnd werden wieder frei beschreibbar gemacht
+ * Die Edits der Namen,Geburtstag und Land werden wieder frei beschreibbar gemacht
  */
 void PlayermanagementWindow::addPlayerToDatabase()
 {
@@ -105,15 +151,36 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
 }
 
-void PlayermanagementWindow::connecting()
+void PlayermanagementWindow::addPhoto()
 {
-    connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(tournamentName()));
-    connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
-    connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
-    connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
+
 }
 
+/*!
+ * \brief Öffnet den aktuellen Turnierplan
+ *
+ * \param void
+ * \return void
+ *
+ */
+void PlayermanagementWindow::openTournament()
+{
+    TournamentWindow* tournamentWindow2 = new TournamentWindow;
+    tournamentWindow2->showMaximized();
+}
+
+void PlayermanagementWindow::connecting()
+{
+    connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
+
+    connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
+    connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
+
+    connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
+    connect(_addPhoto,SIGNAL(released),this, SLOT(addPhoto()));
+
+    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(openTournament()));
+}
 
 void PlayermanagementWindow::createWidges()
 {
@@ -149,18 +216,17 @@ void PlayermanagementWindow::createWidges()
     _photo              = new WindowLabel("Foto");
 
     _addPhoto = new WindowButton("Foto hinzufügen");
-    _addPhoto->setIcon(QIcon(":/img/addPlayer.png"));
-    _addPhoto->setIconSize(QSize(65,65));
-
-
-
+    _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
+    _addPhoto->setIconSize(QSize(33,33));
 
     _addPlayerButton        = new WindowButton("Spieler hinzufügen");
+    _addPlayerButton->setIcon(QIcon(":/img/addPlayer.png"));
+    _addPlayerButton->setIconSize(QSize(40,40));
 
     _startTournamentButton  = new WindowButton("Turnier starten");
     _startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
-    _startTournamentButton->setIcon(QIcon(":/img/dart (1).png"));
+    _startTournamentButton->setIcon(QIcon(":/img/createDart.png"));
     _startTournamentButton->setIconSize(QSize(65,65));
 
     if (_valueMissingPlayersLabel->text() == "0")
@@ -168,36 +234,7 @@ void PlayermanagementWindow::createWidges()
         _valueMissingPlayersLabel->setStartTournamentStyle();
         _startTournamentButton->setEnabled(true);
     }
-
-
-
 }
-
-/*!
- * \brief Löschen eines oder mehrere neuen Spieler zu einem Spiel
- *
- * \param void
- * \return void
- *
- * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
- * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
- */
-void PlayermanagementWindow::dropPlayerForNewGame()
-{
-    // FIXME: wenn man mehrere spieler aufeinmal entfernt wird jeder 2. nicht gelösch
-    QAbstractItemModel* modelGame = _gamePlayerTableView->model();
-    QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
-    for (QModelIndex index : selectedRows)
-    {
-        _playerManagementModel->dropPlayerForNewGame(Player(
-                modelGame->index(index.row(), 0).data().toString(),
-                modelGame->index(index.row(), 1).data().toString(),
-                modelGame->index(index.row(), 2).data().toString()));
-    }
-
-    _gamePlayerTableView->selectionModel()->clearSelection();
-}
-
 void PlayermanagementWindow::showTable()
 {
     _allPlayerTableView  = new TableView;
@@ -265,41 +302,4 @@ void PlayermanagementWindow::setAllLayout()
 
     widget->setLayout(mainLayout);
 }
-
-/*!
- * \brief Anzeige der benötigten Spieler zum Turnierbeginn
- *
- * \param void
- * \return void
- *
- * Das Label mit der Überschrift und der Spieleranzahl wird erzeugt, und aktualisiert
- * Der Button zum Start wird, freigeschlatet oder bleibt nicht drückbar, wenn die benötigte Spieleranzahl Null beträgt
- */
-void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
-{
-    _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-    _startTournamentButton->setEnabled(false);
-    _valueMissingPlayersLabel->setNotStartTournamentStyle();
-
-    if (_valueMissingPlayersLabel->text() == "0")
-    {
-        _valueMissingPlayersLabel->setStartTournamentStyle();
-        _startTournamentButton->setEnabled(true);
-    }
-}
-
-/*!
- * \brief Öffnet den aktuellen Turnierplan
- *
- * \param void
- * \return void
- *
- */
-void PlayermanagementWindow::tournamentName()
-{
-    TournamentWindow* tournamentWindow2 = new TournamentWindow;
-    tournamentWindow2->showMaximized();
-
-}
-
 

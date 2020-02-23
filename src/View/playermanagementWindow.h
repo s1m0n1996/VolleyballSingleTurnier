@@ -36,19 +36,23 @@ public:
 
 
 signals:
-public slots:
-    void addPlayerToDatabase(void);
+public slots:    
     void setMissingPlayersForNewTournamentLabel(void);
-    void tournamentName(void);
+    void openTournament(void);
 
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);
 
+    void addPhoto(void);
+    void addPlayerToDatabase(void);
+
+
 private:
-    void connecting();
     void createWidges(void);
-    void setAllLayout(void);
     void showTable(void);
+    void setAllLayout(void);
+    void connecting(void);
+
 
     PlayerManagement* _playerManagementModel = nullptr;
 

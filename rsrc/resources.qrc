@@ -5,12 +5,14 @@
         <file>database/FinishCombination.json</file>
         <file>img/Dartboard.png</file>
         <file>img/darts.png</file>
-        <file>img/dart (1).png</file>
+        <file>img/createDart.png</file>
         <file>img/addPlayer.png</file>
         <file>img/gameplan.png</file>
         <file>img/referee.png</file>
         <file>img/viewer.png</file>
         <file>img/user.png</file>
         <file>img/right.png</file>
+        <file>img/left.png</file>
+        <file>img/addPhoto.png</file>
     </qresource>
 </RCC>
