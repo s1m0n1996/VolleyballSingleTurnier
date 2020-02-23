@@ -3,9 +3,14 @@
 #include <QGraphicsView>
 #include <QPen>
 #include <QGridLayout>
+#include <QLabel>
+
+#include "View/windowlabel.h"
+#include "View/windowbutton.h"
 
 TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
 {
+    createWidges();
 
     QGraphicsScene* game = new QGraphicsScene();
 //    game->addRect(50, 0, 150.0, 80.0);
@@ -92,7 +97,27 @@ TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
     viewgame->setAlignment(Qt::AlignLeft);
 
     QGridLayout* layout = new QGridLayout;
+    layout->addWidget(_color);
+    layout->addWidget(_title);
+    layout->addWidget(viewgame);
+    layout->addWidget(_startGame);
 
-        layout->addWidget(viewgame);
-        setLayout(layout);
+    setLayout(layout);
+}
+
+void TournamentWindow::createWidges()
+{
+    setWindowTitle("Spielplan");
+    setWindowIcon(QIcon(":/img/family-tree.png"));
+
+    _color       = new QLabel;
+    _color->setStyleSheet("background-color:#550000;");
+    _title = new WindowLabel("Spielplan");
+    _title->setTitleStyel();
+
+    _startGame = new WindowButton("Spielstarten");
+
+
+
+
 }
