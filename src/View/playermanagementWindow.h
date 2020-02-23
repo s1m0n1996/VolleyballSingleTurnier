@@ -1,24 +1,17 @@
 #ifndef PLAYERMANAGMENT_H
 #define PLAYERMANAGMENT_H
 
-#include <QLabel>
-#include <QLineEdit>
 #include <QMainWindow>
-#include <QMessageBox>
-#include <QPushButton>
-#include <QList>
 
+class PlayerManagement;
+class QLabel;
+class TableView;
+class TournamentWindow;
+class ViewerWindow;
+class WindowButton;
+class WindowEdit;
+class WindowLabel;
 
-#include "ui_playermanagementWindow.h"
-#include "windowbutton.h"
-#include "windowedit.h"
-#include "windowlabel.h"
-#include "View/tournamentnamepopup.h"
-#include "Model/playermanagement.h"
-#include "View/tabelview.h"
-
-#include <cmath>
-#include <QDebug>
 
 
 /*!
@@ -32,9 +25,6 @@
  * DArunter kann man neue Spieler hinzufügen (Name, Geburtsdatum, Land)
  * Ein Turnier beginnt man wenn die Spieleranzahl entsprechend ist
 */
-QT_BEGIN_NAMESPACE
-namespace Ui { class PlayermanagementWindow; }
-QT_END_NAMESPACE
 
 class PlayermanagementWindow : public QMainWindow
 {
@@ -50,7 +40,7 @@ public slots:
     void addPlayerToDatabase(void);
     void setMissingPlayersForNewTournamentLabel(void);
     void tournamentName(void);
-    void showTable(void);
+
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);
 
@@ -60,27 +50,38 @@ private:
     void createButtons(void);
     void createMissingPlayersForNewTournamentLabel();
     void setAllLayout(void);
+    void showTable(void);
 
-    Ui::PlayermanagementWindow *ui;
-    WindowButton* _addPlayerButton          = nullptr;
-    WindowButton* _startTournamentButton    = nullptr;
-    WindowButton* _addPlayerForNewTournament                      = nullptr;
-    WindowButton* _deletePlayerForNewTournament                   = nullptr;
+    PlayerManagement* _playerManagementModel = nullptr;
+
+    QLabel*         _colorLabel = nullptr;
+    WindowLabel*    _title      = nullptr;
+
+    WindowLabel* _allPlayerLabel    = nullptr;
+    WindowLabel* _gamePlayerLabel   = nullptr;
+
+    TableView* _allPlayerTableView          = nullptr;
+    TableView* _gamePlayerTableView         = nullptr;
+
+    WindowButton* _addPlayerForNewTournament     = nullptr;
+    WindowButton* _deletePlayerForNewTournament  = nullptr;
+
+    WindowLabel* _nameMissingPlayersLabel        = nullptr;
+    WindowLabel* _valueMissingPlayersLabel       = nullptr;
+
     WindowLabel* _playernameLabel           = nullptr;
     WindowLabel* _birthdayLabel             = nullptr;
     WindowLabel* _countryLabel              = nullptr;
-    WindowLabel* _nameMissingPlayersLabel        = nullptr;
-    WindowLabel* _valueMissingPlayersLabel       = nullptr;
-    WindowEdit* _playernameEdit             = nullptr;
-    WindowEdit* _birthdayEdit               = nullptr;
-    WindowEdit* _countryEdit                = nullptr;
-    PlayerManagement* _playerManagementModel                = nullptr;
-    TableView* _allPlayerTableView          = nullptr;
-    TableView* _gamePlayerTableView         = nullptr;
-    QLabel* _colorLabel         = nullptr;
-    WindowLabel* _title = nullptr;
-    WindowLabel* _photo= nullptr;
-    WindowButton* _addPhoto = nullptr;
+    WindowLabel* _photo                     = nullptr;
+
+
+    WindowEdit*     _playernameEdit             = nullptr;
+    WindowEdit*     _birthdayEdit               = nullptr;
+    WindowEdit*     _countryEdit                = nullptr;
+    WindowButton*   _addPhoto                   = nullptr;
+
+    WindowButton* _addPlayerButton          = nullptr;
+    WindowButton* _startTournamentButton    = nullptr;
 
 };
 #endif // PLAYERMANAGMENT_H

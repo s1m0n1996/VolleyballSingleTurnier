@@ -4,25 +4,31 @@
 * \author Lea Kesselmeier
 */
 #include <QHeaderView>
-#include "playermanagementWindow.h"
-#include "Model/playermanagement.h"
-#include "Model/player.h"
+
 #include "QAbstractItemView"
 #include <QModelIndex>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QIcon>
 
+#include "View/playermanagementWindow.h"
+#include "Model/playermanagement.h"
+#include "Model/player.h"
+
+#include "View/tabelview.h"
+#include "View/tournamentwindow.h"
+
+#include "View/windowbutton.h"
+#include "View/windowedit.h"
+#include "View/windowlabel.h"
 
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
-    QMainWindow(parent), 
-    ui(new Ui::PlayermanagementWindow)
+    QMainWindow(parent)
 {
     _playerManagementModel = playerManagementModel;
     _playerManagementModel->refreshDatabasePlayerTable();
     _playerManagementModel->refreshNextGamePlayerTable();
 
-    ui->setupUi(this);
     showTable();
     createMissingPlayersForNewTournamentLabel();
     createButtons();
@@ -35,7 +41,6 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
 
 PlayermanagementWindow::~PlayermanagementWindow()
 {
-    delete ui;
     delete _addPlayerButton;
     delete _startTournamentButton;
     delete _addPlayerForNewTournament;

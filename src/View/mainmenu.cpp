@@ -17,6 +17,7 @@
 #include "View/refereewindow.h"
 #include "View/refereepopupwinningleg.h"
 #include "View/tournamentwindow.h"
+#include "View/tournamentnamepopup.h"
 #include "View/viewerwindow.h"
 #include "View/windowbutton.h"
 #include "View/windowlabel.h"
