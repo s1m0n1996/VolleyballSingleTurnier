@@ -3,6 +3,8 @@
 
 TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 {
+        setWindowTitle("Turniername");
+        setWindowIcon(QIcon(":/img/darts.png"));
 
         _dateLabel = new WindowLabel("Turnierdatum");
         _dateEdit = new WindowEdit("1990-01-30");
