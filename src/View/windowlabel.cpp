@@ -45,4 +45,6 @@ void WindowLabel::setTitleStyel()
                   "border-bottom-style: solid;"
                   "border-radius: 0px;"
                   "font-weight: bold;}");
+
+    setAlignment(Qt::AlignCenter);
 }
