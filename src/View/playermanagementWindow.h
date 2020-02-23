@@ -65,6 +65,10 @@ private:
     PlayerManagement* _playerManagementModel                = nullptr;
     TableView* _allPlayerTableView          = nullptr;
     TableView* _gamePlayerTableView         = nullptr;
+    QLabel* _colorLabel         = nullptr;
+    WindowLabel* _title = nullptr;
+    WindowLabel* _photo= nullptr;
+    WindowButton* _addPhoto = nullptr;
 
 };
 #endif // PLAYERMANAGMENT_H

@@ -67,7 +67,6 @@ HEADERS += \
     Model/gameManagement.h
 
 FORMS += \
-    View/playermanagementWindow.ui \
     View/refereewindow.ui \
     View/viewerWindow.ui
 

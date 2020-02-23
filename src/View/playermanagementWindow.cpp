@@ -4,6 +4,9 @@
 #include "Model/player.h"
 #include "QAbstractItemView"
 #include <QModelIndex>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QIcon>
 
 
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
@@ -21,6 +24,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     createAddPlayerEdit();
     setAllLayout();
     connecting();
+    setWindowIcon(QIcon(":/img/darts.png"));
 
 }
 
@@ -91,8 +95,14 @@ void PlayermanagementWindow::createAddPlayerEdit()
     _countryEdit        = new WindowEdit("Deutschland");
 
     _playernameLabel    = new WindowLabel("Spielername");
-    _birthdayLabel      = new WindowLabel("Gebrurtsdatum");
+    _birthdayLabel      = new WindowLabel("Geburtsdatum");
     _countryLabel       = new WindowLabel("Land");
+    _photo              = new WindowLabel("Foto");
+    _colorLabel         = new QLabel;
+    _colorLabel->setStyleSheet("background-color:#550000;");
+    _title = new WindowLabel("Meldestelle");
+    _title->setTitleStyel();
+
 
 }
 
@@ -100,10 +110,17 @@ void PlayermanagementWindow::createButtons()
 {
     _addPlayerButton        = new WindowButton("Spieler hinzufügen");
     _startTournamentButton  = new WindowButton("Turnier starten");
+
+    _addPhoto = new WindowButton("Foto hinzufügen");
+    _addPhoto->setIcon(QIcon(":/img/add-user.png"));
+    _addPhoto->setIconSize(QSize(65,65));
+
     _addPlayerForNewTournament      = new WindowButton("->");
     _deletePlayerForNewTournament   = new WindowButton("<-");
     _startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
+    _startTournamentButton->setIcon(QIcon(":/img/dart (1).png"));
+    _startTournamentButton->setIconSize(QSize(65,65));
 
     if (_valueMissingPlayersLabel->text() == "0")
     {
@@ -117,7 +134,7 @@ void PlayermanagementWindow::createMissingPlayersForNewTournamentLabel()
 {
     _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(
-            QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
+    QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 }
 
@@ -155,36 +172,53 @@ void PlayermanagementWindow::showTable()
 
 void PlayermanagementWindow::setAllLayout()
 {
-    QVBoxLayout* addDeleteLayout = new QVBoxLayout;
+    QWidget* widget= new QWidget;
+    setCentralWidget(widget);
 
-    ui->maxPlayerLayout->addWidget(_nameMissingPlayersLabel, 0, Qt::AlignCenter);
-    ui->maxPlayerLayout->addWidget(_valueMissingPlayersLabel, 0, Qt::AlignCenter);
-    ui->startTournementLayout->addWidget(_startTournamentButton, 0, Qt::AlignBottom);
-
-    ui->addPlayerLayout->addWidget(_playernameLabel, 1, 0);
-    ui->addPlayerLayout->addWidget(_birthdayLabel, 2, 0);
-    ui->addPlayerLayout->addWidget(_countryLabel, 3, 0);
-
-
-    ui->addPlayerLayout->setSpacing(2);
-    ui->addPlayerLayout->setMargin(5);
-
-    ui->addPlayerLayout->addWidget(_playernameEdit, 1, 1);
-    ui->addPlayerLayout->addWidget(_birthdayEdit, 2, 1);
-    ui->addPlayerLayout->addWidget(_countryEdit, 3, 1);
+    QVBoxLayout* addDeleteLayout    = new QVBoxLayout;
+    QVBoxLayout* maxPlayerLayout    = new QVBoxLayout;
+    QVBoxLayout* mainLayout         = new QVBoxLayout;
+    QGridLayout* addPlayerLayout    = new QGridLayout;
+    QHBoxLayout* tabelViewLayout    = new QHBoxLayout;
 
 
-    ui->addPlayerLayout->addWidget(_addPlayerButton, 5, Qt::AlignRight);
+    mainLayout->addWidget(_colorLabel);
+    mainLayout->addWidget(_title);
 
-    ui->tabelViewLayout->addWidget(_allPlayerTableView);
-    ui->tabelViewLayout->addLayout(addDeleteLayout);
-    ui->tabelViewLayout->addWidget(_gamePlayerTableView);
+    maxPlayerLayout->addWidget(_nameMissingPlayersLabel, 0, Qt::AlignCenter);
+    maxPlayerLayout->addWidget(_valueMissingPlayersLabel, 0, Qt::AlignCenter);
+
+    addPlayerLayout->addWidget(_playernameLabel, 1, 0);
+    addPlayerLayout->addWidget(_birthdayLabel, 2, 0);
+    addPlayerLayout->addWidget(_countryLabel, 3, 0);
+
+
+    addPlayerLayout->setSpacing(2);
+    addPlayerLayout->setMargin(5);
+    addPlayerLayout->addWidget(_playernameEdit, 1, 1);
+    addPlayerLayout->addWidget(_birthdayEdit, 2, 1);
+    addPlayerLayout->addWidget(_countryEdit, 3, 1);
+    addPlayerLayout->addWidget(_photo,4,0);
+    addPlayerLayout->addWidget(_addPhoto,4,2);
+    addPlayerLayout->addWidget(_addPlayerButton, 6, Qt::AlignRight);
+    addPlayerLayout->addWidget(_startTournamentButton,6,0);
+
+
+    tabelViewLayout->addWidget(_allPlayerTableView);
+    tabelViewLayout->addLayout(addDeleteLayout);
+    tabelViewLayout->addWidget(_gamePlayerTableView);
 
 
     addDeleteLayout->addWidget(_addPlayerForNewTournament);
     addDeleteLayout->addWidget(_deletePlayerForNewTournament);
 
+    tabelViewLayout->addLayout(addDeleteLayout);
 
+    mainLayout->addLayout(tabelViewLayout);
+    mainLayout->addLayout(maxPlayerLayout);
+    mainLayout->addLayout(addPlayerLayout);
+
+    widget->setLayout(mainLayout);
 }
 
 void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
