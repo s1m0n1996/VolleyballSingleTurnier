@@ -1,3 +1,8 @@
+/*!
+* \file playermanagment.cpp
+* \brief Diese Klasse ist die View Klasse der Meldestelle
+* \author Lea Kesselmeier
+*/
 #include <QHeaderView>
 #include "playermanagementWindow.h"
 #include "Model/playermanagement.h"
@@ -48,6 +53,15 @@ PlayermanagementWindow::~PlayermanagementWindow()
 
 }
 
+/*!
+ * \brief Einfügen eines oder mehrere neuen Spieler zu einem Spiel
+ *
+ * \param void
+ * \return void
+ *
+ * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
+ * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
+ */
 void PlayermanagementWindow::addPlayerForNewGame()
 {
     QAbstractItemModel* modelAll = _allPlayerTableView->model();
@@ -63,10 +77,20 @@ void PlayermanagementWindow::addPlayerForNewGame()
     _allPlayerTableView->selectionModel()->clearSelection();
 }
 
+/*!
+ * \brief Einfügen eines neuen Spieler zu gesamten Spielerdatenbank
+ *
+ * \param void
+ * \return void
+ *
+ * Ein Objekt der Klasse Player wird erzeugt, dem erden die neuen Varibalen mitgegeben
+ * Dieser wird dann sowohl dem aktuellen Spiel als auch der gesamten Spielerdatenabnk hinzugefügt
+ * Die Edits der Namen,Geburtstag und LAnd werden wieder frei beschreibbar gemacht
+ */
 void PlayermanagementWindow::addPlayerToDatabase()
 {
-    _valueMissingPlayersLabel->setText("0");
-    _startTournamentButton->setEnabled(true);
+//    _valueMissingPlayersLabel->setText("0");
+//    _startTournamentButton->setEnabled(true);
 
     Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newplayer);
@@ -145,6 +169,15 @@ void PlayermanagementWindow::createMissingPlayersForNewTournamentLabel()
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 }
 
+/*!
+ * \brief Löschen eines oder mehrere neuen Spieler zu einem Spiel
+ *
+ * \param void
+ * \return void
+ *
+ * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
+ * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
+ */
 void PlayermanagementWindow::dropPlayerForNewGame()
 {
     // FIXME: wenn man mehrere spieler aufeinmal entfernt wird jeder 2. nicht gelösch
@@ -228,6 +261,15 @@ void PlayermanagementWindow::setAllLayout()
     widget->setLayout(mainLayout);
 }
 
+/*!
+ * \brief Anzeige der benötigten Spieler zum Turnierbeginn
+ *
+ * \param void
+ * \return void
+ *
+ * Das Label mit der Überschrift und der Spieleranzahl wird erzeugt, und aktualisiert
+ * Der Button zum Start wird, freigeschlatet oder bleibt nicht drückbar, wenn die benötigte Spieleranzahl Null beträgt
+ */
 void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 {
     _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
@@ -241,6 +283,13 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
     }
 }
 
+/*!
+ * \brief Öffnet den aktuellen Turnierplan
+ *
+ * \param void
+ * \return void
+ *
+ */
 void PlayermanagementWindow::tournamentName()
 {
     TournamentWindow* tournamentWindow2 = new TournamentWindow;

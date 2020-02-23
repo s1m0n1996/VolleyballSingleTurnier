@@ -8,7 +8,6 @@ class PlayermanagementWindow;
 class PlayerManagement;
 class QAction;
 class QMenu;
-class Viewer;
 class Referee;
 class RefereepopupWinningLeg;
 class RefereeWindow;
@@ -33,8 +32,6 @@ class WindowLabel;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainMenu; }
 QT_END_NAMESPACE
-
-
 
 class MainMenu : public QMainWindow
 {
@@ -86,7 +83,6 @@ private:
 
     PlayerManagement*       _playerManagementModel;
     Referee*                _refereeModel;
-    Viewer*                 _viewerModel;
     RefereepopupWinningLeg* _refereePopupModel;
 
 
