@@ -29,10 +29,6 @@ class WindowLabel;
  * Über die verschiedenen Buttons gelangt man zu der Meldestelle, dem Spielplan, der Zuschaueransicht und dem Richterfenster
 */
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainMenu; }
-QT_END_NAMESPACE
-
 class MainMenu : public QMainWindow
 {
     Q_OBJECT
