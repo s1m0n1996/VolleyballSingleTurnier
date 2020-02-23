@@ -164,6 +164,7 @@ void MainMenu::setTouenamentName()
 void MainMenu::createWidgets()
 {
     setWindowTitle("Hauptmenü");
+    setWindowIcon(QIcon(":/img/darts.png"));
 
     _playerData = new QMenu();
     _playerData= menuBar()->addMenu(tr("Spielerdateien"));
