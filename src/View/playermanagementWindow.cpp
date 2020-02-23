@@ -5,7 +5,7 @@
 */
 #include <QHeaderView>
 
-#include "QAbstractItemView"
+#include <QAbstractItemView>
 #include <QModelIndex>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -29,10 +29,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     _playerManagementModel->refreshDatabasePlayerTable();
     _playerManagementModel->refreshNextGamePlayerTable();
 
-    showTable();
-    createMissingPlayersForNewTournamentLabel();
-    createButtons();
-    createAddPlayerEdit();
+    createWidges();
     setAllLayout();
     connecting();
     setWindowIcon(QIcon(":/img/darts.png"));
@@ -117,33 +114,18 @@ void PlayermanagementWindow::connecting()
     connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
 }
 
-void PlayermanagementWindow::createAddPlayerEdit()
-{
-    _playernameEdit     = new WindowEdit("Max Mustermann");
-    _birthdayEdit       = new WindowEdit("1990-01-30");
-    _countryEdit        = new WindowEdit("Deutschland");
 
-    _playernameLabel    = new WindowLabel("Spielername");
-    _birthdayLabel      = new WindowLabel("Geburtsdatum");
-    _countryLabel       = new WindowLabel("Land");
-    _photo              = new WindowLabel("Foto");
+void PlayermanagementWindow::createWidges()
+{
     _colorLabel         = new QLabel;
     _colorLabel->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Meldestelle");
     _title->setTitleStyel();
 
+    _allPlayerLabel = new WindowLabel("gesamte Spieler");
+    _gamePlayerLabel = new WindowLabel("aktuelle Spieler im Turnier");
 
-}
-
-void PlayermanagementWindow::createButtons()
-{
-    _addPlayerButton        = new WindowButton("Spieler hinzufügen");
-    _startTournamentButton  = new WindowButton("Turnier starten");
-
-    _addPhoto = new WindowButton("Foto hinzufügen");
-    _addPhoto->setIcon(QIcon(":/img/addPlayer.png"));
-    _addPhoto->setIconSize(QSize(65,65));
-
+    showTable();
     _addPlayerForNewTournament      = new WindowButton("");
     _addPlayerForNewTournament->setIcon(QIcon(":/img/right.png"));
     _addPlayerForNewTournament->setIconSize(QSize(65,65));
@@ -152,7 +134,30 @@ void PlayermanagementWindow::createButtons()
     _deletePlayerForNewTournament->setIcon(QIcon(":/img/left.png"));
     _deletePlayerForNewTournament->setIconSize(QSize(65,65));
 
+    _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
+    _valueMissingPlayersLabel = new WindowLabel(
+    QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
+    _valueMissingPlayersLabel->setNotStartTournamentStyle();
 
+    _playernameEdit     = new WindowEdit("Max Mustermann");
+    _birthdayEdit       = new WindowEdit("1990-01-30");
+    _countryEdit        = new WindowEdit("Deutschland");
+
+    _playernameLabel    = new WindowLabel("Spielername");
+    _birthdayLabel      = new WindowLabel("Geburtsdatum");
+    _countryLabel       = new WindowLabel("Land");
+    _photo              = new WindowLabel("Foto");
+
+    _addPhoto = new WindowButton("Foto hinzufügen");
+    _addPhoto->setIcon(QIcon(":/img/addPlayer.png"));
+    _addPhoto->setIconSize(QSize(65,65));
+
+
+
+
+    _addPlayerButton        = new WindowButton("Spieler hinzufügen");
+
+    _startTournamentButton  = new WindowButton("Turnier starten");
     _startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
     _startTournamentButton->setIcon(QIcon(":/img/dart (1).png"));
@@ -164,14 +169,8 @@ void PlayermanagementWindow::createButtons()
         _startTournamentButton->setEnabled(true);
     }
 
-}
 
-void PlayermanagementWindow::createMissingPlayersForNewTournamentLabel()
-{
-    _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
-    _valueMissingPlayersLabel = new WindowLabel(
-    QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-    _valueMissingPlayersLabel->setNotStartTournamentStyle();
+
 }
 
 /*!
@@ -220,15 +219,26 @@ void PlayermanagementWindow::setAllLayout()
     QWidget* widget= new QWidget;
     setCentralWidget(widget);
 
-    QVBoxLayout* addDeleteLayout    = new QVBoxLayout;
-    QVBoxLayout* maxPlayerLayout    = new QVBoxLayout;
-    QVBoxLayout* mainLayout         = new QVBoxLayout;
-    QGridLayout* addPlayerLayout    = new QGridLayout;
-    QHBoxLayout* tabelViewLayout    = new QHBoxLayout;
+    QVBoxLayout* addDeleteLayout        = new QVBoxLayout;
+    QVBoxLayout* maxPlayerLayout        = new QVBoxLayout;
+    QVBoxLayout* mainLayout             = new QVBoxLayout;
+    QGridLayout* addPlayerLayout        = new QGridLayout;
+    QHBoxLayout* tabelViewLayout        = new QHBoxLayout;
+    QHBoxLayout* titleTavelViewLayout   = new QHBoxLayout;
 
 
     mainLayout->addWidget(_colorLabel);
     mainLayout->addWidget(_title);
+
+    titleTavelViewLayout->addWidget(_allPlayerLabel,0,Qt::AlignHCenter);
+    titleTavelViewLayout->addWidget(_gamePlayerLabel,0,Qt::AlignHCenter);
+
+    tabelViewLayout->addWidget(_allPlayerTableView);
+    tabelViewLayout->addLayout(addDeleteLayout);
+    tabelViewLayout->addWidget(_gamePlayerTableView);
+
+    addDeleteLayout->addWidget(_addPlayerForNewTournament);
+    addDeleteLayout->addWidget(_deletePlayerForNewTournament);
 
     maxPlayerLayout->addWidget(_nameMissingPlayersLabel, 0, Qt::AlignCenter);
     maxPlayerLayout->addWidget(_valueMissingPlayersLabel, 0, Qt::AlignCenter);
@@ -236,8 +246,6 @@ void PlayermanagementWindow::setAllLayout()
     addPlayerLayout->addWidget(_playernameLabel, 1, 0);
     addPlayerLayout->addWidget(_birthdayLabel, 2, 0);
     addPlayerLayout->addWidget(_countryLabel, 3, 0);
-
-
     addPlayerLayout->setSpacing(2);
     addPlayerLayout->setMargin(5);
     addPlayerLayout->addWidget(_playernameEdit, 1, 1);
@@ -249,16 +257,8 @@ void PlayermanagementWindow::setAllLayout()
     addPlayerLayout->addWidget(_startTournamentButton,6,0);
 
 
-    tabelViewLayout->addWidget(_allPlayerTableView);
-    tabelViewLayout->addLayout(addDeleteLayout);
-    tabelViewLayout->addWidget(_gamePlayerTableView);
 
-
-    addDeleteLayout->addWidget(_addPlayerForNewTournament);
-    addDeleteLayout->addWidget(_deletePlayerForNewTournament);
-
-    tabelViewLayout->addLayout(addDeleteLayout);
-
+    mainLayout->addLayout(titleTavelViewLayout);
     mainLayout->addLayout(tabelViewLayout);
     mainLayout->addLayout(maxPlayerLayout);
     mainLayout->addLayout(addPlayerLayout);

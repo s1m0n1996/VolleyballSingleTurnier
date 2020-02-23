@@ -46,9 +46,7 @@ public slots:
 
 private:
     void connecting();
-    void createAddPlayerEdit();
-    void createButtons(void);
-    void createMissingPlayersForNewTournamentLabel();
+    void createWidges(void);
     void setAllLayout(void);
     void showTable(void);
 
