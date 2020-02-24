@@ -202,6 +202,10 @@ int PlayerManagement::countMissingPlayersForNewGame()
 void PlayerManagement::refreshDatabasePlayerTable()
 {
     _databasePlayerTable->setQuery("SELECT name, birthday, country FROM player_list where is_available >= 1");
+
+    _databasePlayerTable->setHeaderData(0, Qt::Horizontal, tr("Name"));
+    _databasePlayerTable->setHeaderData(1, Qt::Horizontal, tr("Geburtstag"));
+    _databasePlayerTable->setHeaderData(2, Qt::Horizontal, tr("Land"));
 }
 
 /*!
@@ -243,6 +247,10 @@ WHERE sport_type_id = )";
     sqlQueryString += QString::number(_gameManagement->getTournamentId());
 
     _nextGamePlayerTableModel->setQuery(sqlQueryString);
+
+    _nextGamePlayerTableModel->setHeaderData(0, Qt::Horizontal, tr("Name"));
+    _nextGamePlayerTableModel->setHeaderData(1, Qt::Horizontal, tr("Geburtstag"));
+    _nextGamePlayerTableModel->setHeaderData(2, Qt::Horizontal, tr("Land"));
 }
 
 /*!
