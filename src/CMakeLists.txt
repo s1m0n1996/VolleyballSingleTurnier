@@ -34,7 +34,6 @@ set(MOC_HEADERS
         View/dartboard.h
         View/gameboardWindow.h
         View/mainmenu.h
-        View/menubutton.h
         View/playermanagementWindow.h
         View/refereepopupbustleg.h
         View/refereepopupwinningleg.h
@@ -62,7 +61,6 @@ set(SOURCES
         View/dartboard.cpp
         View/gameboardWindow.cpp
         View/mainmenu.cpp
-        View/menubutton.cpp
         View/playermanagementWindow.cpp
         View/refereepopupbustleg.cpp
         View/refereepopupwinningleg.cpp
@@ -80,7 +78,6 @@ set(SOURCES
 
 # set .ui files
 set(UIS
-        View/playermanagementWindow.ui
         View/refereewindow.ui
         View/viewerWindow.ui
         )
