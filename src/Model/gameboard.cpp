@@ -1,28 +1,13 @@
 #include "gameboard.h"
 
-Gameboard::Gameboard(QList <Player> players, QString tournamentName)
+Gameboard::Gameboard(QList <Player> players)
 {
     _db = &SqliteConnector::instance();
+    _gameManagement = &GameManagement::instance();
     _players = players;
-    createNewTournament(tournamentName);
     prepareGameRandomly();
     createFirstGames();
     createRemainingGames();
-}
-
-
-void Gameboard::createNewTournament(QString tournamentName)
-{
-    getNewTournamentId();
-    QString sqlPrepare = R"(
-            INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
-            VALUES(?, 1, 1, ?, ?))";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(_tournamentId));
-    sqlParameters.append(tournamentName);
-    QDate date;
-    sqlParameters.append(date.currentDate().toString("yyyy-MM-dd"));
-    _db->sqlQuery(sqlPrepare, sqlParameters);
 }
 
 
@@ -45,13 +30,17 @@ void Gameboard::createFirstGames()
     {
         QString sqlPrepare = R"(
         INSERT INTO game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time, player_a_id, player_b_id)
-        VALUES (?, 1, 1, ?, 'Test', ?, ?))";                        //Testtime
-        QList<QString> sqlParameters;
-        sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
-        sqlParameters.append(QString::number(_tournamentId));
-        sqlParameters.append(QString::number(_players[i-1].getId()));
-        sqlParameters.append(QString::number(_players[i].getId()));
-        _db->sqlQuery(sqlPrepare, sqlParameters);
+        VALUES (:gameboardId, :sportTypeId, :gameModeId, :tournamentId, :gameTime, :playerAid, :playerBid))";                        //Testtime
+        QSqlQuery sqlQuery;
+        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.bindValue(":gameboardId", getLastGameIdInSameTournament()+1);
+        sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+        sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+        sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+        sqlQuery.bindValue(":gameTime", "Testtime");
+        sqlQuery.bindValue(":playerAid", _players[i-1].getId());
+        sqlQuery.bindValue(":playerBid", _players[i].getId());
+        _db->sqlQuery(sqlQuery);
     }
 }
 
@@ -65,25 +54,20 @@ void Gameboard::createRemainingGames()
     }
     numberOfGames -= _players.size()/2;
 
-    for (int k = 0; k<numberOfGames; k++)
+    for (int k = 0; k < numberOfGames; k++)
     {
         QString sqlPrepare = R"(
         INSERT INTO game_board_list (id, sport_type_id, game_mode_id, tournament_id, game_board_time)
-        VALUES (?, 1, 1, ?, 'Test'))";                        //Testtime
-        QList<QString> sqlParameters;
-        sqlParameters.append(QString::number(getLastGameIdInSameTournament()+1));
-        sqlParameters.append(QString::number(_tournamentId));
-        _db->sqlQuery(sqlPrepare, sqlParameters);
+        VALUES (:gameboardId, :sportTypeId, :gameModeId, :tournamentId, :gameTime))";
+        QSqlQuery sqlQuery;
+        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.bindValue(":gameboardId", getLastGameIdInSameTournament()+1);
+        sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+        sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+        sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+        sqlQuery.bindValue(":gameTime", "Testtime");
+        _db->sqlQuery(sqlQuery);
     }
-}
-
-
-void Gameboard::getNewTournamentId()
-{
-    QString sqlPrepare = R"(SELECT MAX(tournament_id)
-                            FROM game_board_list)";
-    QList<QVariant> tournament = _db->sqlQuery(sqlPrepare)[0];
-    _tournamentId = tournament[0].toInt()+1;                        //Neue TunierId wird erzeugt
 }
 
 
@@ -91,14 +75,17 @@ int Gameboard::getLastGameIdInSameTournament()
 {
     QString sqlPrepare = R"(SELECT id
                          FROM game_board_list
-                         WHERE sport_type_id = 1
-                         AND game_mode_id = 1
-                         AND tournament_id = ?
+                         WHERE sport_type_id = :sportTypeId
+                         AND game_mode_id = :gameModeId
+                         AND tournament_id = :tournamentId
                          ORDER by id desc
                          limit 1)";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(_tournamentId));
-    QList<QList<QVariant>> id = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> id = _db->sqlQuery(sqlQuery);
     int lastId;
     if(id.isEmpty())
     {
@@ -108,7 +95,6 @@ int Gameboard::getLastGameIdInSameTournament()
     {
         lastId = id[0][0].toInt();
     }
-
     return lastId;
 }
 

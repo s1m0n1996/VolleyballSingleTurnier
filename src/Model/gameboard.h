@@ -7,20 +7,20 @@
 #include <QList>
 #include <ctime>
 #include "QDate"
+#include "Model/gameManagement.h"
 
 
 class Gameboard
 {
 public:
-    Gameboard(QList <Player> players, QString tournamentName);
+    Gameboard(QList <Player> players);
     void addWinnerToDatabase(int winnerId, int gameId);
 
 private:
+    GameManagement* _gameManagement;
     QList <Player> _players;
     QList <int> _gameIds;
     SqliteConnector* _db;
-    int _tournamentId;
-    int _totalGames;
     int getLastGameIdInSameTournament(void);
     void createFirstGames();
     void prepareGameRandomly(void);

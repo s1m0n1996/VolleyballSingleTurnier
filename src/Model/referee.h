@@ -62,8 +62,8 @@ private:
      int _winner                    = 0;
      int _throwScore                = 0;
      int _remainingThrows           = 0;
-     int _tournamentId              = 7;            //TODO: tournamentId übergeben oder durch singletonklasse bekommen
-     int _gameId                    = 5;            // Hier auch!
+     int _gameId                    = 5;            // Muss noch übergeben werden.
+     int _tournamentId              = 7;
      int _playerAId;
      int _playerBId;
      bool _wasLastThrowInLegToWin   = false;
@@ -74,6 +74,7 @@ private:
      //TODO: Muss noch ein String werden. Mit der Game Klasse absprechen
      QList<int> _allPlayers         ={1,2};
      SqliteConnector* _db;
+     GameManagement* _gameManagement;
 };
 
 #endif // REFEREE_H

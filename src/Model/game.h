@@ -2,13 +2,13 @@
 #define GAME_H
 #include "Model/player.h"
 #include "Model/sqliteConnector.h"
+#include "Model/gameManagement.h"
 
 
 class Game
 {
 public:
-    explicit Game(const int _tournamentId);
-
+    explicit Game();
 
     void loadNextGame(void);
     void setNextWinner(int winnerId);
@@ -16,7 +16,7 @@ public:
 
 private:
     SqliteConnector* _db;
-    int _tournamentId;
+    GameManagement* _gameManagement;
     int _gameId;
     Player _playerA;
     Player _playerB;

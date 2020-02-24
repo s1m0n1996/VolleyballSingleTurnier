@@ -10,6 +10,7 @@
 Referee::Referee()
 {
     _db = &SqliteConnector::instance();
+    _gameManagement = &GameManagement::instance();
     _playerAId = 0;
     _playerBId = 1;
 }
@@ -107,31 +108,35 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
 
         QString sqlPrepare = R"(
                              INSERT INTO leg_history_list (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id, player_id, time, value_type_id, value)
-                             VALUES (?, 1, 1, ?, ?, ?, ?, ?, ?, ?)
+                             VALUES (:throwId, :sportTypeId, :gameModeId, :tournamentId, :gameBoardId, :legId, :playerId, :time, :valueTypeId, :value)
                              )";
-        QList <QString> sqlParameters;
-        sqlParameters.append(QString::number(getLastLegIdInSameGame()+1));
-        sqlParameters.append(QString::number(_tournamentId));
-        sqlParameters.append(QString::number(_gameId));
-        sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
-        sqlParameters.append(QString::number(getAktivePlayerId()));
-        sqlParameters.append("Uhrzeit");
-        sqlParameters.append(QString::number(valueMultiplikator));
+        QSqlQuery sqlQuery;
+        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.bindValue(":throwId", (getLastLegIdInSameGame()+1));
+        sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+        sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+        sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+        sqlQuery.bindValue(":gameBoardId", _gameId);
+        sqlQuery.bindValue(":legId", getNumberOfCurrentLeg());
+        sqlQuery.bindValue(":playerId", getAktivePlayerId());
+        sqlQuery.bindValue(":time", "uhrzeit");
+        sqlQuery.bindValue(":valueTypeId", valueMultiplikator);
+
         if(valueMultiplikator == 0)
         {
-            sqlParameters.append(QString::number(0));
+            sqlQuery.bindValue(":value", 0);
         }
         else
         {
-            sqlParameters.append(QString::number(scoreWithoutMultiplikator));
+            sqlQuery.bindValue(":value", scoreWithoutMultiplikator);
         }
-        _db->sqlQuery(sqlPrepare, sqlParameters);
+        _db->sqlQuery(sqlQuery);
 
         setRemainScore();
-
         emit valueChanged();
     }
 }
+
 
 QList<int> Referee::getThrows()
 {
@@ -219,29 +224,31 @@ void Referee::undoThrow()
         _winningLegCounter[_player]--;
         _wasLastThrowInLegToWin = false;
     }
+
     QString sqlPrepare = R"(DELETE
                          from leg_history_list
-                         WHERE sport_type_id = 1
+                         WHERE sport_type_id = :sportTypeId
                            AND id = (SELECT MAX (id)
                          FROM leg_history_list
-                         WHERE sport_type_id = 1
-                           AND game_mode_id = 1
-                           AND tournament_id = ?
-                           AND game_board_id = ?
-                           AND leg_id = ?)
-                           AND game_mode_id = 1
-                           AND tournament_id = ?
-                           AND game_board_id = ?
-                           AND leg_id = ?
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                           AND game_board_id = :gameBoardId
+                           AND leg_id = :legId)
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                           AND game_board_id = :gameBoardId
+                           AND leg_id = :legId
                          )";
-    QList <QString> sqlParameters;
-    sqlParameters.append(QString::number(_tournamentId));
-    sqlParameters.append(QString::number(_gameId));
-    sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
-    sqlParameters.append(QString::number(_tournamentId));
-    sqlParameters.append(QString::number(_gameId));
-    sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
-    _db->sqlQuery(sqlPrepare, sqlParameters);
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameBoardId", _gameId);
+    sqlQuery.bindValue(":legId", getNumberOfCurrentLeg());
+
+    _db->sqlQuery(sqlQuery);
 
     if (0 < _throwCounter)
     {
@@ -312,18 +319,23 @@ int Referee::getLastLegIdInSameGame()
 {
     QString sqlPrepare = R"(SELECT id
                          FROM leg_history_list
-                         WHERE sport_type_id = 1
-                         AND game_mode_id = 1
-                         AND tournament_id = ?
-                         AND game_board_id = ?
-                         AND leg_id = ?
+                         WHERE sport_type_id = :sportTypeId
+                         AND game_mode_id = :gameModeId
+                         AND tournament_id = :tournamentId
+                         AND game_board_id = :gameBoardId
+                         AND leg_id = :legId
                          ORDER by id desc
                          limit 1)";
-    QList<QString> sqlParameters;
-    sqlParameters.append(QString::number(_tournamentId));
-    sqlParameters.append(QString::number(_gameId));
-    sqlParameters.append(QString::number(getNumberOfCurrentLeg()));
-    QList<QList<QVariant>> id = _db->sqlQuery(sqlPrepare, sqlParameters);
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameBoardId", _gameId);
+    sqlQuery.bindValue(":legId", getNumberOfCurrentLeg());
+
+    QList<QList<QVariant>> id = _db->sqlQuery(sqlQuery);
     int lastId;
     if(id.isEmpty())
     {
