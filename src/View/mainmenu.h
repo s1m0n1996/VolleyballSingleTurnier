@@ -17,6 +17,7 @@ class TournamentWindow;
 class ViewerWindow;
 class WindowButton;
 class WindowLabel;
+class GameManagement;
 
 
 /*!
@@ -49,7 +50,7 @@ private slots:
     void createDatabase();
     void loadDatabase();
     void tournamentName();
-    void setTouenamentName();
+    void setTournamentName();
 
 private:
     void connecting();
@@ -80,6 +81,8 @@ private:
     PlayerManagement*       _playerManagementModel;
     Referee*                _refereeModel;
     RefereepopupWinningLeg* _refereePopupModel;
+
+    GameManagement* _gameManagement;
 
 
 

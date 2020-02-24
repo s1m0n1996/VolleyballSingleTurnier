@@ -12,8 +12,9 @@
  * Thia class is a singleton class and would be used as global parameters that all models works with
  * the same tournament and game.
 */
-class GameManagement
+class GameManagement : public QObject
 {
+Q_OBJECT
 public:
     static GameManagement& instance(void)
     {
@@ -30,6 +31,9 @@ public:
     void loadOtherTournament(QString& name, QString& date);
     void loadOtherTournament(int& id);
     void loadLastTournament(void);
+
+signals:
+    void tournamentChanged(void);
 
 private:
     GameManagement(void);

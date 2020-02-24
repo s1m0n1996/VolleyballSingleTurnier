@@ -43,6 +43,8 @@ WHERE name = :name
     _tournamentDate = rawData[0][2].toString();
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
+
+    emit tournamentChanged();
 }
 
 /*!
@@ -78,6 +80,8 @@ WHERE id = :id
     _tournamentDate = rawData[0][2].toString();
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
+
+    emit tournamentChanged();
 }
 
 /*!
@@ -136,4 +140,6 @@ WHERE sport_type_id = :sportTypeId
     _tournamentId = rawData[0][0].toInt();
     _tournamentName = rawData[0][1].toString();
     _tournamentDate = rawData[0][2].toString();
+
+    emit tournamentChanged();
 }

@@ -21,6 +21,7 @@
 #include "View/viewerwindow.h"
 #include "View/windowbutton.h"
 #include "View/windowlabel.h"
+#include "Model/gameManagement.h"
 
 // TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
@@ -30,12 +31,14 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     QMainWindow(parent),
     _model(model)
 {
+    _gameManagement = &GameManagement::instance();
     createWidgets();
     setwholeLayout();
     connecting();
 
     setMinimumSize(700,600);
     setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
+    setTournamentName();
 }
 
 MainMenu::~MainMenu()
@@ -99,14 +102,14 @@ void MainMenu::createDatabase()
                                         tr("Datenbank anlegen"), "",
                                         tr("Database File (*.sqlite) ;; All Files (*.*)"));
 
-    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-    sqlitConnector->createDatabase(path);
+    SqliteConnector* sqliteConnector = &SqliteConnector::instance();
+    sqliteConnector->createDatabase(path);
 
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
-    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
+    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
+    _viewer->setEnabled(sqliteConnector->getDb()->isOpen());
+    _referee->setEnabled(sqliteConnector->getDb()->isOpen());
 
     _noteDatabase->setVisible(false);
 }
@@ -126,14 +129,14 @@ void MainMenu::loadDatabase()
                                         tr("Datenbank laden"), "",
                                         tr("Database File (*.sqlite) ;; All Files (*.*)"));
 
-    SqliteConnector* sqlitConnector = &SqliteConnector::instance();
-    sqlitConnector->openDatabase(path);
+    SqliteConnector* sqliteConnector = &SqliteConnector::instance();
+    sqliteConnector->openDatabase(path);
 
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
-    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
+    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
+    _viewer->setEnabled(sqliteConnector->getDb()->isOpen());
+    _referee->setEnabled(sqliteConnector->getDb()->isOpen());
 
     _noteDatabase->setVisible(false);
 }
@@ -147,7 +150,7 @@ void MainMenu:: connecting()
     connect(_newPlayer,SIGNAL(triggered()),this, SLOT(createDatabase()));
     connect(_loadPlayer,SIGNAL(triggered()),this, SLOT(loadDatabase()));
     connect(_newTournament,SIGNAL(triggered()),this,SLOT(tournamentName()));
-//    connect(_tournamentName, SIGNAL(tournamentName()), this, SLOT(setTouenamentName()));
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
 }
 
 void MainMenu::tournamentName()
@@ -157,9 +160,10 @@ void MainMenu::tournamentName()
 }
 
 
-void MainMenu::setTouenamentName()
+void MainMenu::setTournamentName()
 {
-    _noteTournament->setText("Das Turnier LEa ist ");
+    _noteTournament->setText("Aktueles Turnier: " + _gameManagement->getTournamentName()
+    + " vom: " + _gameManagement->getTournamentDate());
 }
 
 void MainMenu::createWidgets()
@@ -168,7 +172,7 @@ void MainMenu::createWidgets()
     setWindowIcon(QIcon(":/img/darts.png"));
 
     _playerData = new QMenu();
-    _playerData= menuBar()->addMenu(tr("Spielerdateien"));
+    _playerData= menuBar()->addMenu(tr("Datei"));
 
     _loadPlayer = new QAction("Laden");
     _newPlayer  = new QAction("Erstellen");
@@ -194,7 +198,7 @@ void MainMenu::createWidgets()
                           "font-family: Candara;"
                           "color: red;}");
 
-    _noteTournament      = new WindowLabel("");
+    _noteTournament      = new WindowLabel("Aktuelles Turnier");
 
     _playermanagment     = new WindowButton("Meldestelle");
     _playermanagment->mainMenuStyle();

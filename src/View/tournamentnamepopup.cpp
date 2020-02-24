@@ -3,6 +3,7 @@
 
 TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 {
+    _gameManagement = &GameManagement::instance();
         setWindowTitle("Turniername");
         setWindowIcon(QIcon(":/img/darts.png"));
 
@@ -10,9 +11,9 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
         _dateEdit = new WindowEdit("1990-01-30");
 
         _nameLabel = new WindowLabel("Turniername");
-        _nameEdit = new WindowEdit("Max Mustermann");
+        _nameEdit = new WindowEdit("Turniername");
 
-        _createTournament = new WindowButton("Erstelle Spielplan");
+        _createTournament = new WindowButton("Erstelle Turnier");
 
 
         QGridLayout* layout = new QGridLayout;
@@ -36,13 +37,9 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 void TournamentNamePopUp::openTournamentWindow(void)
 {
      setWindowFlags(Qt::Window);
-     isTournament = true;
-     qDebug()<<getName();
-     emit tournamentName();
-}
+     QString tournamentName1 = _nameEdit->text();
+     QString tournamentDate = _dateEdit->text();
 
-QString TournamentNamePopUp::getName()
-{
-    return _nameEdit -> text();
-
+     _gameManagement->createNewTournament(tournamentName1, tournamentDate);
+     _gameManagement->loadOtherTournament(tournamentName1, tournamentDate);
 }

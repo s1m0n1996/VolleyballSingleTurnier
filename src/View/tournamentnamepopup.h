@@ -9,6 +9,7 @@
 #include "View/windowedit.h"
 #include "View/windowlabel.h"
 #include <QDebug>
+#include "Model/gameManagement.h"
 //#include "View/windowpopup.h"
 
 class TournamentNamePopUp : public QWidget
@@ -16,16 +17,10 @@ class TournamentNamePopUp : public QWidget
     Q_OBJECT
 public:
     explicit TournamentNamePopUp(QWidget *parent = nullptr);
-    QString getName();
-    WindowEdit* getDate(){return _dateEdit;}
-    bool isTournament =  false;
-
 
 public slots:
     void openTournamentWindow(void);
 
-signals:
-    void tournamentName();
 private:
     WindowLabel* _dateLabel = nullptr;
     WindowEdit* _dateEdit = nullptr;
@@ -34,6 +29,8 @@ private:
     WindowEdit* _nameEdit = nullptr;
 
     WindowButton* _createTournament = nullptr;
+
+    GameManagement* _gameManagement;
 };
 
 #endif // TOURNEMENTNAMEPOPUP_H
