@@ -24,6 +24,8 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     RefereePopupBustLeg* bustLeg = new RefereePopupBustLeg;
     _popupBustLeg = bustLeg;
 
+    setWindowIcon(QIcon(":/img/referee.png"));
+
     ui->setupUi(this);
     connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
     connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));

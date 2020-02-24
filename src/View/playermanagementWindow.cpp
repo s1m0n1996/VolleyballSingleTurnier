@@ -33,6 +33,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     setAllLayout();
     connecting();
     setWindowIcon(QIcon(":/img/darts.png"));
+    setWindowTitle("Meldestelle");
 }
 
 PlayermanagementWindow::~PlayermanagementWindow()
@@ -195,6 +196,7 @@ void PlayermanagementWindow::createWidges()
     _title->setTitleStyel();
 
     _allPlayerLabel = new WindowLabel("gesamte Spieler");
+
     _gamePlayerLabel = new WindowLabel("aktuelle Spieler im Turnier");
 
     showTable();
@@ -298,11 +300,9 @@ void PlayermanagementWindow::setAllLayout()
     addPlayerLayout->addWidget(_addPlayerButton, 6, Qt::AlignRight);
     addPlayerLayout->addWidget(_startTournamentButton,6,0);
 
-
-
     mainLayout->addLayout(titleTavelViewLayout);
-    mainLayout->addLayout(tabelViewLayout);
     mainLayout->addLayout(maxPlayerLayout);
+    mainLayout->addLayout(tabelViewLayout);    
     mainLayout->addLayout(addPlayerLayout);
 
     widget->setLayout(mainLayout);

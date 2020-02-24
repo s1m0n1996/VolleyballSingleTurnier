@@ -14,7 +14,7 @@ class WindowLabel: public QLabel
 {
     Q_OBJECT
 public:
-    explicit WindowLabel(QString text, QWidget *parent = nullptr);
+    explicit WindowLabel(QString text = "", QWidget *parent = nullptr);
     void setNotStartTournamentStyle(void);
     void setStartTournamentStyle(void);
     void setTitleStyel(void);

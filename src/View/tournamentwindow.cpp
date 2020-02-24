@@ -2,8 +2,10 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QPen>
+#include <QPainter>
 #include <QGridLayout>
 #include <QLabel>
+#include <QRectF>
 
 #include "View/windowlabel.h"
 #include "View/windowbutton.h"
@@ -49,49 +51,64 @@ TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
 //    game->addLine(225,110,250,110);
 
 
-    double beginX = 50.0;
-    double beginYFirstRec =  0.0;
-    double beginYSecondRec = beginYFirstRec + 40.0;
-    double width = 150.0;
-    double high = 40.0;
-    double endX = beginX + width;
-    double endFirstLineX = endX + 25.0;
-    double endLastLineX = endFirstLineX + 25.0;
-    double distancePair = 60.0;
 
-    game->addRect(beginX, beginYFirstRec, width, high * 2);
-    game->addRect(beginX, beginYSecondRec,width, high,QPen(),QBrush(Qt::red));
 
-    game->addRect(beginX,beginYSecondRec + distancePair,width,high);
-    game->addRect(beginX,140,width,high,QPen(),QBrush(Qt::blue));
+    QRectF rectangle = QRectF(0, 0, 100, 50);
 
-    game->addRect(beginX,250,width,high * 2);
-    game->addRect(beginX,290,width,high,QPen(),QBrush(Qt::yellow));
+    game->addRect(rectangle);
+    game->addText("hi");
 
-    game->addRect(beginX,350,width,high *2);
-    game->addRect(beginX,390,width,high,QPen(),QBrush(Qt::green));
 
-    game->addRect(beginX + 200.0,300,width,high * 2);
-    game->addRect(beginX + 200.0,340,width,high,QPen(),QBrush(Qt::black));
 
-    game->addRect(beginX + 200.0,50,width,high * 2);
-    game->addRect(beginX + 200.0,90,width,high,QPen(),QBrush(Qt::darkRed));
 
-    game->addLine(endX,290,endFirstLineX,290);//yellow mitte
-    game->addLine(endFirstLineX,290,endFirstLineX,320);
-    game->addLine(endFirstLineX,320,endLastLineX,320);
 
-    game->addLine(endX,390,endFirstLineX,390);//green
-    game->addLine(endFirstLineX,390,endFirstLineX,360);
-    game->addLine(endFirstLineX,360,endLastLineX,360);
+//    game->addRect(QRectF(100,100,500,200));
 
-    game->addLine(endX,40,endFirstLineX,40);// red
-    game->addLine(endFirstLineX,40,endFirstLineX,80);
-    game->addLine(endFirstLineX,80,endLastLineX,80);
+//    double beginX = 50.0;
+//    double beginYFirstRec =  0.0;
+//    double beginYSecondRec = beginYFirstRec + 40.0;
+//    double width = 150.0;
+//    double high = 40.0;
+//    double endX = beginX + width;
+//    double endFirstLineX = endX + 25.0;
+//    double endLastLineX = endFirstLineX + 25.0;
+//    double distancePair = 60.0;
 
-    game->addLine(endX,140,endFirstLineX,140);//blue
-    game->addLine(endFirstLineX,140,endFirstLineX,110);
-    game->addLine(endFirstLineX,110,endLastLineX,110);
+//    game->addRect(beginX, beginYFirstRec, width, high * 2);
+//    game->addRect(beginX, beginYSecondRec,width, high,QPen(),QBrush(Qt::red));
+
+
+
+//    game->addRect(beginX,beginYSecondRec + distancePair,width,high);
+//    game->addRect(beginX,140,width,high,QPen(),QBrush(Qt::blue));
+
+//    game->addRect(beginX,250,width,high * 2);
+//    game->addRect(beginX,290,width,high,QPen(),QBrush(Qt::yellow));
+
+//    game->addRect(beginX,350,width,high *2);
+//    game->addRect(beginX,390,width,high,QPen(),QBrush(Qt::green));
+
+//    game->addRect(beginX + 200.0,300,width,high * 2);
+//    game->addRect(beginX + 200.0,340,width,high,QPen(),QBrush(Qt::black));
+
+//    game->addRect(beginX + 200.0,50,width,high * 2);
+//    game->addRect(beginX + 200.0,90,width,high,QPen(),QBrush(Qt::darkRed));
+
+//    game->addLine(endX,290,endFirstLineX,290);//yellow mitte
+//    game->addLine(endFirstLineX,290,endFirstLineX,320);
+//    game->addLine(endFirstLineX,320,endLastLineX,320);
+
+//    game->addLine(endX,390,endFirstLineX,390);//green
+//    game->addLine(endFirstLineX,390,endFirstLineX,360);
+//    game->addLine(endFirstLineX,360,endLastLineX,360);
+
+//    game->addLine(endX,40,endFirstLineX,40);// red
+//    game->addLine(endFirstLineX,40,endFirstLineX,80);
+//    game->addLine(endFirstLineX,80,endLastLineX,80);
+
+//    game->addLine(endX,140,endFirstLineX,140);//blue
+//    game->addLine(endFirstLineX,140,endFirstLineX,110);
+//    game->addLine(endFirstLineX,110,endLastLineX,110);
 
     QGraphicsView* viewgame = new QGraphicsView(game);
     viewgame->setAlignment(Qt::AlignLeft);
