@@ -31,6 +31,7 @@ public:
     void loadOtherTournament(QString& name, QString& date);
     void loadOtherTournament(int& id);
     void loadLastTournament(void);
+    QList<QList<QString>> getSavedTournaments(void);
 
 signals:
     void tournamentChanged(void);

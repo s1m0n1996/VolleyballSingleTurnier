@@ -18,6 +18,7 @@ class ViewerWindow;
 class WindowButton;
 class WindowLabel;
 class GameManagement;
+class LoadTournamentPopup;
 
 
 /*!
@@ -49,7 +50,8 @@ private slots:
     void openRefereeWindow();
     void createDatabase();
     void loadDatabase();
-    void tournamentName();
+    void createTournament();
+    void loadTournament();
     void setTournamentName();
 
 private:
@@ -72,6 +74,7 @@ private:
     WindowLabel*            _noteDatabase   = nullptr;
     WindowLabel*            _noteTournament = nullptr;
     TournamentNamePopUp*    _tournamentName = nullptr;
+    LoadTournamentPopup* _loadTournamentPopup;
 
     WindowButton* _playermanagment    = nullptr;
     WindowButton* _tournament         = nullptr;

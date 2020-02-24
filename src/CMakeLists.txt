@@ -46,6 +46,7 @@ set(MOC_HEADERS
         View/windowedit.h
         View/windowlabel.h
         Model/gameManagement.h
+        View/loadTournamentPopup.h
         )
 
 # set .cpp files
@@ -73,6 +74,7 @@ set(SOURCES
         View/windowedit.cpp
         View/windowlabel.cpp
         Model/gameManagement.cpp
+        View/loadTournamentPopup.cpp
         main.cpp
         )
 

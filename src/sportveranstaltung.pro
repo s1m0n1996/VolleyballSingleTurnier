@@ -39,6 +39,7 @@ SOURCES += \
     View/windowedit.cpp \
     View/windowlabel.cpp \
     Model/gameManagement.cpp \
+    View/loadTournamentPopup.cpp \
     main.cpp
 
 HEADERS += \
@@ -64,7 +65,8 @@ HEADERS += \
     View/windowbutton.h \
     View/windowedit.h \
     View/windowlabel.h \
-    Model/gameManagement.h
+    Model/gameManagement.h \
+    View/loadTournamentPopup.h
 
 FORMS += \
     View/refereewindow.ui \

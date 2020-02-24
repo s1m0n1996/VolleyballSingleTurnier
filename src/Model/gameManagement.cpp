@@ -143,3 +143,34 @@ WHERE sport_type_id = :sportTypeId
 
     emit tournamentChanged();
 }
+
+QList<QList<QString>> GameManagement::getSavedTournaments(void)
+{
+    QString sqlPrepare = R"(
+SELECT name, date
+FROM tournament_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
+
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
+
+    if (rawData.isEmpty())
+    {
+        return QList<QList<QString>>();
+    }
+
+    QList<QList<QString>> savedTournaments;
+
+    for (QList<QVariant>& tournament : rawData)
+    {
+        savedTournaments.append(QList<QString>(
+                {tournament[0].toString(), tournament[1].toString()}));
+    }
+    return savedTournaments;
+}

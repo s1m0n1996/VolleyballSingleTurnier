@@ -22,6 +22,7 @@
 #include "View/windowbutton.h"
 #include "View/windowlabel.h"
 #include "Model/gameManagement.h"
+#include "View/loadTournamentPopup.h"
 
 // TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
@@ -50,6 +51,7 @@ MainMenu::~MainMenu()
     delete  _tournamentData;
     delete  _loadTournament;
     delete  _newTournament;
+    delete _loadTournamentPopup;
 
     delete  _title;
 
@@ -149,16 +151,22 @@ void MainMenu:: connecting()
     connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
     connect(_newPlayer,SIGNAL(triggered()),this, SLOT(createDatabase()));
     connect(_loadPlayer,SIGNAL(triggered()),this, SLOT(loadDatabase()));
-    connect(_newTournament,SIGNAL(triggered()),this,SLOT(tournamentName()));
+    connect(_newTournament,SIGNAL(triggered()),this,SLOT(createTournament()));
+    connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
 }
 
-void MainMenu::tournamentName()
+void MainMenu::createTournament()
 {
-    TournamentNamePopUp* _tournamentName = new TournamentNamePopUp;
+    _tournamentName = new TournamentNamePopUp;
     _tournamentName->show();
 }
 
+void MainMenu::loadTournament()
+{
+    _loadTournamentPopup = new LoadTournamentPopup;
+    _loadTournamentPopup->show();
+}
 
 void MainMenu::setTournamentName()
 {
