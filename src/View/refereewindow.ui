@@ -63,7 +63,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="undoLastThrow">
+   <widget class="WindowButton" name="undoLastThrow">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -92,14 +92,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="WindowLabel" name="label_4">
          <property name="text">
           <string>Aktiver Spieler:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="playerName">
+        <widget class="WindowLabel" name="playerName">
          <property name="text">
           <string/>
          </property>
@@ -110,14 +110,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
-        <widget class="QLabel" name="labelWurf1">
+        <widget class="WindowLabel" name="labelWurf1">
          <property name="text">
           <string>Wurf 1:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="throw1">
+        <widget class="WindowLabel" name="throw1">
          <property name="text">
           <string/>
          </property>
@@ -128,14 +128,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QLabel" name="labelWurf2">
+        <widget class="WindowLabel" name="labelWurf2">
          <property name="text">
           <string>Wurf 2:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="throw2">
+        <widget class="WindowLabel" name="throw2">
          <property name="text">
           <string/>
          </property>
@@ -146,14 +146,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="labelWurf3">
+        <widget class="WindowLabel" name="labelWurf3">
          <property name="text">
           <string>Wurf 3:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="throw3">
+        <widget class="WindowLabel" name="throw3">
          <property name="text">
           <string/>
          </property>
@@ -164,14 +164,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
-        <widget class="QLabel" name="label_5">
+        <widget class="WindowLabel" name="label_5">
          <property name="text">
           <string>Verbleibende Würfe:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="remainingThrows">
+        <widget class="WindowLabel" name="remainingThrows">
          <property name="text">
           <string/>
          </property>
@@ -182,14 +182,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="WindowLabel" name="label_3">
          <property name="text">
           <string>Gesamtpunktzahl Wurf:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="gesmatpunkte">
+        <widget class="WindowLabel" name="gesmatpunkte">
          <property name="text">
           <string/>
          </property>
@@ -200,14 +200,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="WindowLabel" name="label">
          <property name="text">
           <string>Restpunktzahl:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="remainScore">
+        <widget class="WindowLabel" name="remainScore">
          <property name="text">
           <string>501</string>
          </property>
@@ -218,14 +218,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="WindowLabel" name="label_2">
          <property name="text">
           <string>Anzahl gewonnener Legs:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="countWinningLegs">
+        <widget class="WindowLabel" name="countWinningLegs">
          <property name="text">
           <string>0</string>
          </property>
@@ -235,7 +235,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="nextPlayer">
+   <widget class="WindowButton" name="nextPlayer">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -251,7 +251,7 @@
      <string>Nächster Spieler</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="gameStart">
+   <widget class="WindowButton" name="gameStart">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -296,6 +296,16 @@
    <class>Dartboard</class>
    <extends>QLabel</extends>
    <header location="global">View/dartboard.h</header>
+  </customwidget>
+  <customwidget>
+   <class>WindowButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">View/windowbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>WindowLabel</class>
+   <extends>QLabel</extends>
+   <header>View/windowlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

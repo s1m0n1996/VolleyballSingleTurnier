@@ -10,11 +10,26 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     Viewer* viewers = new Viewer;
     _viewer = viewers;
 
+    setWindowIcon(QIcon(":/img/viewer.png"));
+
     ui->setupUi(this);
+
+    ui->groupBox_3->setStyleSheet("border:none");
     connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
     connect(_referee,SIGNAL(scoreIsUnder170()),this, SLOT(scoreIsUnder170InLeg()));
     connect(_referee,SIGNAL(remainingThrowsAreZero()),this, SLOT(remainingThrowsAreZeroInLeg()));
     connect(_viewer,SIGNAL(howToFinishLeg()),this,SLOT(possibleWayToFinishLeg()));
+    //wenn nächster Spieler dran
+    ui->player1GroupBox->setStyleSheet("border-color: red;");
+    ui->player2GroupBox->setStyleSheet("border-color: red;");
+
+    ui->photoPlayer1->setScaledContents(true);
+    ui->photoPlayer1->resize(175,175);
+    ui->photoPlayer1->setPixmap(QPixmap(":/img/user.png"));
+
+    ui->photoPlayer2->setScaledContents(true);
+    ui->photoPlayer2->resize(175,175);
+    ui->photoPlayer2->setPixmap(QPixmap(":/img/user.png"));
 }
 
 ViewerWindow::~ViewerWindow()

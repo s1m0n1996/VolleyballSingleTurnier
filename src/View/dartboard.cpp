@@ -11,6 +11,7 @@
 
 Dartboard::Dartboard(QWidget *parent) : QLabel(parent)
 {
+    setStyleSheet("border:none");
 }
 
 void Dartboard::mouseMoveEvent(QMouseEvent *event)

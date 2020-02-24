@@ -17,7 +17,8 @@ class WindowButton : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit WindowButton(QString text = "", QWidget *parent = nullptr);
+    explicit WindowButton(QString text, QWidget *parent = nullptr);
+    explicit WindowButton(QWidget *parent,QString text = "");
     void setEnableStyle(void);
     void mainMenuStyle(void);
 

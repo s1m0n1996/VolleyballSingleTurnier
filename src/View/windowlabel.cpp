@@ -21,6 +21,15 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
     setText(text);
 }
 
+WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
+{
+    setStyleSheet("QLabel{"
+                  "font-size: 25px;"
+                  "font-family: Candara;}");
+    setText(text);
+}
+
+
 void WindowLabel::setNotStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
