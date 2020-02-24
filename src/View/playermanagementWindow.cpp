@@ -111,15 +111,20 @@ void PlayermanagementWindow::addPlayerForNewGame()
  */
 void PlayermanagementWindow::dropPlayerForNewGame()
 {
-    // FIXME: wenn man mehrere spieler aufeinmal entfernt wird jeder 2. nicht gelösch
     QAbstractItemModel* modelGame = _gamePlayerTableView->model();
     QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
+    QList<Player> players;
     for (QModelIndex index : selectedRows)
     {
-        _playerManagementModel->dropPlayerForNewGame(Player(
+        players.append(Player(
                 modelGame->index(index.row(), 0).data().toString(),
                 modelGame->index(index.row(), 1).data().toString(),
                 modelGame->index(index.row(), 2).data().toString()));
+    }
+
+    for (Player& player: players)
+    {
+        _playerManagementModel->dropPlayerForNewGame(player);
     }
 
     _gamePlayerTableView->selectionModel()->clearSelection();
