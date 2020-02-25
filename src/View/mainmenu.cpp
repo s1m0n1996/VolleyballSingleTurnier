@@ -107,6 +107,8 @@ void MainMenu::createDatabase()
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
     sqliteConnector->createDatabase(path);
 
+    _gameManagement->loadLastTournament();
+    setTournamentName();
     setButtonEnableState();
 
     _noteDatabase->setVisible(false);
@@ -130,6 +132,8 @@ void MainMenu::loadDatabase()
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
     sqliteConnector->openDatabase(path);
 
+    _gameManagement->loadLastTournament();
+    setTournamentName();
     setButtonEnableState();
     _noteDatabase->setVisible(false);
 }

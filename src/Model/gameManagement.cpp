@@ -153,10 +153,10 @@ LIMIT 1
     sqlQuery.bindValue(":gameModeId", _gameModeId);
 
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
-    qDebug() << rawData;
     if (rawData.isEmpty())
     {
         qWarning() << "no tournament found";
+        _tournamentId = -1;
         return;
     }
     _tournamentId = rawData[0][0].toInt();
