@@ -72,8 +72,8 @@ void Referee::nextPlayerAfterWinningLeg()
     _allThrows[0] = 0;
     _allThrows[1] = 0;
     _allThrows[2] = 0;
-
-     emit valueChanged();
+    setWinner();
+    emit valueChanged();
 }
 
 int Referee::getAktivePlayer()
@@ -154,11 +154,15 @@ void Referee::setRemainScore()
     _remainScore[_player] = _remainScore[_player] - _singleThrowScore;
 }
 
+
 void Referee::setWinner()
 {
     if (_winningLegCounter[_player] == 3)
     {
         _winner = _player;
+        Game game;
+        game.setNextWinner(getAktivePlayer());
+        game.loadNextGame();
     }
 }
 
@@ -196,6 +200,7 @@ void Referee::legWinningCondition()
         emit playerBust();
     }
 }
+
 
 void Referee::scoreIsUnder170InLeg()
 {
