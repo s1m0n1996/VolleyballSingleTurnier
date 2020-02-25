@@ -11,6 +11,14 @@ Referee::Referee()
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
+    updatePlayer();
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(updatePlayer()));
+}
+
+
+void Referee::updatePlayer()
+{
+    _allPlayers.clear();
     Game game;
     _allPlayers.append(game.getPlayerAId());
     _allPlayers.append(game.getPlayerBId());
@@ -124,7 +132,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
         sqlQuery.bindValue(":gameBoardId", _gameId);
         sqlQuery.bindValue(":legId", getNumberOfCurrentLeg());
-        sqlQuery.bindValue(":playerId", getAktivePlayerId());
+        sqlQuery.bindValue(":playerId", getAktivePlayer());
         sqlQuery.bindValue(":time", "uhrzeit");
         sqlQuery.bindValue(":valueTypeId", valueMultiplikator);
 
@@ -303,17 +311,7 @@ int Referee::getRemainingThrows()
     return _remainingThrows = 3 - _throwCounter;
 }
 
-int Referee::getAktivePlayerId()
-{
-    if(_player == 0)
-    {
-        return _playerAId;
-    }
-    else
-    {
-        return _playerBId;
-    }
-}
+
 
 QList<int> Referee::getRemainScoreForViewer()
 {

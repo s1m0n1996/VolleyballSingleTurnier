@@ -51,6 +51,9 @@ signals:
     void scoreIsUnder170(void);
     void remainingThrowsAreZero(void);
 
+public slots:
+    void updatePlayer();
+
 private:
     void setRemainScore();
     void setWinner();
@@ -64,8 +67,6 @@ private:
      int _remainingThrows           = 0;
      int _gameId                    = 5;            // Muss noch übergeben werden.
      int _tournamentId              = 7;
-     int _playerAId;
-     int _playerBId;
      bool _wasLastThrowInLegToWin   = false;
      bool _wasLastThrowInLegToBust  = false;
      QList<int> _winningLegCounter  = {0,0};
