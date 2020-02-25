@@ -30,6 +30,7 @@ set(MOC_HEADERS
         Model/referee.h
         Model/sqliteConnector.h
         Model/playermanagement.h
+        Model/statistics.h
         Model/viewer.h
         View/dartboard.h
         View/gameboardWindow.h
@@ -58,6 +59,7 @@ set(SOURCES
         Model/referee.cpp
         Model/sqliteConnector.cpp
         Model/playermanagement.cpp
+        Model/statistics.cpp
         Model/viewer.cpp
         View/dartboard.cpp
         View/gameboardWindow.cpp
