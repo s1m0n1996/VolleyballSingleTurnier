@@ -27,4 +27,7 @@ TableView::TableView(QWidget* parent) : QTableView(parent)
      setSelectionBehavior(QAbstractItemView::SelectRows);
      setSelectionMode(QAbstractItemView::MultiSelection);
      horizontalHeader()->setFont(QFont("Candara", 15));
+     setContextMenuPolicy(Qt::CustomContextMenu);
+     setMouseTracking(true);
+     viewport()->setAttribute(Qt::WA_Hover,true);
 }

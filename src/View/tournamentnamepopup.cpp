@@ -4,7 +4,7 @@
 TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 {
     _gameManagement = &GameManagement::instance();
-        setWindowTitle("Turniername");
+        setWindowTitle("Turnier erstellen");
         setWindowIcon(QIcon(":/img/darts.png"));
 
         _dateLabel = new WindowLabel("Turnierdatum");

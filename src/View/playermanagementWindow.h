@@ -3,7 +3,10 @@
 
 #include <QMainWindow>
 
+
 class PlayerManagement;
+class QAction;
+class QMenu;
 class QLabel;
 class TableView;
 class TournamentWindow;
@@ -42,6 +45,8 @@ public slots:
 
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);
+    void createDeleteMenu(void);
+    void deletePlayer(void);
 
     void addPhoto(void);
     void addPlayerToDatabase(void);
@@ -65,6 +70,8 @@ private:
     TableView* _allPlayerTableView          = nullptr;
     TableView* _gamePlayerTableView         = nullptr;
 
+    QMenu*        _menuDelete= nullptr;
+    QAction*      _deletePlayerInAllTournament   = nullptr;
     WindowButton* _addPlayerForNewTournament     = nullptr;
     WindowButton* _deletePlayerForNewTournament  = nullptr;
 

@@ -4,9 +4,10 @@
 * \author Lea Kesselmeier
 */
 #include <QHeaderView>
-
+#include <QAction>
 #include <QAbstractItemView>
 #include <QModelIndex>
+#include <QMenu>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -144,8 +145,6 @@ void PlayermanagementWindow::dropPlayerForNewGame()
  */
 void PlayermanagementWindow::addPlayerToDatabase()
 {
-//    _valueMissingPlayersLabel->setText("0");
-//    _startTournamentButton->setEnabled(true);
 
     Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newplayer);
@@ -158,6 +157,21 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
 }
 
+void PlayermanagementWindow::createDeleteMenu()
+{
+        QAction* deletePlayer  = new QAction("Löschen",this);
+        connect(deletePlayer,SIGNAL(triggered()),this,SLOT(deletePlayer()));
+
+        QMenu* deleteMenu = new QMenu( this);
+        deleteMenu->addAction(deletePlayer);
+        deleteMenu->exec(QCursor::pos());
+}
+
+
+void PlayermanagementWindow::deletePlayer()
+{
+
+}
 void PlayermanagementWindow::addPhoto()
 {
 
@@ -186,6 +200,8 @@ void PlayermanagementWindow::connecting()
 
     connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
     connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
+    connect(_allPlayerTableView,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(createDeleteMenu()));
+
 
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
     connect(_addPhoto,SIGNAL(released),this, SLOT(addPhoto()));
@@ -212,6 +228,8 @@ void PlayermanagementWindow::createWidges()
     _deletePlayerForNewTournament   = new WindowButton("");
     _deletePlayerForNewTournament->setIcon(QIcon(":/img/left.png"));
     _deletePlayerForNewTournament->setIconSize(QSize(65,65));
+
+
 
     _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(
@@ -273,14 +291,14 @@ void PlayermanagementWindow::setAllLayout()
     QVBoxLayout* mainLayout             = new QVBoxLayout;
     QGridLayout* addPlayerLayout        = new QGridLayout;
     QHBoxLayout* tabelViewLayout        = new QHBoxLayout;
-    QHBoxLayout* titleTavelViewLayout   = new QHBoxLayout;
+    QHBoxLayout* titleTabelViewLayout   = new QHBoxLayout;
 
 
     mainLayout->addWidget(_colorLabel);
     mainLayout->addWidget(_title);
 
-    titleTavelViewLayout->addWidget(_allPlayerLabel,0,Qt::AlignHCenter);
-    titleTavelViewLayout->addWidget(_gamePlayerLabel,0,Qt::AlignHCenter);
+    titleTabelViewLayout->addWidget(_allPlayerLabel,0,Qt::AlignHCenter);
+    titleTabelViewLayout->addWidget(_gamePlayerLabel,0,Qt::AlignHCenter);
 
     tabelViewLayout->addWidget(_allPlayerTableView);
     tabelViewLayout->addLayout(addDeleteLayout);
@@ -305,9 +323,9 @@ void PlayermanagementWindow::setAllLayout()
     addPlayerLayout->addWidget(_addPlayerButton, 6, Qt::AlignRight);
     addPlayerLayout->addWidget(_startTournamentButton,6,0);
 
-    mainLayout->addLayout(titleTavelViewLayout);
     mainLayout->addLayout(maxPlayerLayout);
-    mainLayout->addLayout(tabelViewLayout);    
+    mainLayout->addLayout(titleTabelViewLayout);
+    mainLayout->addLayout(tabelViewLayout);
     mainLayout->addLayout(addPlayerLayout);
 
     widget->setLayout(mainLayout);
