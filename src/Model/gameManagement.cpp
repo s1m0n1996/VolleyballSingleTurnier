@@ -96,12 +96,29 @@ WHERE id = :id
 void GameManagement::createNewTournament(QString& name, QString& date)
 {
     QString sqlPrepare = R"(
-INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
-VALUES ((SELECT max(id + 1) FROM tournament_list WHERE sport_type_id = :sportTypeId AND game_mode_id = :gameModeId), :sportTypeId, :gameModeId, :name, :date)
+SELECT max(id + 1)
+FROM tournament_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
 )";
-
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
+
+
+    QList<QList<QVariant>> nextIdFromDatabase = _db->sqlQuery(sqlQuery);
+
+    const int nextTournamentId = nextIdFromDatabase.isEmpty() ? 1 : nextIdFromDatabase[0][0].toInt();
+
+    sqlPrepare = R"(
+INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
+VALUES (:id, :sportTypeId, :gameModeId, :name, :date)
+)";
+
+    sqlQuery.clear();
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":id", nextTournamentId);
     sqlQuery.bindValue(":sportTypeId", _sportTypeId);
     sqlQuery.bindValue(":gameModeId", _gameModeId);
     sqlQuery.bindValue(":name", name);
