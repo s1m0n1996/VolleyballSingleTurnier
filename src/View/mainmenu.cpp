@@ -24,7 +24,6 @@
 #include "Model/gameManagement.h"
 #include "View/loadTournamentPopup.h"
 
-// TODO: Trunier anzeigen, welches gerade geladen ist.
 #include <QDebug>
 #include <QSizePolicy>
 

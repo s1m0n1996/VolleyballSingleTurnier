@@ -204,7 +204,7 @@ void PlayermanagementWindow::connecting()
 
 
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_addPhoto,SIGNAL(released),this, SLOT(addPhoto()));
+    connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhoto()));
 
     connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
 }

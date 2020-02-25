@@ -14,5 +14,6 @@
         <file>img/right.png</file>
         <file>img/left.png</file>
         <file>img/addPhoto.png</file>
+        <file>img/statistic.png</file>
     </qresource>
 </RCC>

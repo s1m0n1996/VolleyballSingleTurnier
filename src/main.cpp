@@ -10,6 +10,8 @@
 #include "View/refereewindow.h"
 #include <QApplication>
 
+#include "View/statisticwindow.h"
+
 
 
 int main(int argc, char *argv[])
@@ -18,7 +20,8 @@ int main(int argc, char *argv[])
     Model* model = new Model();
 
     MainMenu* mainmenu= new MainMenu(model);
-    mainmenu -> show();    
+    mainmenu -> show();
+
 
     return a.exec();
 }
