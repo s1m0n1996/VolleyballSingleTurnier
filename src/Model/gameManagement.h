@@ -26,6 +26,9 @@ public:
     int getGameModeId(void){ return _gameModeId;}
     QString getTournamentName(void) {return _tournamentName;}
     QString getTournamentDate(void) {return _tournamentDate;}
+    bool isTournamentStarted(void){return _isTournamentStarted;}
+
+    void setIsTournamentStarted(void);
 
     void createNewTournament(QString& name, QString& date);
     void loadOtherTournament(QString& name, QString& date);
@@ -41,6 +44,7 @@ private:
     ~GameManagement(void) = default;
     GameManagement(const GameManagement&) = delete; // Copy-Konstruktor
     GameManagement& operator=(const GameManagement&) = delete; // Kopierzuweisungsoperator
+    bool _isTournamentStarted;
     int _sportTypeId = 1;
     int _gameModeId = 1;
     int _tournamentId;

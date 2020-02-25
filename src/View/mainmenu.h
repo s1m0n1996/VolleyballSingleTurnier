@@ -53,6 +53,7 @@ private slots:
     void createTournament();
     void loadTournament();
     void setTournamentName();
+    void setButtonEnableState();
 
 private:
     void connecting();

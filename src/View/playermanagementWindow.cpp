@@ -14,6 +14,7 @@
 #include "View/playermanagementWindow.h"
 #include "Model/playermanagement.h"
 #include "Model/player.h"
+#include "Model/gameboard.h"
 
 #include "View/tabelview.h"
 #include "View/tournamentwindow.h"
@@ -163,16 +164,20 @@ void PlayermanagementWindow::addPhoto()
 }
 
 /*!
- * \brief Öffnet den aktuellen Turnierplan
+ * \brief Erstellt den Tournierplan
  *
  * \param void
  * \return void
  *
+ * Diese methode erstellt startet das Turnier. Dadurh wird der Spielplan erstellt und das Spiel geht in den
+ * Zustand, das es gestartet ist.
  */
-void PlayermanagementWindow::openTournament()
+void PlayermanagementWindow::startTournament()
 {
-    TournamentWindow* tournamentWindow2 = new TournamentWindow;
-    tournamentWindow2->showMaximized();
+    Gameboard gameBoard(_playerManagementModel->getPlayersForNextGame());
+    window()->close();
+    GameManagement* gameManagement = &GameManagement::instance();
+    gameManagement->setIsTournamentStarted();
 }
 
 void PlayermanagementWindow::connecting()
@@ -185,7 +190,7 @@ void PlayermanagementWindow::connecting()
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
     connect(_addPhoto,SIGNAL(released),this, SLOT(addPhoto()));
 
-    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(openTournament()));
+    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
 }
 
 void PlayermanagementWindow::createWidges()

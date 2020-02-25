@@ -279,3 +279,31 @@ WHERE id = :id
 
     refreshDatabasePlayerTable();
 }
+
+QList<Player> PlayerManagement::getPlayersForNextGame()
+{
+
+    QString sqlPrepare = R"(
+SELECT player_id
+FROM tournament_players_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+
+    QList<QList<QVariant>> playersIdsFromDatabase = _db->sqlQuery(sqlQuery);
+
+    QList<Player> players;
+    for (QList<QVariant>& playerId : playersIdsFromDatabase)
+    {
+        players.append(Player(playerId[0].toInt()));
+    }
+
+    return players;
+}

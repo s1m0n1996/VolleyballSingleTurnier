@@ -29,6 +29,8 @@ public:
 
     QList<Player> getAllStoredPlayers(bool onlyAvailable = true);
 
+    QList<Player> getPlayersForNextGame();
+
     QSqlQueryModel* getDatabaseTableModel(){return _databasePlayerTable;}
 
     QSqlQueryModel* getNextGamePlayerTableModel(){return _nextGamePlayerTableModel;}

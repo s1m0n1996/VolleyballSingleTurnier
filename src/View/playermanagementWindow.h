@@ -38,7 +38,7 @@ public:
 signals:
 public slots:    
     void setMissingPlayersForNewTournamentLabel(void);
-    void openTournament(void);
+    void startTournament(void);
 
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);

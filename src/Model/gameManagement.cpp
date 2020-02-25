@@ -9,6 +9,7 @@ GameManagement::GameManagement(void)
     _db = &SqliteConnector::instance();
 
     loadLastTournament();
+    setIsTournamentStarted();
 }
 
 /*!
@@ -44,6 +45,7 @@ WHERE name = :name
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
 
+    setIsTournamentStarted();
     emit tournamentChanged();
 }
 
@@ -81,6 +83,7 @@ WHERE id = :id
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
 
+    setIsTournamentStarted();
     emit tournamentChanged();
 }
 
@@ -125,6 +128,7 @@ VALUES (:id, :sportTypeId, :gameModeId, :name, :date)
     sqlQuery.bindValue(":date", date);
 
     _db->sqlQuery(sqlQuery);
+    setIsTournamentStarted();
 }
 
 /*!
@@ -158,6 +162,7 @@ WHERE sport_type_id = :sportTypeId
     _tournamentName = rawData[0][1].toString();
     _tournamentDate = rawData[0][2].toString();
 
+    setIsTournamentStarted();
     emit tournamentChanged();
 }
 
@@ -190,4 +195,26 @@ WHERE sport_type_id = :sportTypeId
                 {tournament[0].toString(), tournament[1].toString()}));
     }
     return savedTournaments;
+}
+
+void GameManagement::setIsTournamentStarted(void)
+{
+    QString sqlPrepare = R"(
+SELECT count(*)
+FROM game_board_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
+    sqlQuery.bindValue(":tournamentId", _tournamentId);
+
+    int nGames = _db->sqlQuery(sqlQuery)[0][0].toInt();
+
+    _isTournamentStarted = (0 < nGames);
+    emit tournamentChanged();
 }

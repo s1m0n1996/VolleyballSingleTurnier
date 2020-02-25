@@ -40,6 +40,7 @@ MainMenu::MainMenu(Model* model, QMainWindow* parent) :
     setMinimumSize(700,600);
     setWindowFlags(Qt::WindowMinimizeButtonHint| Qt::WindowCloseButtonHint);
     setTournamentName();
+    setButtonEnableState();
 }
 
 MainMenu::~MainMenu()
@@ -107,11 +108,7 @@ void MainMenu::createDatabase()
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
     sqliteConnector->createDatabase(path);
 
-    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
-    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen());
-    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
-    _viewer->setEnabled(sqliteConnector->getDb()->isOpen());
-    _referee->setEnabled(sqliteConnector->getDb()->isOpen());
+    setButtonEnableState();
 
     _noteDatabase->setVisible(false);
 }
@@ -122,7 +119,7 @@ void MainMenu::createDatabase()
  * \param void
  * \return void
  *
- * Der Pfad, indem die bereits erstellten DAtenbank gespeichert wurden, wird geöffnet und der Benutzer kann eine Datenbank zu öffnen auswählen
+ * Der Pfad, indem die bereits erstellten Datenbank gespeichert wurden, wird geöffnet und der Benutzer kann eine Datenbank zu öffnen auswählen
  * Wenn eine sqlite Datenbank geöffnet wurde, werden die Buttons wieder freigeschaltet und die Warnung entfernt
  */
 void MainMenu::loadDatabase()
@@ -134,12 +131,7 @@ void MainMenu::loadDatabase()
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
     sqliteConnector->openDatabase(path);
 
-    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
-    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen());
-    _tournament->setEnabled(sqliteConnector->getDb()->isOpen());
-    _viewer->setEnabled(sqliteConnector->getDb()->isOpen());
-    _referee->setEnabled(sqliteConnector->getDb()->isOpen());
-
+    setButtonEnableState();
     _noteDatabase->setVisible(false);
 }
 
@@ -154,6 +146,18 @@ void MainMenu:: connecting()
     connect(_newTournament,SIGNAL(triggered()),this,SLOT(createTournament()));
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
+}
+
+void MainMenu::setButtonEnableState()
+{
+    SqliteConnector* sqliteConnector = &SqliteConnector::instance();
+    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen() && !_gameManagement->isTournamentStarted());
+
+    bool showGameButtons = sqliteConnector->getDb()->isOpen() && _gameManagement->isTournamentStarted();
+    _tournament->setEnabled(showGameButtons);
+    _viewer->setEnabled(showGameButtons);
+    _referee->setEnabled(showGameButtons);
 }
 
 void MainMenu::createTournament()
