@@ -39,6 +39,7 @@ set(MOC_HEADERS
         View/refereepopupbustleg.h
         View/refereepopupwinningleg.h
         View/refereewindow.h
+        View/statisticwindow.h
         View/tabelview.h
         View/tournamentnamepopup.h
         View/tournamentwindow.h
@@ -68,6 +69,7 @@ set(SOURCES
         View/refereepopupbustleg.cpp
         View/refereepopupwinningleg.cpp
         View/refereewindow.cpp
+        View/statisticwindow.cpp
         View/tabelview.cpp
         View/tournamentnamepopup.cpp
         View/tournamentwindow.cpp
