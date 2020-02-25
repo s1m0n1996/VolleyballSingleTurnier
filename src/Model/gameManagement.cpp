@@ -33,9 +33,9 @@ WHERE name = :name
 
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
 
-    if (rawData.length() == 0)
+    if (rawData.isEmpty())
     {
-        qWarning() << "data returned nothing";
+        qWarning() << "no tournament found";
         return;
     }
 
@@ -71,9 +71,9 @@ WHERE id = :id
 
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
 
-    if (rawData.length() == 0)
+    if (rawData.isEmpty())
     {
-        qWarning() << "data returned nothing";
+        qWarning() << "no tournament found";
         return;
     }
 
@@ -139,10 +139,12 @@ VALUES (:id, :sportTypeId, :gameModeId, :name, :date)
 void GameManagement::loadLastTournament(void)
 {
     QString sqlPrepare = R"(
-SELECT max(id), name, date
+SELECT id, name, date
 FROM tournament_list
 WHERE sport_type_id = :sportTypeId
   AND game_mode_id = :gameModeId
+ORDER BY id DESC
+LIMIT 1
 )";
 
     QSqlQuery sqlQuery;
@@ -151,13 +153,12 @@ WHERE sport_type_id = :sportTypeId
     sqlQuery.bindValue(":gameModeId", _gameModeId);
 
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
-
-    if (rawData.length() <= 0)
+    qDebug() << rawData;
+    if (rawData.isEmpty())
     {
-        qWarning() << "data returned nothing";
+        qWarning() << "no tournament found";
         return;
     }
-
     _tournamentId = rawData[0][0].toInt();
     _tournamentName = rawData[0][1].toString();
     _tournamentDate = rawData[0][2].toString();

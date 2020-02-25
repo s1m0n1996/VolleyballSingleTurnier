@@ -152,7 +152,9 @@ void MainMenu:: connecting()
 void MainMenu::setButtonEnableState()
 {
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
-    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen() && !_gameManagement->isTournamentStarted());
+    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen() && !_gameManagement->isTournamentStarted()
+    && (_gameManagement->getTournamentId() >= 0));
+
 
     bool showGameButtons = sqliteConnector->getDb()->isOpen() && _gameManagement->isTournamentStarted();
     _tournament->setEnabled(showGameButtons);
@@ -174,8 +176,23 @@ void MainMenu::loadTournament()
 
 void MainMenu::setTournamentName()
 {
-    _noteTournament->setText("Aktueles Turnier: " + _gameManagement->getTournamentName()
-    + " vom: " + _gameManagement->getTournamentDate());
+    if (_gameManagement->getTournamentId() < 0)
+    {
+        _noteTournament->setText("Bitte zuerst ein Turnier erstellen oder Laden");
+        _noteTournament->setStyleSheet("QLabel{"
+                                                     "font-size: 25px;"
+                                                     "font-family: Candara;"
+                                                     "color: red;}");
+    }
+    else
+    {
+        _noteTournament->setText("Aktueles Turnier: " + _gameManagement->getTournamentName()
+                                 + " vom: " + _gameManagement->getTournamentDate());
+        _noteTournament->setStyleSheet("QLabel{"
+                                       "font-size: 25px;"
+                                       "font-family: Candara;"
+                                       "color: black;}");
+    }
 }
 
 void MainMenu::createWidgets()

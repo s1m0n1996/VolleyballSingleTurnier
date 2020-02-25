@@ -47,7 +47,7 @@ private:
     bool _isTournamentStarted;
     int _sportTypeId = 1;
     int _gameModeId = 1;
-    int _tournamentId;
+    int _tournamentId = -1;
     QString _tournamentName;
     QString _tournamentDate;
     SqliteConnector* _db;
