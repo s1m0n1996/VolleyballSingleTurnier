@@ -145,8 +145,7 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement)
  */
 QList<QList<QVariant>> SqliteConnector::sqlQuery(QSqlQuery& sqlQuery)
 {
-    sqlQuery.exec();
-    return _convertReturnedData(sqlQuery);
+    return _executeQuery(sqlQuery);
 }
 
 // TODO: drop this function and use the better with the QList<QVariant>!!!
