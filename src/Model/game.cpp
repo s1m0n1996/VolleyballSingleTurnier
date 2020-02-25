@@ -24,6 +24,11 @@ void Game::loadNextGame()
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
+    // TODO: überprüfe hotfix
+    if (newGame.isEmpty())
+    {
+        return;
+    }
     Player playerA(newGame[0][5].toInt());
     _playerA = playerA;
     Player playerB(newGame[0][6].toInt());
