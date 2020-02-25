@@ -13,6 +13,8 @@ public:
     void loadNextGame(void);
     void setNextWinner(int winnerId);
     void prepareNextGame(int winnerId);
+    int getPlayerAId(){return _playerA.getId();}
+    int getPlayerBId(){return _playerB.getId();}
 
 private:
     SqliteConnector* _db;

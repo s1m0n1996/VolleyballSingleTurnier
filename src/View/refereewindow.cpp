@@ -181,7 +181,8 @@ void RefereeWindow::undoLastThrow()
 
 void RefereeWindow::writeNextPlayer()
 {
-    ui->playerName->setText(QString::number(_referee->getAktivePlayer()));
+    Player player(_referee->getAktivePlayer());
+    ui->playerName->setText(player.getName());
 }
 
 void RefereeWindow::gameStart()

@@ -11,8 +11,9 @@ Referee::Referee()
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
-    _playerAId = 0;
-    _playerBId = 1;
+    Game game;
+    _allPlayers.append(game.getPlayerAId());
+    _allPlayers.append(game.getPlayerBId());
 }
 
 /*!
@@ -39,8 +40,6 @@ void Referee::nextPlayer()
     _allThrows[0] = 0;
     _allThrows[1] = 0;
     _allThrows[2] = 0;
-
-    qDebug() << _remainScore[_player];
 
     scoreIsUnder170InLeg();
     emit valueChanged();
@@ -79,7 +78,14 @@ void Referee::nextPlayerAfterWinningLeg()
 
 int Referee::getAktivePlayer()
 {
-    return _player;
+    if(_player)
+    {
+        return _allPlayers[0];
+    }
+    else
+    {
+        return _allPlayers[1];
+    }
 }
 
 /*QString Referee::getAktivePlayer()

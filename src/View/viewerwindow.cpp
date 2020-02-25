@@ -42,12 +42,16 @@ void ViewerWindow::writeScore()
     _player1 = _referee->getAllPlayersForViewer()[0];
     _player2 = _referee->getAllPlayersForViewer()[1];
 
-    ui->nameOfPlayer1->setText(QString::number(_player1));
-    ui->nameOfPlayer2->setText(QString::number(_player2));
+    Player playerA(_player1);
+    Player playerB(_player2);
+
+    ui->nameOfPlayer1->setText(playerA.getName());
+    ui->nameOfPlayer2->setText(playerB.getName());
 
     _aktivePlayer = _referee->getAktivePlayer();
+    Player aktivePlayer(_aktivePlayer);
 
-    ui->aktivePlayer->setText(QString::number(_aktivePlayer));
+    ui->aktivePlayer->setText(aktivePlayer.getName());
 
     if ((_aktivePlayer + 1) == _player1)
     {
