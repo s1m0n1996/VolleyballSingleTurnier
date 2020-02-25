@@ -48,6 +48,9 @@ void LoadTournamentPopup::_createWidgets()
     _comboBox->setMinimumHeight(50);
     _comboBox->setMaximumHeight(100);
     _comboBox->setMinimumWidth(300);
+    _comboBox->setStyleSheet("QComboBox{"
+                             "font-size: 30px;"
+                             "font-family: Candara;}");
 
     _loadButton = new WindowButton("Turnier Laden");
 
