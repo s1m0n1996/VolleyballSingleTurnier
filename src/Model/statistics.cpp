@@ -4,7 +4,6 @@ Statistics::Statistics()
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
-
 }
 
 
@@ -70,7 +69,46 @@ double Statistics::calculateAverage(QList<QList<QVariant>> list)
 }
 
 
+int Statistics::getWonGamesOfPlayer(Player player)
+{
+    QString sqlPrepare = R"(
+                         SELECT *
+                         FROM game_board_list
+                         WHERE winner_id = :winnerId;
+    )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":winnerId", player.getId());
+    QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);
+    return list.size();
+}
 
+
+int Statistics::getCountOfHundretEightyInGame(Player player, int gameId)
+{
+    QString sqlPrepare = R"(
+                         SELECT *
+                         FROM leg_history_list
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                           AND game_board_id = :gameId
+                           AND player_id = :playerId
+                           AND value_type_id = :valueTypeId
+                           AND value = :value
+    )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameId", gameId);
+    sqlQuery.bindValue(":playerId", player.getId());
+    sqlQuery.bindValue(":valueTypeId", 3);
+    sqlQuery.bindValue(":value", 20);
+    QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);
+    return list.size();
+}
 
 
 
