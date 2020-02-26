@@ -1,0 +1,30 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 24.02.2020
+	10:20 - 10:50 Uhr = 30 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Nico Meyer
+
+------------------------------------------------------------------------------------------------------------------------
+Frage von Simon:
+	-Fehler "Parameter count mismatch" die selbe wie vin letzter Woche
+	-> Es soll ein kleines Demoprogramm geschrieben wo nur der Fehler repräsentiert wird.
+	-> Folgende Datei soll dann an Prof. Dr. Herwig Henseler geschickt werden.
+
+Frage Lea:
+	- Gibt es eine andere Möglichkeit als QPainter einen Text in ein Rechteck zuschreiben.
+	-> Nein es gibt keine andere Möglichkeit
+	
+Frage Nico:
+	- Kann man selbst erstellte Widget Klassen auch in der UI einbinden ?
+	-> Es ist möglich, soll aber im Internet selbst nachgeschaut werden.
+
