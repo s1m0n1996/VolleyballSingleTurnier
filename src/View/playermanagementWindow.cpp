@@ -160,17 +160,36 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
 void PlayermanagementWindow::createDeleteMenu()
 {
-        QAction* deletePlayer  = new QAction("Löschen",this);
-        connect(deletePlayer,SIGNAL(triggered()),this,SLOT(deletePlayer()));
+    QAction* deletePlayer = new QAction("Löschen", this);
+    connect(deletePlayer, SIGNAL(triggered()), this, SLOT(deletePlayer()));
 
-        QMenu* deleteMenu = new QMenu( this);
-        deleteMenu->addAction(deletePlayer);
-        deleteMenu->exec(QCursor::pos());
+    QMenu* deleteMenu = new QMenu(this);
+    deleteMenu->addAction(deletePlayer);
+    qDebug() << deleteMenu->exec(QCursor::pos());
 }
 
 
 void PlayermanagementWindow::deletePlayer()
 {
+    QAbstractItemModel* modelGame = _allPlayerTableView->model();
+    QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
+    QList<Player> players;
+    for (QModelIndex index : selectedRows)
+    {
+        players.append(Player(
+                modelGame->index(index.row(), 0).data().toString(),
+                modelGame->index(index.row(), 1).data().toString(),
+                modelGame->index(index.row(), 2).data().toString()));
+    }
+
+    for (Player& player: players)
+    {
+        _playerManagementModel->dropPlayerFromDatabase(player);
+    }
+
+
+
+    _allPlayerTableView->selectionModel()->clearSelection();
 
 }
 void PlayermanagementWindow::addPhoto()
