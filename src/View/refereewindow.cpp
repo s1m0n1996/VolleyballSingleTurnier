@@ -142,7 +142,7 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
     }
 
     //Damit der Kreis nicht in der Mitte der 20 beginnt, sonder um ganz links von der 20.
-    double shiftedAngle = angle - 9;
+    double shiftedAngle = angle - 10;
     if (shiftedAngle < 0)
     {
         shiftedAngle += 360;
