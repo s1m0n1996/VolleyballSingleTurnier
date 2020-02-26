@@ -14,7 +14,7 @@
 
 TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
 {
-    createWidges();
+    createWidgets();
     createRects();
     createLines();
 
@@ -41,12 +41,14 @@ TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
     // viewgameLeft->scale(1.5,1.5);
 
     QGridLayout* layout = new QGridLayout;
+    layout->addWidget(_color);
+    layout->addWidget(_title);
 
     layout->addWidget(viewgameLeft);
     setLayout(layout);
 }
 
-void TournamentWindow::createWidges()
+void TournamentWindow::createWidgets()
 {
     setWindowTitle("Spielplan");
     setWindowIcon(QIcon(":/img/gameplan.png"));
@@ -56,7 +58,6 @@ void TournamentWindow::createWidges()
     _title = new WindowLabel("Spielplan");
     _title->setTitleStyel();
 
-    _startGame = new WindowButton("Spiel starten");
 
 }
 

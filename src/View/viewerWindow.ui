@@ -590,7 +590,7 @@
        <item>
         <widget class="WindowLabel" name="nameOfPlayer1">
          <property name="text">
-          <string>Name des Spielers</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -785,7 +785,7 @@
        <item>
         <widget class="WindowLabel" name="nameOfPlayer2">
          <property name="text">
-          <string>Name des Spielers</string>
+          <string/>
          </property>
         </widget>
        </item>
