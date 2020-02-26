@@ -7,7 +7,7 @@ Statistics::Statistics()
 }
 
 
-double Statistics::getAverageOfPlayerInCurrentGame(Player player, int gameId)
+double Statistics::getAverageOfPlayerInCurrentGame(Player& player, int gameId)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -30,7 +30,7 @@ double Statistics::getAverageOfPlayerInCurrentGame(Player player, int gameId)
 }
 
 
-double Statistics::getAverageOfPlayerEver(Player player)
+double Statistics::getAverageOfPlayerEver(Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -49,7 +49,7 @@ double Statistics::getAverageOfPlayerEver(Player player)
 }
 
 
-double Statistics::getAverageOfPlayerInCurrentLeg(Player player, int gameId, int legId)
+double Statistics::getAverageOfPlayerInCurrentLeg(Player& player, int gameId, int legId)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -83,7 +83,7 @@ double Statistics::calculateAverage(QList<QList<QVariant>> list)
         qWarning() << "The list of throws of this Player is empty";
         return 0.0;
     }
-    qDebug() << "Test:" << list.size();
+    //qDebug() << "Test:" << list.size();
 
     for (int i=0; i<list.size(); i++)
     {
@@ -94,7 +94,7 @@ double Statistics::calculateAverage(QList<QList<QVariant>> list)
 }
 
 
-int Statistics::getWonGamesOfPlayer(Player player)
+int Statistics::getWonGamesOfPlayer(Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -109,7 +109,7 @@ int Statistics::getWonGamesOfPlayer(Player player)
 }
 
 
-int Statistics::getCountOfHundretEightyInGame(Player player, int gameId)
+int Statistics::getCountOfHundretEightyInGame(Player& player, int gameId)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -136,7 +136,7 @@ int Statistics::getCountOfHundretEightyInGame(Player player, int gameId)
 }
 
 
-int Statistics::getCountOfHundretEightyInTournament(Player player)
+int Statistics::getCountOfHundretEightyInTournament(Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *

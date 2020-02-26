@@ -15,6 +15,7 @@ public:
     void prepareNextGame(int winnerId);
     int getPlayerAId(){return _playerA.getId();}
     int getPlayerBId(){return _playerB.getId();}
+    int getGameId(){return _gameId;}
 
 private:
     SqliteConnector* _db;

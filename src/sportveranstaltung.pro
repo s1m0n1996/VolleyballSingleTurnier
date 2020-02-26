@@ -20,6 +20,7 @@ SOURCES += \
     Model/gameboard.cpp \
     Model/model.cpp \
     Model/player.cpp \
+    Model/playerstatistics.cpp \
     Model/referee.cpp \
     Model/sqliteConnector.cpp \
     Model/playermanagement.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     Model/gameboard.h \
     Model/model.h \
     Model/player.h \
+    Model/playerstatistics.h \
     Model/referee.h \
     Model/sqliteConnector.h \
     Model/playermanagement.h \

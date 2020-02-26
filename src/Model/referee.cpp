@@ -20,6 +20,7 @@ void Referee::updatePlayer()
 {
     _allPlayers.clear();
     Game game;
+    _gameId = game.getGameId();
     _allPlayers.append(game.getPlayerAId());
     _allPlayers.append(game.getPlayerBId());
 }

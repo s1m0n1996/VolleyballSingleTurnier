@@ -7,6 +7,8 @@ Game::Game():_playerA(2),_playerB(4)
     loadNextGame();
 }
 
+//TODO: GameId muss noch aus der Datenbank entnommen werden
+
 
 void Game::loadNextGame()
 {

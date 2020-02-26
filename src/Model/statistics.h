@@ -9,13 +9,13 @@ class Statistics
 public:
     Statistics();
 
-    double getAverageOfPlayerInCurrentLeg(Player player, int gameId, int legId);
-    double getAverageOfPlayerInCurrentGame(Player player, int gameId);
-    double getAverageOfPlayerEver(Player player);
-    int getCountOfHundretEightyInGame(Player player, int gameId);
-    int getWonTournamentsOfPlayer(Player player);
-    int getWonGamesOfPlayer(Player player);
-    int getCountOfHundretEightyInTournament(Player player);
+    double getAverageOfPlayerInCurrentLeg(Player& player, int gameId, int legId);
+    double getAverageOfPlayerInCurrentGame(Player& player, int gameId);
+    double getAverageOfPlayerEver(Player& player);
+    int getCountOfHundretEightyInGame(Player& player, int gameId);
+    int getWonTournamentsOfPlayer(Player& player);
+    int getWonGamesOfPlayer(Player& player);
+    int getCountOfHundretEightyInTournament(Player& player);
 
 
 private:
