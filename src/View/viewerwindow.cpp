@@ -53,7 +53,7 @@ void ViewerWindow::writeScore()
 
     ui->aktivePlayer->setText(aktivePlayer.getName());
 
-    if ((_aktivePlayer + 1) == _player1)
+    if (_aktivePlayer == _player1)
     {
         ui->throw1FromPlayer1->setText(QString::number(_referee->getThrows()[0]));
         ui->throw2FromPlayer1->setText(QString::number(_referee->getThrows()[1]));
@@ -72,10 +72,10 @@ void ViewerWindow::writeScore()
         ui->countOfWinningLegsPlayer2->setText(QString::number(_referee->getCountOfWinningLegs()));
     }
 
-    ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
-    ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
-
+    ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
+    ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
 }
+
 
 void ViewerWindow::scoreIsUnder170InLeg()
 {
@@ -90,7 +90,7 @@ void ViewerWindow::possibleWayToFinishLeg()
     _aktivePlayer = _referee->getAktivePlayer();
     qDebug() << _aktivePlayer;
 
-    if ((_aktivePlayer + 1) == _player1)
+    if (_aktivePlayer == _player1)
     {
 
         ui->possibleWayToFinishThrow1FromPlayer1->setText(_viewer->getHowToFinishLeg()[0]);
