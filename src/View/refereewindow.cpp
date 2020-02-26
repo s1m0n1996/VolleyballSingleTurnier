@@ -9,6 +9,7 @@
 #include "View/dartboard.h"
 #include <QtMath>
 #include <QtDebug>
+#include <QResizeEvent>
 
 
 RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinningLeg, RefereePopupBustLeg *popupBustLeg, QWidget *parent) :
@@ -27,6 +28,10 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     setWindowIcon(QIcon(":/img/referee.png"));
 
     ui->setupUi(this);
+
+    QPixmap* pix = new QPixmap(":/img/Dartboard.png");
+    ui->DartboardView->setPixmap(*pix);
+
     connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
     connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
 
@@ -66,7 +71,7 @@ RefereeWindow::~RefereeWindow()
 int RefereeWindow::valueMultiplikator()
 {
     int multiplikator = 0;
-    _centralPointXY = ui->DartboardView->width() / 2;
+    _centralPointXY = ui->DartboardView->pixmap()->width() / 2;
 
     double deltaX = _centralPointXY - ui->DartboardView->x;
     double deltaY = _centralPointXY - ui->DartboardView->y;

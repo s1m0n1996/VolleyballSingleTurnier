@@ -7,6 +7,8 @@
 #include <QEvent>
 #include <QDebug>
 #include <QWidget>
+#include <QPixmap>
+#include <QResizeEvent>
 
 class Dartboard : public QLabel
 {
@@ -20,12 +22,20 @@ public:
     int x = 0;
     int y = 0;
 
+
+    virtual int heightForWidth( int width ) const;
+    virtual QSize sizeHint() const;
+    QPixmap scaledPixmap() const;
+
+public slots:
+    void setPixmap ( const QPixmap & );
+    void resizeEvent(QResizeEvent *);
 signals:
     void mouseReleasedOnDartboard();
     void mousePos();
 
 private:
-
+    QPixmap pix;
 
 };
 
