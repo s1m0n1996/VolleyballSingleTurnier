@@ -11,6 +11,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QFileDialog>
 
 #include "View/playermanagementWindow.h"
 #include "Model/playermanagement.h"
@@ -174,6 +175,10 @@ void PlayermanagementWindow::deletePlayer()
 }
 void PlayermanagementWindow::addPhoto()
 {
+    QString path = QFileDialog::getOpenFileName(this,
+                                        tr("Bild laden"), "",
+                                        tr("Photo File (*.png) ;; All Files (*.*)"));
+
 
 }
 

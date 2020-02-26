@@ -36,7 +36,7 @@ private:
 
     double _numberOfColumn = 0;
 
-    void createWidges(void);
+    void createWidgets(void);
     QLabel* _color = nullptr;
     WindowLabel* _title= nullptr;
     WindowButton* _startGame= nullptr;
