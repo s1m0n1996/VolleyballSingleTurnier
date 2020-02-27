@@ -57,10 +57,6 @@ public:
 
     void restorePlayerFromDatabase(const Player restoredPlayer);
 
-    void savePictureForPlayer(const Player& player, const QByteArray& picture);
-
-    QByteArray loadPictureForPlayer(const Player& player);
-
 signals:
     void valueChanged(void);
 

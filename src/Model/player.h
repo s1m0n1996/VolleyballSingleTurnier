@@ -19,6 +19,8 @@ public:
     QString getName() const { return _name; }
     QDate getBirthday() const { return _birthday; }
     QString getCountry() const { return _country; }
+    QByteArray loadPicture(void);
+    void savePicture(const QByteArray& picture);
 
 private:
     SqliteConnector* _db;

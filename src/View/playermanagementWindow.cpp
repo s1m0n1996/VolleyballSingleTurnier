@@ -240,7 +240,7 @@ void PlayermanagementWindow::addPhoto()
         QByteArray byteArray = file.readAll();
 
         // TODO: player im View auswählen und dem entsprechend ausgewählten übergeben!!!
-        _playerManagementModel->savePictureForPlayer(Player(1), byteArray);
+        Player(1).savePicture(byteArray);
         file.close();
     }
 }
