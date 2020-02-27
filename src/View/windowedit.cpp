@@ -38,7 +38,7 @@ WindowEdit::WindowEdit(QString placeholder, QWidget* parent) : QLineEdit(parent)
     }
     else if (placeholder == "1990-01-30")
     {
-        QRegExp re("(\\d{4})(\\-)(\\d{2})(\\-)(\\d{2})");
+        QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
         validator->setRegExp(re);
         //CAN: Abfrage anch realem Datum
     }
