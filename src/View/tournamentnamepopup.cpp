@@ -37,9 +37,9 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget *parent) : QWidget (parent)
 void TournamentNamePopUp::openTournamentWindow(void)
 {
      setWindowFlags(Qt::Window);
-     QString tournamentName1 = _nameEdit->text();
-     QString tournamentDate = _dateEdit->text();
+     QString tournamentName = _nameEdit->text();
+     QDate tournamentDate = QDate::fromString(_dateEdit->text(), "yyyy-MM-dd");
 
-     _gameManagement->createNewTournament(tournamentName1, tournamentDate);
-     _gameManagement->loadOtherTournament(tournamentName1, tournamentDate);
+     _gameManagement->createNewTournament(tournamentName, tournamentDate);
+     _gameManagement->loadOtherTournament(tournamentName, tournamentDate);
 }

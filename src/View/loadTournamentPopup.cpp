@@ -122,6 +122,7 @@ void LoadTournamentPopup::_loadTournamentForGame()
 {
     QList<QString> loadTournament = _comboBox->currentText().split(_splitNameAndDate);
 
-    _gameManagement->loadOtherTournament(loadTournament[0], loadTournament[1]);
+    _gameManagement->loadOtherTournament(loadTournament[0],
+            QDate::fromString(loadTournament[1], "yyyy-MM-dd"));
     window()->close();
 }

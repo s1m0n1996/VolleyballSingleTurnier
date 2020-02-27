@@ -18,7 +18,7 @@ GameManagement::GameManagement(void)
  * \param[in] name the tournament name
  * \param[in] date the tournament date in format: "YYYY-MM-dd"
  */
-void GameManagement::loadOtherTournament(QString& name, QString& date)
+void GameManagement::loadOtherTournament(const QString& name, const QDate& date)
 {
     QString sqlPrepare = R"(
 SELECT id, name, date, sport_type_id, game_mode_id
@@ -96,7 +96,7 @@ WHERE id = :id
  * this method creates a new tournament in the database.
  * Attention this method only create a new tournament if you wil use the new tournament you must load it!
  */
-void GameManagement::createNewTournament(QString& name, QString& date)
+void GameManagement::createNewTournament(const QString& name, const QDate& date)
 {
     QString sqlPrepare = R"(
 SELECT max(id + 1)

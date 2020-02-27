@@ -5,6 +5,7 @@
 */
 
 #include "Model/referee.h"
+#include <QDateTime>
 
 
 Referee::Referee()
@@ -134,7 +135,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         sqlQuery.bindValue(":gameBoardId", _gameId);
         sqlQuery.bindValue(":legId", getNumberOfCurrentLeg());
         sqlQuery.bindValue(":playerId", getAktivePlayer());
-        sqlQuery.bindValue(":time", "uhrzeit");
+        sqlQuery.bindValue(":time", QDateTime::currentDateTime());
         sqlQuery.bindValue(":valueTypeId", valueMultiplikator);
 
         if(valueMultiplikator == 0)

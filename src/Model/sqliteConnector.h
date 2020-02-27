@@ -14,6 +14,7 @@
 #include <QSqlQueryModel>
 #include <QVariant>
 #include <QList>
+#include <QDate>
 
 /*!
  * \file sqliteConnector.h

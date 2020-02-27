@@ -1,8 +1,8 @@
 
-#include "Model/sqliteConnector.h"
-
 #ifndef SPORTVERANSTALTUNG_GAMEMANAGEMENT_H
 #define SPORTVERANSTALTUNG_GAMEMANAGEMENT_H
+
+#include "Model/sqliteConnector.h"
 
 /*!
  * \file gameManagement.h
@@ -30,8 +30,8 @@ public:
 
     void setIsTournamentStarted(void);
 
-    void createNewTournament(QString& name, QString& date);
-    void loadOtherTournament(QString& name, QString& date);
+    void createNewTournament(const QString& name, const QDate& date);
+    void loadOtherTournament(const QString& name, const QDate& date);
     void loadOtherTournament(int& id);
     void loadLastTournament(void);
     QList<QList<QString>> getSavedTournaments(void);
