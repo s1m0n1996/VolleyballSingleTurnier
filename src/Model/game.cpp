@@ -5,6 +5,7 @@ Game::Game():_playerA(2),_playerB(4)
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
+    _isLastgame = false;
     loadNextGame();
 }
 
@@ -13,6 +14,7 @@ Game::Game():_playerA(2),_playerB(4)
 
 void Game::loadNextGame()
 {
+
     QString sqlPrepare = R"(SELECT *
                          FROM game_board_list
                          WHERE sport_type_id = :sportTypeId
@@ -30,7 +32,8 @@ void Game::loadNextGame()
     // TODO: überprüfe hotfix
     if (newGame.isEmpty())
     {
-        qDebug() << "Was last game in Tournament";
+        qDebug() << "Was last game in Tournament";          //TODO: Die Dartscheibe unable setzten!!
+        _isLastgame = true;
         return;
     }
     Player playerA(newGame[0][5].toInt());
@@ -62,7 +65,7 @@ void Game::setNextWinner(int winnerId)
 }
 
 
-void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
+void Game::prepareNextGame(int winnerId)
 {
     QString sqlPrepare = R"(
             SELECT *
@@ -120,4 +123,64 @@ void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
         _db->sqlQuery(sqlQuery);
     }
 }
+
+
+QList<QString> Game::getAllPlayersForGameboardView()
+{
+    QList <QString> allPlayers;
+
+    QString sqlPrepare = R"(
+                         SELECT MAX(id)
+                         FROM game_board_list
+                         WHERE tournament_id = :tournamentId
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> countOfGames = _db->sqlQuery(sqlQuery);
+    int numberOfGames = countOfGames[0][0].toInt();
+
+    QString sqlPrepare2 = R"(
+                         SELECT player_a_id, player_b_id
+                         FROM game_board_list
+                         WHERE tournament_id = :tournamentId
+                         )";
+    QSqlQuery sqlQuery2;
+    sqlQuery2.prepare(sqlPrepare2);
+    sqlQuery2.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> allGames = _db->sqlQuery(sqlQuery2);
+
+    qDebug() << "Anzahl Spiele:" << numberOfGames;
+    qDebug() << allGames;
+
+    for (int i=0; i < numberOfGames; i+=2)
+    {
+        if(numberOfGames-i == 1)                   //Finale wird hier betrachtet.
+        {
+            qDebug()<< "Test6";
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
+        }
+        else
+        {
+            qDebug()<< "Test5";
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i+1][0].toInt()));
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i+1][1].toInt()));
+
+        }
+
+    }
+    return allPlayers;
+}
+
+
+QString Game::getNameOfPlayerForGameView(int playerId)
+{
+    qDebug() << "SpielerId:" << playerId;
+    Player player(playerId);
+    return player.getName();
+}
+
 

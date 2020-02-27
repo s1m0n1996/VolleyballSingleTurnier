@@ -15,7 +15,6 @@ public:
     QList<int> gamesWonAndLost(Player& player);
     QList<double> averageOfAllLegs(Player& player);
 
-
 private:
     SqliteConnector* _db;
     GameManagement* _gameManagement;

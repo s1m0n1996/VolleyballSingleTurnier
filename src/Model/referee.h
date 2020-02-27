@@ -30,7 +30,6 @@ public:
     int getAktivePlayerId();
     QList<int> getThrows();
     int getRemainScore();
-    QString getWinner();            //Gibt es nicht
     int getCountOfWinningLegs();
     int getGameStart();
     int getThrowScore();

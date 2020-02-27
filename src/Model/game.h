@@ -5,8 +5,9 @@
 #include "Model/gameManagement.h"
 
 
-class Game
+class Game //: public QObject
 {
+        //Q_OBJECT
 public:
     explicit Game();
 
@@ -16,13 +17,23 @@ public:
     int getPlayerAId(){return _playerA.getId();}
     int getPlayerBId(){return _playerB.getId();}
     int getGameId(){return _gameId;}
+    bool getIsLastGame(){return _isLastgame;}
+    QList<QString> getAllGamesWithNames();
+
+    QList<QString> getAllPlayersForGameboardView();
+    QString getNameOfPlayerForGameView(int playerId);
 
 private:
     SqliteConnector* _db;
     GameManagement* _gameManagement;
     int _gameId;
+    bool _isLastgame;
     Player _playerA;
     Player _playerB;
+
+//signals:
+    //void gameListChanged(void);
+
 };
 
 #endif // GAME_H
