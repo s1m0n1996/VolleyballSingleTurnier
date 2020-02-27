@@ -50,6 +50,7 @@ signals:
     void playerWinsLeg(void);
     void scoreIsUnder170(void);
     void remainingThrowsAreZero(void);
+    void gameListChanged(void);
 
 public slots:
     void updatePlayer();

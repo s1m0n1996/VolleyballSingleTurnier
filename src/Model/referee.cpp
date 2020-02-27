@@ -173,6 +173,7 @@ void Referee::setWinner()
         game.setNextWinner(getAktivePlayer());
         game.loadNextGame();
         updatePlayer();
+        emit gameListChanged();
     }
 }
 

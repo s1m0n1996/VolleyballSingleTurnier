@@ -73,7 +73,7 @@ void MainMenu::openPlayermanagmentWindow()
 
 void MainMenu::openTournamentWindow()
 {
-    TournamentWindow* tournamentWindow = new TournamentWindow;
+    TournamentWindow* tournamentWindow = new TournamentWindow(_refereeModel);
     tournamentWindow->showMaximized();
 }
 
