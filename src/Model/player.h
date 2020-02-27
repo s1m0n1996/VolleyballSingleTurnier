@@ -10,21 +10,21 @@ class Player
 public:
     Player();
     Player(const QString name,
-           const QString birthday,
+           const QDate birthday,
            const QString country);
 
     Player(const int id);
 
     int getId() const { return _id; }
     QString getName() const { return _name; }
-    QString getBirthday() const { return _birthday; }
+    QDate getBirthday() const { return _birthday; }
     QString getCountry() const { return _country; }
 
 private:
     SqliteConnector* _db;
     int _id;
     QString _name;
-    QString _birthday;
+    QDate _birthday;
     QString _country;
 
     int _getPlayerIdFromDatabase();

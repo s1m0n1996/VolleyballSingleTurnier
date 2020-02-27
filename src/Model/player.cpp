@@ -2,8 +2,13 @@
 
 #include "Model/player.h"
 
-Player::Player(const QString name, const QString birthday, const QString country)
+Player::Player(const QString name, const QDate birthday, const QString country)
 {
+    if (!birthday.isValid())
+    {
+        qWarning() << "cant load or create Player because the birthday is invalid";
+        return;
+    }
     _db = &SqliteConnector::instance();
     _name = name;
     _birthday = birthday;
@@ -38,7 +43,7 @@ WHERE id = :id;
     }
     QList<QVariant> player = rawData[0];
     _name = player[1].toString();
-    _birthday = player[2].toString();
+    _birthday = player[2].toDate();
     _country = player[3].toString();
 }
 

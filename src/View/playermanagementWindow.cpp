@@ -99,7 +99,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
     {
         _playerManagementModel->addPlayerForNewGame(Player(
                 modelAll->index(index.row(), 0).data().toString(),
-                modelAll->index(index.row(), 1).data().toString(),
+                modelAll->index(index.row(), 1).data().toDate(),
                 modelAll->index(index.row(), 2).data().toString()));
     }
     _allPlayerTableView->selectionModel()->clearSelection();
@@ -123,7 +123,7 @@ void PlayermanagementWindow::dropPlayerForNewGame()
     {
         players.append(Player(
                 modelGame->index(index.row(), 0).data().toString(),
-                modelGame->index(index.row(), 1).data().toString(),
+                modelGame->index(index.row(), 1).data().toDate(),
                 modelGame->index(index.row(), 2).data().toString()));
     }
 
@@ -148,7 +148,8 @@ void PlayermanagementWindow::dropPlayerForNewGame()
 void PlayermanagementWindow::addPlayerToDatabase()
 {
 
-    Player* newplayer = new Player(_playernameEdit->text(), _birthdayEdit->text(), _countryEdit->text());
+    Player* newplayer = new Player(_playernameEdit->text(),
+            QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd"), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newplayer);
 
     _playernameEdit->clear();
@@ -190,7 +191,7 @@ void PlayermanagementWindow::deletePlayer()
     {
         players.append(Player(
                 modelGame->index(index.row(), 0).data().toString(),
-                modelGame->index(index.row(), 1).data().toString(),
+                modelGame->index(index.row(), 1).data().toDate(),
                 modelGame->index(index.row(), 2).data().toString()));
     }
 
@@ -212,7 +213,7 @@ void PlayermanagementWindow::restorePlayer()
     {
         players.append(Player(
                 deletedPlayersModel->index(index.row(), 0).data().toString(),
-                deletedPlayersModel->index(index.row(), 1).data().toString(),
+                deletedPlayersModel->index(index.row(), 1).data().toDate(),
                 deletedPlayersModel->index(index.row(), 2).data().toString()));
     }
 
