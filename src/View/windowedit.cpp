@@ -15,7 +15,7 @@
  *
  * Je nachdem welches playeholder es ist, können nur bestimmte Zeichen eingegben werden, um Fehler zu minimieren
  */
-WindowEdit::WindowEdit(QString placeholder, QWidget* parent) : QLineEdit(parent)
+WindowEdit::WindowEdit(QString placeholder, DataType dataType, QWidget* parent) : QLineEdit(parent)
 {
     setPlaceholderText(placeholder);
     setFixedWidth(300);
@@ -26,21 +26,21 @@ WindowEdit::WindowEdit(QString placeholder, QWidget* parent) : QLineEdit(parent)
 
     QRegExpValidator* validator = new QRegExpValidator();
 
-    if (placeholder == "Max Mustermann")
+    if (dataType == DataType::name)
     {
         QRegExp re("[a-zA-Z ]*");
         validator->setRegExp(re);
     }
-    else if (placeholder == "Deutschland")
+    else if (dataType == DataType::country)
     {
         QRegExp re("[a-zA-Z]*");
         validator->setRegExp(re);
     }
-    else if (placeholder == "1990-01-30")
+    else if (dataType == DataType::date)
     {
         QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
         validator->setRegExp(re);
-        //CAN: Abfrage anch realem Datum
+        // TODO: enum für auswahl hinzufügen
     }
 
     setValidator(validator);

@@ -2,6 +2,9 @@
 #define WINDOWEDIT_H
 
 #include <QLineEdit>
+
+enum DataType {name, country, date};
+
 /*!
  * \file windowedit.h
  * \brief Die Klasse WindoEdit erzeugt Edits
@@ -14,7 +17,7 @@
 class WindowEdit: public QLineEdit
 {
 public:
-    WindowEdit(QString placeholder, QWidget *parent = nullptr);
+    WindowEdit(QString placeholder, DataType dataType, QWidget *parent = nullptr);
 };
 
 #endif // WINDOWEDIT_H

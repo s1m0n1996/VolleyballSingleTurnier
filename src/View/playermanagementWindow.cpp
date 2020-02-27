@@ -306,9 +306,9 @@ void PlayermanagementWindow::createWidges()
     QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 
-    _playernameEdit     = new WindowEdit("Max Mustermann");
-    _birthdayEdit       = new WindowEdit("1990-01-30");
-    _countryEdit        = new WindowEdit("Deutschland");
+    _playernameEdit     = new WindowEdit("Max Mustermann", DataType::name);
+    _birthdayEdit       = new WindowEdit("1990-01-30", DataType::date);
+    _countryEdit        = new WindowEdit("Deutschland", DataType::country);
 
     _playernameLabel    = new WindowLabel("Spielername");
     _birthdayLabel      = new WindowLabel("Geburtsdatum");
