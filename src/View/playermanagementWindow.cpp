@@ -231,7 +231,17 @@ void PlayermanagementWindow::addPhoto()
                                         tr("Bild laden"), "",
                                         tr("Photo File (*.png) ;; All Files (*.*)"));
 
+    // save file in database
+    QFile file(R"(:/img/user.png)");
+    if (file.exists())
+    {
+        file.open(QIODevice::ReadOnly);
+        QByteArray byteArray = file.readAll();
 
+        // TODO: player im View auswählen und dem entsprechend ausgewählten übergeben!!!
+        _playerManagementModel->savePictureForPlayer(Player(1), byteArray);
+        file.close();
+    }
 }
 
 /*!

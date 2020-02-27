@@ -324,3 +324,53 @@ WHERE sport_type_id = :sportTypeId
 
     return players;
 }
+
+/*!
+ * \brief Speichere ein bild zu einem Spieler
+ *
+ * \param[in] player der Spieler dem das Bild hinzugefügt werden soll
+ * \param[in] picture das bild, welches dem Spieler hinzugefügt werden soll
+ *
+ * Diese Methode lädt ein Bild in die Datenbank, und weist dieses Bild dann dem Spieler zu.
+ */
+void PlayerManagement::savePictureForPlayer(const Player& player, const QByteArray& picture)
+{
+    // step1: save picture in database
+    QString sqlPrepare = R"(
+INSERT INTO player_pictures_list (picture)
+VALUES (:picture)
+)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":picture", picture);
+
+    _db->sqlQuery(sqlQuery);
+    sqlQuery.clear();
+
+    // step2: get the id from the picture
+    QString sqlQueryString = R"(
+SELECT id
+FROM player_pictures_list
+ORDER BY id DESC
+LIMIT 1;
+)";
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQueryString);
+    if (rawData.isEmpty())
+    {
+        return;
+    }
+
+    int lastPictureId = rawData[0][0].toInt();
+
+    // step3: set the picture id for the player
+    sqlPrepare = R"(
+UPDATE player_list
+SET picture_id = :pictureId
+WHERE id = :playerId
+)";
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":pictureId", lastPictureId);
+    sqlQuery.bindValue(":playerId", player.getId());
+
+    _db->sqlQuery(sqlQuery);
+}
