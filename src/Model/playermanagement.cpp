@@ -374,3 +374,37 @@ WHERE id = :playerId
 
     _db->sqlQuery(sqlQuery);
 }
+
+/*!
+ * \brief Lade ein bild zu einem Spieler
+ *
+ * \param[in] player der Spieler von dem das Bild geladen werden soll
+ * \return das bind im QByteArray Objekt
+ *
+ * Diese Methode lädt ein Bild aud der Datenbank
+ */
+QByteArray PlayerManagement::loadPictureForPlayer(const Player& player)
+{
+    QString sqlPrepare = R"(
+SELECT picture
+FROM player_list
+         INNER JOIN player_pictures_list ppl ON player_list.picture_id = ppl.id
+WHERE player_list.id = :playerId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":playerId", player.getId());
+
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
+
+    if (rawData.isEmpty())
+    {
+        // TODO: default Bild laden???
+        return QByteArray();
+    }
+
+    QByteArray picture = rawData[0][0].toByteArray();
+
+    return picture;
+}
