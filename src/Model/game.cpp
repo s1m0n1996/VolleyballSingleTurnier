@@ -1,5 +1,6 @@
 #include "Model/game.h"
 
+// FIXME: nicht immer einfach spieler 2 und 4 aufrufen
 Game::Game():_playerA(2),_playerB(4)
 {
     _db = &SqliteConnector::instance();
