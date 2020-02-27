@@ -2,6 +2,24 @@
 PRAGMA foreign_keys = ON;
 
 --######################################################################################################################
+-- create player_pictures_list table
+--######################################################################################################################
+--
+-- in this table are all pictures for the players
+--
+CREATE TABLE player_pictures_list
+(
+    id      INTEGER NOT NULL
+        CONSTRAINT player_pictures_pk
+            PRIMARY KEY AUTOINCREMENT,
+    picture BLOB    NOT NULL
+);
+
+CREATE UNIQUE INDEX player_pictures_id_uindex
+    ON player_pictures_list (id);
+
+
+--######################################################################################################################
 -- create player_list table
 --######################################################################################################################
 --
@@ -15,7 +33,9 @@ CREATE TABLE player_list
     name         TEXT    NOT NULL,
     birthday     TEXT,
     country      TEXT,
-    is_available INT DEFAULT 1 NOT NULL
+    is_available INT     DEFAULT 1 NOT NULL,
+    picture_id   INTEGER DEFAULT 1 NOT NULL
+        REFERENCES player_pictures_list
 );
 
 --######################################################################################################################
