@@ -57,10 +57,3 @@ QList<double> Playerstatistics::averageOfAllLegs(Player& player)
 
     return averages;
 }
-
-
-
-
-
-
-

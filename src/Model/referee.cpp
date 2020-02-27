@@ -82,7 +82,6 @@ void Referee::nextPlayerAfterWinningLeg()
     _allThrows[0] = 0;
     _allThrows[1] = 0;
     _allThrows[2] = 0;
-    setWinner();
     emit valueChanged();
 }
 
@@ -173,6 +172,7 @@ void Referee::setWinner()
         Game game;
         game.setNextWinner(getAktivePlayer());
         game.loadNextGame();
+        updatePlayer();
     }
 }
 
@@ -197,6 +197,7 @@ void Referee::legWinningCondition()
         _wasLastThrowInLegToBust = false;
         emit valueChanged();
         emit playerWinsLeg();
+        setWinner();
     }
     else if ((_remainScore[_player] == 0 and _valueMultiplikator != 2)
              or (_remainScore[_player] < 0 and _throwCounter <= 3)
@@ -363,7 +364,7 @@ int Referee::getLastLegIdInSameGame()
 int Referee::getNumberOfCurrentLeg()
 {
     int legId = 1;
-    for (int i = 0; i < 2; i++)           //TODO: Testen ob damit alle legs aufgegriffen werden
+    for (int i = 0; i < 2; i++)
     {
         legId += _winningLegCounter[i];
     }

@@ -30,6 +30,7 @@ void Game::loadNextGame()
     // TODO: überprüfe hotfix
     if (newGame.isEmpty())
     {
+        qDebug() << "Was last game in Tournament";
         return;
     }
     Player playerA(newGame[0][5].toInt());
@@ -80,6 +81,7 @@ void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
+
     if (nextGames[0][5].isNull())
     {
         QString sqlPrepare2 = R"(
@@ -88,11 +90,12 @@ void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
                              WHERE id = :gameId
                                AND sport_type_id = :sportTypeId
                                AND game_mode_id = :gameModeId
-                               AND tournament_id = :tournamentId;)";
+                               AND tournament_id = :tournamentId
+                              )";
         QSqlQuery sqlQuery;
-        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.prepare(sqlPrepare2);
         sqlQuery.bindValue(":playerAId", winnerId);
-        sqlQuery.bindValue(":gameId", nextGames[0][0]);
+        sqlQuery.bindValue(":gameId", nextGames[0][0].toInt());
         sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
         sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
         sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
@@ -108,7 +111,7 @@ void Game::prepareNextGame(int winnerId)                //Noch Testen!!!
                                AND game_mode_id = :gameModeId
                                AND tournament_id = :tournamentId;)";
         QSqlQuery sqlQuery;
-        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.prepare(sqlPrepare2);
         sqlQuery.bindValue(":playerBId", winnerId);
         sqlQuery.bindValue(":gameId", nextGames[0][0]);
         sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
