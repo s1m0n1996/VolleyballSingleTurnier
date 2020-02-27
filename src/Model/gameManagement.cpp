@@ -214,7 +214,13 @@ WHERE sport_type_id = :sportTypeId
     sqlQuery.bindValue(":gameModeId", _gameModeId);
     sqlQuery.bindValue(":tournamentId", _tournamentId);
 
-    int nGames = _db->sqlQuery(sqlQuery)[0][0].toInt();
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
+    if (rawData.isEmpty())
+    {
+        return;
+    }
+
+    int nGames = rawData[0][0].toInt();
 
     _isTournamentStarted = (0 < nGames);
     emit tournamentChanged();
