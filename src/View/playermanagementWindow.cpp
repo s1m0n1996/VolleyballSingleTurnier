@@ -12,6 +12,7 @@
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QFileDialog>
+#include <QMenuBar>
 
 #include "View/playermanagementWindow.h"
 #include "Model/playermanagement.h"
@@ -165,9 +166,20 @@ void PlayermanagementWindow::createDeleteMenu()
 
     QMenu* deleteMenu = new QMenu(this);
     deleteMenu->addAction(deletePlayer);
-    qDebug() << deleteMenu->exec(QCursor::pos());
+
+    deleteMenu->exec(QCursor::pos());
 }
 
+void PlayermanagementWindow::createRestoreMenu()
+{
+    QAction* restorePlayer = new QAction("Wiederherstellen", this);
+    connect(restorePlayer, SIGNAL(triggered()), this, SLOT(restorePlayer()));
+
+    QMenu* restoreMenu = new QMenu(this);
+    restoreMenu->addAction(restorePlayer);
+
+    restoreMenu->exec(QCursor::pos());
+}
 
 void PlayermanagementWindow::deletePlayer()
 {
@@ -187,11 +199,32 @@ void PlayermanagementWindow::deletePlayer()
         _playerManagementModel->dropPlayerFromDatabase(player);
     }
 
+    _allPlayerTableView->selectionModel()->clearSelection();
 
+}
+
+void PlayermanagementWindow::restorePlayer()
+{
+    QAbstractItemModel* deletedPlayersModel = _deletedPlayersTableView->model();
+    QModelIndexList selectedRows = _deletedPlayersTableView->selectionModel()->selectedRows();
+    QList<Player> players;
+    for (QModelIndex index : selectedRows)
+    {
+        players.append(Player(
+                deletedPlayersModel->index(index.row(), 0).data().toString(),
+                deletedPlayersModel->index(index.row(), 1).data().toString(),
+                deletedPlayersModel->index(index.row(), 2).data().toString()));
+    }
+
+    for (Player& player: players)
+    {
+        _playerManagementModel->restorePlayerFromDatabase(player);
+    }
 
     _allPlayerTableView->selectionModel()->clearSelection();
 
 }
+
 void PlayermanagementWindow::addPhoto()
 {
     QString path = QFileDialog::getOpenFileName(this,
@@ -224,13 +257,15 @@ void PlayermanagementWindow::connecting()
 
     connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
     connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
-    connect(_allPlayerTableView,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(createDeleteMenu()));
-
+    connect(_allPlayerTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createDeleteMenu()));
+    connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createRestoreMenu()));
 
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
     connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhoto()));
 
     connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
+
+    connect(_showDeletedPlayersAction, SIGNAL(triggered()), this, SLOT(showDeletedPlayers()));
 }
 
 void PlayermanagementWindow::createWidges()
@@ -283,6 +318,14 @@ void PlayermanagementWindow::createWidges()
     _startTournamentButton->setIcon(QIcon(":/img/createDart.png"));
     _startTournamentButton->setIconSize(QSize(65,65));
 
+    _menuDelete = new QMenu();
+    _menuDelete = menuBar()->addMenu(tr("Spieler"));
+
+    _showDeletedPlayersAction = new QAction("Gelöschte Spieler");
+
+    _menuDelete->addAction(_showDeletedPlayersAction);
+
+
     if (_valueMissingPlayersLabel->text() == "0")
     {
         _valueMissingPlayersLabel->setStartTournamentStyle();
@@ -293,6 +336,7 @@ void PlayermanagementWindow::showTable()
 {
     _allPlayerTableView  = new TableView;
     _gamePlayerTableView = new TableView;
+    _deletedPlayersTableView  = new TableView;
 
     _allPlayerTableView->setModel(_playerManagementModel->getDatabaseTableModel());
     _allPlayerTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -303,6 +347,14 @@ void PlayermanagementWindow::showTable()
     _gamePlayerTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     _gamePlayerTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     _gamePlayerTableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+
+    _deletedPlayersTableView->setModel(_playerManagementModel->getDeletedPlayerTableModel());
+    _deletedPlayersTableView->setWindowTitle("Gelöschte Spieler");
+    _deletedPlayersTableView->setMinimumWidth(500);
+    _deletedPlayersTableView->setMinimumHeight(200);
+    _deletedPlayersTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    _deletedPlayersTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    _deletedPlayersTableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 }
 
 void PlayermanagementWindow::setAllLayout()
@@ -355,3 +407,7 @@ void PlayermanagementWindow::setAllLayout()
     widget->setLayout(mainLayout);
 }
 
+void PlayermanagementWindow::showDeletedPlayers(void)
+{
+    _deletedPlayersTableView->show();
+ }

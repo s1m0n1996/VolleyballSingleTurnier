@@ -46,11 +46,14 @@ public slots:
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);
     void createDeleteMenu(void);
+    void createRestoreMenu(void);
     void deletePlayer(void);
+    void restorePlayer(void);
 
     void addPhoto(void);
     void addPlayerToDatabase(void);
 
+    void showDeletedPlayers(void);
 
 private:
     void createWidges(void);
@@ -69,6 +72,7 @@ private:
 
     TableView* _allPlayerTableView          = nullptr;
     TableView* _gamePlayerTableView         = nullptr;
+    TableView* _deletedPlayersTableView     = nullptr;
 
     QMenu*        _menuDelete= nullptr;
     QAction*      _deletePlayerInAllTournament   = nullptr;
@@ -92,5 +96,6 @@ private:
     WindowButton* _addPlayerButton          = nullptr;
     WindowButton* _startTournamentButton    = nullptr;
 
+    QAction* _showDeletedPlayersAction;
 };
 #endif // PLAYERMANAGMENT_H

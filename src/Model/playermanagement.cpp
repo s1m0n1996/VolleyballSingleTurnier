@@ -8,6 +8,7 @@ PlayerManagement::PlayerManagement()
     _gameManagement = &GameManagement::instance();
     refreshDatabasePlayerTable();
     refreshNextGamePlayerTable();
+    refreshDeletedPlayerTable();
 }
 
 /*!
@@ -122,6 +123,7 @@ WHERE player_id =
 
     _db->sqlQuery(sqlQuery);
     refreshNextGamePlayerTable();
+    refreshDeletedPlayerTable();
     emit valueChanged();
 }
 
@@ -253,6 +255,15 @@ WHERE sport_type_id = )";
     _nextGamePlayerTableModel->setHeaderData(2, Qt::Horizontal, tr("Land"));
 }
 
+void PlayerManagement::refreshDeletedPlayerTable()
+{
+    _deletedPlayerTableModel->setQuery("SELECT name, birthday, country FROM player_list where is_available = 0");
+
+    _deletedPlayerTableModel->setHeaderData(0, Qt::Horizontal, tr("Name"));
+    _deletedPlayerTableModel->setHeaderData(1, Qt::Horizontal, tr("Geburtstag"));
+    _deletedPlayerTableModel->setHeaderData(2, Qt::Horizontal, tr("Land"));
+}
+
 /*!
  * \brief drop a player from the database
  *
@@ -278,7 +289,27 @@ WHERE id = :id
     _db->sqlQuery(sqlQuery);
 
     refreshDatabasePlayerTable();
+    refreshDeletedPlayerTable();
 }
+
+void PlayerManagement::restorePlayerFromDatabase(const Player restoredPlayer)
+{
+    QString sqlPrepare = R"(
+UPDATE player_list
+SET is_available = 1
+WHERE id = :id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":id", restoredPlayer.getId());
+
+    _db->sqlQuery(sqlQuery);
+
+    refreshDatabasePlayerTable();
+    refreshDeletedPlayerTable();
+}
+
 
 QList<Player> PlayerManagement::getPlayersForNextGame()
 {

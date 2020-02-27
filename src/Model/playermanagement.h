@@ -35,6 +35,8 @@ public:
 
     QSqlQueryModel* getNextGamePlayerTableModel(){return _nextGamePlayerTableModel;}
 
+    QSqlQueryModel* getDeletedPlayerTableModel(){return _deletedPlayerTableModel;}
+
     void addPlayerForNewGame(const Player addPlayer);
 
     void addPlayerForNewGame(const QList<Player> addPlayers);
@@ -49,7 +51,11 @@ public:
 
     void refreshNextGamePlayerTable();
 
+    void refreshDeletedPlayerTable();
+
     void dropPlayerFromDatabase(Player dropPlayer);
+
+    void restorePlayerFromDatabase(const Player restoredPlayer);
 
 signals:
     void valueChanged(void);
@@ -61,6 +67,7 @@ private:
 
     QSqlQueryModel* _databasePlayerTable = new QSqlQueryModel();
     QSqlQueryModel* _nextGamePlayerTableModel = new QSqlQueryModel();
+    QSqlQueryModel* _deletedPlayerTableModel = new QSqlQueryModel();
 
 };
 
