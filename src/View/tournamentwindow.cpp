@@ -12,40 +12,45 @@
 #include <View/windowbutton.h>
 #include <View/windowlabel.h>
 
-TournamentWindow::TournamentWindow(QWidget *parent) : QWidget(parent)
+
+TournamentWindow::TournamentWindow(Referee* referee,QWidget *parent) :
+    QWidget (parent),
+    _referee(referee)
 {
+
+
     createWidgets();
     createRects();
     createLines();
+    createTexts();
 
 
-    for(int i = 0; i < _numberOfColumn; i++)
+    for (int i = 0; i < _numberOfColumn; i++)
     {
-        for (QRectF leftSideTree : _rects[i])
+        int rectCount = _rects[i].size();
+        int lineCount = _lines[i].size();
+        for (int k = 0; k < rectCount; k++)
         {
-            _gameBoard->addRect(leftSideTree);
+            _gameBoard->addRect(_rects[i][k]);
+
+        }
+        for (int j = 0; j < lineCount; j++)
+        {
+            _gameBoard->addLine(_lines[i][j]);
         }
     }
 
-    for(int i = 0; i < _numberOfColumn; i++)
-    {
-        for (QLineF lines : _lines[i])
-        {
-            _gameBoard->addLine(lines);
-        }
-    }
+    connect(_referee,SIGNAL(gameListChanged()),this, SLOT(createTexts()));
 
-
-    QGraphicsView* viewgameLeft = new QGraphicsView(_gameBoard);
-    viewgameLeft->setAlignment(Qt::AlignLeft);
-    // viewgameLeft->scale(1.5,1.5);
+    QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
 
     QGridLayout* layout = new QGridLayout;
     layout->addWidget(_color);
     layout->addWidget(_title);
-
-    layout->addWidget(viewgameLeft);
+    layout->addWidget(viewGame);
     setLayout(layout);
+
+
 }
 
 void TournamentWindow::createWidgets()
@@ -53,18 +58,16 @@ void TournamentWindow::createWidgets()
     setWindowTitle("Spielplan");
     setWindowIcon(QIcon(":/img/gameplan.png"));
 
-    _color       = new QLabel;
+    _color = new QLabel;
     _color->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Spielplan");
     _title->setTitleStyel();
-
-
 }
 
 void TournamentWindow::createRects()
 {
     // TODO: muss noch eine ANzhal an Spielrn bekommen
-    double numberOfPlayer = 16;
+    double numberOfPlayer = 64;     //TODO: Maximale SPieler auf 64 limitieren
     double numberOfPlayerIntern = numberOfPlayer;
 
     // ANzahl der Spalten berechnen
@@ -266,7 +269,7 @@ void TournamentWindow::createLines()
 
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() - 50,
                          _rects[_numberOfColumn - 1].last().y(),
-                _rects[_numberOfColumn - 1].last().x() - 50 - 125,
+                _rects[_numberOfColumn - 1].last().x() - 50 - _width,
                 _rects[_numberOfColumn - 1].last().y()));
         // rechts
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width,
@@ -281,8 +284,39 @@ void TournamentWindow::createLines()
 
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width + 50,
                          _rects[_numberOfColumn - 1].last().y(),
-                _rects[_numberOfColumn - 1].last().x() + _width + 50 + 125,
+                _rects[_numberOfColumn - 1].last().x() + _width + 50 + _width,
                 _rects[_numberOfColumn - 1].last().y()));
     }
 
+}
+
+void TournamentWindow::createTexts()
+{
+    Game game;
+    QList<QRectF> allRects;
+    QList<QString> allPlayersForAllGames;
+
+    for(int i = 0; i < _numberOfColumn; i++)
+    {
+        int rectCountt = _rects[i].size();
+        for(int k = 0; k < rectCountt; k++)
+        {
+           allRects.append(_rects[i][k]);
+        }
+    }
+
+    int rectCount = allRects.size();
+    for(int x = 0; x < rectCount; x++)
+    {
+        allPlayersForAllGames.append("test");
+    }
+
+
+    int allRectCount = allRects.size();
+    for (int i = 0; i < allRectCount; i++)
+    {
+            QGraphicsTextItem* test = new QGraphicsTextItem(allPlayersForAllGames[i]);
+            test->setPos(allRects[i].x(),allRects[i].y());
+            _gameBoard->addItem(test);
+    }
 }

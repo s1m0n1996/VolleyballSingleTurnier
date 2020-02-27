@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QAbstractScrollArea>
+#include <QGraphicsWidget>
+#include <QGraphicsTextItem>
+#include "Model/referee.h"
 class WindowLabel;
 class WindowButton;
 class QLabel;
@@ -12,17 +16,18 @@ class TournamentWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TournamentWindow(QWidget *parent = nullptr);
+    explicit TournamentWindow(Referee* referee, QWidget  *parent = nullptr);
 
 public slots:
 
 private:
     // TODO: Es muss von der Meldestelle übergeben werden wie viele Leute an dem Tunier teilnehmen
+    Referee* _referee;
 
     double _beginXLeft = 50.0;
     double _beginXRight = 0.0;
 
-    double _width = 150.0;
+    double _width = 250.0;
     double _hight = 40.0;
 
     double _beginYFirstRec =  0.0;
@@ -42,9 +47,11 @@ private:
     WindowButton* _startGame= nullptr;
     QGraphicsScene* _gameBoard = new QGraphicsScene();
 
+    void createRects(void);
+    void createLines(void);
+    void createTexts(void);
 
-     void createRects(void);
-     void createLines(void);
+    //void paintEvent(QPaintEvent *event);
 
 };
 
