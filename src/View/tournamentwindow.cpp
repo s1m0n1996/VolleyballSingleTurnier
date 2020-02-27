@@ -13,9 +13,10 @@
 #include <View/windowlabel.h>
 
 
-TournamentWindow::TournamentWindow(Referee* referee,QWidget *parent) :
+TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget *parent) :
     QWidget (parent),
-    _referee(referee)
+    _referee(referee),
+    _playerManagement(playerManagement)
 {
 
 
@@ -67,7 +68,7 @@ void TournamentWindow::createWidgets()
 void TournamentWindow::createRects()
 {
     // TODO: muss noch eine ANzhal an Spielrn bekommen
-    double numberOfPlayer = 64;     //TODO: Maximale SPieler auf 64 limitieren
+    double numberOfPlayer = _playerManagement->countSelectedPlayersForNewGame();     //TODO: Maximale SPieler auf 64 limitieren
     double numberOfPlayerIntern = numberOfPlayer;
 
     // ANzahl der Spalten berechnen
@@ -296,6 +297,8 @@ void TournamentWindow::createTexts()
     QList<QRectF> allRects;
     QList<QString> allPlayersForAllGames;
 
+    allPlayersForAllGames = game.getAllPlayersForGameboardView();
+
     for(int i = 0; i < _numberOfColumn; i++)
     {
         int rectCountt = _rects[i].size();
@@ -305,11 +308,11 @@ void TournamentWindow::createTexts()
         }
     }
 
-    int rectCount = allRects.size();
-    for(int x = 0; x < rectCount; x++)
-    {
-        allPlayersForAllGames.append("test");
-    }
+//    int rectCount = allRects.size();
+//    for(int x = 0; x < rectCount; x++)
+//    {
+//        allPlayersForAllGames.append("test");
+//    }
 
 
     int allRectCount = allRects.size();

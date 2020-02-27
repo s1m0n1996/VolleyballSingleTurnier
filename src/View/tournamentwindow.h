@@ -8,6 +8,7 @@
 #include <QGraphicsWidget>
 #include <QGraphicsTextItem>
 #include "Model/referee.h"
+#include "Model/playermanagement.h"
 class WindowLabel;
 class WindowButton;
 class QLabel;
@@ -16,13 +17,14 @@ class TournamentWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TournamentWindow(Referee* referee, QWidget  *parent = nullptr);
+    explicit TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget  *parent = nullptr);
 
 public slots:
 
 private:
     // TODO: Es muss von der Meldestelle übergeben werden wie viele Leute an dem Tunier teilnehmen
     Referee* _referee;
+    PlayerManagement* _playerManagement;
 
     double _beginXLeft = 50.0;
     double _beginXRight = 0.0;
