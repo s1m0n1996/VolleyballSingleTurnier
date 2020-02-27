@@ -48,6 +48,7 @@ private slots:
     void openTournamentWindow();
     void openViewerWindow();
     void openRefereeWindow();
+    void openStatisticWindow();
     void createDatabase();
     void loadDatabase();
     void createTournament();
@@ -69,6 +70,7 @@ private:
     QMenu*      _tournamentData    = nullptr;
     QAction*    _loadTournament    = nullptr;
     QAction*    _newTournament     = nullptr;
+    QAction*    _loadStatistic    = nullptr;
 
     WindowLabel* _title = nullptr;
 

@@ -15,6 +15,7 @@
 #include "View/mainmenu.h"
 #include "View/playermanagementWindow.h"
 #include "View/refereewindow.h"
+#include "View/statisticwindow.h"
 #include "View/refereepopupwinningleg.h"
 #include "View/tournamentwindow.h"
 #include "View/tournamentnamepopup.h"
@@ -89,6 +90,12 @@ void MainMenu::openRefereeWindow()
     refereeWindow->show();
 }
 
+
+void MainMenu::openStatisticWindow()
+{
+    StatisticWindow* statisticWindow = new StatisticWindow();
+    statisticWindow->showMaximized();
+}
 /*!
  * \brief Erstellt eine Datenbank
  *
@@ -148,6 +155,7 @@ void MainMenu:: connecting()
     connect(_loadPlayer,SIGNAL(triggered()),this, SLOT(loadDatabase()));
     connect(_newTournament,SIGNAL(triggered()),this,SLOT(createTournament()));
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
+    connect(_loadStatistic,SIGNAL(triggered()), this , SLOT(openStatisticWindow()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
 }
@@ -189,8 +197,8 @@ void MainMenu::setTournamentName()
     }
     else
     {
-        _noteTournament->setText("Aktueles Turnier: " + _gameManagement->getTournamentName()
-                                 + " vom: " + _gameManagement->getTournamentDate());
+        _noteTournament->setText("Aktuelles Turnier " + _gameManagement->getTournamentName()
+                                 + " vom " + _gameManagement->getTournamentDate());
         _noteTournament->setStyleSheet("QLabel{"
                                        "font-size: 25px;"
                                        "font-family: Candara;"
@@ -204,7 +212,7 @@ void MainMenu::createWidgets()
     setWindowIcon(QIcon(":/img/darts.png"));
 
     _playerData = new QMenu();
-    _playerData= menuBar()->addMenu(tr("Datei"));
+    _playerData = menuBar()->addMenu(tr("Datei"));
 
     _loadPlayer = new QAction("Laden");
     _newPlayer  = new QAction("Erstellen");
@@ -217,9 +225,13 @@ void MainMenu::createWidgets()
 
     _loadTournament  = new QAction("Laden");
     _newTournament   = new QAction("Erstellen");
+    _loadStatistic   = new QAction("Statistik");
 
     _tournamentData->addAction(_newTournament);
     _tournamentData->addAction(_loadTournament);
+    _tournamentData->addSeparator();
+    _tournamentData->addAction(_loadStatistic);
+
 
     _title               = new WindowLabel("Hauptmenü - DartsTurnier");
     _title->setTitleStyel();
