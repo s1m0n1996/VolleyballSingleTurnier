@@ -233,7 +233,7 @@ void PlayermanagementWindow::addPhoto()
                                         tr("Photo File (*.png) ;; All Files (*.*)"));
 
     // save file in database
-    QFile file(R"(:/img/user.png)");
+    QFile file(path);
     if (file.exists())
     {
         file.open(QIODevice::ReadOnly);
