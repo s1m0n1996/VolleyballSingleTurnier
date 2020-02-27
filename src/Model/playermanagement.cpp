@@ -232,23 +232,9 @@ WHERE sport_type_id = :sportTypeId
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
-    // TODO: wieder prepare system verwenden
-    //qDebug() << "isValid: " << sqlQuery.isValid();
-    //_nextGamePlayerTableModel->setQuery(sqlQuery);
 
-    QString sqlQueryString;
-    sqlQueryString = R"(
-SELECT pl.name, pl.birthday, pl.country
-FROM tournament_players_list
-         INNER JOIN player_list pl ON tournament_players_list.player_id = pl.id
-WHERE sport_type_id = )";
-    sqlQueryString += QString::number(_gameManagement->getSportTypeId());
-    sqlQueryString += " AND game_mode_id = ";
-    sqlQueryString += QString::number(_gameManagement->getGameModeId());
-    sqlQueryString += " AND tournament_id = ";
-    sqlQueryString += QString::number(_gameManagement->getTournamentId());
-
-    _nextGamePlayerTableModel->setQuery(sqlQueryString);
+    sqlQuery.exec();
+    _nextGamePlayerTableModel->setQuery(sqlQuery);
 
     _nextGamePlayerTableModel->setHeaderData(0, Qt::Horizontal, tr("Name"));
     _nextGamePlayerTableModel->setHeaderData(1, Qt::Horizontal, tr("Geburtstag"));
