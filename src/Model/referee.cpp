@@ -84,6 +84,8 @@ void Referee::nextPlayerAfterWinningLeg()
         _allThrows[0] = 0;
         _allThrows[1] = 0;
         _allThrows[2] = 0;
+        _wasLastThrowInLegToWin = false;
+        _wasLastThrowInLegToBust = false;
         emit valueChanged();
     }
     else
@@ -94,6 +96,8 @@ void Referee::nextPlayerAfterWinningLeg()
         _allThrows[0] = 0;
         _allThrows[1] = 0;
         _allThrows[2] = 0;
+        _wasLastThrowInLegToWin = false;
+        _wasLastThrowInLegToBust = false;
         emit valueChanged();
         setWinner();
     }
