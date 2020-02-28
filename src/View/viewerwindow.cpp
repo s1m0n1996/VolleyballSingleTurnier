@@ -110,9 +110,19 @@ void ViewerWindow::possibleWayToFinishLeg()
 
 void ViewerWindow::remainingThrowsAreZeroInLeg()
 {
-    ui->possibleWayToFinishThrow1FromPlayer1->setText("");
-    ui->possibleWayToFinishThrow2FromPlayer1->setText("");
-    ui->possibleWayToFinishThrow3FromPlayer1->setText("");
+    if (_aktivePlayer == _player1)
+    {
+        ui->possibleWayToFinishThrow1FromPlayer1->setText("");
+        ui->possibleWayToFinishThrow2FromPlayer1->setText("");
+        ui->possibleWayToFinishThrow3FromPlayer1->setText("");
+    }
+    else
+    {
+        ui->possibleWayToFinishThrow1FromPlayer2->setText("");
+        ui->possibleWayToFinishThrow2FromPlayer2->setText("");
+        ui->possibleWayToFinishThrow3FromPlayer2->setText("");
+    }
+
 }
 
 

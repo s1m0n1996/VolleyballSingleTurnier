@@ -682,21 +682,21 @@
          <item>
           <widget class="WindowLabel" name="possibleWayToFinishThrow1FromPlayer1">
            <property name="text">
-            <string>1</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="WindowLabel" name="possibleWayToFinishThrow2FromPlayer1">
            <property name="text">
-            <string>2</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="WindowLabel" name="possibleWayToFinishThrow3FromPlayer1">
            <property name="text">
-            <string>3</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -877,21 +877,21 @@
          <item>
           <widget class="WindowLabel" name="possibleWayToFinishThrow1FromPlayer2">
            <property name="text">
-            <string>1</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="WindowLabel" name="possibleWayToFinishThrow2FromPlayer2">
            <property name="text">
-            <string>2</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="WindowLabel" name="possibleWayToFinishThrow3FromPlayer2">
            <property name="text">
-            <string>3</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -1024,7 +1024,7 @@
      <x>0</x>
      <y>0</y>
      <width>1900</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

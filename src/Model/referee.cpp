@@ -66,23 +66,38 @@ void Referee::nextPlayer()
  */
 void Referee::nextPlayerAfterWinningLeg()
 {
-    int allWonLegsInMatch = _winningLegCounter[0] + _winningLegCounter[1];
-    if ((allWonLegsInMatch % 2) == 0)
+    if (_winningLegCounter[0] < 3 and _winningLegCounter[1] < 3)
     {
-        _player = 0;
+        int allWonLegsInMatch = _winningLegCounter[0] + _winningLegCounter[1];
+        if ((allWonLegsInMatch % 2) == 0)
+        {
+            _player = 0;
+        }
+        else
+        {
+            _player = 1;
+        }
+
+        _remainScore[0] = 501;
+        _remainScore[1] = 501;
+        _throwCounter = 0;
+        _allThrows[0] = 0;
+        _allThrows[1] = 0;
+        _allThrows[2] = 0;
+        emit valueChanged();
     }
     else
     {
-        _player = 1;
+        _remainScore[0] = 501;
+        _remainScore[1] = 501;
+        _throwCounter = 0;
+        _allThrows[0] = 0;
+        _allThrows[1] = 0;
+        _allThrows[2] = 0;
+        emit valueChanged();
+        setWinner();
     }
 
-    _remainScore[0] = 501;
-    _remainScore[1] = 501;
-    _throwCounter = 0;
-    _allThrows[0] = 0;
-    _allThrows[1] = 0;
-    _allThrows[2] = 0;
-    emit valueChanged();
 }
 
 int Referee::getAktivePlayer()
@@ -174,6 +189,8 @@ void Referee::setWinner()
         game.loadNextGame();
         updatePlayer();
         emit gameListChanged();
+        _winningLegCounter[0] = 0;
+        _winningLegCounter[1] = 0;
     }
 }
 
@@ -198,7 +215,7 @@ void Referee::legWinningCondition()
         _wasLastThrowInLegToBust = false;
         emit valueChanged();
         emit playerWinsLeg();
-        setWinner();
+       // setWinner();
     }
     else if ((_remainScore[_player] == 0 and _valueMultiplikator != 2)
              or (_remainScore[_player] < 0 and _throwCounter <= 3)
