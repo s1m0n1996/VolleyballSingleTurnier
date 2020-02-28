@@ -20,9 +20,10 @@ public:
     explicit TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget  *parent = nullptr);
 
 public slots:
+    void createTexts(void);
+
 
 private:
-    // TODO: Es muss von der Meldestelle übergeben werden wie viele Leute an dem Tunier teilnehmen
     Referee* _referee;
     PlayerManagement* _playerManagement;
 
@@ -51,9 +52,6 @@ private:
 
     void createRects(void);
     void createLines(void);
-    void createTexts(void);
-
-    //void paintEvent(QPaintEvent *event);
 
 };
 

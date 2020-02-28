@@ -18,8 +18,6 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     _referee(referee),
     _playerManagement(playerManagement)
 {
-
-
     createWidgets();
     createRects();
     createLines();
@@ -42,16 +40,6 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     }
 
     connect(_referee,SIGNAL(gameListChanged()),this, SLOT(createTexts()));
-
-    QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
-
-    QGridLayout* layout = new QGridLayout;
-    layout->addWidget(_color);
-    layout->addWidget(_title);
-    layout->addWidget(viewGame);
-    setLayout(layout);
-
-
 }
 
 void TournamentWindow::createWidgets()
@@ -67,7 +55,6 @@ void TournamentWindow::createWidgets()
 
 void TournamentWindow::createRects()
 {
-    // TODO: muss noch eine ANzhal an Spielrn bekommen
     double numberOfPlayer = _playerManagement->countSelectedPlayersForNewGame();     //TODO: Maximale SPieler auf 64 limitieren
     double numberOfPlayerIntern = numberOfPlayer;
 
@@ -288,7 +275,6 @@ void TournamentWindow::createLines()
                 _rects[_numberOfColumn - 1].last().x() + _width + 50 + _width,
                 _rects[_numberOfColumn - 1].last().y()));
     }
-
 }
 
 void TournamentWindow::createTexts()
@@ -298,22 +284,16 @@ void TournamentWindow::createTexts()
     QList<QString> allPlayersForAllGames;
 
     allPlayersForAllGames = game.getAllPlayersForGameboardView();
+    qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
 
     for(int i = 0; i < _numberOfColumn; i++)
     {
-        int rectCountt = _rects[i].size();
-        for(int k = 0; k < rectCountt; k++)
+        int rectCount = _rects[i].size();
+        for(int k = 0; k < rectCount; k++)
         {
            allRects.append(_rects[i][k]);
         }
     }
-
-//    int rectCount = allRects.size();
-//    for(int x = 0; x < rectCount; x++)
-//    {
-//        allPlayersForAllGames.append("test");
-//    }
-
 
     int allRectCount = allRects.size();
     for (int i = 0; i < allRectCount; i++)
@@ -322,4 +302,12 @@ void TournamentWindow::createTexts()
             test->setPos(allRects[i].x(),allRects[i].y());
             _gameBoard->addItem(test);
     }
+
+    QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
+
+    QGridLayout* layout = new QGridLayout;
+    layout->addWidget(_color);
+    layout->addWidget(_title);
+    layout->addWidget(viewGame);
+    setLayout(layout);
 }
