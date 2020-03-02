@@ -20,6 +20,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
+#include <QtCharts/QLineSeries>
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -39,7 +40,6 @@ StatisticWindow::StatisticWindow( QWidget *parent):
     setLayout();
     connect();
 
-
 }
 
 
@@ -53,7 +53,7 @@ void StatisticWindow::createWidgets(void)
     _choosePlayername = new WindowLabel("Wähle einen Spieler");
     _comboBox = new QComboBox;
     _comboBox->setMaximumHeight(50);
-    _comboBox->setMinimumWidth(300);
+    _comboBox->setMinimumWidth(400);
     _comboBox->setStyleSheet("QComboBox{"
                              "font-size: 20px;"
                              "font-family: Candara;}");
@@ -70,13 +70,13 @@ void StatisticWindow::createWidgets(void)
     _singlePoint = new QRadioButton("Single Würfe");
     _singlePoint->setStyleSheet("font-size: 20px;"
                        "font-family: Candara;");
-    _doublePoint = new QRadioButton("Double Würfel");
+    _doublePoint = new QRadioButton("Double Würfe");
     _doublePoint->setStyleSheet("font-size: 20px;"
                        "font-family: Candara;");
     _triplePoint = new QRadioButton("Triple Würfe");
     _triplePoint->setStyleSheet("font-size: 20px;"
                        "font-family: Candara;");
-    _average     = new QRadioButton("Gewinner");
+    _average     = new QRadioButton("Average");
     _average->setStyleSheet("font-size: 20px;"
                        "font-family: Candara;");
 
@@ -91,6 +91,11 @@ void StatisticWindow::createWidgets(void)
         const QString country = player.getCountry();
         _comboBox->addItem(name + "         " + birthday+"         " + country);
     }
+
+
+    _chart = new QChart();
+    _chart->setTitle("Gewinne");
+    createChart();
 }
 
 void StatisticWindow::setLayout(void)
@@ -103,7 +108,7 @@ void StatisticWindow::setLayout(void)
     QVBoxLayout* chooseLayout           = new QVBoxLayout;
     QChartView *chartView;
 
-    chartView = new QChartView(createChart());
+    chartView = new QChartView(_chart);
 
 
     mainLayout->addWidget(_colorLabel);
@@ -145,9 +150,8 @@ void StatisticWindow::connect(void)
 
 void StatisticWindow::getPlayerList(const QString &text)
 {
-    qDebug() << text;
+
     QStringList parameterliste = text.split("         ");
-    qDebug()<<parameterliste[1];
     Player player(parameterliste[0], QDate::fromString(parameterliste[1],"yyyy-MM-dd"),parameterliste[2]);
     _listWinner = _playerstatistic->gamesWonAndLost(player);
     _listeAverage = _playerstatistic->averageOfAllLegs(player);
@@ -158,26 +162,34 @@ void StatisticWindow::loadAllPlayersFromDatabase(void)
 
 }
 
-QChart* StatisticWindow::createChart() const
+void StatisticWindow::createChart() const
 {
-//    _playerstatistic
-    QChart *chart = new QChart();
-    chart->setTitle("Pie chart");
+    QStringList parameterliste = _comboBox->currentText().split("         ");
+    Player player(parameterliste[0], QDate::fromString(parameterliste[1],"yyyy-MM-dd"),parameterliste[2]);
+    qDebug()<< parameterliste;
+    qDebug()<<_playerstatistic->gamesWonAndLost(player);
+    QList<int> _list = _playerstatistic->gamesWonAndLost(player);
 
-    QPieSeries *series = new QPieSeries(chart);
-    series->append("Gewonnen", 30);
-    series->append("Verloren", 3);
 
+    QPieSeries *series = new QPieSeries(_chart);
+    series->append("Gewonnen", _list[0]+1);
+    series->append("Verloren", _list[1]+2);
 
     series->setPieSize(0.4);
-    chart->addSeries(series);
+    _chart->addSeries(series);
 
-    return chart;
+
 }
 
 void StatisticWindow::showWinnerChart(void)
 {
+    _chart->removeAllSeries();
+    QPieSeries *series = new QPieSeries(_chart);
+    series->append("Gewonnen", _listWinner[0]+1);
+    series->append("Verloren", _listWinner[1]+2);
 
+    series->setPieSize(0.4);
+    _chart->addSeries(series);
 }
 void StatisticWindow::showSingleChart(void)
 {
@@ -193,5 +205,14 @@ void StatisticWindow::showTripleChart(void)
 }
 void StatisticWindow::showAverageChart(void)
 {
+    _chart->removeAllSeries();
+    _chart->setTitle("Gewinne eines Legs");
 
+    QLineSeries* series = new QLineSeries(_chart);
+    qDebug()<<_listeAverage;
+    series->append(0,1);
+    series->append(1,2);
+    series->append(2,3);
+
+    _chart->addSeries(series);
 }

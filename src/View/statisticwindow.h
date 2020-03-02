@@ -31,7 +31,7 @@ class StatisticWindow :  public QMainWindow
     Q_OBJECT
 public:
     StatisticWindow(QWidget *parent = nullptr);
-    QChart *createChart() const;
+    void createChart() const;
 
 signals:
 public slots:
@@ -62,6 +62,7 @@ private:
     QRadioButton* _triplePoint = nullptr;
     QRadioButton* _average     = nullptr;
 
+    QList<int> _list;
     QList<int> _listWinner;
     QList<double> _listeAverage;
 
