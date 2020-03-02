@@ -1,0 +1,44 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 02.03.2020
+	10:20 - 10:50 Uhr = 30 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Simon Flörke
+
+------------------------------------------------------------------------------------------------------------------------
+Programmvorstellung:
+	Anmerkung durch Henseler
+		- Hauptmenü:
+			- Namensgebung: Orientierung an atandart Programmen
+			- Dateiname von geladener Datenbank sollte irgendwo stehen (wie bei word)
+			- Beim Turnier erstellen leere eingaben abfangen
+		- Meldestelle
+			- Button Turnier starten nach unten rechts
+			- benötigte Spieler zu noch benötigte Spieler
+		- Spielplan
+			- Score von Spielern auch im Spielplan
+			- Schönere Anzeige vom Gewinner
+		- Schidsrichter
+			- Animation wenn ein Pfeil geworfen wurde
+			- Undo button ausgrauen wenn dieser nicht klickbar ist
+			- Start spiel Button entfernen
+			- Dialogbox beim Gewonnenem Leg gestaltet man nicht so
+				-> Beide Buttons Rechts anordnen
+				-> Beim schließen der Dialogbox stürzt das Programm ab 
+				
+		- Statistik
+			- Button um Statistik Fenster zu öffnen nicht so verstecken
+				-> Mit ins Hauptmenü
+				
+		- Generelles
+			- Debug ausgaben entfernen
+			- Es gibt Styleguides, wie man Oberflächen gestaltet (GUI Human interface Styleguide)
