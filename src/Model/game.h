@@ -3,6 +3,7 @@
 #include "Model/player.h"
 #include "Model/sqliteConnector.h"
 #include "Model/gameManagement.h"
+#include "Model/playermanagement.h"
 
 
 class Game //: public QObject
@@ -30,6 +31,7 @@ private:
     bool _isLastgame;
     Player _playerA;
     Player _playerB;
+    QList<QString> _allPlayers;
 
 //signals:
     //void gameListChanged(void);

@@ -152,23 +152,22 @@ QList<QString> Game::getAllPlayersForGameboardView()
 
     qDebug() << "Anzahl Spiele:" << numberOfGames;
     qDebug() << allGames;
+    PlayerManagement playerManagement;
 
     for (int i=0; i < numberOfGames; i+=2)
     {
-        if(numberOfGames-i == 1)                   //Finale wird hier betrachtet.
+        qDebug() << playerManagement.countSelectedPlayersForNewGame();
+        if(i <= (playerManagement.countSelectedPlayersForNewGame()/2))                   //Finale wird hier betrachtet.
         {
-            qDebug()<< "Test6";
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
-        }
-        else
-        {
-            qDebug()<< "Test5";
             allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
             allPlayers.append(getNameOfPlayerForGameView(allGames[i+1][0].toInt()));
             allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
             allPlayers.append(getNameOfPlayerForGameView(allGames[i+1][1].toInt()));
-
+        }
+        else
+        {            
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
+            allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
         }
 
     }
