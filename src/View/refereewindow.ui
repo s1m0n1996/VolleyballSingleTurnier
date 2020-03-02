@@ -26,8 +26,11 @@
    <string>Richteransicht</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_10">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_3"/>
+    </item>
+    <item row="2" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_9">
       <property name="spacing">
        <number>0</number>
@@ -160,28 +163,6 @@
            </item>
            <item>
             <layout class="QGridLayout" name="gridLayout">
-             <item row="8" column="0">
-              <widget class="WindowLabel" name="label_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>10</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Anzahl gewonnener Legs:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
              <item row="2" column="2">
               <widget class="WindowLabel" name="throw1">
                <property name="minimumSize">
@@ -271,19 +252,6 @@
                </property>
                <property name="text">
                 <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="1" colspan="2">
-              <widget class="WindowLabel" name="countWinningLegs">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>0</string>
                </property>
               </widget>
              </item>
@@ -440,6 +408,41 @@
                </property>
               </widget>
              </item>
+             <item row="8" column="2">
+              <widget class="WindowLabel" name="countWinningLegs">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0" colspan="2">
+              <widget class="WindowLabel" name="label_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>10</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Anzahl gewonnener Legs:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
            <item>
@@ -517,6 +520,13 @@
        </layout>
       </item>
      </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="WindowLabel" name="title">
+      <property name="text">
+       <string>Richteransicht</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
