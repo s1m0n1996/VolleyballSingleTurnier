@@ -150,12 +150,12 @@ void MainMenu:: connecting()
     connect(_playermanagment, SIGNAL(released()), this, SLOT(openPlayermanagmentWindow()));
     connect(_tournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
     connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
-    connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
+    connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));    
+    connect(_statitsic,SIGNAL(released()), this , SLOT(openStatisticWindow()));
     connect(_newPlayer,SIGNAL(triggered()),this, SLOT(createDatabase()));
     connect(_loadPlayer,SIGNAL(triggered()),this, SLOT(loadDatabase()));
     connect(_newTournament,SIGNAL(triggered()),this,SLOT(createTournament()));
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
-    connect(_loadStatistic,SIGNAL(triggered()), this , SLOT(openStatisticWindow()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
 }
@@ -214,8 +214,8 @@ void MainMenu::createWidgets()
     _playerData = new QMenu();
     _playerData = menuBar()->addMenu(tr("Datei"));
 
-    _loadPlayer = new QAction("Laden");
-    _newPlayer  = new QAction("Erstellen");
+    _loadPlayer = new QAction("Öffnen");
+    _newPlayer  = new QAction("Neu");
 
     _playerData->addAction(_newPlayer);
     _playerData->addAction(_loadPlayer);
@@ -223,14 +223,8 @@ void MainMenu::createWidgets()
     _tournamentData = new QMenu();
     _tournamentData= menuBar()->addMenu(tr("Turnier"));
 
-    _loadTournament  = new QAction("Laden");
-    _newTournament   = new QAction("Erstellen");
-    _loadStatistic   = new QAction("Statistik");
-
-    _tournamentData->addAction(_newTournament);
-    _tournamentData->addAction(_loadTournament);
-    _tournamentData->addSeparator();
-    _tournamentData->addAction(_loadStatistic);
+    _loadTournament  = new QAction("Öffnen");
+    _newTournament   = new QAction("Neu");
 
 
     _title               = new WindowLabel("Hauptmenü - DartsTurnier");
@@ -264,6 +258,11 @@ void MainMenu::createWidgets()
     _referee->setIcon(QIcon(":/img/referee.png"));
     _referee->setIconSize(QSize(65,65));
 
+    _statitsic            = new WindowButton("Statistik");
+    _statitsic->mainMenuStyle();
+    _statitsic->setIcon(QIcon(":/img/statistic.png"));
+    _statitsic->setIconSize(QSize(65,65));
+
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
 
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
@@ -271,6 +270,7 @@ void MainMenu::createWidgets()
     _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
     _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
     _referee->setEnabled(sqlitConnector->getDb()->isOpen());
+    _statitsic->setEnabled(sqlitConnector->getDb()->isOpen());
 
     if (sqlitConnector->getDb()->isOpen())
     {
@@ -296,6 +296,7 @@ void MainMenu::setwholeLayout()
     layout->addWidget(_tournament,0,Qt::AlignCenter);
     layout->addWidget(_viewer,0,Qt::AlignCenter);
     layout->addWidget(_referee,0,Qt::AlignCenter);
+    layout->addWidget(_statitsic,0,Qt::AlignCenter);
 
     widget->setLayout(layout);
  }

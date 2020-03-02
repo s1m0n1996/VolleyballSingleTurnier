@@ -70,7 +70,6 @@ private:
     QMenu*      _tournamentData    = nullptr;
     QAction*    _loadTournament    = nullptr;
     QAction*    _newTournament     = nullptr;
-    QAction*    _loadStatistic    = nullptr;
 
     WindowLabel* _title = nullptr;
 
@@ -83,6 +82,7 @@ private:
     WindowButton* _tournament         = nullptr;
     WindowButton* _viewer             = nullptr;
     WindowButton* _referee            = nullptr;
+    WindowButton* _statitsic          = nullptr;
 
     PlayerManagement*       _playerManagementModel;
     Referee*                _refereeModel;
