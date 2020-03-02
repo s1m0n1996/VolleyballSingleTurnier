@@ -41,7 +41,7 @@ void WindowLabel::setNotStartTournamentStyle()
 void WindowLabel::setStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
-                  "font-size: 25px;"
+                  "font-size: 30px;"
                   "font-family: Candara;}");
 }
 
