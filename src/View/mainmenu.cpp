@@ -69,7 +69,7 @@ MainMenu::~MainMenu()
 void MainMenu::openPlayermanagmentWindow()
 {
     PlayermanagementWindow* playermanagment = new PlayermanagementWindow(_playerManagementModel);
-    playermanagment->showMaximized();
+     playermanagment->showMaximized();
 }
 
 void MainMenu::openTournamentWindow()
@@ -172,6 +172,7 @@ void MainMenu::setButtonEnableState()
     _tournament->setEnabled(showGameButtons);
     _viewer->setEnabled(showGameButtons);
     _referee->setEnabled(showGameButtons);
+    _statitsic->setEnabled(showGameButtons);
 }
 
 void MainMenu::createTournament()
@@ -208,7 +209,8 @@ void MainMenu::setTournamentName()
 
 void MainMenu::createWidgets()
 {
-    setWindowTitle("Hauptmenü");
+    SqliteConnector* sqliteConnector = &SqliteConnector::instance();
+    setWindowTitle("Datenbank " + sqliteConnector->getDatabaseName());
     setWindowIcon(QIcon(":/img/darts.png"));
 
     _playerData = new QMenu();
@@ -229,9 +231,12 @@ void MainMenu::createWidgets()
     _tournamentData->addAction(_newTournament);
     _tournamentData->addAction(_loadTournament);
 
+    _tournamentData->addAction(_newTournament);
+    _tournamentData->addAction(_loadTournament);
+
 
     _title = new WindowLabel("Hauptmenü - DartsTurnier");
-    _title->setTitleStyel();
+    _title->setMainTitleStyel();
 
     _noteDatabase = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
     _noteDatabase->setStyleSheet("QLabel{"
