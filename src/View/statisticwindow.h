@@ -47,15 +47,14 @@ private:
     QLabel*         _colorLabel = nullptr;
     WindowLabel*    _title      = nullptr;
 
-    Playerstatistics* _playerstatistic;
-    PlayerManagement* _playermanagment;
+    Playerstatistics* _playerStatistic;
+    PlayerManagement* _playerManagement;
     WindowLabel* _choosePlayername = nullptr;
     QComboBox* _comboBox = nullptr;
 
     QChart* _chart = nullptr;
 
-
-    WindowLabel* _categorie = nullptr;
+    WindowLabel* _category = nullptr;
     QRadioButton* _winners = nullptr;
     QRadioButton* _singlePoint = nullptr;
     QRadioButton* _doublePoint = nullptr;
