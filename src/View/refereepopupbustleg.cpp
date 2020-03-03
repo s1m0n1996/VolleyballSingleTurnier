@@ -27,17 +27,17 @@ RefereePopupBustLeg::RefereePopupBustLeg(QWidget *parent) : QWidget(parent)
 
     connect(_naechsterSpieler, SIGNAL(released()), this, SLOT(openRefereeBustLeg()));
     connect(_undoLastThrow, SIGNAL(released()), this, SLOT(openRefereeUndoLastThrow()));
-    setWindowFlags(Qt::WindowStaysOnTopHint|Qt::WindowCloseButtonHint);
+    setWindowFlags(Qt::SubWindow);
 }
 
 void RefereePopupBustLeg::openRefereeBustLeg(void)
 {
     emit playerBustLeg();
-    setWindowFlags(Qt::Window);
+    setWindowFlags(Qt::SubWindow);
 }
 
 void RefereePopupBustLeg::openRefereeUndoLastThrow(void)
 {
     emit undoLastThrow();
-    setWindowFlags(Qt::Window);
+    setWindowFlags(Qt::SubWindow);
 }

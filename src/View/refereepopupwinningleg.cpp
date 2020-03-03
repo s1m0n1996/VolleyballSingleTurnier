@@ -27,17 +27,17 @@ RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent
 
     connect(_legWin, SIGNAL(released()), this, SLOT(openRefereeWinningLeg()));
     connect(_undoLastThrow, SIGNAL(released()), this, SLOT(openRefereeUndoLastThrow()));
-    setWindowFlags(Qt::WindowStaysOnTopHint|Qt::WindowCloseButtonHint);
+    setWindowFlags(Qt::SubWindow);
 }
 
 void RefereepopupWinningLeg::openRefereeWinningLeg(void)
 {
     emit playerWonLeg();
-    setWindowFlags(Qt::Window);
+    setWindowFlags(Qt::SubWindow);
 }
 
 void RefereepopupWinningLeg::openRefereeUndoLastThrow(void)
 {
     emit undoLastThrow();
-    setWindowFlags(Qt::Window);
+    setWindowFlags(Qt::SubWindow);
 }
