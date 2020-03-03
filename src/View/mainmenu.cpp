@@ -226,6 +226,9 @@ void MainMenu::createWidgets()
     _loadTournament  = new QAction("Öffnen");
     _newTournament   = new QAction("Neu");
 
+    _tournamentData->addAction(_newTournament);
+    _tournamentData->addAction(_loadTournament);
+
 
     _title               = new WindowLabel("Hauptmenü - DartsTurnier");
     _title->setTitleStyel();
