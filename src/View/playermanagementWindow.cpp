@@ -13,6 +13,7 @@
 #include <QIcon>
 #include <QFileDialog>
 #include <QMenuBar>
+#include <QGroupBox>
 
 #include "View/playermanagementWindow.h"
 #include "Model/playermanagement.h"
@@ -284,9 +285,10 @@ void PlayermanagementWindow::createWidges()
     _colorLabel         = new QLabel;
     _colorLabel->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Meldestelle");
-    _title->setTitleStyel();
+    _title->setMainTitleStyel();
 
     _allPlayerLabel = new WindowLabel("gesamte Spieler");
+    _allPlayerLabel->setTitleStyel();
 
     _gamePlayerLabel = new WindowLabel("aktuelle Spieler im Turnier");
 
@@ -301,10 +303,17 @@ void PlayermanagementWindow::createWidges()
 
 
 
-    _nameMissingPlayersLabel = new WindowLabel("benötigte Spieler:");
+    _nameMissingPlayersLabel = new WindowLabel("noch zu benötigte Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(
     QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
+
+    _addPlayer          = new QGroupBox();
+    _addPlayer->setTitle("Spieler zum aktuellen Spiel hinzufügen:");
+    _addPlayer->setStyleSheet("QGroupBox{"
+                              "font-size: 25px;"
+                              "font-family: Candara;"
+                              "text-decoration: underline;} ");
 
     _playernameEdit     = new WindowEdit("Max Mustermann", DataType::name);
     _birthdayEdit       = new WindowEdit("1990-01-30", DataType::date);
@@ -373,12 +382,16 @@ void PlayermanagementWindow::setAllLayout()
     QWidget* widget= new QWidget;
     setCentralWidget(widget);
 
-    QVBoxLayout* addDeleteLayout        = new QVBoxLayout;
-    QVBoxLayout* maxPlayerLayout        = new QVBoxLayout;
     QVBoxLayout* mainLayout             = new QVBoxLayout;
-    QGridLayout* addPlayerLayout        = new QGridLayout;
-    QHBoxLayout* tabelViewLayout        = new QHBoxLayout;
     QHBoxLayout* titleTabelViewLayout   = new QHBoxLayout;
+    QVBoxLayout* maxPlayerLayout        = new QVBoxLayout;
+    QHBoxLayout* tabelViewLayout        = new QHBoxLayout;
+    QVBoxLayout* addDeleteLayout        = new QVBoxLayout;        
+    QHBoxLayout* bottomLayout           = new QHBoxLayout;
+    QVBoxLayout* labelLayout            = new QVBoxLayout;
+    QVBoxLayout* editLayout             = new QVBoxLayout;
+    QGridLayout* addPlayerLayout        = new QGridLayout;
+    QVBoxLayout* tournamentStartLayout  = new QVBoxLayout;
 
 
     mainLayout->addWidget(_colorLabel);
@@ -397,23 +410,35 @@ void PlayermanagementWindow::setAllLayout()
     maxPlayerLayout->addWidget(_nameMissingPlayersLabel, 0, Qt::AlignCenter);
     maxPlayerLayout->addWidget(_valueMissingPlayersLabel, 0, Qt::AlignCenter);
 
-    addPlayerLayout->addWidget(_playernameLabel, 1, 0);
-    addPlayerLayout->addWidget(_birthdayLabel, 2, 0);
-    addPlayerLayout->addWidget(_countryLabel, 3, 0);
-    addPlayerLayout->setSpacing(2);
-    addPlayerLayout->setMargin(5);
-    addPlayerLayout->addWidget(_playernameEdit, 1, 1);
-    addPlayerLayout->addWidget(_birthdayEdit, 2, 1);
-    addPlayerLayout->addWidget(_countryEdit, 3, 1);
-    addPlayerLayout->addWidget(_photo,4,0);
-    addPlayerLayout->addWidget(_addPhoto,4,2);
-    addPlayerLayout->addWidget(_addPlayerButton, 6, Qt::AlignRight);
-    addPlayerLayout->addWidget(_startTournamentButton,6,0);
+    labelLayout->addWidget(_playernameLabel);
+    labelLayout->addWidget(_birthdayLabel);
+    labelLayout->addWidget(_countryLabel);
+    labelLayout->addWidget(_photo);
+
+    editLayout->addWidget(_playernameEdit);
+    editLayout->addWidget(_birthdayEdit);
+    editLayout->addWidget(_countryEdit);
+    editLayout->addWidget(_addPhoto);
+
+    addPlayerLayout->addLayout(labelLayout,0,0);
+    addPlayerLayout->addLayout(editLayout,0,1);
+    addPlayerLayout->addWidget(_addPlayerButton, 2, Qt::AlignRight);
+
+    _addPlayer->setLayout(addPlayerLayout);
+
+//    tournamentStartLayout->addSpacing(5);
+    tournamentStartLayout->addWidget(_startTournamentButton,2);
+
+
+    bottomLayout->addWidget(_addPlayer);
+    bottomLayout->addStretch();
+    bottomLayout->addLayout(tournamentStartLayout);
+
 
     mainLayout->addLayout(maxPlayerLayout);
     mainLayout->addLayout(titleTabelViewLayout);
     mainLayout->addLayout(tabelViewLayout);
-    mainLayout->addLayout(addPlayerLayout);
+    mainLayout->addLayout(bottomLayout);
 
     widget->setLayout(mainLayout);
 }
