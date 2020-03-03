@@ -229,5 +229,18 @@ void RefereeWindow::writeScore()
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
     ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
     ui->remainingThrows->setText(QString::number(_referee->getRemainingThrows()));
+
+    // Damit nicht einfach so auf nächster Spieler geklickt werden kann
+    // Benötigt für die Datenbank damit wirklich alle Würfe gespeichert werden
+    if (_referee->getRemainingThrows() == 0)
+    {
+        ui->nextPlayer->setEnabled(true);
+        ui->nextPlayer->setEnableStyle();
+    }
+    else
+    {
+        ui->nextPlayer->setEnabled(false);
+    }
+
     writeNextPlayer();
 }
