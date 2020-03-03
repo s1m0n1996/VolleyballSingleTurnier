@@ -29,7 +29,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
 
     ui->setupUi(this);
 
-    ui->title->setTitleStyel();
+    ui->title->setMainTitleStyel();
 
     QPixmap* pix = new QPixmap(":/img/Dartboard.png");
     ui->DartboardView->setPixmap(*pix);

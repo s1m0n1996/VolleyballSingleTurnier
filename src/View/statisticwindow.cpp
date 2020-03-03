@@ -48,7 +48,7 @@ void StatisticWindow::createWidgets(void)
     _colorLabel         = new QLabel;
     _colorLabel->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Statistik");
-    _title->setTitleStyel();
+    _title->setMainTitleStyel();
 
     _choosePlayername = new WindowLabel("Wähle einen Spieler");
     _comboBox = new QComboBox;

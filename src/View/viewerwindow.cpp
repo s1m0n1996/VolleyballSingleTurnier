@@ -14,6 +14,8 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
 
     ui->setupUi(this);
 
+    ui->title->setMainTitleStyel();
+
     ui->groupBox_3->setStyleSheet("border:none");
     connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
     connect(_referee,SIGNAL(scoreIsUnder170()),this, SLOT(scoreIsUnder170InLeg()));
