@@ -236,10 +236,12 @@ void RefereeWindow::writeScore()
     {
         ui->nextPlayer->setEnabled(true);
         ui->nextPlayer->setEnableStyle();
+        ui->DartboardView->setEnabled(false);
     }
     else
     {
         ui->nextPlayer->setEnabled(false);
+        ui->DartboardView->setEnabled(true);
     }
 
     writeNextPlayer();
