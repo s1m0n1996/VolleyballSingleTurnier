@@ -6,6 +6,7 @@
 
 class PlayerManagement;
 class QAction;
+class QGroupBox;
 class QMenu;
 class QLabel;
 class TableView;
@@ -62,7 +63,7 @@ private:
     void connecting(void);
 
 
-    PlayerManagement* _playerManagementModel = nullptr;
+    PlayerManagement* _playerManagementModel = nullptr; 
 
     QLabel*         _colorLabel = nullptr;
     WindowLabel*    _title      = nullptr;
@@ -81,6 +82,9 @@ private:
 
     WindowLabel* _nameMissingPlayersLabel        = nullptr;
     WindowLabel* _valueMissingPlayersLabel       = nullptr;
+
+
+    QGroupBox* _addPlayer = nullptr;
 
     WindowLabel* _playernameLabel           = nullptr;
     WindowLabel* _birthdayLabel             = nullptr;

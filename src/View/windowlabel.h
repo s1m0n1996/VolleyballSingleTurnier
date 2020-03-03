@@ -19,6 +19,7 @@ public:
     void setNotStartTournamentStyle(void);
     void setStartTournamentStyle(void);
     void setTitleStyel(void);
+    void setMainTitleStyel(void);
 
 
 public:
