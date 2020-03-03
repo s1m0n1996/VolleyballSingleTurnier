@@ -37,6 +37,7 @@ public:
     bool openDatabase(const QString path);
 
     QSqlDatabase* getDb(){return &_db;}
+    QString getDatabaseName();
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
     QList<QList<QVariant>> sqlQuery(QSqlQuery& sqlQuery);

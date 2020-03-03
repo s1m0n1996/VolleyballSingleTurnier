@@ -368,3 +368,20 @@ QList<QList<QVariant>> SqliteConnector::_convertReturnedData(QSqlQuery& sqlQuery
     }
     return data;
 }
+
+/*!
+ * \brief Gibt den aktuell geladenen Datenbanknamen aus
+ *
+ * \return aktuellen Namen der Datenbank
+ *
+ */
+QString SqliteConnector::getDatabaseName()
+{
+    QString path = _db.databaseName();
+
+    if (QFile(path).exists())
+    {
+        return QFileInfo(path).fileName().split(".").first();
+    }
+    return path;
+}
