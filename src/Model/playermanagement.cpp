@@ -54,12 +54,19 @@ ORDER BY name;
 }
 
 /*!
- * \brief add a player to the actual turnier gameboard
+ * \brief Füge einen Spieler dem aktuellen Turnier hinzu
  *
- * \param[in] addPlayer the player that would be added to the actual turnier gameboard
+ * \param[in] addPlayer Der Spieler der hinzugefügt werden soll.
+ *
+ * Es können maximal 64 Spieler hinzugefügt werden. Danach ist die Methode nicht mehr aufrufbar.
  */
 void PlayerManagement::addPlayerForNewGame(const Player addPlayer)
 {
+    if (countSelectedPlayersForNewGame() > 64)
+    {
+        return;
+    }
+
     QString sqlPrepare = R"(
 INSERT INTO tournament_players_list (player_id, sport_type_id, game_mode_id, tournament_id)
 VALUES ((SELECT id FROM player_list WHERE name = :name AND birthday = :birthday AND country = :country), :sportTypeId, :gameModeId, :tournamentId)
