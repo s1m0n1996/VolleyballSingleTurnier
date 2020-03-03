@@ -291,6 +291,7 @@ void PlayermanagementWindow::createWidges()
     _allPlayerLabel->setTitleStyel();
 
     _gamePlayerLabel = new WindowLabel("aktuelle Spieler im Turnier");
+    _gamePlayerLabel->setTitleStyel();
 
     showTable();
     _addPlayerForNewTournament      = new WindowButton("");
@@ -337,6 +338,8 @@ void PlayermanagementWindow::createWidges()
     _startTournamentButton->setEnableStyle();
     _startTournamentButton->setIcon(QIcon(":/img/createDart.png"));
     _startTournamentButton->setIconSize(QSize(65,65));
+    _startTournamentButton->setFixedSize(250,40);
+
 
     _menuDelete = new QMenu();
     _menuDelete = menuBar()->addMenu(tr("Spieler"));
@@ -391,7 +394,7 @@ void PlayermanagementWindow::setAllLayout()
     QVBoxLayout* labelLayout            = new QVBoxLayout;
     QVBoxLayout* editLayout             = new QVBoxLayout;
     QGridLayout* addPlayerLayout        = new QGridLayout;
-    QVBoxLayout* tournamentStartLayout  = new QVBoxLayout;
+    QGridLayout* tournamentStartLayout  = new QGridLayout;
 
 
     mainLayout->addWidget(_colorLabel);
@@ -426,8 +429,8 @@ void PlayermanagementWindow::setAllLayout()
 
     _addPlayer->setLayout(addPlayerLayout);
 
-//    tournamentStartLayout->addSpacing(5);
-    tournamentStartLayout->addWidget(_startTournamentButton,2);
+
+    tournamentStartLayout->addWidget(_startTournamentButton,Qt::AlignRight, Qt::AlignBottom, Qt::AlignBottom);
 
 
     bottomLayout->addWidget(_addPlayer);
