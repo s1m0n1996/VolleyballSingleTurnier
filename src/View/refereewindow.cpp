@@ -29,7 +29,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
 
     ui->setupUi(this);
 
-    ui->title->setMainTitleStyel();
+    ui->title->setMainTitleStyle();
 
     QPixmap* pix = new QPixmap(":/img/Dartboard.png");
     ui->DartboardView->setPixmap(*pix);
@@ -41,7 +41,6 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
     connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
     connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
-    connect(ui->gameStart,SIGNAL(released()),this, SLOT(gameStart()));
 
     connect(_referee,SIGNAL(playerWinsLeg()),this, SLOT(playerWinsLeg()));
     connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayerAfterWinningLeg()));
@@ -192,11 +191,6 @@ void RefereeWindow::writeNextPlayer()
     ui->playerName->setText(player.getName());
 }
 
-void RefereeWindow::gameStart()
-{
-    ui->playerName->setText(QString::number(_referee->getGameStart()));
-
-}
 
 void RefereeWindow::playerBust()
 {

@@ -41,7 +41,7 @@ void LoadTournamentPopup::_createWidgets()
     setWindowIcon(QIcon(":/img/darts.png"));
 
     _firstLabel = new WindowLabel("Bitte ein Turnier auswählen");
-    _firstLabel->setTitleStyel();
+    _firstLabel->setTitleStyle();
     _firstLabel->setMaximumHeight(100);
 
     _comboBox = new QComboBox;

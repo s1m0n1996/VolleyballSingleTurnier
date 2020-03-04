@@ -14,7 +14,7 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->title->setMainTitleStyel();
+    ui->title->setMainTitleStyle();
 
     ui->groupBox_3->setStyleSheet("border:none");
     connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));

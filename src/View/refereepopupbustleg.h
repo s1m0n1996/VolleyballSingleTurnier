@@ -33,7 +33,7 @@ public slots:
 private:
     WindowLabel* _refereeInformation = nullptr;
     WindowLabel* _refereeAction = nullptr;
-    WindowButton* _naechsterSpieler = nullptr;
+    WindowButton* _nextPlayer = nullptr;
     WindowButton* _undoLastThrow = nullptr;
 
 };

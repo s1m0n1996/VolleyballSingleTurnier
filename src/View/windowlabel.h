@@ -18,8 +18,8 @@ public:
     explicit WindowLabel(QWidget *parent = nullptr,QString text = "");
     void setNotStartTournamentStyle(void);
     void setStartTournamentStyle(void);
-    void setTitleStyel(void);
-    void setMainTitleStyel(void);
+    void setTitleStyle(void);
+    void setMainTitleStyle(void);
 
 
 public:

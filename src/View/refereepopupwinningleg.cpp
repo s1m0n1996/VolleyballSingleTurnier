@@ -9,20 +9,28 @@
 RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent)
 {
 
-    _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen. Wenn der Wurf richtig eingegeben wurde.");
-    _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde dann auf den Button 'Leg gewonnen' klicken"
-                                     " ansonsten auf den Button 'Undo letzter Wurf'");
+
+    _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen. Wenn der Wurf richtig eingegeben wurde");
+    _refereeInformation->setTitleStyle();
+    _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde,\n"
+                                     "dann auf den Button 'Leg gewonnen' klicken\n"
+                                     "ansonsten auf den Button 'Letzten Wurf rückgänig machen'");
 
     _legWin = new WindowButton("Leg gewonnen");
-    _undoLastThrow = new WindowButton("UNDO letzter Wurf");
+    _undoLastThrow = new WindowButton("Letzten Wurf rückgänig machen");
 
 
     QGridLayout* layout = new QGridLayout;
+    QHBoxLayout* buttonLayout = new QHBoxLayout;
+
+    buttonLayout -> addWidget(_legWin);
+    buttonLayout -> addWidget(_undoLastThrow);
+
 
     layout -> addWidget(_refereeInformation,0,0);
     layout -> addWidget(_refereeAction,1,0);
-    layout -> addWidget(_legWin,2,0);
-    layout -> addWidget(_undoLastThrow,2,1);
+    layout ->  addLayout(buttonLayout,2,1);
+
     setLayout(layout);
 
     connect(_legWin, SIGNAL(released()), this, SLOT(openRefereeWinningLeg()));

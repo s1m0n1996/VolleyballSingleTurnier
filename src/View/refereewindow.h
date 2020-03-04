@@ -37,7 +37,6 @@ public slots:
     void nextPlayer();
     void undoLastThrow();
     void writeNextPlayer();
-    void gameStart();
     void playerBust();
     void playerWinsLeg();
     void nextPlayerAfterWinningLeg();

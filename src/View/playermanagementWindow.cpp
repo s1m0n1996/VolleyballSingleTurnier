@@ -285,13 +285,13 @@ void PlayermanagementWindow::createWidges()
     _colorLabel         = new QLabel;
     _colorLabel->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Meldestelle");
-    _title->setMainTitleStyel();
+    _title->setMainTitleStyle();
 
     _allPlayerLabel = new WindowLabel("gesamte Spieler");
-    _allPlayerLabel->setTitleStyel();
+    _allPlayerLabel->setTitleStyle();
 
     _gamePlayerLabel = new WindowLabel("aktuelle Spieler im Turnier");
-    _gamePlayerLabel->setTitleStyel();
+    _gamePlayerLabel->setTitleStyle();
 
     showTable();
     _addPlayerForNewTournament      = new WindowButton("");

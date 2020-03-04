@@ -50,7 +50,7 @@ void TournamentWindow::createWidgets()
     _color = new QLabel;
     _color->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Spielplan");
-    _title->setMainTitleStyel();
+    _title->setMainTitleStyle();
 }
 
 void TournamentWindow::createRects()
