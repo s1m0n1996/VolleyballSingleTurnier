@@ -13,6 +13,7 @@ Referee::Referee()
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
     updatePlayer();
+    loadLastGame();
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(updatePlayer()));
 }
 
@@ -106,7 +107,7 @@ void Referee::nextPlayerAfterWinningLeg()
 
 int Referee::getAktivePlayer()
 {
-    if(_player)
+    if(_player == 0)
     {
         return _allPlayers[0];
     }
@@ -392,3 +393,142 @@ int Referee::getNumberOfCurrentLeg()
     }
     return legId;
 }
+
+
+void Referee::setActivePlayer(int activePlayerId)
+{
+    qDebug() << _allPlayers[1];
+    if(activePlayerId == _allPlayers[1])
+    {
+        _player = 1;
+    }
+    else
+    {
+        _player = 0;
+    }
+}
+
+
+void Referee::loadLastGame(){
+    QString sqlPrepare = R"(
+                         SELECT punkte, player_id, game_board_id, tournament_id
+                         FROM (SELECT SUM(value * value_type_id) as punkte, player_id, game_board_id, tournament_id
+                               FROM leg_history_list
+                               group by tournament_id = :tournamentId, game_board_id = :gameId, leg_id, player_id)
+                         WHERE game_board_id = :gameId
+                           AND tournament_id = :tournamentId;
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameId", _gameId);   //_gameId
+    QList<QList<QVariant>> legPoints = _db->sqlQuery(sqlQuery);
+
+    if(legPoints.isEmpty())                                         //gibt es keine zuvor gemachten Würfe wird rausgesprungen
+    {
+        return;
+    }
+
+
+    int straightLegPointsSize = legPoints.size()%2;                 //Testen ob es eine gerade Anzahl an Punktergebnissen gibt
+
+    for (int i=0 ; i < (legPoints.size()-straightLegPointsSize) ; i+=2)
+    {
+        if(legPoints[i][0]==501)
+        {
+            if(legPoints[i][1] == _allPlayers[0])
+            {
+                _winningLegCounter[0]+=1;
+
+            }
+            else
+            {
+                _winningLegCounter[1]+=1;
+            }
+        }
+        if(legPoints[i+1][0]==501)
+        {
+            if(legPoints[i+1][1] == _allPlayers[0])
+            {
+                 _winningLegCounter[0]+=1;
+
+            }
+            else
+            {
+                 _winningLegCounter[1]+=1;
+            }
+        }
+        if(legPoints[i][0]!=501 & legPoints[i+1][0]!=501)
+        {
+
+            loadLastThrows();
+
+            if(_allPlayers[0]<_allPlayers[1])
+            {
+                _remainScore[0] = 501 - legPoints[i][0].toInt();
+                _remainScore[1] = 501 - legPoints[i+1][0].toInt();
+            }
+            else
+            {
+                _remainScore[1] = 501 - legPoints[i][0].toInt();
+                _remainScore[0] = 501 - legPoints[i+1][0].toInt();
+            }
+        }
+    }
+
+    if(straightLegPointsSize == 1)                                   //Bei ungerader Listenlänge
+    {
+        if(legPoints[legPoints.size()-1][1] == _allPlayers[0])
+        {
+            _remainScore[0] = 501 - legPoints[legPoints.size()-1][0].toInt();
+        }
+        else
+        {
+            _remainScore[1] = 501 - legPoints[legPoints.size()-1][0].toInt();
+        }
+        loadLastThrows();
+    }
+    return;
+}
+
+
+void Referee::loadLastThrows()
+{
+    QString sqlPrepare = R"(
+                         SELECT * FROM leg_history_list
+                         WHERE tournament_id = :tournamentId
+                           AND game_board_id = :gameId
+                           AND leg_id = (SELECT MAX(leg_id)
+                                         FROM leg_history_list
+                                         WHERE tournament_id = :tournamentId
+                                           AND game_board_id = :gameId)
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameId", _gameId);
+    QList<QList<QVariant>> lastThrows = _db->sqlQuery(sqlQuery);
+
+    int legIdPerfectToThree = (lastThrows.size()/3)*3;
+    int throws = 0;
+
+    for (int i = legIdPerfectToThree; i < lastThrows.size(); i++)           //Alle die größer als Bsp.: 13 /3*3 = 12 sind, throwcounter wird rauf gesetzt
+    {                                                                       //außerdem wird der aktuelle Spieler ermittelt
+        setActivePlayer(lastThrows[i][6].toInt());
+        _allThrows[throws] =  (lastThrows[i][9].toInt() * lastThrows[i][8].toInt());
+        _throwCounter++;
+        throws++;
+    }
+
+    if((lastThrows.size()/3) == 0)
+    {
+        int lastPlayer = lastThrows[(lastThrows.size()-1)][6].toInt();
+        if(lastPlayer == _allPlayers[0])
+        {
+            setActivePlayer(_allPlayers[1]);
+        }
+    }
+    return;
+}
+
+

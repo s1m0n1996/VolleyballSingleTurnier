@@ -37,6 +37,11 @@ public:
     int getLastLegIdInSameGame();
     int getNumberOfCurrentLeg();
 
+    void setActivePlayer(int activePlayerId);
+
+    void loadLastGame();
+    void loadLastThrows();
+
     // Methoden für den Zuschauer
     void scoreIsUnder170InLeg();
     void remainingThrowsAreZeroInLeg();
