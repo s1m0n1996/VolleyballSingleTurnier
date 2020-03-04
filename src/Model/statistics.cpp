@@ -7,8 +7,9 @@ Statistics::Statistics()
 }
 
 
-double Statistics::getAverageOfPlayerInCurrentGame(Player& player, int gameId)
+double Statistics::getAverageOfPlayerInCurrentGame(Player& player)
 {
+    Game game;
     QString sqlPrepare = R"(
                          SELECT *
                          FROM leg_history_list
@@ -23,7 +24,7 @@ double Statistics::getAverageOfPlayerInCurrentGame(Player& player, int gameId)
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
-    sqlQuery.bindValue(":gameId", gameId);
+    sqlQuery.bindValue(":gameId", game.getGameId());
     sqlQuery.bindValue(":playerId", player.getId());
     QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);
     return calculateAverage(list);
@@ -49,8 +50,9 @@ double Statistics::getAverageOfPlayerEver(Player& player)
 }
 
 
-double Statistics::getAverageOfPlayerInCurrentLeg(Player& player, int gameId, int legId)
+double Statistics::getAverageOfPlayerInCurrentLeg(Player& player, int legId)
 {
+    Game game;
     QString sqlPrepare = R"(
                          SELECT *
                          FROM leg_history_list
@@ -66,7 +68,7 @@ double Statistics::getAverageOfPlayerInCurrentLeg(Player& player, int gameId, in
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
-    sqlQuery.bindValue(":gameId", gameId);
+    sqlQuery.bindValue(":gameId", game.getGameId());
     sqlQuery.bindValue(":legId", legId);
     sqlQuery.bindValue(":playerId", player.getId());
     QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);

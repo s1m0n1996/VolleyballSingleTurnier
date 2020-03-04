@@ -3,14 +3,15 @@
 #include "Model/sqliteConnector.h"
 #include "Model/player.h"
 #include "Model/gameManagement.h"
+#include "Model/game.h"
 
 class Statistics
 {
 public:
     Statistics();
 
-    double getAverageOfPlayerInCurrentLeg(Player& player, int gameId, int legId);
-    double getAverageOfPlayerInCurrentGame(Player& player, int gameId);
+    double getAverageOfPlayerInCurrentLeg(Player& player, int legId);
+    double getAverageOfPlayerInCurrentGame(Player& player);
     double getAverageOfPlayerEver(Player& player);
     int getCountOfHundretEightyInGame(Player& player, int gameId);
     int getWonTournamentsOfPlayer(Player& player);
