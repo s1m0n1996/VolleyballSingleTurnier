@@ -7,7 +7,7 @@ Statistics::Statistics()
 }
 
 
-double Statistics::getAverageOfPlayerInCurrentGame(Player& player)
+double Statistics::getAverageOfPlayerInCurrentGame(const Player& player)
 {
     Game game;
     QString sqlPrepare = R"(
@@ -31,7 +31,7 @@ double Statistics::getAverageOfPlayerInCurrentGame(Player& player)
 }
 
 
-double Statistics::getAverageOfPlayerEver(Player& player)
+double Statistics::getAverageOfPlayerEver(const Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -50,7 +50,7 @@ double Statistics::getAverageOfPlayerEver(Player& player)
 }
 
 
-double Statistics::getAverageOfPlayerInCurrentLeg(Player& player, int legId)
+double Statistics::getAverageOfPlayerInCurrentLeg(const Player& player, const int legId)
 {
     Game game;
     QString sqlPrepare = R"(
@@ -96,7 +96,7 @@ double Statistics::calculateAverage(QList<QList<QVariant>> list)
 }
 
 
-int Statistics::getWonGamesOfPlayer(Player& player)
+int Statistics::getWonGamesOfPlayer(const Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -111,7 +111,7 @@ int Statistics::getWonGamesOfPlayer(Player& player)
 }
 
 
-int Statistics::getCountOfHundretEightyInGame(Player& player, int gameId)
+int Statistics::getCountOfHundretEightyInGame(const Player& player, const int gameId)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -138,7 +138,7 @@ int Statistics::getCountOfHundretEightyInGame(Player& player, int gameId)
 }
 
 
-int Statistics::getCountOfHundretEightyInTournament(Player& player)
+int Statistics::getCountOfHundretEightyInTournament(const Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *
