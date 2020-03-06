@@ -14,6 +14,9 @@
 #include <QComboBox>
 #include <QRadioButton>
 #include <QList>
+#include <QGroupBox>
+#include <QStandardItem>
+#include <QTableView>
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
@@ -34,14 +37,32 @@ QT_CHARTS_USE_NAMESPACE
 StatisticWindow::StatisticWindow(QWidget* parent) :
         QMainWindow(parent)
 {
+    _playerStatistic = new Playerstatistics;
+    _playerManagement = new PlayerManagement;
+
     setWindowTitle("Statistik");
     setWindowIcon(QIcon(":/img/statistic.png"));
-    createWidgets();
-    setLayout();
-    connect();
+    _createWidgets();
+    _setLayout();
+    _connect();
+
+    // test pie
+
+    QPieSeries* series = new QPieSeries(_chart);
+
+    series->append("Spieler 1", 10);
+    series->append("Spieler 2", 20);
+    series->append("Spieler 3", 40);
+    series->append("Spieler 4", 50);
+    series->append("Spieler 5", 34);
+
+    series->setPieSize(1);
+
+    _chart->removeAllSeries();
+    _chart->addSeries(series);
 }
 
-void StatisticWindow::createWidgets(void)
+void StatisticWindow::_createWidgets(void)
 {
     _colorLabel = new QLabel;
     _colorLabel->setStyleSheet("background-color:#550000;");
@@ -56,47 +77,11 @@ void StatisticWindow::createWidgets(void)
                              "font-size: 20px;"
                              "font-family: Candara;}");
 
-    _playerStatistic = new Playerstatistics;
-    _playerManagement = new PlayerManagement;
-
-
-    _category = new WindowLabel("Wähle eine Kategorie");
-    _winners = new QRadioButton("Gewinner");
-    _winners->setStyleSheet("font-size: 20px;"
-                            "font-family: Candara;");
-    _winners->setChecked(true);
-    _singlePoint = new QRadioButton("Single Würfe");
-    _singlePoint->setStyleSheet("font-size: 20px;"
-                                "font-family: Candara;");
-    _doublePoint = new QRadioButton("Double Würfe");
-    _doublePoint->setStyleSheet("font-size: 20px;"
-                                "font-family: Candara;");
-    _triplePoint = new QRadioButton("Triple Würfe");
-    _triplePoint->setStyleSheet("font-size: 20px;"
-                                "font-family: Candara;");
-    _average = new QRadioButton("Average");
-    _average->setStyleSheet("font-size: 20px;"
-                            "font-family: Candara;");
-
-
-    QList<Player> playerList = _playerManagement->getAllStoredPlayers();
-
-    for (Player& player : playerList)
-    {
-        const QString name = player.getName();
-        const QString birthday = player.getBirthday().toString("yyyy-MM-dd");
-        const QString country = player.getCountry();
-        _comboBox->addItem(name + "         " + birthday + "         " + country);
-    }
-
-
     _chart = new QChart();
-    _chart->setAnimationOptions(QChart::AllAnimations);
-    _chart->setTitle("Gewinne");
-    createChart();
+    _chart->setAnimationOptions(QChart::SeriesAnimations);
 }
 
-void StatisticWindow::setLayout(void)
+void StatisticWindow::_setLayout(void)
 {
 
     QWidget* widget = new QWidget;
@@ -114,17 +99,11 @@ void StatisticWindow::setLayout(void)
 
     chartLayout->addWidget(chartView, 0, 1);
 
-    chooseLayout->addWidget(_choosePlayername);
-    chooseLayout->addWidget(_comboBox);
-    chooseLayout->addStretch(1);
-    chooseLayout->addWidget(_category);
-    chooseLayout->addWidget(_winners);
-    chooseLayout->addWidget(_singlePoint);
-    chooseLayout->addWidget(_doublePoint);
-    chooseLayout->addWidget(_triplePoint);
-    chooseLayout->addWidget(_average);
-    chooseLayout->addStretch(1);
+    chooseLayout->addWidget(_createSelectCategoryGroupBox());
+    chooseLayout->addWidget(_createSelectPlayerGroupBox());
+    chooseLayout->addWidget(_createFilterGroupBox());
 
+    chooseLayout->addStretch(1);
 
     chartLayout->addLayout(chooseLayout, 0, 0);
 
@@ -133,34 +112,41 @@ void StatisticWindow::setLayout(void)
     widget->setLayout(mainLayout);
 }
 
-void StatisticWindow::connect(void)
+void StatisticWindow::_connect(void)
 {
+    /*
     QObject::connect(_winners, SIGNAL(clicked()), this, SLOT(showWinnerChart()));
     QObject::connect(_singlePoint, SIGNAL(clicked()), this, SLOT(showSingleChart()));
     QObject::connect(_doublePoint, SIGNAL(clicked()), this, SLOT(showDoubleChart()));
     QObject::connect(_triplePoint, SIGNAL(clicked()), this, SLOT(showTripleChart()));
     QObject::connect(_average, SIGNAL(clicked()), this, SLOT(showAverageChart()));
 
-    QObject::connect(_comboBox, SIGNAL(currentTextChanged(
+    QObject::_connect(_comboBox, SIGNAL(currentTextChanged(
                                                const QString &)), this, SLOT(getPlayerList(
                                                                                      const QString &)));
+*/
 }
 
-void StatisticWindow::getPlayerList(const QString& text)
+void StatisticWindow::_dataChangesDetected()
 {
-
-    QStringList parameterliste = text.split("         ");
-    Player player(parameterliste[0], QDate::fromString(parameterliste[1], "yyyy-MM-dd"), parameterliste[2]);
-    _listWinner = _playerStatistic->gamesWonAndLost(player);
-    _listeAverage = _playerStatistic->averageOfAllLegs(player);
-
+    /*
+    if (_winners->isChecked())
+    {
+        showWinnerChart();
+    } else if (_singlePoint->isChecked())
+    {
+        showSingleChart();
+    } else if (_doublePoint->isChecked())
+    {
+        showDoubleChart();
+    } else if (_triplePoint)
+    {
+        showTripleChart();
+    }
+     */
 }
 
-void StatisticWindow::loadAllPlayersFromDatabase(void)
-{
-
-}
-
+/*
 void StatisticWindow::createChart() const
 {
     QStringList parameterliste = _comboBox->currentText().split("         ");
@@ -175,17 +161,122 @@ void StatisticWindow::createChart() const
 
     series->setPieSize(0.4);
     _chart->addSeries(series);
+}*/
+
+Player StatisticWindow::_getSelectedPlayer()
+{
+    QStringList playerParameters = _comboBox->currentText().split("         ");
+    return Player(playerParameters[0], QDate::fromString(playerParameters[1], "yyyy-MM-dd"), playerParameters[2]);
 }
 
+QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
+{
+    QGroupBox* groupBox = new QGroupBox(tr("Wähle eine kategorie"));
+    _chooseCategoryComboBox = new QComboBox;
+    _chooseCategoryComboBox->setMinimumWidth(400);
+
+    _chooseCategoryComboBox->addItem("Gewinner");
+    _chooseCategoryComboBox->addItem("Single Würfe");
+    _chooseCategoryComboBox->addItem("Double Würfe");
+    _chooseCategoryComboBox->addItem("Triple Würfe");
+    _chooseCategoryComboBox->addItem("Average");
+
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(_chooseCategoryComboBox);
+
+    groupBox->setLayout(layout);
+
+    return groupBox;
+}
+
+QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
+{
+    QGroupBox* groupBox = new QGroupBox(tr("Wähle einen Spieler"));
+    _choosePlayerComboBox = new QComboBox;
+    //_choosePlayerComboBox->addItem("Alle Spieler");
+
+
+    //QStandardItemModel *model = new QStandardItemModel( 0, 2);
+    QStandardItemModel* model = new QStandardItemModel(0, 3);
+
+    model->appendRow(new QStandardItem("Alle Spieler"));
+
+    QList<Player> availablePlayers = _playerManagement->getAllStoredPlayers();
+    for (Player& player : availablePlayers)
+    {
+        QList<QStandardItem*> playerItems;
+        playerItems.append(new QStandardItem(player.getName()));
+        playerItems.append(new QStandardItem(player.getBirthday().toString("yyyy-MM-dd")));
+        playerItems.append(new QStandardItem(player.getCountry()));
+
+        model->appendRow(playerItems);
+    }
+
+    QTableView* tableView = new QTableView();
+    tableView->setModel(model);
+    tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableView->horizontalHeader()->hide();
+    tableView->verticalHeader()->hide();
+
+    _choosePlayerComboBox->setModel(model);
+    _choosePlayerComboBox->setView(tableView);
+
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(_choosePlayerComboBox);
+
+    groupBox->setLayout(layout);
+
+    return groupBox;
+}
+
+QGroupBox* StatisticWindow::_createFilterGroupBox(void)
+{
+    QGroupBox* groupBox = new QGroupBox(tr("Filter"));
+
+    // create tournament combo box
+    _chooseTournamentComboBox = new QComboBox;
+    _chooseTournamentComboBox->setMinimumWidth(400);
+
+    _chooseTournamentComboBox->addItem("Turnier Auswählen");
+
+    // create game combo box
+    _chooseGameComboBox = new QComboBox;
+    _chooseGameComboBox->setMinimumWidth(400);
+
+    _chooseGameComboBox->addItem("Turnier Auswählen");
+
+    // add combo boxes to group box
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addWidget(_chooseTournamentComboBox);
+    layout->addWidget(_chooseGameComboBox);
+
+    groupBox->setLayout(layout);
+
+    return groupBox;
+}
+
+void StatisticWindow::_refreshDiagram(const QMap<QString, int> diagramData)
+{
+    QPieSeries* series = new QPieSeries(_chart);
+
+    for (QString key : diagramData.keys())
+    {
+        series->append(key, diagramData[key]);
+    }
+
+    series->setPieSize(1);
+
+    _chart->removeAllSeries();
+    _chart->addSeries(series);
+}
+
+// #####################################################################################################################
+// all diagram types
+// #####################################################################################################################
 void StatisticWindow::showWinnerChart(void)
 {
-    _chart->removeAllSeries();
-    QPieSeries* series = new QPieSeries(_chart);
-    series->append("Gewonnen", 10);
-    series->append("Verloren", 90);
-
-    series->setPieSize(0.4);
-    _chart->addSeries(series);
+    _refreshDiagram(_playerStatistic->gamesWonAndLost(_getSelectedPlayer()));
 }
 
 void StatisticWindow::showSingleChart(void)
@@ -205,14 +296,20 @@ void StatisticWindow::showTripleChart(void)
 
 void StatisticWindow::showAverageChart(void)
 {
+    /*
     _chart->removeAllSeries();
-    _chart->setTitle("Gewinne eines Legs");
+    _chart->setTitle("Durchschnittspunktzahl");
 
     QLineSeries* series = new QLineSeries(_chart);
-    qDebug() << _listeAverage;
+
+    if (_selectLegRadio->isChecked())
+    {
+
+    }
     series->append(0, 1);
     series->append(1, 2);
     series->append(2, 3);
 
     _chart->addSeries(series);
+     */
 }

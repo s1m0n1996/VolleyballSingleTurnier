@@ -14,6 +14,7 @@ class QRadioButton;
 class Playerstatistics;
 class PlayerManagement;
 class Player;
+class QGroupBox;
 
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
@@ -40,7 +41,6 @@ public slots:
     void showDoubleChart(void);
     void showTripleChart(void);
     void showAverageChart(void);
-    void getPlayerList(const QString &text);
 
 
 private:
@@ -49,29 +49,31 @@ private:
 
     Playerstatistics* _playerStatistic;
     PlayerManagement* _playerManagement;
-    WindowLabel* _choosePlayername = nullptr;
     QComboBox* _comboBox = nullptr;
 
     QChart* _chart = nullptr;
 
-    WindowLabel* _category = nullptr;
-    QRadioButton* _winners = nullptr;
-    QRadioButton* _singlePoint = nullptr;
-    QRadioButton* _doublePoint = nullptr;
-    QRadioButton* _triplePoint = nullptr;
-    QRadioButton* _average     = nullptr;
+    QComboBox* _chooseCategoryComboBox = nullptr;
+    QComboBox* _choosePlayerComboBox = nullptr;
+    QComboBox* _chooseTournamentComboBox = nullptr;
+    QComboBox* _chooseGameComboBox = nullptr;
 
-    QList<int> _list;
-    QList<int> _listWinner;
-    QList<double> _listeAverage;
+    const QString _separator = "    ";
 
-    void createWidgets(void);
 
-    void setLayout(void);
+    void _createWidgets(void);
 
-    void connect(void);
+    void _setLayout(void);
 
-    void loadAllPlayersFromDatabase(void);
+    void _connect(void);
+
+
+    void _dataChangesDetected(void);
+    Player _getSelectedPlayer(void);
+    void _refreshDiagram(const QMap<QString, int> diagramData);
+    QGroupBox* _createSelectCategoryGroupBox(void);
+    QGroupBox* _createSelectPlayerGroupBox(void);
+    QGroupBox* _createFilterGroupBox(void);
 
 };
 
