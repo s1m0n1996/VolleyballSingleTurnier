@@ -11,9 +11,9 @@ class Playerstatistics
 {
 public:
     Playerstatistics();
-    int gamesLostOfPlayer(Player& player);
-    QList<int> gamesWonAndLost(Player& player);
-    QList<double> averageOfAllLegs(Player& player);
+    int gamesLostOfPlayer(const Player& player);
+    QList<int> gamesWonAndLost(const Player& player);
+    QList<double> averageOfAllLegs(const Player& player);
 
 private:
     SqliteConnector* _db;

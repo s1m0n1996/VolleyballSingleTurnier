@@ -7,7 +7,7 @@ Playerstatistics::Playerstatistics()
 }
 
 
-QList<int> Playerstatistics::gamesWonAndLost(Player &player)
+QList<int> Playerstatistics::gamesWonAndLost(const Player &player)
 {
     QList<int> winLoseStatistics;
     Statistics wins;
@@ -18,7 +18,7 @@ QList<int> Playerstatistics::gamesWonAndLost(Player &player)
 }
 
 
-int Playerstatistics::gamesLostOfPlayer(Player& player)
+int Playerstatistics::gamesLostOfPlayer(const Player& player)
 {
     QString sqlPrepare = R"(
                          SELECT *
@@ -37,7 +37,7 @@ int Playerstatistics::gamesLostOfPlayer(Player& player)
 
 
 // Gibt Average von allen Lags jemals an... Das älteste Leg ist das Erste in der Liste
-QList<double> Playerstatistics::averageOfAllLegs(Player& player)
+QList<double> Playerstatistics::averageOfAllLegs(const Player& player)
 {
     QList<double> averages;
     QString sqlPrepare = R"(
