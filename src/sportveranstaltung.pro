@@ -27,6 +27,7 @@ SOURCES += \
     Model/playermanagement.cpp \
     Model/statistics.cpp \
     Model/viewer.cpp \
+    View/createTournamentPopup.cpp \
     View/dartboard.cpp \
     View/gameboardWindow.cpp \
     View/mainmenu.cpp \
@@ -36,7 +37,6 @@ SOURCES += \
     View/refereewindow.cpp \
     View/statisticwindow.cpp \
     View/tabelview.cpp \
-    View/tournamentnamepopup.cpp \
     View/tournamentwindow.cpp \
     View/viewerwindow.cpp \
     View/windowbutton.cpp \
@@ -57,6 +57,7 @@ HEADERS += \
     Model/playermanagement.h \
     Model/statistics.h \
     Model/viewer.h \
+    View/createTournamentPopup.h \
     View/dartboard.h \
     View/gameboardWindow.h \
     View/mainmenu.h \
@@ -66,7 +67,6 @@ HEADERS += \
     View/refereewindow.h \
     View/statisticwindow.h \
     View/tabelview.h \
-    View/tournamentnamepopup.h \
     View/tournamentwindow.h \
     View/viewerwindow.h \
     View/windowbutton.h \

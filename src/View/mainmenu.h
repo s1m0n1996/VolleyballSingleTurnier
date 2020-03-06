@@ -12,7 +12,7 @@ class Referee;
 class RefereepopupWinningLeg;
 class RefereeWindow;
 class SqliteConnector;
-class TournamentNamePopUp;
+class CreateTournamentPopUp;
 class TournamentWindow;
 class ViewerWindow;
 class WindowButton;
@@ -75,7 +75,7 @@ private:
 
     WindowLabel*            _noteDatabase   = nullptr;
     WindowLabel*            _noteTournament = nullptr;
-    TournamentNamePopUp*    _tournamentName = nullptr;
+    CreateTournamentPopUp*    _tournamentName = nullptr;
     LoadTournamentPopup* _loadTournamentPopup;
 
     WindowButton* _playermanagment    = nullptr;

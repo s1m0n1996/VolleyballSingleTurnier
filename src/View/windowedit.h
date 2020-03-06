@@ -18,6 +18,9 @@ class WindowEdit: public QLineEdit
 {
 public:
     WindowEdit(QString placeholder, DataType dataType, QWidget *parent = nullptr);
+    void setTournamentPopUpStyle(void);
+
+
 };
 
 #endif // WINDOWEDIT_H

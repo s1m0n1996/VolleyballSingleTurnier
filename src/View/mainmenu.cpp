@@ -18,7 +18,7 @@
 #include "View/statisticwindow.h"
 #include "View/refereepopupwinningleg.h"
 #include "View/tournamentwindow.h"
-#include "View/tournamentnamepopup.h"
+#include "View/createTournamentPopup.h"
 #include "View/viewerwindow.h"
 #include "View/windowbutton.h"
 #include "View/windowlabel.h"
@@ -177,7 +177,7 @@ void MainMenu::setButtonEnableState()
 
 void MainMenu::createTournament()
 {
-    _tournamentName = new TournamentNamePopUp;
+    _tournamentName = new CreateTournamentPopUp;
     _tournamentName->show();
 }
 

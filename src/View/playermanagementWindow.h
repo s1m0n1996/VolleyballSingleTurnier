@@ -75,8 +75,9 @@ private:
     TableView* _gamePlayerTableView         = nullptr;
     TableView* _deletedPlayersTableView     = nullptr;
 
-    QMenu*        _menuDelete= nullptr;
+    QMenu*        _menuDelete                    = nullptr;
     QAction*      _deletePlayerInAllTournament   = nullptr;
+    QAction*      _addPhotoAction                = nullptr;
     WindowButton* _addPlayerForNewTournament     = nullptr;
     WindowButton* _deletePlayerForNewTournament  = nullptr;
 
@@ -101,5 +102,6 @@ private:
     WindowButton* _startTournamentButton    = nullptr;
 
     QAction* _showDeletedPlayersAction;
+
 };
 #endif // PLAYERMANAGMENT_H

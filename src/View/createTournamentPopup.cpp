@@ -1,7 +1,7 @@
-#include "tournamentnamepopup.h"
+#include "createTournamentPopup.h"
 #include "View/mainmenu.h"
 
-TournamentNamePopUp::TournamentNamePopUp(QWidget* parent) : QWidget(parent)
+CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 {
     _gameManagement = &GameManagement::instance();
     setWindowTitle("Turnier erstellen");
@@ -12,6 +12,7 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget* parent) : QWidget(parent)
 
     _nameLabel = new WindowLabel("Turniername");
     _nameEdit = new WindowEdit("Turniername", DataType::name);
+    _nameEdit->setTournamentPopUpStyle();
 
     _createTournament = new WindowButton("Erstelle Turnier");
 
@@ -31,7 +32,7 @@ TournamentNamePopUp::TournamentNamePopUp(QWidget* parent) : QWidget(parent)
 }
 
 
-void TournamentNamePopUp::openTournamentWindow(void)
+void CreateTournamentPopUp::openTournamentWindow(void)
 {
     setWindowFlags(Qt::Window);
     QString tournamentName = _nameEdit->text();

@@ -153,6 +153,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
             QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd"), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newplayer);
 
+
     _playernameEdit->clear();
     _birthdayEdit->clear();
     _countryEdit->clear();
@@ -164,10 +165,14 @@ void PlayermanagementWindow::addPlayerToDatabase()
 void PlayermanagementWindow::createDeleteMenu()
 {
     QAction* deletePlayer = new QAction("Löschen", this);
+    _addPhotoAction       = new QAction("Foto hinzufügen");
     connect(deletePlayer, SIGNAL(triggered()), this, SLOT(deletePlayer()));
+    connect(_addPhotoAction, SIGNAL(triggered()), this, SLOT(addPhoto()));
 
     QMenu* deleteMenu = new QMenu(this);
     deleteMenu->addAction(deletePlayer);
+    deleteMenu->addSeparator();
+    deleteMenu->addAction(_addPhotoAction);
 
     deleteMenu->exec(QCursor::pos());
 }
@@ -229,6 +234,8 @@ void PlayermanagementWindow::restorePlayer()
 
 void PlayermanagementWindow::addPhoto()
 {
+    QAbstractItemModel* deletedPlayersModel = _deletedPlayersTableView->model();
+    QModelIndexList selectedRows = _deletedPlayersTableView->selectionModel()->selectedRows();
     QString path = QFileDialog::getOpenFileName(this,
                                         tr("Bild laden"), "",
                                         tr("Photo File (*.png) ;; All Files (*.*)"));
@@ -237,11 +244,24 @@ void PlayermanagementWindow::addPhoto()
     QFile file(path);
     if (file.exists())
     {
+        qDebug()<<"LEa";
         file.open(QIODevice::ReadOnly);
         QByteArray byteArray = file.readAll();
+        Player* activePlayer;
+
 
         // TODO: player im View auswählen und dem entsprechend ausgewählten übergeben!!!
-        Player(1).savePicture(byteArray);
+
+        for (QModelIndex index : selectedRows)
+        {
+           activePlayer = new Player(
+                    deletedPlayersModel->index(index.row(), 0).data().toString(),
+                    deletedPlayersModel->index(index.row(), 1).data().toDate(),
+                    deletedPlayersModel->index(index.row(), 2).data().toString());
+           qDebug()<<deletedPlayersModel->index(index.row(), 0).data().toString();
+        }
+
+        activePlayer->savePicture(byteArray);
         file.close();
     }
 }
@@ -346,6 +366,7 @@ void PlayermanagementWindow::createWidges()
 
     _showDeletedPlayersAction = new QAction("Gelöschte Spieler");
 
+
     _menuDelete->addAction(_showDeletedPlayersAction);
 
 
@@ -429,9 +450,7 @@ void PlayermanagementWindow::setAllLayout()
 
     _addPlayer->setLayout(addPlayerLayout);
 
-
     tournamentStartLayout->addWidget(_startTournamentButton,Qt::AlignRight, Qt::AlignBottom, Qt::AlignBottom);
-
 
     bottomLayout->addWidget(_addPlayer);
     bottomLayout->addStretch();

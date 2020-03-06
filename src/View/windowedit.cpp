@@ -45,3 +45,11 @@ WindowEdit::WindowEdit(QString placeholder, DataType dataType, QWidget* parent) 
 
     setValidator(validator);
 }
+
+void WindowEdit::setTournamentPopUpStyle()
+{
+    QRegExpValidator* validator = new QRegExpValidator();
+    QRegExp re("[a-zA-Z 0-9]*");
+    validator->setRegExp(re);
+    setValidator(validator);
+}
