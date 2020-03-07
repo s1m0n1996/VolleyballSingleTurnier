@@ -36,6 +36,7 @@ set(MOC_HEADERS
         Model/viewer.h
         View/createTournamentPopup.h
         View/dartboard.h
+        View/dartboardviewer.h
         View/gameboardWindow.h
         View/mainmenu.h
         View/playermanagementWindow.h
@@ -67,6 +68,7 @@ set(SOURCES
         Model/viewer.cpp
         View/createTournamentPopup.cpp
         View/dartboard.cpp
+        View/dartboardviewer.cpp
         View/gameboardWindow.cpp
         View/mainmenu.cpp
         View/playermanagementWindow.cpp
