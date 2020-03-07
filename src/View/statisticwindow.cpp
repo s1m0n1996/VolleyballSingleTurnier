@@ -37,8 +37,9 @@ QT_CHARTS_USE_NAMESPACE
 StatisticWindow::StatisticWindow(QWidget* parent) :
         QMainWindow(parent)
 {
-    _playerStatistic = new Playerstatistics;
+    _playerStatistic = new PlayerStatistics;
     _playerManagement = new PlayerManagement;
+    _gameManagement = &GameManagement::instance();
 
     setWindowTitle("Statistik");
     setWindowIcon(QIcon(":/img/statistic.png"));
@@ -50,18 +51,16 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
 
     QPieSeries* series = new QPieSeries(_chart);
 
-    series->append("Spieler 1", 10);
-    series->append("Spieler 2", 20);
-    series->append("Spieler 3", 40);
-    series->append("Spieler 4", 50);
-    series->append("Spieler 5", 34);
-
     series->setPieSize(1);
 
-    _chart->removeAllSeries();
-    _chart->addSeries(series);
+    _dataChangesDetected();
 }
 
+/*!
+ * \brief Erstelle benötigte Widgets
+ *
+ * In dieser Methode werden alle benötigten widgets erstellt.
+ */
 void StatisticWindow::_createWidgets(void)
 {
     _colorLabel = new QLabel;
@@ -69,18 +68,15 @@ void StatisticWindow::_createWidgets(void)
     _title = new WindowLabel("Statistik");
     _title->setMainTitleStyle();
 
-    _choosePlayername = new WindowLabel("Wähle einen Spieler");
-    _comboBox = new QComboBox;
-    _comboBox->setMaximumHeight(50);
-    _comboBox->setMinimumWidth(400);
-    _comboBox->setStyleSheet("QComboBox{"
-                             "font-size: 20px;"
-                             "font-family: Candara;}");
-
     _chart = new QChart();
     _chart->setAnimationOptions(QChart::SeriesAnimations);
 }
 
+/*!
+ * \brief Setze layout aller widgets
+ *
+ * In dieser Methode werden alle Layouts gesetzt.
+ */
 void StatisticWindow::_setLayout(void)
 {
 
@@ -112,63 +108,24 @@ void StatisticWindow::_setLayout(void)
     widget->setLayout(mainLayout);
 }
 
+/*!
+ * \brief Connect Signale und Slots
+ *
+ * In dieser Methode werden alle Signale und Slots verbunden.
+ */
 void StatisticWindow::_connect(void)
 {
-    /*
-    QObject::connect(_winners, SIGNAL(clicked()), this, SLOT(showWinnerChart()));
-    QObject::connect(_singlePoint, SIGNAL(clicked()), this, SLOT(showSingleChart()));
-    QObject::connect(_doublePoint, SIGNAL(clicked()), this, SLOT(showDoubleChart()));
-    QObject::connect(_triplePoint, SIGNAL(clicked()), this, SLOT(showTripleChart()));
-    QObject::connect(_average, SIGNAL(clicked()), this, SLOT(showAverageChart()));
-
-    QObject::_connect(_comboBox, SIGNAL(currentTextChanged(
-                                               const QString &)), this, SLOT(getPlayerList(
-                                                                                     const QString &)));
-*/
+    connect(_chooseCategoryComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(_dataChangesDetected()));
+    connect(_choosePlayerComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(_dataChangesDetected()));
+    connect(_chooseTournamentComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(_dataChangesDetected()));
 }
 
-void StatisticWindow::_dataChangesDetected()
-{
-    /*
-    if (_winners->isChecked())
-    {
-        showWinnerChart();
-    } else if (_singlePoint->isChecked())
-    {
-        showSingleChart();
-    } else if (_doublePoint->isChecked())
-    {
-        showDoubleChart();
-    } else if (_triplePoint)
-    {
-        showTripleChart();
-    }
-     */
-}
-
-/*
-void StatisticWindow::createChart() const
-{
-    QStringList parameterliste = _comboBox->currentText().split("         ");
-    Player player(parameterliste[0], QDate::fromString(parameterliste[1], "yyyy-MM-dd"), parameterliste[2]);
-    qDebug() << parameterliste;
-    qDebug() << _playerStatistic->gamesWonAndLost(player);
-    QList<int> _list = _playerStatistic->gamesWonAndLost(player);
-
-    QPieSeries* series = new QPieSeries(_chart);
-    series->append("Gewonnen", _list[0] + 1);
-    series->append("Verloren", _list[1] + 2);
-
-    series->setPieSize(0.4);
-    _chart->addSeries(series);
-}*/
-
-Player StatisticWindow::_getSelectedPlayer()
-{
-    QStringList playerParameters = _comboBox->currentText().split("         ");
-    return Player(playerParameters[0], QDate::fromString(playerParameters[1], "yyyy-MM-dd"), playerParameters[2]);
-}
-
+/*!
+ * \brief Erstelle Dropdown Menü um die Daten auszuwählen
+ *
+ * In dieser Methode wird ein Drop down Menü in einer Group box erstellt, um eine Karegory der
+ * angezeigten Daten auszuwählen
+ */
 QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle eine kategorie"));
@@ -189,14 +146,16 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     return groupBox;
 }
 
+/*!
+ * \brief Erstelle Dropdown Menü um die Spieler auszuwählen
+ *
+ * In dieser Methode wird ein Drop down Menü in einer Group box erstellt, um einen Spieler auszuwählen
+ */
 QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle einen Spieler"));
     _choosePlayerComboBox = new QComboBox;
-    //_choosePlayerComboBox->addItem("Alle Spieler");
 
-
-    //QStandardItemModel *model = new QStandardItemModel( 0, 2);
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
     model->appendRow(new QStandardItem("Alle Spieler"));
@@ -230,33 +189,155 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
     return groupBox;
 }
 
+/*!
+ * \brief Erstelle Dropdown Menü um nach einem Turnier zu Filtern
+ *
+ * In dieser Methode wird ein Drop down Menü in einer Group box erstellt, um die Daten weiter zu filtern.
+ */
 QGroupBox* StatisticWindow::_createFilterGroupBox(void)
 {
-    QGroupBox* groupBox = new QGroupBox(tr("Filter"));
+    QGroupBox* groupBox = new QGroupBox(tr("Wähle ein Turnier aus"));
 
     // create tournament combo box
     _chooseTournamentComboBox = new QComboBox;
     _chooseTournamentComboBox->setMinimumWidth(400);
 
-    _chooseTournamentComboBox->addItem("Turnier Auswählen");
+    QStandardItemModel* model = new QStandardItemModel(0, 3);
 
-    // create game combo box
+    model->appendRow(new QStandardItem("Turnier Auswählen"));
+
+    QList<QList<QString>> tournaments = _gameManagement->getSavedTournaments();
+    for (QList<QString> tournament : tournaments)
+    {
+        QList<QStandardItem*> tournamentItems;
+        tournamentItems.append(new QStandardItem(tournament[0]));
+        tournamentItems.append(new QStandardItem(tournament[1]));
+        tournamentItems.append(new QStandardItem(tournament[2]));
+
+        model->appendRow(tournamentItems);
+    }
+
+    QTableView* tableView = new QTableView();
+    tableView->setModel(model);
+    tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableView->horizontalHeader()->hide();
+    tableView->verticalHeader()->hide();
+    tableView->hideColumn(2);
+
+    _chooseTournamentComboBox->setModel(model);
+    _chooseTournamentComboBox->setView(tableView);
+
+
+    /*// create game combo box
     _chooseGameComboBox = new QComboBox;
     _chooseGameComboBox->setMinimumWidth(400);
 
-    _chooseGameComboBox->addItem("Turnier Auswählen");
+    _chooseGameComboBox->addItem("Spiel Auswählen");
+    */
 
     // add combo boxes to group box
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_chooseTournamentComboBox);
-    layout->addWidget(_chooseGameComboBox);
+    // layout->addWidget(_chooseGameComboBox);
 
     groupBox->setLayout(layout);
 
     return groupBox;
 }
 
-void StatisticWindow::_refreshDiagram(const QMap<QString, int> diagramData)
+// #####################################################################################################################
+// combo box changed
+//
+// hier werden die drop down menüs nach ihrem aktuellen wert gefragt
+// #####################################################################################################################
+
+/*!
+ * \brief Aktualisiere aktuell ausgewählten Spieler
+ *
+ * In dieser Methode wird die Membervariable des aktuellen Spielers  Aktualisiert.
+ * Es wird der wert des Drop down Menüs in die Membervariable geschrieben.
+ */
+void StatisticWindow::_refreshSelectedPlayer()
+{
+    if (_selectedPlayer)
+    {
+        delete _selectedPlayer;
+        _selectedPlayer = nullptr;
+    }
+
+
+    // no player selected
+    if (_choosePlayerComboBox->currentIndex() == 0)
+    {
+        return;
+    }
+
+    QAbstractItemModel* playerModel = _choosePlayerComboBox->view()->model();
+
+    _selectedPlayer = new Player(
+            playerModel->index(_choosePlayerComboBox->currentIndex(), 0).data().toString(),
+            playerModel->index(_choosePlayerComboBox->currentIndex(), 1).data().toDate(),
+            playerModel->index(_choosePlayerComboBox->currentIndex(), 2).data().toString()
+    );
+}
+
+/*!
+ * \brief Aktueller Diagrammtyp
+ *
+ * \return Es wird die aktuell ausgewählte Kategorie als ENUM zurückgegeben
+ *
+ * In dieser Methode wird die aktuell ausgewählte kategorie des Drop down Menüs als ENUM zurückgegeben.
+ */
+statistic::type StatisticWindow::_getSelectedChartType(void)
+{
+    if (_chooseCategoryComboBox->currentText() == "Gewinner")
+    {
+        return statistic::type::Winner;
+    }
+    else if (_chooseCategoryComboBox->currentText() == "Single Würfe")
+    {
+        return statistic::type::Singles;
+    }
+    else if (_chooseCategoryComboBox->currentText() == "Double Würfe")
+    {
+        return statistic::type::Doubles;
+    }
+    else if (_chooseCategoryComboBox->currentText() == "Triple Würfe")
+    {
+        return statistic::type::Triples;
+    }
+}
+
+/*!
+ * \brief Aktuell ausgewählte Turnier Id
+ *
+ * \return es Wird die aktuell ausgewählte Turnier Id zurückgegeben
+ *
+ * In dieser Methode wird die aktuell ausgewählte Turnier Id des Drop down Menüs zurückgegeben.
+ */
+int StatisticWindow::_getSelectedTournamentId()
+{
+    // no tournament selected
+    if (_chooseTournamentComboBox->currentIndex() == 0)
+    {
+        return -1;
+    }
+
+    QAbstractItemModel* tournamentModel = _chooseTournamentComboBox->view()->model();
+
+    return tournamentModel->index(_chooseTournamentComboBox->currentIndex(), 2).data().toInt();
+}
+
+/*!
+ * \brief Aktualisiere Diagramm
+ *
+ * \param[in] diagramData Map mit dem Diagrammdaten
+ *
+ * In dieser Methode wird das Tortendiagramm aktualisiert. Dabei dient der key, der eingegebenen Map als Beschriftung
+ * und der dazugehärige Wert repräsentiert den Wert des Diagramms.
+ */
+void StatisticWindow::_refreshDiagram(const QMap<QString, double> diagramData)
 {
     QPieSeries* series = new QPieSeries(_chart);
 
@@ -272,28 +353,102 @@ void StatisticWindow::_refreshDiagram(const QMap<QString, int> diagramData)
 }
 
 // #####################################################################################################################
-// all diagram types
+// detect data change
 // #####################################################################################################################
-void StatisticWindow::showWinnerChart(void)
+
+/*!
+ * \brief Änderung erkannt
+ *
+ * Diese Methode ist verbunden mit allen drop down Menüs. Wenn ein Wert geändert wird wird diese Methode aufgerufen.
+ * Es werden alle drop down Menüs abgefragt und das Diagramm wird neu erstellt.
+ */
+void StatisticWindow::_dataChangesDetected(void)
 {
-    _refreshDiagram(_playerStatistic->gamesWonAndLost(_getSelectedPlayer()));
+    _refreshSelectedPlayer();
+
+    switch (_getSelectedChartType())
+    {
+        case statistic::type::Winner:
+            showWinnerChart();
+            break;
+        case statistic::type::Singles:
+            showSingleChart();
+            break;
+        case statistic::type::Doubles:
+            showDoubleChart();
+            break;
+        case statistic::type::Triples:
+            showTripleChart();
+            break;
+        case statistic::type::Average:
+            showAverageChart();
+            break;
+    }
 }
 
+// #####################################################################################################################
+// all diagram types
+// #####################################################################################################################
+/*!
+ * \brief Zeige Gewinner Statistik
+ *
+ * In dieser Methode werden die passenden Daten der gewinner Statistik geholt.
+ */
+void StatisticWindow::showWinnerChart(void)
+{
+    if (!_selectedPlayer && _getSelectedTournamentId() < 0)
+    {
+        _refreshDiagram(_playerStatistic->getWinningStatistic());
+    }
+    else if (_selectedPlayer && _getSelectedTournamentId() < 0)
+    {
+        _refreshDiagram(_playerStatistic->getWinningStatistic(_selectedPlayer));
+    }
+    else if (!_selectedPlayer && _getSelectedTournamentId() >= 0)
+    {
+        _refreshDiagram(_playerStatistic->getWinningStatistic(_getSelectedTournamentId()));
+    }
+    else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
+    {
+        _refreshDiagram((_playerStatistic->getWinningStatistic(_selectedPlayer, _getSelectedTournamentId())));
+    }
+}
+
+/*!
+ * \brief Zeige Single Statistik
+ *
+ * In dieser Methode werden die passenden Daten der gewinner Statistik geholt.
+ */
 void StatisticWindow::showSingleChart(void)
 {
 
 }
 
+/*!
+ * \brief Zeige Double Statistik
+ *
+ * In dieser Methode werden die passenden Daten der Double Statistik geholt.
+ */
 void StatisticWindow::showDoubleChart(void)
 {
 
 }
 
+/*!
+ * \brief Zeige Triple Statistik
+ *
+ * In dieser Methode werden die passenden Daten der Triple Statistik geholt.
+ */
 void StatisticWindow::showTripleChart(void)
 {
 
 }
 
+/*!
+ * \brief Zeige Average Statistik
+ *
+ * In dieser Methode werden die passenden Daten der Average Statistik geholt.
+ */
 void StatisticWindow::showAverageChart(void)
 {
     /*

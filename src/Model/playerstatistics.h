@@ -5,15 +5,27 @@
 #include "Model/player.h"
 #include "Model/gameManagement.h"
 #include "Model/statistics.h"
+#include <QMap>
 
-
-class Playerstatistics
+/*!
+ * \file playerstatistic.h
+ * \author Simon Flörke
+ * \brief Holt alle Daten Für das Statistic Fenster
+ *
+ * Diese klasse holt alle Daten, um diese im Statistik Fenster anzuzeigen.
+ *
+*/
+class PlayerStatistics
 {
 public:
-    Playerstatistics();
-    int gamesLostOfPlayer(const Player& player);
-    QList<int> gamesWonAndLost(const Player& player);
-    QList<double> averageOfAllLegs(const Player& player);
+    PlayerStatistics();
+
+    QMap<QString, double> getWinningStatistic(void);
+    QMap<QString, double> getWinningStatistic(const Player* player);
+    QMap<QString, double> getWinningStatistic(const int tournamentId);
+    QMap<QString, double> getWinningStatistic(const Player* player, const int tournamentId);
+
+    QList<double> averageOfAllLegs(Player& player);
 
 private:
     SqliteConnector* _db;

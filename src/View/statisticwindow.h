@@ -10,8 +10,7 @@ class WindowEdit;
 class WindowLabel;
 class GameManagement;
 class QComboBox;
-class QRadioButton;
-class Playerstatistics;
+class PlayerStatistics;
 class PlayerManagement;
 class Player;
 class QGroupBox;
@@ -25,14 +24,20 @@ class QChartView;
 class QChart;
 QT_CHARTS_END_NAMESPACE
 
+namespace statistic
+{
+    enum type
+    {
+        Winner, Singles, Doubles, Triples, Average
+    };
+}
 
 QT_CHARTS_USE_NAMESPACE
 class StatisticWindow :  public QMainWindow
 {
     Q_OBJECT
 public:
-    StatisticWindow(QWidget *parent = nullptr);
-    void createChart() const;
+    explicit StatisticWindow(QWidget *parent = nullptr);
 
 signals:
 public slots:
@@ -41,40 +46,38 @@ public slots:
     void showDoubleChart(void);
     void showTripleChart(void);
     void showAverageChart(void);
+    void _dataChangesDetected(void);
 
 
 private:
     QLabel*         _colorLabel = nullptr;
     WindowLabel*    _title      = nullptr;
 
-    Playerstatistics* _playerStatistic;
+    PlayerStatistics* _playerStatistic;
     PlayerManagement* _playerManagement;
-    QComboBox* _comboBox = nullptr;
+    GameManagement* _gameManagement;
 
     QChart* _chart = nullptr;
 
     QComboBox* _chooseCategoryComboBox = nullptr;
     QComboBox* _choosePlayerComboBox = nullptr;
     QComboBox* _chooseTournamentComboBox = nullptr;
-    QComboBox* _chooseGameComboBox = nullptr;
+    // QComboBox* _chooseGameComboBox = nullptr;
 
-    const QString _separator = "    ";
-
+    Player* _selectedPlayer = nullptr;
 
     void _createWidgets(void);
-
     void _setLayout(void);
-
     void _connect(void);
 
-
-    void _dataChangesDetected(void);
-    Player _getSelectedPlayer(void);
-    void _refreshDiagram(const QMap<QString, int> diagramData);
+    void _refreshSelectedPlayer(void);
+    void _refreshDiagram(const QMap<QString, double> diagramData);
     QGroupBox* _createSelectCategoryGroupBox(void);
     QGroupBox* _createSelectPlayerGroupBox(void);
     QGroupBox* _createFilterGroupBox(void);
 
+    statistic::type _getSelectedChartType(void);
+    int _getSelectedTournamentId(void);
 };
 
 #endif // STATISTICWINDOW_H
