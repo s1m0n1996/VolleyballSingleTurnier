@@ -170,7 +170,7 @@ LIMIT 1
 QList<QList<QString>> GameManagement::getSavedTournaments(void)
 {
     QString sqlPrepare = R"(
-SELECT name, date
+SELECT name, date, id
 FROM tournament_list
 WHERE sport_type_id = :sportTypeId
   AND game_mode_id = :gameModeId
@@ -193,7 +193,7 @@ WHERE sport_type_id = :sportTypeId
     for (QList<QVariant>& tournament : rawData)
     {
         savedTournaments.append(QList<QString>(
-                {tournament[0].toString(), tournament[1].toString()}));
+                {tournament[0].toString(), tournament[1].toString(), tournament[2].toString()}));
     }
     return savedTournaments;
 }
