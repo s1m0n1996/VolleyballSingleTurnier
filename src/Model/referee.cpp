@@ -136,6 +136,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
 {
     if (_throwCounter < 3)
     {
+        _throwScoreWithoutMulti = scoreWithoutMultiplikator;
         _singleThrowScore = scoreWithoutMultiplikator * valueMultiplikator;
         _allThrows[_throwCounter] = _singleThrowScore;
         _valueMultiplikator = valueMultiplikator;
@@ -254,6 +255,16 @@ void Referee::remainingThrowsAreZeroInLeg()
     }
 }
 
+int Referee::valueMultiplikator()
+{
+    return _valueMultiplikator;
+}
+
+int Referee::throwScoreWithoutMulti()
+{
+    return _throwScoreWithoutMulti;
+}
+
 /*!
  * \brief Setzt den zu letzt geworfenen Wurf zurück.
  *
@@ -297,11 +308,13 @@ void Referee::undoThrow()
 
     if (0 < _throwCounter)
     {
+
         // last throw is actual throw - 1
         _remainScore[_player] = _remainScore[_player] + _allThrows[_throwCounter - 1];
         _allThrows[_throwCounter - 1] = 0;
         _throwCounter--;
     }
+
     scoreIsUnder170InLeg();
     emit valueChanged();
 }

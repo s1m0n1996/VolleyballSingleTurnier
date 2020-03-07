@@ -5,9 +5,12 @@
 #include <QObject>
 #include <QJsonObject>
 #include <QFile>
+#include <QGraphicsScene>
+
 
 #include "Model/referee.h"
 #include "Model/viewer.h"
+#include "View/dartboardviewer.h"
 
 namespace Ui {
 class ViewerWindow;
@@ -30,6 +33,9 @@ private:
     Referee* _referee;
     Viewer* _viewer;
     QList<QString> _listWithHowToFinishLeg;
+    QGraphicsScene* scene = new QGraphicsScene;
+
+    DartboardViewer* test = new DartboardViewer(_referee);
     int _player1 = 0;
     int _player2 = 0;
     int _aktivePlayer = 0;

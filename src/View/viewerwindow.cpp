@@ -1,5 +1,8 @@
 #include "viewerwindow.h"
 #include "ui_viewerWindow.h"
+#include "Model/statistics.h"
+#include "View/dartboardviewer.h"
+#include <QGraphicsScene>
 
 ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     QMainWindow(parent),
@@ -32,6 +35,12 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     ui->photoPlayer2->setScaledContents(true);
     ui->photoPlayer2->resize(175,175);
     ui->photoPlayer2->setPixmap(QPixmap(":/img/user.png"));
+
+    test->setPos(0, 0);
+    scene->addItem(test);
+
+    ui->graphicsView->setScene(scene);
+
 }
 
 ViewerWindow::~ViewerWindow()
@@ -40,12 +49,17 @@ ViewerWindow::~ViewerWindow()
 }
 
 void ViewerWindow::writeScore()
-{
+{   
+    scene->update(0,0,20,10);
+
     _player1 = _referee->getAllPlayersForViewer()[0];
     _player2 = _referee->getAllPlayersForViewer()[1];
 
     Player playerA(_player1);
     Player playerB(_player2);
+
+    Statistics statisticsPlayerA;
+    Statistics statisticsPlayerB;
 
     ui->nameOfPlayer1->setText(playerA.getName());
     ui->nameOfPlayer2->setText(playerB.getName());
@@ -76,6 +90,8 @@ void ViewerWindow::writeScore()
 
     ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
     ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
+    ui->averageOfPlayer1->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerA)));
+    ui->averageOfPlayer2->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerB)));
 }
 
 

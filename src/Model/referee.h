@@ -45,6 +45,8 @@ public:
     // Methoden für den Zuschauer
     void scoreIsUnder170InLeg();
     void remainingThrowsAreZeroInLeg();
+    int valueMultiplikator();
+    int throwScoreWithoutMulti();
     QList<int> getRemainScoreForViewer();
     QList<int> getAllPlayersForViewer();
 
@@ -64,6 +66,7 @@ private:
     void setWinner();
 
      int _valueMultiplikator        = 0;
+     int _throwScoreWithoutMulti    = 0;
      int _singleThrowScore          = 0;
      int _throwCounter              = 0;
      int _player                    = 0;
