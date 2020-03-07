@@ -17,6 +17,7 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5 COMPONENTS Core REQUIRED)
 find_package(Qt5 COMPONENTS Sql REQUIRED)
 find_package(Qt5 COMPONENTS Gui REQUIRED)
+find_package(Qt5 COMPONENTS Charts REQUIRED)
 
 include_directories(../doc)
 include_directories(../)
@@ -27,11 +28,13 @@ set(MOC_HEADERS
         Model/gameboard.h
         Model/model.h
         Model/player.h
+        Model/playerstatistics.h
         Model/referee.h
         Model/sqliteConnector.h
         Model/playermanagement.h
         Model/statistics.h
         Model/viewer.h
+        View/createTournamentPopup.h
         View/dartboard.h
         View/gameboardWindow.h
         View/mainmenu.h
@@ -41,7 +44,6 @@ set(MOC_HEADERS
         View/refereewindow.h
         View/statisticwindow.h
         View/tabelview.h
-        View/tournamentnamepopup.h
         View/tournamentwindow.h
         View/viewerwindow.h
         View/windowbutton.h
@@ -57,11 +59,13 @@ set(SOURCES
         Model/gameboard.cpp
         Model/model.cpp
         Model/player.cpp
+        Model/playerstatistics.cpp
         Model/referee.cpp
         Model/sqliteConnector.cpp
         Model/playermanagement.cpp
         Model/statistics.cpp
         Model/viewer.cpp
+        View/createTournamentPopup.cpp
         View/dartboard.cpp
         View/gameboardWindow.cpp
         View/mainmenu.cpp
@@ -71,7 +75,6 @@ set(SOURCES
         View/refereewindow.cpp
         View/statisticwindow.cpp
         View/tabelview.cpp
-        View/tournamentnamepopup.cpp
         View/tournamentwindow.cpp
         View/viewerwindow.cpp
         View/windowbutton.cpp
@@ -106,3 +109,4 @@ target_link_libraries(Sportveranstaltung Qt5::Widgets)
 target_link_libraries(Sportveranstaltung Qt5::Core)
 target_link_libraries(Sportveranstaltung Qt5::Sql)
 target_link_libraries(Sportveranstaltung Qt5::Gui)
+target_link_libraries(Sportveranstaltung Qt5::Charts)
