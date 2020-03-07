@@ -15,7 +15,7 @@ Game::Game():_playerA(2),_playerB(4)
 void Game::loadNextGame()
 {
 
-    QString sqlPrepare = R"(SELECT *
+    QString sqlPrepare = R"(SELECT id, player_a_id, player_b_id
                          FROM game_board_list
                          WHERE sport_type_id = :sportTypeId
                            AND game_mode_id = :gameModeId
@@ -36,11 +36,15 @@ void Game::loadNextGame()
         _isLastgame = true;
         return;
     }
-    Player playerA(newGame[0][5].toInt());
-    _playerA = playerA;
-    Player playerB(newGame[0][6].toInt());
-    _playerB = playerB;
-    _gameId = newGame[0][0].toInt();
+
+    if (newGame[0][1] > 0)
+    {
+        _playerA = Player(newGame[0][1].toInt());
+    }
+    if (newGame[0][2] > 0)
+    {
+        _playerB = Player(newGame[0][2].toInt());
+    }
 }
 
 
