@@ -381,9 +381,17 @@ void StatisticWindow::_refreshPieDiagram(const QMap<QString, double>& diagramDat
 {
     QPieSeries* series = new QPieSeries(_chart);
 
+    // sort data by value
+    QList<QPair<double, QString>> invertedMap;
     for (QString key : diagramData.keys())
     {
-        *series << new DrilldownSlice(diagramData[key], key, series);
+        invertedMap.append(QPair<double, QString>(diagramData[key], key));
+    }
+    qSort(invertedMap);
+
+    for (auto data : invertedMap)
+    {
+        *series << new DrilldownSlice(data.first, data.second, series);
     }
 
     series->setPieSize(0.7);
