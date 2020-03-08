@@ -25,6 +25,11 @@ public:
     QMap<QString, double> getWinningStatistic(const int tournamentId);
     QMap<QString, double> getWinningStatistic(const Player* player, const int tournamentId);
 
+    QMap<int, QMap<QDateTime, double>> getThrowHistory(void);
+    QMap<int, QMap<QDateTime, double>> getThrowHistory(const Player* player);
+    QMap<int, QMap<QDateTime, double>> getThrowHistory(const int tournamentId);
+    QMap<int, QMap<QDateTime, double>> getThrowHistory(const Player* player, const int tournamentId);
+
     QList<double> averageOfAllLegs(Player& player);
 
 private:

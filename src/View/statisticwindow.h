@@ -17,6 +17,7 @@ class QGroupBox;
 
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
+#include <QtCharts/QLineSeries>
 
 
 QT_CHARTS_BEGIN_NAMESPACE
@@ -28,7 +29,7 @@ namespace statistic
 {
     enum type
     {
-        Winner, Singles, Doubles, Triples, Average
+        Winner, Singles, Doubles, Triples, History
     };
 }
 
@@ -58,6 +59,7 @@ private:
     GameManagement* _gameManagement;
 
     QChart* _chart = nullptr;
+    QList<QLineSeries*> _seriesList;
 
     QComboBox* _chooseCategoryComboBox = nullptr;
     QComboBox* _choosePlayerComboBox = nullptr;
@@ -71,7 +73,8 @@ private:
     void _connect(void);
 
     void _refreshSelectedPlayer(void);
-    void _refreshDiagram(const QMap<QString, double> diagramData);
+    void _refreshPieDiagram(const QMap<QString, double>& diagramData);
+    void _refreshLineDiagram(const QMap<int, QMap<QDateTime, double>>& diagramData);
     QGroupBox* _createSelectCategoryGroupBox(void);
     QGroupBox* _createSelectPlayerGroupBox(void);
     QGroupBox* _createFilterGroupBox(void);

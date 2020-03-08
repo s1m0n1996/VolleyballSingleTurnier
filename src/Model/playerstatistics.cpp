@@ -262,6 +262,179 @@ FROM (
     return winLoseStatistic;
 }
 
+/*!
+ * \brief Gibt alle geworfenen Punkte mit Zeitstempel zurück
+ *
+ * \return alle geworfenen Würfe mit zeitstempel
+ *
+ */
+QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(void)
+{
+    QString sqlPrepare = R"(
+SELECT player_id
+FROM leg_history_list
+GROUP BY player_id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+
+    QList<int> playerIds;
+    for (QList<QVariant>& playerId : _db->sqlQuery(sqlQuery))
+    {
+        playerIds.append(playerId[0].toInt());
+    }
+
+
+    sqlPrepare = R"(
+SELECT time, value_type_id * value AS points
+FROM leg_history_list
+WHERE player_id = :playerId
+)";
+
+    QMap<int, QMap<QDateTime, double>> playerStatistic;
+
+    for (int playerId : playerIds)
+    {
+        sqlQuery.clear();
+        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.bindValue(":playerId", playerId);
+
+        QMap<QDateTime, double> throwHistory;
+
+        for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
+        {
+            throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+        }
+
+        playerStatistic[playerId] = throwHistory;
+    }
+
+    return playerStatistic;
+}
+
+/*!
+ * \brief Gibt alle geworfenen Punkte mit Zeitstempel zurück
+ *
+ * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
+ *
+ * \return alle geworfenen Würfe mit zeitstempel
+ *
+ */
+QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(const int tournamentId)
+{
+    QString sqlPrepare = R"(
+SELECT player_id
+FROM leg_history_list
+where tournament_id = :tournamentId
+GROUP BY player_id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":tournamentId", tournamentId);
+
+    QList<int> playerIds;
+    for (QList<QVariant>& playerId : _db->sqlQuery(sqlQuery))
+    {
+        playerIds.append(playerId[0].toInt());
+    }
+
+
+    sqlPrepare = R"(
+SELECT time, value_type_id * value AS points
+FROM leg_history_list
+WHERE player_id = :playerId
+)";
+
+    QMap<int, QMap<QDateTime, double>> playerStatistic;
+
+    for (int playerId : playerIds)
+    {
+        sqlQuery.clear();
+        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.bindValue(":playerId", playerId);
+
+        QMap<QDateTime, double> throwHistory;
+
+        for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
+        {
+            throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+        }
+
+        playerStatistic[playerId] = throwHistory;
+    }
+
+    return playerStatistic;
+}
+
+/*!
+ * \brief Gibt alle geworfenen Punkte mit Zeitstempel zurück
+ *
+ * \param[in] player spieler, von dem die Statistik angezeigt werden soll.
+ *
+ * \return alle geworfenen Würfe mit zeitstempel
+ *
+ */
+QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(const Player* player)
+{
+    QString sqlPrepare = R"(
+SELECT time, value_type_id * value AS points
+FROM leg_history_list
+WHERE player_id = :playerId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":playerId", player->getId());
+
+    QMap<int, QMap<QDateTime, double>> playerStatistic;
+    QMap<QDateTime, double> throwHistory;
+
+    for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
+    {
+        throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+    }
+
+    playerStatistic[player->getId()] = throwHistory;
+    return playerStatistic;
+}
+
+/*!
+ * \brief Gibt alle geworfenen Punkte mit Zeitstempel zurück
+ *
+ * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
+ * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
+ *
+ * \return alle geworfenen Würfe mit zeitstempel
+ *
+ */
+QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(const Player* player, const int tournamentId)
+{
+    QString sqlPrepare = R"(
+SELECT time, value_type_id * value AS points
+FROM leg_history_list
+WHERE player_id = :playerId
+  AND tournament_id = :tournamentId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":playerId", player->getId());
+    sqlQuery.bindValue(":tournamentId", tournamentId);
+
+    QMap<int, QMap<QDateTime, double>> playerStatistic;
+    QMap<QDateTime, double> throwHistory;
+
+    for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
+    {
+        throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+    }
+
+    playerStatistic[player->getId()] = throwHistory;
+    return playerStatistic;
+}
+
 
 // Gibt Average von allen Lags jemals an... Das älteste Leg ist das Erste in der Liste
 QList<double> PlayerStatistics::averageOfAllLegs(Player& player)
