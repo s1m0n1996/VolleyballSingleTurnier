@@ -27,6 +27,7 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QLineSeries>
+#include <QtCharts/QLegend>
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -71,8 +72,12 @@ void StatisticWindow::_createWidgets(void)
     _title = new WindowLabel("Statistik");
     _title->setMainTitleStyle();
 
-    _chart = new QChart();
+    _chart = new DrilldownChart();
     _chart->setAnimationOptions(QChart::SeriesAnimations);
+    _chart->legend()->setMarkerShape(QLegend::MarkerShapeRectangle);
+    _chart->legend()->setVisible(true);
+    _chart->legend()->setAlignment(Qt::AlignRight);
+    _chart->series().setSharable(true);
 }
 
 /*!
@@ -358,10 +363,10 @@ void StatisticWindow::_refreshPieDiagram(const QMap<QString, double>& diagramDat
 
     for (QString key : diagramData.keys())
     {
-        series->append(key, diagramData[key]);
+        *series << new DrilldownSlice(diagramData[key], key, series);
     }
 
-    series->setPieSize(1);
+    series->setPieSize(0.7);
 
     _chart->removeAllSeries();
     _chart->addSeries(series);

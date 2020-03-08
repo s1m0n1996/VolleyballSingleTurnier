@@ -30,6 +30,8 @@ SOURCES += \
     View/createTournamentPopup.cpp \
     View/dartboard.cpp \
     View/dartboardviewer.cpp \
+    View/drilldownchart.cpp \
+    View/drilldownslice.cpp \
     View/gameboardWindow.cpp \
     View/mainmenu.cpp \
     View/playermanagementWindow.cpp \
@@ -62,6 +64,8 @@ HEADERS += \
     View/dartboard.h \
     View/dartboardviewer.h \
     View/gameboardWindow.h \
+    View/drilldownchart.h \
+    View/drilldownslice.h \
     View/mainmenu.h \
     View/playermanagementWindow.h \
     View/refereepopupbustleg.h \

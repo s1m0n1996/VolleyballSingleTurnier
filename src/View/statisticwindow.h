@@ -18,6 +18,8 @@ class QGroupBox;
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
 #include <QtCharts/QLineSeries>
+#include <View/drilldownchart.h>
+#include <View/drilldownslice.h>
 
 
 QT_CHARTS_BEGIN_NAMESPACE
@@ -59,7 +61,7 @@ private:
     PlayerManagement* _playerManagement;
     GameManagement* _gameManagement;
 
-    QChart* _chart = nullptr;
+    DrilldownChart* _chart = nullptr;
     QList<QLineSeries*> _seriesList;
 
     QComboBox* _chooseCategoryComboBox = nullptr;
