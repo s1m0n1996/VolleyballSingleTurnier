@@ -60,6 +60,21 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
     _dataChangesDetected();
 }
 
+StatisticWindow::~StatisticWindow()
+{
+    qDeleteAll(_seriesList.begin(), _seriesList.end());
+    _seriesList.clear();
+
+    delete _colorLabel;
+    delete _title;
+    delete _playerStatistic;
+    delete _playerManagement;
+    delete _chart;
+    delete _chooseCategoryComboBox;
+    delete _choosePlayerComboBox;
+    delete _chooseTournamentComboBox;
+}
+
 /*!
  * \brief Erstelle benötigte Widgets
  *
