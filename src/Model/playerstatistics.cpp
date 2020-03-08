@@ -435,6 +435,143 @@ WHERE player_id = :playerId
     return playerStatistic;
 }
 
+/*!
+ * \brief Konvetiere die sqlQuery
+ *
+ * \param[in] sqlQuery sqlQuery mit den entsprechenden Daten
+ *
+ * \return Die 10 am meisten Getroffenen Felder
+ *
+ */
+QMap<QString, double> PlayerStatistics::_convert10MostHittingFields(QSqlQuery& sqlQuery)
+{
+    QMap<QString, double> mostHittingFields;
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
+
+    QList<QString> multiplicatorName = {"Miss", "S", "D", "T"};
+    for (QList<QVariant> field : rawData)
+    {
+        if (field[0] == 0) // miss
+        {
+            QString fieldName = multiplicatorName[field[0].toInt()];
+            mostHittingFields[fieldName] = field[2].toDouble();
+            continue;
+        }
+
+        QString fieldName = multiplicatorName[field[0].toInt()] + "-" + field[1].toString();
+        mostHittingFields[fieldName] = field[2].toDouble();
+    }
+
+    return mostHittingFields;
+}
+
+/*!
+ * \brief Gibt die 10 am meisten getroffene Felder
+ *
+ * \return Die 10 am meisten Getroffenen Felder
+ *
+ */
+QMap<QString, double> PlayerStatistics::get10MostHittingFields()
+{
+    QString sqlPrepare = R"(
+SELECT value_type_id, value, count(*) AS count
+FROM leg_history_list
+GROUP BY value_type_id, value
+ORDER BY count DESC
+LIMIT :limit
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":limit", _countOfMostHittingFields);
+
+    return _convert10MostHittingFields(sqlQuery);
+}
+
+/*!
+ * \brief Gibt die 10 am meisten getroffene Felder
+ *
+ * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
+ *
+ * \return Die 10 am meisten Getroffenen Felder
+ *
+ */
+QMap<QString, double> PlayerStatistics::get10MostHittingFields(const Player* player)
+{
+    QString sqlPrepare = R"(
+SELECT value_type_id, value, count(*) AS count
+FROM leg_history_list
+WHERE player_id = :playerId
+GROUP BY value_type_id, value
+ORDER BY count DESC
+LIMIT :limit
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":limit", _countOfMostHittingFields);
+    sqlQuery.bindValue(":playerId", player->getId());
+
+    return _convert10MostHittingFields(sqlQuery);
+}
+
+/*!
+ * \brief Gibt die 10 am meisten getroffene Felder
+ *
+ * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
+ *
+ * \return Die 10 am meisten Getroffenen Felder
+ *
+ */
+QMap<QString, double> PlayerStatistics::get10MostHittingFields(const int tournamentId)
+{
+    QString sqlPrepare = R"(
+SELECT value_type_id, value, count(*) AS count
+FROM leg_history_list
+WHERE tournament_id = :tournamentId
+GROUP BY value_type_id, value
+ORDER BY count DESC
+LIMIT :limit
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":limit", _countOfMostHittingFields);
+    sqlQuery.bindValue(":tournamentId", tournamentId);
+
+    return _convert10MostHittingFields(sqlQuery);
+}
+
+/*!
+ * \brief Gibt die 10 am meisten getroffene Felder
+ *
+ * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
+ * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
+ *
+ * \return Die 10 am meisten Getroffenen Felder
+ *
+ */
+QMap<QString, double> PlayerStatistics::get10MostHittingFields(const Player* player, const int tournamentId)
+{
+    QString sqlPrepare = R"(
+SELECT value_type_id, value, count(*) AS count
+FROM leg_history_list
+WHERE player_id = :playerId
+  AND tournament_id = :tournamentId
+GROUP BY value_type_id, value
+ORDER BY count DESC
+LIMIT :limit
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":limit", _countOfMostHittingFields);
+    sqlQuery.bindValue(":playerId", player->getId());
+    sqlQuery.bindValue(":tournamentId", tournamentId);
+
+    return _convert10MostHittingFields(sqlQuery);
+}
+
 
 // Gibt Average von allen Lags jemals an... Das älteste Leg ist das Erste in der Liste
 QList<double> PlayerStatistics::averageOfAllLegs(Player& player)

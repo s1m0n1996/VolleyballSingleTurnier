@@ -30,11 +30,20 @@ public:
     QMap<int, QMap<QDateTime, double>> getThrowHistory(const int tournamentId);
     QMap<int, QMap<QDateTime, double>> getThrowHistory(const Player* player, const int tournamentId);
 
+    QMap<QString, double> get10MostHittingFields(void);
+    QMap<QString, double> get10MostHittingFields(const Player* player);
+    QMap<QString, double> get10MostHittingFields(const int tournamentId);
+    QMap<QString, double> get10MostHittingFields(const Player* player, const int tournamentId);
+
     QList<double> averageOfAllLegs(Player& player);
 
 private:
     SqliteConnector* _db;
     GameManagement* _gameManagement;
+
+    const int _countOfMostHittingFields = 10;
+
+    QMap<QString, double> _convert10MostHittingFields(QSqlQuery& sqlQuery);
 };
 
 #endif // PLAYERSTATISTICS_H

@@ -141,6 +141,7 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     _chooseCategoryComboBox->addItem("Double Würfe");
     _chooseCategoryComboBox->addItem("Triple Würfe");
     _chooseCategoryComboBox->addItem("Wurfhistorie");
+    _chooseCategoryComboBox->addItem("Am meisten getroffenes Feld");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_chooseCategoryComboBox);
@@ -314,6 +315,10 @@ statistic::type StatisticWindow::_getSelectedChartType(void)
     {
         return statistic::type::History;
     }
+    else if (_chooseCategoryComboBox->currentText() == "Am meisten getroffenes Feld")
+    {
+        return statistic::type::MostHittingField;
+    }
 }
 
 /*!
@@ -431,6 +436,9 @@ void StatisticWindow::_dataChangesDetected(void)
         case statistic::type::History:
             showAverageChart();
             break;
+        case statistic::type::MostHittingField:
+            showMostHittingFieldsDiagram();
+            break;
     }
 }
 
@@ -517,5 +525,27 @@ void StatisticWindow::showAverageChart(void)
     else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
     {
         _refreshLineDiagram(_playerStatistic->getThrowHistory(_selectedPlayer, _getSelectedTournamentId()));
+    }
+}
+
+void StatisticWindow::showMostHittingFieldsDiagram(void)
+{
+    _chart->setTitle("die 10 am Meinsten geworfenen Felder");
+
+    if (!_selectedPlayer && _getSelectedTournamentId() < 0)
+    {
+        _refreshPieDiagram(_playerStatistic->get10MostHittingFields());
+    }
+    else if (_selectedPlayer && _getSelectedTournamentId() < 0)
+    {
+        _refreshPieDiagram(_playerStatistic->get10MostHittingFields(_selectedPlayer));
+    }
+    else if (!_selectedPlayer && _getSelectedTournamentId() >= 0)
+    {
+        _refreshPieDiagram(_playerStatistic->get10MostHittingFields(_getSelectedTournamentId()));
+    }
+    else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
+    {
+        _refreshPieDiagram(_playerStatistic->get10MostHittingFields(_selectedPlayer, _getSelectedTournamentId()));
     }
 }
