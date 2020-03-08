@@ -147,6 +147,7 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     _chooseCategoryComboBox->addItem("Triple Würfe");
     _chooseCategoryComboBox->addItem("Wurfhistorie");
     _chooseCategoryComboBox->addItem("Am meisten getroffenes Feld");
+    _chooseCategoryComboBox->addItem("Average");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_chooseCategoryComboBox);
@@ -324,6 +325,10 @@ statistic::type StatisticWindow::_getSelectedChartType(void)
     {
         return statistic::type::MostHittingField;
     }
+    else if (_chooseCategoryComboBox->currentText() == "Average")
+    {
+        return statistic::type::Average;
+    }
 }
 
 /*!
@@ -439,10 +444,13 @@ void StatisticWindow::_dataChangesDetected(void)
             showTripleChart();
             break;
         case statistic::type::History:
-            showAverageChart();
+            showThrowHistoryChart();
             break;
         case statistic::type::MostHittingField:
             showMostHittingFieldsDiagram();
+            break;
+        case statistic::type::Average:
+            showAverage();
             break;
     }
 }
@@ -510,7 +518,7 @@ void StatisticWindow::showTripleChart(void)
  *
  * In dieser Methode werden die passenden Daten der Average Statistik geholt.
  */
-void StatisticWindow::showAverageChart(void)
+void StatisticWindow::showThrowHistoryChart(void)
 {
     _chart->removeAllSeries();
     _chart->setTitle("Punkte Historie");
@@ -552,5 +560,27 @@ void StatisticWindow::showMostHittingFieldsDiagram(void)
     else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
     {
         _refreshPieDiagram(_playerStatistic->get10MostHittingFields(_selectedPlayer, _getSelectedTournamentId()));
+    }
+}
+
+void StatisticWindow::showAverage(void)
+{
+    _chart->setTitle("Average");
+
+    if (!_selectedPlayer && _getSelectedTournamentId() < 0)
+    {
+        _refreshPieDiagram(_playerStatistic->getAverage());
+    }
+    else if (_selectedPlayer && _getSelectedTournamentId() < 0)
+    {
+        _refreshPieDiagram(_playerStatistic->getAverage(_selectedPlayer));
+    }
+    else if (!_selectedPlayer && _getSelectedTournamentId() >= 0)
+    {
+        _refreshPieDiagram(_playerStatistic->getAverage(_getSelectedTournamentId()));
+    }
+    else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
+    {
+        _refreshPieDiagram(_playerStatistic->getAverage(_selectedPlayer, _getSelectedTournamentId()));
     }
 }

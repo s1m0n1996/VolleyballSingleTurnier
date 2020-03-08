@@ -572,27 +572,124 @@ LIMIT :limit
     return _convert10MostHittingFields(sqlQuery);
 }
 
-
-// Gibt Average von allen Lags jemals an... Das älteste Leg ist das Erste in der Liste
-QList<double> PlayerStatistics::averageOfAllLegs(Player& player)
+/*!
+ * \brief Konvetiere die sqlQuery
+ *
+ * \param[in] sqlQuery sqlQuery mit den entsprechenden Daten
+ *
+ * \return Average
+ *
+ */
+QMap<QString, double> PlayerStatistics::_convertAverage(QSqlQuery& sqlQuery)
 {
-    QList<double> averages;
-    QString sqlPrepare = R"(
-                         SELECT average
-                         FROM (SELECT AVG(value_type_id * value) as average, leg_id, player_id, tournament_id, game_board_id
-                              FROM leg_history_list group by player_id, tournament_id, game_board_id, leg_id)
-                         Where player_id = :playerId;
-    )";
-    QSqlQuery sqlQuery;
-    sqlQuery.prepare(sqlPrepare);
-    sqlQuery.bindValue(":playerId", player.getId());
-    QList<QList<QVariant>> averageList = _db->sqlQuery(sqlQuery);
+    QMap<QString, double> average;
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
 
-    for (const QList<QVariant>& list : averageList)
+    for (QList<QVariant> field : rawData)
     {
-        averages.append(list[0].toDouble());
+        average[field[0].toString()] = field[1].toDouble();
     }
 
-    return averages;
+    return average;
 }
 
+/*!
+ * \brief Gibt den Average zurück
+ *
+ * \return Average
+ *
+ */
+QMap<QString, double> PlayerStatistics::getAverage(void)
+{
+    QString sqlPrepare = R"(
+SELECT name, average
+FROM (SELECT AVG(value_type_id * value) AS average, player_id
+      FROM leg_history_list
+      GROUP BY player_id)
+         INNER JOIN player_list pl ON player_id = pl.id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+
+    return _convertAverage(sqlQuery);
+}
+
+/*!
+ * \brief Gibt den Average zurück
+ *
+ * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
+ *
+ * \return Average
+ *
+ */
+// TODO: welche daten sollen vom spieler angezeigt werden???
+QMap<QString, double> PlayerStatistics::getAverage(const Player* player)
+{
+    QString sqlPrepare = R"(
+SELECT name, average
+FROM (SELECT AVG(value_type_id * value) AS average, player_id
+      FROM leg_history_list
+      GROUP BY player_id)
+         INNER JOIN player_list pl ON player_id = pl.id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+
+    return _convertAverage(sqlQuery);
+}
+
+/*!
+ * \brief Gibt den Average zurück
+ *
+ * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
+ *
+ * \return Average
+ *
+ */
+QMap<QString, double> PlayerStatistics::getAverage(const int tournamentId)
+{
+    QString sqlPrepare = R"(
+SELECT name, average
+FROM (SELECT AVG(value_type_id * value) AS average, player_id
+      FROM leg_history_list
+      WHERE tournament_id = :tournamentId
+      GROUP BY player_id)
+         INNER JOIN player_list pl ON player_id = pl.id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":tournamentId", tournamentId);
+
+    return _convertAverage(sqlQuery);
+}
+
+/*!
+ * \brief Gibt den Average zurück
+ *
+ * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
+ * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
+ *
+ * \return Average
+ *
+ */
+// TODO: welche daten sollen vom spieler angezeigt werden???
+QMap<QString, double> PlayerStatistics::getAverage(const Player* player, const int tournamentId)
+{
+    QString sqlPrepare = R"(
+SELECT name, average
+FROM (SELECT AVG(value_type_id * value) AS average, player_id
+      FROM leg_history_list
+      WHERE tournament_id = :tournamentId
+      GROUP BY player_id)
+         INNER JOIN player_list pl ON player_id = pl.id
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":tournamentId", tournamentId);
+
+    return _convertAverage(sqlQuery);
+}

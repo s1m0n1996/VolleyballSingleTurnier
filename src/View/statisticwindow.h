@@ -31,7 +31,7 @@ namespace statistic
 {
     enum type
     {
-        Winner, Singles, Doubles, Triples, History, MostHittingField
+        Winner, Singles, Doubles, Triples, History, MostHittingField, Average
     };
 }
 
@@ -48,8 +48,9 @@ public slots:
     void showSingleChart(void);
     void showDoubleChart(void);
     void showTripleChart(void);
-    void showAverageChart(void);
+    void showThrowHistoryChart(void);
     void showMostHittingFieldsDiagram(void);
+    void showAverage(void);
     void _dataChangesDetected(void);
 
 
