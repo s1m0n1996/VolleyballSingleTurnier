@@ -195,11 +195,13 @@ void RefereeWindow::writeNextPlayer()
 void RefereeWindow::playerBust()
 {
     _popupBustLeg->show();
+    ui->DartboardView->setEnabled(false);
 }
 
 void RefereeWindow::playerWinsLeg()
 {
     _popupWinningLeg->show();
+    ui->DartboardView->setEnabled(false);
 }
 
 void RefereeWindow::mouseReleasedOnDartboard()

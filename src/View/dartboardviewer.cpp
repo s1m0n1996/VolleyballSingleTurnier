@@ -53,24 +53,24 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     if(remainingThrows == 2)
     {
-        test[2] = valueOfField;
+        _allThrows[2] = valueOfField;
     }
     else if(remainingThrows == 1)
     {
-        test[1] = valueOfField;
+        _allThrows[1] = valueOfField;
     }
     else if(remainingThrows == 0)
     {
-        test[0] = valueOfField;
+        _allThrows[0] = valueOfField;
     }
     else
     {
-        for(int i = 0; i < test.size(); i++)
+        for(int i = 0; i < _allThrows.size(); i++)
         {
-            test[i] = 0;
+            _allThrows[i] = 0;
         }
     }
-    qDebug() <<test;
+    qDebug() <<_allThrows;
 
     qDebug() <<"Multi" <<valueOfMultiplikator <<"FIeld" <<valueOfField <<"remainThr" <<remainingThrows;
 
@@ -147,16 +147,16 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     {
         for(int i = 0; i < valuesOfDartboard[valueOfMultiplikator].size(); i++)
         {
-            if(valuesOfDartboard[valueOfMultiplikator][i] == test[0])
+            if(valuesOfDartboard[valueOfMultiplikator][i] == _allThrows[0])
             {
                 colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
             }
-            if(valuesOfDartboard[valueOfMultiplikator][i] == test[1])
+            if(valuesOfDartboard[valueOfMultiplikator][i] == _allThrows[1])
             {
                 colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
             }
 
-            if(valuesOfDartboard[valueOfMultiplikator][i] == test[2])
+            if(valuesOfDartboard[valueOfMultiplikator][i] == _allThrows[2])
             {
                 colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
             }

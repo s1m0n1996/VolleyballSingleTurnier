@@ -111,10 +111,10 @@ void ViewerWindow::writeScore()
         ui->countOfWinningLegsPlayer2->setText(QString::number(_referee->getCountOfWinningLegs()));
     }
 
-    ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
-    ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
+    ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
+    ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
     ui->averageOfPlayer1->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerA)));
-    ui->averageOfPlayer2->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerB)));
+    ui->averageOfPlayer2->setText(QString::number(statisticsPlayerB.getAverageOfPlayerInCurrentGame(playerB)));
 }
 
 
