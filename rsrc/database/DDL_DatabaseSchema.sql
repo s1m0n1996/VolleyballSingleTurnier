@@ -151,10 +151,13 @@ CREATE TABLE leg_list
     sport_type_id INTEGER NOT NULL,
     game_mode_id  INTEGER NOT NULL,
     tournament_id INTEGER NOT NULL,
+    winner_id     INTEGER,
     CONSTRAINT leg_list_pk
         PRIMARY KEY (id, game_board_id, sport_type_id, game_mode_id, tournament_id),
     CONSTRAINT leg_list_game_board_list_fk
-        FOREIGN KEY (game_board_id, sport_type_id, game_mode_id, tournament_id) REFERENCES game_board_list (id, sport_type_id, game_mode_id, tournament_id)
+        FOREIGN KEY (game_board_id, sport_type_id, game_mode_id, tournament_id) REFERENCES game_board_list (id, sport_type_id, game_mode_id, tournament_id),
+    CONSTRAINT leg_list_player_list
+        FOREIGN KEY (winner_id) REFERENCES player_list (id)
 );
 
 -- #####################################################################################################################
