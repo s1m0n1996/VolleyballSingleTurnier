@@ -287,7 +287,7 @@ GROUP BY player_id
 
 
     sqlPrepare = R"(
-SELECT AVG(value_type_id * value) AS points
+SELECT AVG(value_type_id * value) * 3 AS points
 FROM leg_history_list
 WHERE player_id = :playerId
 GROUP BY sport_type_id, game_mode_id, game_board_id, leg_id
@@ -346,7 +346,7 @@ GROUP BY player_id
 
 
     sqlPrepare = R"(
-SELECT AVG(value_type_id * value) AS points
+SELECT AVG(value_type_id * value) * 3 AS points
 FROM leg_history_list
 WHERE player_id = :playerId
   AND tournament_id = :tournamentId
@@ -389,7 +389,7 @@ ORDER BY game_board_id, leg_id, id
 QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(const Player* player)
 {
     QString sqlPrepare = R"(
-SELECT AVG(value_type_id * value) AS points
+SELECT AVG(value_type_id * value) * 3 AS points
 FROM leg_history_list
 WHERE player_id = :playerId
 GROUP BY sport_type_id, game_mode_id, game_board_id, leg_id
@@ -426,7 +426,7 @@ ORDER BY game_board_id, leg_id, id
 QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(const Player* player, const int tournamentId)
 {
     QString sqlPrepare = R"(
-SELECT AVG(value_type_id * value) AS points
+SELECT AVG(value_type_id * value) * 3 AS points
 FROM leg_history_list
 WHERE player_id = :playerId
   AND tournament_id = :tournamentId
