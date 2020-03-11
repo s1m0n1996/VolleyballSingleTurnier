@@ -40,7 +40,6 @@ WindowEdit::WindowEdit(QString placeholder, DataType dataType, QWidget* parent) 
     {
         QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
         validator->setRegExp(re);
-        // TODO: enum für auswahl hinzufügen
     }
 
     setValidator(validator);

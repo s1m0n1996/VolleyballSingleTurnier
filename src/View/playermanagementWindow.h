@@ -54,6 +54,7 @@ public slots:
     void addPhotoWithSelection(void);
     void addPhotoWithButton(void);
     void addPlayerToDatabase(void);
+    void enableAddPlayerButton(void);
 
     void showDeletedPlayers(void);
 

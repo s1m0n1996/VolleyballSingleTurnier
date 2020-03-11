@@ -160,24 +160,30 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
     _playerManagementModel->refreshDatabasePlayerTable();
 
-    newPlayer->savePicture(*_byteArray);
+    if (!(_byteArray->isEmpty()))
+    {
 
-    QByteArray data = newPlayer->loadPicture();
-    QPixmap pixmap;
+        newPlayer->savePicture(*_byteArray);
 
-    pixmap.loadFromData(data,"jpg");
+        QByteArray data = newPlayer->loadPicture();
+        QPixmap pixmap;
 
-    int w = _photoLabel->width();
-    int h = _photoLabel->height();
+        pixmap.loadFromData(data,"jpg");
 
-    QMatrix matrix;
-    matrix.rotate(270);
+        int w = _photoLabel->width();
+        int h = _photoLabel->height();
 
-    pixmap = pixmap.scaled(w,h,Qt::KeepAspectRatio);
-    pixmap = pixmap.transformed(matrix);
+        QMatrix matrix;
+        matrix.rotate(270);
+
+        pixmap = pixmap.scaled(w,h,Qt::KeepAspectRatio);
+        pixmap = pixmap.transformed(matrix);
 
 
-    _photo->setPixmap(pixmap);
+        _photo->setPixmap(pixmap);
+
+        _byteArray->clear();
+    }
 
 }
 
@@ -285,8 +291,7 @@ void PlayermanagementWindow::addPhotoWithSelection()
 }
 
 void PlayermanagementWindow::addPhotoWithButton()
-{
-    _byteArray = new QByteArray();
+{   
     QString path = QFileDialog::getOpenFileName(this,
                                         tr("Bild laden"), "",
                                         tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
@@ -328,14 +333,27 @@ void PlayermanagementWindow::connecting()
     connect(_allPlayerTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createDeleteMenu()));
     connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createRestoreMenu()));
 
+    connect(_playernameEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_countryEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_birthdayEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableAddPlayerButton()));
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhotoWithButton()));
+    connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhotoWithButton()));    
+
 
     connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
 
     connect(_showDeletedPlayersAction, SIGNAL(triggered()), this, SLOT(showDeletedPlayers()));
 }
+void PlayermanagementWindow::enableAddPlayerButton()
+{
+    QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
 
+    if (!(_birthdayEdit->text().isEmpty()) && !(_countryEdit->text().isEmpty()) && (re.exactMatch(_birthdayEdit->text())))
+    {
+        _addPlayerButton->setEnabled(true);
+    }
+
+}
 void PlayermanagementWindow::createWidges()
 {
     _colorLabel         = new QLabel;
@@ -390,6 +408,8 @@ void PlayermanagementWindow::createWidges()
     _addPlayerButton        = new WindowButton("Spieler hinzufügen");
     _addPlayerButton->setIcon(QIcon(":/img/addPlayer.png"));
     _addPlayerButton->setIconSize(QSize(40,40));
+    _addPlayerButton->setEnabled(false);
+
 
     _startTournamentButton  = new WindowButton("Turnier starten");
     _startTournamentButton->setEnabled(false);
@@ -413,6 +433,8 @@ void PlayermanagementWindow::createWidges()
         _valueMissingPlayersLabel->setStartTournamentStyle();
         _startTournamentButton->setEnabled(true);
     }
+
+     _byteArray = new QByteArray();
 }
 
 void PlayermanagementWindow::showTable()
