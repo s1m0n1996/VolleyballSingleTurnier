@@ -74,14 +74,17 @@ void ViewerWindow::writeScore()
     int wB = ui->photoPlayer1->width();
     int hB = ui->photoPlayer1->height();
 
-    QMatrix matrix;
-    matrix.rotate(270);
+    QTransform rotate1;
+    rotate1.rotate(90);
+
+    QTransform rotate2;
+    rotate2.rotate(270);
 
     pixmapA = pixmapA.scaled(wA,hA,Qt::KeepAspectRatio);
-    pixmapA = pixmapA.transformed(matrix);
+    pixmapA = pixmapA.transformed(rotate1);
 
     pixmapB = pixmapB.scaled(wB,hB,Qt::KeepAspectRatio);
-    pixmapB = pixmapB.transformed(matrix);
+    pixmapB = pixmapB.transformed(rotate2);
 
 
     ui->photoPlayer1->setPixmap(pixmapA);

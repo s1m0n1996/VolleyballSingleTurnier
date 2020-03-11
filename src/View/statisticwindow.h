@@ -57,7 +57,6 @@ public slots:
 
 
 private:
-    QLabel*         _colorLabel = nullptr;
     WindowLabel*    _title      = nullptr;
 
     PlayerStatistics* _playerStatistic;

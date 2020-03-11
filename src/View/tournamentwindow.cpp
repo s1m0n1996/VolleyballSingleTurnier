@@ -47,10 +47,11 @@ void TournamentWindow::createWidgets()
     setWindowTitle("Spielplan");
     setWindowIcon(QIcon(":/img/gameplan.png"));
 
-    _color = new QLabel;
-    _color->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Spielplan");
     _title->setMainTitleStyle();
+
+    _crown = new QLabel();
+    _crown->setPixmap(QPixmap(":/img/crwons.png"));
 }
 
 void TournamentWindow::createRects()
@@ -307,7 +308,6 @@ void TournamentWindow::createTexts()
     QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
 
     QGridLayout* layout = new QGridLayout;
-    layout->addWidget(_color);
     layout->addWidget(_title);
     layout->addWidget(viewGame);
     setLayout(layout);

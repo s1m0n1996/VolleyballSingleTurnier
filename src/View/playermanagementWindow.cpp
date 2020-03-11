@@ -173,11 +173,11 @@ void PlayermanagementWindow::addPlayerToDatabase()
         int w = _photoLabel->width();
         int h = _photoLabel->height();
 
-        QMatrix matrix;
-        matrix.rotate(270);
+        QTransform rotate;
+        rotate.rotate(90);
 
         pixmap = pixmap.scaled(w,h,Qt::KeepAspectRatio);
-        pixmap = pixmap.transformed(matrix);
+        pixmap = pixmap.transformed(rotate);
 
 
         _photo->setPixmap(pixmap);
@@ -344,6 +344,7 @@ void PlayermanagementWindow::connecting()
 
     connect(_showDeletedPlayersAction, SIGNAL(triggered()), this, SLOT(showDeletedPlayers()));
 }
+
 void PlayermanagementWindow::enableAddPlayerButton()
 {
     QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
@@ -354,10 +355,9 @@ void PlayermanagementWindow::enableAddPlayerButton()
     }
 
 }
+
 void PlayermanagementWindow::createWidges()
 {
-    _colorLabel         = new QLabel;
-    _colorLabel->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Meldestelle");
     _title->setMainTitleStyle();
 
@@ -387,8 +387,7 @@ void PlayermanagementWindow::createWidges()
     _addPlayer->setTitle("Spieler zum aktuellen Spiel hinzufügen:");
     _addPlayer->setStyleSheet("QGroupBox{"
                               "font-size: 25px;"
-                              "font-family: Candara;"
-                              "text-decoration: underline;} ");
+                              "font-family: Candara;} ");
 
     _playernameEdit     = new WindowEdit("Max Mustermann", DataType::name);
     _playernameEdit->setMaxLength(20);
@@ -481,7 +480,6 @@ void PlayermanagementWindow::setAllLayout()
     QGridLayout* tournamentStartLayout  = new QGridLayout;
 
 
-    mainLayout->addWidget(_colorLabel);
     mainLayout->addWidget(_title);
 
     titleTabelViewLayout->addWidget(_allPlayerLabel,0,Qt::AlignHCenter);

@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+﻿------------------------------------------------------------------------------------------------------------------------
 Thema: Fragenrunde
 
 Datum: 11.03.2020
@@ -18,7 +18,7 @@ Protokollierende(r): Simon Flörke
 Programmvorstellung:
 	Anmerkung durch Henseler
 	    - Man Unterstreicht keine Texte!!! Generell nicht!!!
-	    - Was soll der Braune Strich über jedem Fenster???
+	    - Was soll der Braune Strich über jedem Fenster??? Das ist Dekoration!!!!!
 
         - Compiler warnungen
             - Im ausnahmefall QFatal() << z.b. ENUM else if abfrage beim letzten else was eigentlich nie passieren solte

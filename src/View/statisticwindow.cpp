@@ -68,7 +68,6 @@ StatisticWindow::~StatisticWindow()
     qDeleteAll(_seriesList.begin(), _seriesList.end());
     _seriesList.clear();
 
-    delete _colorLabel;
     delete _title;
     delete _playerStatistic;
     delete _playerManagement;
@@ -85,8 +84,6 @@ StatisticWindow::~StatisticWindow()
  */
 void StatisticWindow::_createWidgets(void)
 {
-    _colorLabel = new QLabel;
-    _colorLabel->setStyleSheet("background-color:#550000;");
     _title = new WindowLabel("Statistik");
     _title->setMainTitleStyle();
 
@@ -119,8 +116,6 @@ void StatisticWindow::_setLayout(void)
     chartView = new QChartView(_chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-
-    mainLayout->addWidget(_colorLabel);
     mainLayout->addWidget(_title);
 
     chartLayout->addWidget(chartView, 0, 1);

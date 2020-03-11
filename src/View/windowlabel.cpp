@@ -13,6 +13,7 @@
  * Normalen Stlye wird im Konstsruktor festgelegt
  * verschiedene Versionen werden in Funktionen festgelegt
  */
+
 WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
@@ -23,10 +24,7 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
 
 WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
 {
-    setStyleSheet("QLabel{"
-                  "font-size: 25px;"
-                  "font-family: Candara;}");
-    setText(text);
+    WindowLabel(text, parent);
 }
 
 
@@ -49,8 +47,7 @@ void WindowLabel::setTitleStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
-                  "font-family: Candara;"                 
-                  "text-decoration: underline;}");
+                  "font-family: Candara;}");
 
     setAlignment(Qt::AlignCenter);
 
@@ -64,8 +61,7 @@ void WindowLabel::setMainTitleStyle()
                   "border-bottom-width: 1px;"
                   "border-bottom-style: solid;"
                   "border-radius: 0px;"
-                  "font-weight: bold;"
-                  "text-decoration: underline;}");
+                  "font-weight: bold;}");
 
     setAlignment(Qt::AlignCenter);
 

@@ -15,6 +15,7 @@
         <file>img/left.png</file>
         <file>img/addPhoto.png</file>
         <file>img/statistic.png</file>
-		<file>img/backgroundGamePlan.png</file>
+        <file>img/backgroundGamePlan.png</file>
+        <file>img/crowns.png</file>
     </qresource>
 </RCC>

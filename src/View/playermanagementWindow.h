@@ -67,7 +67,6 @@ private:
 
     PlayerManagement* _playerManagementModel = nullptr; 
 
-    QLabel*         _colorLabel = nullptr;
     WindowLabel*    _title      = nullptr;
 
     WindowLabel* _allPlayerLabel    = nullptr;

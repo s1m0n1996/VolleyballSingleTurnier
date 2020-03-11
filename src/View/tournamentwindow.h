@@ -45,10 +45,11 @@ private:
     double _numberOfColumn = 0;
 
     void createWidgets(void);
-    QLabel* _color = nullptr;
     WindowLabel* _title= nullptr;
     WindowButton* _startGame= nullptr;
     QGraphicsScene* _gameBoard = new QGraphicsScene();
+
+    QLabel* _crown = nullptr;
 
     void createRects(void);
     void createLines(void);
