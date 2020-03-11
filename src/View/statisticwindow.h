@@ -20,6 +20,7 @@ class QGroupBox;
 #include <QtCharts/QLineSeries>
 #include <View/drilldownchart.h>
 #include <View/drilldownslice.h>
+#include <QValueAxis>
 
 
 QT_CHARTS_BEGIN_NAMESPACE
@@ -86,6 +87,9 @@ private:
 
     statistic::type _getSelectedChartType(void);
     int _getSelectedTournamentId(void);
+
+    QValueAxis* _axisY = nullptr;
+    QValueAxis* _axisX = nullptr;
 };
 
 #endif // STATISTICWINDOW_H

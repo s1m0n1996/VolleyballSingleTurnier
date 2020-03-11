@@ -45,6 +45,9 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
     _playerManagement = new PlayerManagement;
     _gameManagement = &GameManagement::instance();
 
+    _axisX = new QValueAxis;
+    _axisY = new QValueAxis;
+
     setWindowTitle("Statistik");
     setWindowIcon(QIcon(":/img/statistic.png"));
     _createWidgets();
@@ -93,6 +96,9 @@ void StatisticWindow::_createWidgets(void)
     _chart->legend()->setVisible(true);
     _chart->legend()->setAlignment(Qt::AlignRight);
     _chart->series().setSharable(true);
+
+    _chart->addAxis(_axisY, Qt::AlignLeft);
+    _chart->addAxis(_axisX, Qt::AlignBottom);
 }
 
 /*!
@@ -383,6 +389,9 @@ int StatisticWindow::_getSelectedTournamentId()
  */
 void StatisticWindow::_refreshPieDiagram(const QMap<QString, double>& diagramData)
 {
+    _axisX->hide();
+    _axisY->hide();
+
     QPieSeries* series = new QPieSeries(_chart);
 
     // sort data by value
@@ -431,11 +440,16 @@ void StatisticWindow::_refreshLineDiagram(const QMap<int, QMap<int, double>>& di
                 maxXPoints = leg_id;
             }
         }
+
+        series->attachAxis(_axisY);
+        series->attachAxis(_axisX);
     }
 
-    _chart->createDefaultAxes();
-    _chart->axes(Qt::Vertical).first()->setRange(0, 180);
-    _chart->axes(Qt::Horizontal).first()->setRange(0, maxXPoints);
+    _axisY->setRange(0, 180);
+    _axisY->setTickCount(1 + (180 / 10));
+    _axisX->setRange(0, maxXPoints);
+
+    _axisY->show();
 }
 
 // #####################################################################################################################
