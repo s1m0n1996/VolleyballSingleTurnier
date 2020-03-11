@@ -79,7 +79,7 @@ private:
 
     void _refreshSelectedPlayer(void);
     void _refreshPieDiagram(const QMap<QString, double>& diagramData);
-    void _refreshLineDiagram(const QMap<int, QMap<QDateTime, double>>& diagramData);
+    void _refreshLineDiagram(const QMap<int, QMap<int, double>>& diagramData);
     QGroupBox* _createSelectCategoryGroupBox(void);
     QGroupBox* _createSelectPlayerGroupBox(void);
     QGroupBox* _createFilterGroupBox(void);

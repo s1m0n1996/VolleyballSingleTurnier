@@ -160,9 +160,9 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     _chooseCategoryComboBox->addItem("Single Würfe");
     _chooseCategoryComboBox->addItem("Double Würfe");
     _chooseCategoryComboBox->addItem("Triple Würfe");
-    _chooseCategoryComboBox->addItem("Wurfhistorie");
     _chooseCategoryComboBox->addItem("Am meisten getroffenes Feld");
     _chooseCategoryComboBox->addItem("Average");
+    _chooseCategoryComboBox->addItem("Average Historie");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_chooseCategoryComboBox);
@@ -332,7 +332,7 @@ statistic::type StatisticWindow::_getSelectedChartType(void)
     {
         return statistic::type::Triples;
     }
-    else if (_chooseCategoryComboBox->currentText() == "Wurfhistorie")
+    else if (_chooseCategoryComboBox->currentText() == "Average Historie")
     {
         return statistic::type::History;
     }
@@ -408,7 +408,7 @@ void StatisticWindow::_refreshPieDiagram(const QMap<QString, double>& diagramDat
  * In dieser Methode wird das Liniendiagramm aktualisiert. Dabei dient der key, der eingegebenen Map als Beschriftung
  * und der dazugehärige Wert repräsentiert den Wert des Diagramms.
  */
-void StatisticWindow::_refreshLineDiagram(const QMap<int, QMap<QDateTime, double>>& diagramData)
+void StatisticWindow::_refreshLineDiagram(const QMap<int, QMap<int, double>>& diagramData)
 {
     int maxXPoints = 0;
     for (int& playerId : diagramData.keys())
@@ -418,21 +418,19 @@ void StatisticWindow::_refreshLineDiagram(const QMap<int, QMap<QDateTime, double
 
         _chart->addSeries(series);
 
-        int i = 0;
-        for (QDateTime time : diagramData[playerId].keys())
+        for (int leg_id : diagramData[playerId].keys())
         {
-            series->append(QPoint(i, diagramData[playerId][time]));
+            series->append(QPoint(leg_id, diagramData[playerId][leg_id]));
             series->setName(Player(playerId).getName());
-            if (i > maxXPoints)
+            if (leg_id > maxXPoints)
             {
-                maxXPoints = i;
+                maxXPoints = leg_id;
             }
-            i++;
         }
     }
 
     _chart->createDefaultAxes();
-    _chart->axes(Qt::Vertical).first()->setRange(0, 60);
+    _chart->axes(Qt::Vertical).first()->setRange(0, 180);
     _chart->axes(Qt::Horizontal).first()->setRange(0, maxXPoints);
 }
 
@@ -537,30 +535,30 @@ void StatisticWindow::showTripleChart(void)
 }
 
 /*!
- * \brief Zeige Historie der geworfenen Punkte
+ * \brief Zeige Historie des geworfenen Durchschnitts
  *
  * In dieser Methode werden die passenden Daten der Average Statistik geholt.
  */
 void StatisticWindow::showThrowHistoryChart(void)
 {
     _chart->removeAllSeries();
-    _chart->setTitle("Punkte Historie");
+    _chart->setTitle("Average Historie");
 
     if (!_selectedPlayer && _getSelectedTournamentId() < 0)
     {
-        _refreshLineDiagram(_playerStatistic->getThrowHistory());
+        _refreshLineDiagram(_playerStatistic->getAverageHistory());
     }
     else if (_selectedPlayer && _getSelectedTournamentId() < 0)
     {
-        _refreshLineDiagram(_playerStatistic->getThrowHistory(_selectedPlayer));
+        _refreshLineDiagram(_playerStatistic->getAverageHistory(_selectedPlayer));
     }
     else if (!_selectedPlayer && _getSelectedTournamentId() >= 0)
     {
-        _refreshLineDiagram(_playerStatistic->getThrowHistory(_getSelectedTournamentId()));
+        _refreshLineDiagram(_playerStatistic->getAverageHistory(_getSelectedTournamentId()));
     }
     else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
     {
-        _refreshLineDiagram(_playerStatistic->getThrowHistory(_selectedPlayer, _getSelectedTournamentId()));
+        _refreshLineDiagram(_playerStatistic->getAverageHistory(_selectedPlayer, _getSelectedTournamentId()));
     }
 }
 

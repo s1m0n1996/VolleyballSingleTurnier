@@ -25,10 +25,10 @@ public:
     QMap<QString, double> getWinningStatistic(const int tournamentId);
     QMap<QString, double> getWinningStatistic(const Player* player, const int tournamentId);
 
-    QMap<int, QMap<QDateTime, double>> getThrowHistory(void);
-    QMap<int, QMap<QDateTime, double>> getThrowHistory(const Player* player);
-    QMap<int, QMap<QDateTime, double>> getThrowHistory(const int tournamentId);
-    QMap<int, QMap<QDateTime, double>> getThrowHistory(const Player* player, const int tournamentId);
+    QMap<int, QMap<int, double>> getAverageHistory(void);
+    QMap<int, QMap<int, double>> getAverageHistory(const Player* player);
+    QMap<int, QMap<int, double>> getAverageHistory(const int tournamentId);
+    QMap<int, QMap<int, double>> getAverageHistory(const Player* player, const int tournamentId);
 
     QMap<QString, double> get10MostHittingFields(void);
     QMap<QString, double> get10MostHittingFields(const Player* player);

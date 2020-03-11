@@ -268,7 +268,7 @@ FROM (
  * \return alle geworfenen Würfe mit zeitstempel
  *
  */
-QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(void)
+QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(void)
 {
     QString sqlPrepare = R"(
 SELECT player_id
@@ -287,12 +287,14 @@ GROUP BY player_id
 
 
     sqlPrepare = R"(
-SELECT time, value_type_id * value AS points
+SELECT AVG(value_type_id * value) AS points
 FROM leg_history_list
 WHERE player_id = :playerId
+GROUP BY sport_type_id, game_mode_id, game_board_id, leg_id
+ORDER BY game_board_id, leg_id, id
 )";
 
-    QMap<int, QMap<QDateTime, double>> playerStatistic;
+    QMap<int, QMap<int, double>> playerStatistic;
 
     for (int playerId : playerIds)
     {
@@ -300,11 +302,13 @@ WHERE player_id = :playerId
         sqlQuery.prepare(sqlPrepare);
         sqlQuery.bindValue(":playerId", playerId);
 
-        QMap<QDateTime, double> throwHistory;
+        QMap<int, double> throwHistory;
 
+        int nLeg = 0;
         for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
         {
-            throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+            throwHistory[nLeg] = oneThrow[0].toDouble();
+            nLeg++;
         }
 
         playerStatistic[playerId] = throwHistory;
@@ -321,7 +325,7 @@ WHERE player_id = :playerId
  * \return alle geworfenen Würfe mit zeitstempel
  *
  */
-QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(const int tournamentId)
+QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(const int tournamentId)
 {
     QString sqlPrepare = R"(
 SELECT player_id
@@ -342,24 +346,30 @@ GROUP BY player_id
 
 
     sqlPrepare = R"(
-SELECT time, value_type_id * value AS points
+SELECT AVG(value_type_id * value) AS points
 FROM leg_history_list
 WHERE player_id = :playerId
+  AND tournament_id = :tournamentId
+GROUP BY sport_type_id, game_mode_id, game_board_id, leg_id
+ORDER BY game_board_id, leg_id, id
 )";
 
-    QMap<int, QMap<QDateTime, double>> playerStatistic;
+    QMap<int, QMap<int, double>> playerStatistic;
 
     for (int playerId : playerIds)
     {
         sqlQuery.clear();
         sqlQuery.prepare(sqlPrepare);
         sqlQuery.bindValue(":playerId", playerId);
+        sqlQuery.bindValue(":tournamentId", tournamentId);
 
-        QMap<QDateTime, double> throwHistory;
+        QMap<int, double> throwHistory;
 
+        int nLeg = 0;
         for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
         {
-            throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+            throwHistory[nLeg] = oneThrow[0].toDouble();
+            nLeg++;
         }
 
         playerStatistic[playerId] = throwHistory;
@@ -376,24 +386,28 @@ WHERE player_id = :playerId
  * \return alle geworfenen Würfe mit zeitstempel
  *
  */
-QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(const Player* player)
+QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(const Player* player)
 {
     QString sqlPrepare = R"(
-SELECT time, value_type_id * value AS points
+SELECT AVG(value_type_id * value) AS points
 FROM leg_history_list
 WHERE player_id = :playerId
+GROUP BY sport_type_id, game_mode_id, game_board_id, leg_id
+ORDER BY game_board_id, leg_id, id
 )";
 
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
     sqlQuery.bindValue(":playerId", player->getId());
 
-    QMap<int, QMap<QDateTime, double>> playerStatistic;
-    QMap<QDateTime, double> throwHistory;
+    QMap<int, QMap<int, double>> playerStatistic;
+    QMap<int, double> throwHistory;
 
+    int nLeg = 0;
     for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
     {
-        throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+        throwHistory[nLeg] = oneThrow[0].toDouble();
+        nLeg++;
     }
 
     playerStatistic[player->getId()] = throwHistory;
@@ -409,13 +423,15 @@ WHERE player_id = :playerId
  * \return alle geworfenen Würfe mit zeitstempel
  *
  */
-QMap<int, QMap<QDateTime, double>> PlayerStatistics::getThrowHistory(const Player* player, const int tournamentId)
+QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(const Player* player, const int tournamentId)
 {
     QString sqlPrepare = R"(
-SELECT time, value_type_id * value AS points
+SELECT AVG(value_type_id * value) AS points
 FROM leg_history_list
 WHERE player_id = :playerId
   AND tournament_id = :tournamentId
+GROUP BY sport_type_id, game_mode_id, game_board_id, leg_id
+ORDER BY game_board_id, leg_id, id
 )";
 
     QSqlQuery sqlQuery;
@@ -423,12 +439,14 @@ WHERE player_id = :playerId
     sqlQuery.bindValue(":playerId", player->getId());
     sqlQuery.bindValue(":tournamentId", tournamentId);
 
-    QMap<int, QMap<QDateTime, double>> playerStatistic;
-    QMap<QDateTime, double> throwHistory;
+    QMap<int, QMap<int, double>> playerStatistic;
+    QMap<int, double> throwHistory;
 
+    int nLeg = 0;
     for (QList<QVariant>& oneThrow : _db->sqlQuery(sqlQuery))
     {
-        throwHistory[oneThrow[0].toDateTime()] = oneThrow[1].toDouble();
+        throwHistory[nLeg] = oneThrow[0].toDouble();
+        nLeg++;
     }
 
     playerStatistic[player->getId()] = throwHistory;
