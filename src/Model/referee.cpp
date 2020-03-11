@@ -40,7 +40,10 @@ void Referee::nextPlayer()
 {
     if (_wasLastThrowInLegToBust)
     {
-        undoThrow();
+        for(int i = 0; i < 4; i++)
+        {
+           undoThrow();
+        }
         _wasLastThrowInLegToBust = false;
     }
 
