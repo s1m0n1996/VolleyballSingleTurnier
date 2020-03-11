@@ -29,7 +29,7 @@ void Game::loadNextGame()
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
-    // TODO: überprüfe hotfix
+
     if (newGame.isEmpty())
     {
         qDebug() << "Was last game in Tournament";          //TODO: Die Dartscheibe unable setzten!!
@@ -51,6 +51,7 @@ void Game::loadNextGame()
 
 void Game::setNextWinner(int winnerId)
 {
+    prepareNextGame(winnerId);
     QString sqlPrepare = R"(
                          UPDATE game_board_list
                          SET winner_id = :winnerId
@@ -66,67 +67,194 @@ void Game::setNextWinner(int winnerId)
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     _db->sqlQuery(sqlQuery);
-    prepareNextGame(winnerId);
+
 }
 
 
 void Game::prepareNextGame(int winnerId)
 {
+    int counter = getNumberOfWinnerInTournament()%4;
+
+    if(getNumberOfGamesInTournament() - getNumberOfWinnerInTournament()!=3)
+    {
+        if(counter == 0 or counter == 1)
+        {
+            setWinnerPlayerAinDatabase(winnerId);
+        }
+        else
+        {
+            setWinnerPlayerBinDatabase(winnerId);
+        }
+
+    }
+    else
+    {
+        setWinnerToPrepareFinal(winnerId);
+    }
+}
+
+
+void Game::setWinnerToPrepareFinal(int winnerId)
+{
     QString sqlPrepare = R"(
-            SELECT *
-            FROM game_board_list
-            WHERE sport_type_id = :sportTypeId
-              AND game_mode_id = :gameModeId
-              AND tournament_id = :tournamentId
-              AND winner_id IS NULL
-              AND (player_a_id IS NULL
-              OR  player_b_id IS NULL)
-            ORDER by id asc
-            LIMIT 1)";
+                         SELECT player_a_id
+                         FROM game_board_list
+                         WHERE sport_type_id = :sportTypeId
+                         AND game_mode_id = :gameModeId
+                         AND tournament_id = :tournamentId
+                         AND id = (SELECT MAX(id)
+                                   FROM game_board_list
+                                   WHERE sport_type_id = :sportTypeId
+                                   AND game_mode_id = :gameModeId
+                                   AND tournament_id = :tournamentId
+                                   ORDER by id asc
+                                   LIMIT 1))";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
+
+    qDebug() << "Final:" << newGame;
+
+    if(newGame.isEmpty())
+    {
+        qDebug() << "Finaascaw";
+        setWinnerPlayerAinDatabase(winnerId);
+    }
+    else
+    {
+        qDebug() << "Finawdapü,acwascaw";
+        setWinnerPlayerBinDatabase(winnerId);
+    }
+}
+
+
+void Game::setWinnerPlayerAinDatabase(int winnerId)
+{
+    QString sqlPrepare2 = R"(
+                         UPDATE game_board_list
+                         SET player_a_id = :playerAId
+                         WHERE id = :gameId
+                           AND sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                          )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare2);
+    sqlQuery.bindValue(":playerAId", winnerId);
+    sqlQuery.bindValue(":gameId", getNextGameIdForPlayerA());
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    _db->sqlQuery(sqlQuery);
+}
+
+
+void Game::setWinnerPlayerBinDatabase(int winnerId)
+{
+    QString sqlPrepare2 = R"(
+                         UPDATE game_board_list
+                         SET player_b_id = :playerBId
+                         WHERE id = :gameId
+                           AND sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                          )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare2);
+    sqlQuery.bindValue(":playerBId", winnerId);
+    sqlQuery.bindValue(":gameId", getNextGameIdForPlayerB());
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    _db->sqlQuery(sqlQuery);
+}
+
+
+int Game::getNextGameIdForPlayerA(void)
+{
+    QString sqlPrepare = R"(
+                         SELECT *
+                         FROM game_board_list
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                           AND winner_id IS NULL
+                           AND player_a_id IS NULL
+                         ORDER by id asc
+                         LIMIT 1)";
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
+    return nextGames[0][0].toInt();
+}
 
-    if (nextGames[0][5].isNull())
-    {
-        QString sqlPrepare2 = R"(
-                             UPDATE game_board_list
-                             SET player_a_id = :playerAId
-                             WHERE id = :gameId
-                               AND sport_type_id = :sportTypeId
-                               AND game_mode_id = :gameModeId
-                               AND tournament_id = :tournamentId
-                              )";
-        QSqlQuery sqlQuery;
-        sqlQuery.prepare(sqlPrepare2);
-        sqlQuery.bindValue(":playerAId", winnerId);
-        sqlQuery.bindValue(":gameId", nextGames[0][0].toInt());
-        sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
-        sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
-        sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
-        _db->sqlQuery(sqlQuery);
-    }
-    else
-    {
-        QString sqlPrepare2 = R"(
-                             UPDATE game_board_list
-                             SET player_b_id = :playerBId
-                             WHERE id = :gameId
-                               AND sport_type_id = :sportTypeId
-                               AND game_mode_id = :gameModeId
-                               AND tournament_id = :tournamentId;)";
-        QSqlQuery sqlQuery;
-        sqlQuery.prepare(sqlPrepare2);
-        sqlQuery.bindValue(":playerBId", winnerId);
-        sqlQuery.bindValue(":gameId", nextGames[0][0]);
-        sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
-        sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
-        sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
-        _db->sqlQuery(sqlQuery);
-    }
+
+int Game::getNextGameIdForPlayerB(void)
+{
+    QString sqlPrepare = R"(
+                         SELECT *
+                         FROM game_board_list
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                           AND winner_id IS NULL
+                           AND player_b_id IS NULL
+                         ORDER by id asc
+                         LIMIT 1)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
+    return nextGames[0][0].toInt();
+}
+
+
+int Game::getNumberOfWinnerInTournament(void)
+{
+    QString sqlPrepare = R"(
+                         SELECT MAX(id)
+                         FROM game_board_list
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                           AND winner_id IS NOT NULL
+                         ORDER by id asc
+                         LIMIT 1)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
+    return nextGames[0][0].toInt();
+}
+
+
+int Game::getNumberOfGamesInTournament()
+{
+    QString sqlPrepare = R"(
+                         SELECT MAX(id)
+                         FROM game_board_list
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                         ORDER by id asc
+                         LIMIT 1)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
+    return nextGames[0][0].toInt();
 }
 
 
@@ -157,25 +285,20 @@ QList<QString> Game::getAllPlayersForGameboardView()
 
     qDebug() << "Anzahl Spiele:" << numberOfGames;
     qDebug() << allGames;
-    PlayerManagement playerManagement;
 
-    for (int i=0; i < numberOfGames; i+=2)
+    int iCounter;
+    for (iCounter=0; iCounter < (numberOfGames-1); iCounter+=2)
     {
-        qDebug() << playerManagement.countSelectedPlayersForNewGame();
-        if(i <= (playerManagement.countSelectedPlayersForNewGame()/2))                   //Finale wird hier betrachtet.
-        {
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i+1][0].toInt()));
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i+1][1].toInt()));
-        }
-        else
-        {            
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i][0].toInt()));
-            allPlayers.append(getNameOfPlayerForGameView(allGames[i][1].toInt()));
-        }
+        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][0].toInt()));
+        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter+1][0].toInt()));
+        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][1].toInt()));
+        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter+1][1].toInt()));
 
     }
+
+    allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][0].toInt()));
+    allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][1].toInt()));
+
     return allPlayers;
 }
 

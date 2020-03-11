@@ -25,6 +25,9 @@ void Referee::updatePlayer()
     _gameId = game.getGameId();
     _allPlayers.append(game.getPlayerAId());
     _allPlayers.append(game.getPlayerBId());
+    qDebug() << "Updateplayer";
+    qDebug() << "Allplayer" << _allPlayers;
+    emit valueChanged();
 }
 
 /*!
@@ -145,6 +148,8 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         _allThrowsWithoutMulti[_throwCounter] = _throwScoreWithoutMulti;
         _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
+        qDebug() << _allPlayers << "Aktive:" << _player;
+        qDebug() << getAktivePlayer();
 
         QString sqlPrepare = R"(
                              INSERT INTO leg_history_list (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id, player_id, time, value_type_id, value)

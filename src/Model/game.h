@@ -25,6 +25,14 @@ public:
     QString getNameOfPlayerForGameView(int playerId);
 
 private:
+    int getNextGameIdForPlayerA(void);
+    int getNextGameIdForPlayerB(void);
+    int getNumberOfWinnerInTournament(void);
+    int getNumberOfGamesInTournament(void);
+    void setWinnerPlayerAinDatabase(int winnerId);
+    void setWinnerPlayerBinDatabase(int winnerId);
+    void setWinnerToPrepareFinal(int winnerId);
+
     SqliteConnector* _db;
     GameManagement* _gameManagement;
     int _gameId;

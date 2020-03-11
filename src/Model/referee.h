@@ -73,8 +73,8 @@ private:
      int _winner                    = 0;
      int _throwScore                = 0;
      int _remainingThrows           = 0;
-     int _gameId                    = 5;            // Muss noch übergeben werden.
-     int _tournamentId              = 7;
+     int _gameId                    = 0;            // Muss noch übergeben werden.
+     int _tournamentId              = 0;
      bool _wasLastThrowInLegToWin   = false;
      bool _wasLastThrowInLegToBust  = false;
      QList<int> _winningLegCounter  = {0,0};
