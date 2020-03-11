@@ -1,0 +1,40 @@
+------------------------------------------------------------------------------------------------------------------------
+Thema: Fragenrunde
+
+Datum: 11.03.2020
+	17:20 - 18:00 Uhr = 40 mins
+Raum: ZME Besprechungsraum
+
+Anwesenheit:
+	Prof. Dr. Herwig Henseler
+	Simon Flörke
+	Lea Kesselmeier
+	Nico Meyer
+	Philipp Wietfeld
+	
+Protokollierende(r): Simon Flörke
+
+------------------------------------------------------------------------------------------------------------------------
+Programmvorstellung:
+	Anmerkung durch Henseler
+	    - Man Unterstreicht keine Texte!!! Generell nicht!!!
+	    - Was soll der Braune Strich über jedem Fenster???
+
+        - Compiler warnungen
+            - Im ausnahmefall QFatal() << z.b. ENUM else if abfrage beim letzten else was eigentlich nie passieren solte
+            - QSort ist deprecated
+                -> nichtmehr verwenden
+            - Overides hinzufügen
+
+        - Programm Live test
+            - Hauptmenü
+                - Turnier erstellen Datum und name vertaushcne (name sollte oben stehen)
+                - Datum nicht nur als platzhalter sondern als default wert.
+            - Viewer Rechtschreibkorrektur
+
+    Fragen
+        - Lea
+            - Stylesheet
+                Man kann dem Gesamten Programm ein StyleSheet geben
+            - Konstruktor mit verschiedenen Parametern
+                - seit C++11 ist es möglich im Konstruktor einen anderen aufzurufen
