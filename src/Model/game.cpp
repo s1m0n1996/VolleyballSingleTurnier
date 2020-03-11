@@ -37,6 +37,7 @@ void Game::loadNextGame()
         return;
     }
 
+    _gameId = newGame[0][0].toInt();
     if (newGame[0][1] > 0)
     {
         _playerA = Player(newGame[0][1].toInt());
