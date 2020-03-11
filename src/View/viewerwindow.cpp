@@ -28,13 +28,7 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     ui->player1GroupBox->setStyleSheet("border-color: red;");
     ui->player2GroupBox->setStyleSheet("border-color: red;");
 
-    ui->photoPlayer1->setScaledContents(true);
-    ui->photoPlayer1->resize(175,175);
-    ui->photoPlayer1->setPixmap(QPixmap(":/img/user.png"));
 
-    ui->photoPlayer2->setScaledContents(true);
-    ui->photoPlayer2->resize(175,175);
-    ui->photoPlayer2->setPixmap(QPixmap(":/img/user.png"));
 
     test->setPos(0, 0);
     scene->addItem(test);
@@ -63,6 +57,35 @@ void ViewerWindow::writeScore()
 
     ui->nameOfPlayer1->setText(playerA.getName());
     ui->nameOfPlayer2->setText(playerB.getName());
+
+
+    QByteArray dataA = playerA.loadPicture();
+    QByteArray dataB = playerB.loadPicture();
+
+    QPixmap pixmapA;
+    QPixmap pixmapB;
+
+    pixmapA.loadFromData(dataA,"jpg");
+    pixmapB.loadFromData(dataB,"jpg");
+
+    int wA = ui->photoPlayer1->width();
+    int hA = ui->photoPlayer1->height();
+
+    int wB = ui->photoPlayer1->width();
+    int hB = ui->photoPlayer1->height();
+
+    QMatrix matrix;
+    matrix.rotate(270);
+
+    pixmapA = pixmapA.scaled(wA,hA,Qt::KeepAspectRatio);
+    pixmapA = pixmapA.transformed(matrix);
+
+    pixmapB = pixmapB.scaled(wB,hB,Qt::KeepAspectRatio);
+    pixmapB = pixmapB.transformed(matrix);
+
+
+    ui->photoPlayer1->setPixmap(pixmapA);
+    ui->photoPlayer2->setPixmap(pixmapB);
 
     _aktivePlayer = _referee->getAktivePlayer();
     Player aktivePlayer(_aktivePlayer);

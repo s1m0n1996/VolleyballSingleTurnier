@@ -51,7 +51,8 @@ public slots:
     void deletePlayer(void);
     void restorePlayer(void);
 
-    void addPhoto(void);
+    void addPhotoWithSelection(void);
+    void addPhotoWithButton(void);
     void addPlayerToDatabase(void);
 
     void showDeletedPlayers(void);
@@ -84,13 +85,16 @@ private:
     WindowLabel* _nameMissingPlayersLabel        = nullptr;
     WindowLabel* _valueMissingPlayersLabel       = nullptr;
 
+    QByteArray* _byteArray                       = nullptr;
 
-    QGroupBox* _addPlayer = nullptr;
+    QGroupBox* _addPlayer                       = nullptr;
 
     WindowLabel* _playernameLabel           = nullptr;
     WindowLabel* _birthdayLabel             = nullptr;
     WindowLabel* _countryLabel              = nullptr;
-    WindowLabel* _photo                     = nullptr;
+    WindowLabel* _photoLabel                     = nullptr;
+
+    WindowLabel* _photo = nullptr;
 
 
     WindowEdit*     _playernameEdit             = nullptr;

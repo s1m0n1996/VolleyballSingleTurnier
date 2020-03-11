@@ -17,7 +17,7 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Candara;}");
+                  "font-family: Arial Nova;}");
     setText(text);
 }
 
@@ -25,7 +25,7 @@ WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Candara;}");
+                  "font-family: Arial Nova;}");
     setText(text);
 }
 
@@ -60,7 +60,7 @@ void WindowLabel::setMainTitleStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 45px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova;"
                   "border-bottom-width: 1px;"
                   "border-bottom-style: solid;"
                   "border-radius: 0px;"

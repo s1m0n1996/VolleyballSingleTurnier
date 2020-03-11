@@ -149,9 +149,9 @@ void PlayermanagementWindow::dropPlayerForNewGame()
 void PlayermanagementWindow::addPlayerToDatabase()
 {
 
-    Player* newplayer = new Player(_playernameEdit->text(),
+    Player* newPlayer = new Player(_playernameEdit->text(),
             QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd"), _countryEdit->text());
-    _playerManagementModel->addPlayerForNewGame(*newplayer);
+    _playerManagementModel->addPlayerForNewGame(*newPlayer);
 
 
     _playernameEdit->clear();
@@ -160,6 +160,25 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
     _playerManagementModel->refreshDatabasePlayerTable();
 
+    newPlayer->savePicture(*_byteArray);
+
+    QByteArray data = newPlayer->loadPicture();
+    QPixmap pixmap;
+
+    pixmap.loadFromData(data,"jpg");
+
+    int w = _photoLabel->width();
+    int h = _photoLabel->height();
+
+    QMatrix matrix;
+    matrix.rotate(270);
+
+    pixmap = pixmap.scaled(w,h,Qt::KeepAspectRatio);
+    pixmap = pixmap.transformed(matrix);
+
+
+    _photo->setPixmap(pixmap);
+
 }
 
 void PlayermanagementWindow::createDeleteMenu()
@@ -167,7 +186,7 @@ void PlayermanagementWindow::createDeleteMenu()
     QAction* deletePlayer = new QAction("Löschen", this);
     _addPhotoAction       = new QAction("Foto hinzufügen");
     connect(deletePlayer, SIGNAL(triggered()), this, SLOT(deletePlayer()));
-    connect(_addPhotoAction, SIGNAL(triggered()), this, SLOT(addPhoto()));
+    connect(_addPhotoAction, SIGNAL(triggered()), this, SLOT(addPhotoWithSelection()));
 
     QMenu* deleteMenu = new QMenu(this);
     deleteMenu->addAction(deletePlayer);
@@ -232,40 +251,57 @@ void PlayermanagementWindow::restorePlayer()
 
 }
 
-void PlayermanagementWindow::addPhoto()
+void PlayermanagementWindow::addPhotoWithSelection()
 {
-    QAbstractItemModel* deletedPlayersModel = _deletedPlayersTableView->model();
-    QModelIndexList selectedRows = _deletedPlayersTableView->selectionModel()->selectedRows();
+    QAbstractItemModel* modelAll = _allPlayerTableView->model();
+    QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
+    Player* activePlayer;
     QString path = QFileDialog::getOpenFileName(this,
                                         tr("Bild laden"), "",
-                                        tr("Photo File (*.png) ;; All Files (*.*)"));
+                                        tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
+
+
+
+    for (QModelIndex index : selectedRows)
+    {
+       activePlayer = new Player(
+                modelAll->index(index.row(), 0).data().toString(),
+                modelAll->index(index.row(), 1).data().toDate(),
+                modelAll->index(index.row(), 2).data().toString());
+    }
 
     // save file in database
     QFile file(path);
     if (file.exists())
     {
-        qDebug()<<"LEa";
+
         file.open(QIODevice::ReadOnly);
         QByteArray byteArray = file.readAll();
-        Player* activePlayer;
-
-
-        // TODO: player im View auswählen und dem entsprechend ausgewählten übergeben!!!
-
-        for (QModelIndex index : selectedRows)
-        {
-           activePlayer = new Player(
-                    deletedPlayersModel->index(index.row(), 0).data().toString(),
-                    deletedPlayersModel->index(index.row(), 1).data().toDate(),
-                    deletedPlayersModel->index(index.row(), 2).data().toString());
-           qDebug()<<deletedPlayersModel->index(index.row(), 0).data().toString();
-        }
-
         activePlayer->savePicture(byteArray);
         file.close();
     }
+
+
 }
 
+void PlayermanagementWindow::addPhotoWithButton()
+{
+    _byteArray = new QByteArray();
+    QString path = QFileDialog::getOpenFileName(this,
+                                        tr("Bild laden"), "",
+                                        tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
+
+    // save file in database
+    QFile file(path);
+    if (file.exists())
+    {
+
+        file.open(QIODevice::ReadOnly);
+        *_byteArray = file.readAll();
+        file.close();
+    }
+
+}
 /*!
  * \brief Erstellt den Tournierplan
  *
@@ -293,7 +329,7 @@ void PlayermanagementWindow::connecting()
     connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createRestoreMenu()));
 
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhoto()));
+    connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhotoWithButton()));
 
     connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
 
@@ -343,7 +379,9 @@ void PlayermanagementWindow::createWidges()
     _playernameLabel    = new WindowLabel("Spielername");
     _birthdayLabel      = new WindowLabel("Geburtsdatum");
     _countryLabel       = new WindowLabel("Land");
-    _photo              = new WindowLabel("Foto");
+    _photoLabel         = new WindowLabel("Foto");
+
+    _photo = new WindowLabel("");
 
     _addPhoto = new WindowButton("Foto hinzufügen");
     _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
@@ -376,6 +414,7 @@ void PlayermanagementWindow::createWidges()
         _startTournamentButton->setEnabled(true);
     }
 }
+
 void PlayermanagementWindow::showTable()
 {
     _allPlayerTableView  = new TableView;
@@ -437,12 +476,13 @@ void PlayermanagementWindow::setAllLayout()
     labelLayout->addWidget(_playernameLabel);
     labelLayout->addWidget(_birthdayLabel);
     labelLayout->addWidget(_countryLabel);
-    labelLayout->addWidget(_photo);
+    labelLayout->addWidget(_photoLabel);
 
     editLayout->addWidget(_playernameEdit);
     editLayout->addWidget(_birthdayEdit);
     editLayout->addWidget(_countryEdit);
     editLayout->addWidget(_addPhoto);
+    editLayout->addWidget(_photo);
 
     addPlayerLayout->addLayout(labelLayout,0,0);
     addPlayerLayout->addLayout(editLayout,0,1);
@@ -461,6 +501,7 @@ void PlayermanagementWindow::setAllLayout()
     mainLayout->addLayout(titleTabelViewLayout);
     mainLayout->addLayout(tabelViewLayout);
     mainLayout->addLayout(bottomLayout);
+
 
     widget->setLayout(mainLayout);
 }
