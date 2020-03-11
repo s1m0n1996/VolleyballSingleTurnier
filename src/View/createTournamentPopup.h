@@ -19,6 +19,7 @@ public:
 
 public slots:
     void openTournamentWindow(void);
+    void enableCreateTournamentButton(void);
 
 private:
     WindowLabel* _dateLabel = nullptr;

@@ -298,9 +298,10 @@ void TournamentWindow::createTexts()
     int allRectCount = allRects.size();
     for (int i = 0; i < allRectCount; i++)
     {
-            QGraphicsTextItem* test = new QGraphicsTextItem(allPlayersForAllGames[i]);
-            test->setPos(allRects[i].x(),allRects[i].y());
-            _gameBoard->addItem(test);
+            QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
+            allPlayernames->setPos(allRects[i].x(),allRects[i].y());
+            allPlayernames->setFont(QFont("Candara", 10));
+            _gameBoard->addItem(allPlayernames);
     }
 
     QGraphicsView* viewGame = new QGraphicsView(_gameBoard);

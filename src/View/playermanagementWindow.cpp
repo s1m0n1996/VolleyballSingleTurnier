@@ -348,7 +348,7 @@ void PlayermanagementWindow::enableAddPlayerButton()
 {
     QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
 
-    if (!(_birthdayEdit->text().isEmpty()) && !(_countryEdit->text().isEmpty()) && (re.exactMatch(_birthdayEdit->text())))
+    if (!(_countryEdit->text().isEmpty()) && !(_birthdayEdit->text().isEmpty()) && (re.exactMatch(_birthdayEdit->text())))
     {
         _addPlayerButton->setEnabled(true);
     }
@@ -391,8 +391,10 @@ void PlayermanagementWindow::createWidges()
                               "text-decoration: underline;} ");
 
     _playernameEdit     = new WindowEdit("Max Mustermann", DataType::name);
+    _playernameEdit->setMaxLength(20);
     _birthdayEdit       = new WindowEdit("1990-01-30", DataType::date);
     _countryEdit        = new WindowEdit("Deutschland", DataType::country);
+    _countryEdit->setMaxLength(3);
 
     _playernameLabel    = new WindowLabel("Spielername");
     _birthdayLabel      = new WindowLabel("Geburtsdatum");
