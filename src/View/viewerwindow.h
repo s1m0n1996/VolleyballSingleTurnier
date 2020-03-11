@@ -35,7 +35,7 @@ private:
     QList<QString> _listWithHowToFinishLeg;
     QGraphicsScene* scene = new QGraphicsScene;
 
-    DartboardViewer* test = new DartboardViewer(_referee);
+    DartboardViewer* _dartboard = new DartboardViewer(_referee);
     int _player1 = 0;
     int _player2 = 0;
     int _aktivePlayer = 0;

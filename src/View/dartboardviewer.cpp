@@ -278,7 +278,7 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     for(int i = 0; i < texts.size(); i++)
     {
-        texts[i].addText(-20,-450,QFont("Times"),allFields[i]);
+        texts[i].addText(-20,-450,QFont("Times",16,QFont::Bold),allFields[i]);
     }
 
     for(int i = 0; i < 20; i++)

@@ -30,10 +30,11 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
 
 
 
-    test->setPos(0, 0);
-    scene->addItem(test);
+    _dartboard->setPos(0, 0);
+    scene->addItem(_dartboard);
 
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->scale(0.8,0.8);
 
 }
 
