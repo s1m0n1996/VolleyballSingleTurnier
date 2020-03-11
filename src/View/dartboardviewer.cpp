@@ -45,41 +45,36 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 
     int valueOfMultiplikator = _referee->valueMultiplikator();
-    int valueOfField = _referee->throwScoreWithoutMulti();
+    _allThrows = _referee->allThrowsWithoutMultiplikator();
     int remainingThrows = _referee->getRemainingThrows();
 
-    qDebug() <<valueOfField;
-    qDebug() <<remainingThrows;
 
     if(remainingThrows == 2)
     {
-        _allThrows[2] = valueOfField;
+        _allMulti[0] = valueOfMultiplikator;
     }
     else if(remainingThrows == 1)
     {
-        _allThrows[1] = valueOfField;
+        _allMulti[1] = valueOfMultiplikator;
     }
     else if(remainingThrows == 0)
     {
-        _allThrows[0] = valueOfField;
+        _allMulti[2] = valueOfMultiplikator;
     }
     else
     {
-        for(int i = 0; i < _allThrows.size(); i++)
+        for(int i = 0; i < _allMulti.size(); i++)
         {
-            _allThrows[i] = 0;
+            _allMulti[i] = -1;
         }
     }
-    qDebug() <<_allThrows;
 
-    qDebug() <<"Multi" <<valueOfMultiplikator <<"FIeld" <<valueOfField <<"remainThr" <<remainingThrows;
+    qDebug() <<"alle Würfe" <<_allThrows;
 
     for(int i = 0; i < 4; i++)
     {
-        qDebug() << "?";
         changingColour.append(QList<QBrush>());
     }
-    qDebug() <<changingColour.size();
 
     changingColour[0].append(Qt::yellow);
     changingColour[1].append(Qt::blue);
@@ -90,8 +85,6 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     {
         colourListOfAllFields.append(QList<QBrush>());
     }
-
-    qDebug() <<colourListOfAllFields.size();
 
     for(int i = 0; i < colourListOfAllFields.size(); i++)
     {
@@ -125,6 +118,9 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
         }
     }
+//Bulls_Eye
+    colourListOfAllFields[1].append(Qt::darkGreen);
+    colourListOfAllFields[2].append(Qt::red);
 
     for(int i = 0; i < 4; i++)
     {
@@ -137,35 +133,38 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
         {
             valuesOfDartboard[i] = {0};
         }
+        else if (i == 1 or i == 2)
+        {
+            valuesOfDartboard[i] = {20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5, 25};
+        }
         else
         {
             valuesOfDartboard[i] = {20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5};
         }
     }
 
-    if(valueOfMultiplikator != 0)
-    {
-        for(int i = 0; i < valuesOfDartboard[valueOfMultiplikator].size(); i++)
-        {
-            if(valuesOfDartboard[valueOfMultiplikator][i] == _allThrows[0])
-            {
-                colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
-            }
-            if(valuesOfDartboard[valueOfMultiplikator][i] == _allThrows[1])
-            {
-                colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
-            }
 
-            if(valuesOfDartboard[valueOfMultiplikator][i] == _allThrows[2])
+    qDebug() << "value of Multi" <<valueOfMultiplikator;
+
+    for(int i = 0; i < 3; i++)
+    {
+        if (_allMulti[i] > 0)
+        {
+            for(int t = 0; t < valuesOfDartboard[_allMulti[i]].size(); t++)
             {
-                colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
+                if(valuesOfDartboard[_allMulti[i]][t] == _allThrows[i])
+                {
+                    colourListOfAllFields[_allMulti[i]][t] = changingColour[remainingThrows][0];
+                }
             }
         }
-    }
-    else
-    {
-        for(int i = 0; i < colourListOfAllFields[valueOfMultiplikator].size(); i++)
-            colourListOfAllFields[valueOfMultiplikator][i] = changingColour[remainingThrows][0];
+        else if (_allMulti[i] == 0)
+        {
+            for(int i = 0; i < colourListOfAllFields[0].size(); i++)
+            colourListOfAllFields[0][i] = changingColour[remainingThrows][0];
+        }
+
+
     }
 
     singleFieldOneRightLine.moveTo(0,0);
@@ -235,12 +234,6 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     missFieldAll.setFillRule(Qt::WindingFill);
 
-
-
-    qDebug() <<"hallo";
-
-
-
     // Zeichnet alle Felder bis auf das Bull- Eye
     for(int i = 0; i < 20; i++)
     {
@@ -297,11 +290,12 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 
     // Zeichnen des Bulls-Eyes
-    painter->setBrush(Qt::darkGreen);
+    painter->setBrush(colourListOfAllFields[1][20]);
     painter->drawEllipse(-25,-25,50,50);
 
-    painter->setBrush(Qt::red);
+    painter->setBrush(colourListOfAllFields[2][20]);
     painter->drawEllipse(-12,-12,25,25);
 
 }
+
 

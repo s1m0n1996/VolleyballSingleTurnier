@@ -142,6 +142,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         _throwScoreWithoutMulti = scoreWithoutMultiplikator;
         _singleThrowScore = scoreWithoutMultiplikator * valueMultiplikator;
         _allThrows[_throwCounter] = _singleThrowScore;
+        _allThrowsWithoutMulti[_throwCounter] = _throwScoreWithoutMulti;
         _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
 
@@ -263,9 +264,9 @@ int Referee::valueMultiplikator()
     return _valueMultiplikator;
 }
 
-int Referee::throwScoreWithoutMulti()
+QList<int> Referee::allThrowsWithoutMultiplikator()
 {
-    return _throwScoreWithoutMulti;
+    return _allThrowsWithoutMulti;
 }
 
 /*!
@@ -315,6 +316,8 @@ void Referee::undoThrow()
         // last throw is actual throw - 1
         _remainScore[_player] = _remainScore[_player] + _allThrows[_throwCounter - 1];
         _allThrows[_throwCounter - 1] = 0;
+         _allThrowsWithoutMulti[_throwCounter - 1] = 0;
+       // _throwScoreWithoutMulti = _allThrows[_throwCounter - 1];
         _throwCounter--;
     }
 

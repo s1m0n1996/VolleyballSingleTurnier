@@ -46,7 +46,7 @@ public:
     void scoreIsUnder170InLeg();
     void remainingThrowsAreZeroInLeg();
     int valueMultiplikator();
-    int throwScoreWithoutMulti();
+    QList<int> allThrowsWithoutMultiplikator();
     QList<int> getRemainScoreForViewer();
     QList<int> getAllPlayersForViewer();
 
@@ -80,6 +80,7 @@ private:
      QList<int> _winningLegCounter  = {0,0};
      QList<int> _remainScore        = {501,501};
      QList<int> _allThrows          = {0,0,0};
+     QList<int> _allThrowsWithoutMulti = {0,0,0};
      //TODO: Muss noch ein String werden. Mit der Game Klasse absprechen
      QList<int> _allPlayers;
      SqliteConnector* _db;

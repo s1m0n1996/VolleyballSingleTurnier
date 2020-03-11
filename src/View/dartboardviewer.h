@@ -18,6 +18,7 @@ public:
 private:
     Referee* _referee;
     QList<int> _allThrows = {0,0,0,0};
+    QList<int> _allMulti = {-1,-1,-1,-1};
 };
 
 #endif // DARTBOARDVIEWER_H
