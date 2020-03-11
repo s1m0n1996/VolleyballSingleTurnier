@@ -344,6 +344,10 @@ statistic::type StatisticWindow::_getSelectedChartType(void)
     {
         return statistic::type::Average;
     }
+    else
+    {
+        qFatal("No category selected");
+    }
 }
 
 /*!
