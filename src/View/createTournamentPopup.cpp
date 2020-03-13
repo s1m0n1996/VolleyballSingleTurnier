@@ -9,6 +9,7 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 
     _dateLabel = new WindowLabel("Turnierdatum");
     _dateEdit = new WindowEdit((QDate::currentDate().toString("yyyy-MM-dd")), DataType::date);
+    _dateEdit->setText(QDate::currentDate().toString("yyyy-MM-dd"));
 
     _nameLabel = new WindowLabel("Turniername");
     _nameEdit = new WindowEdit("Turniername", DataType::name);
