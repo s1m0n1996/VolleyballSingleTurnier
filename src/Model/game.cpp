@@ -306,8 +306,5 @@ QList<QString> Game::getAllPlayersForGameboardView()
 QString Game::getNameOfPlayerForGameView(int playerId)
 {
     qDebug() << "SpielerId:" << playerId;
-    Player player(playerId);
-    return player.getName();
+    return playerId > 0 ? Player(playerId).getName() : "";
 }
-
-
