@@ -260,9 +260,20 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
     {
         if (!sqlQueryObject.exec())
         {
-            qWarning() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
-                       << sqlQueryObject.lastError().driverText()
-                       << sqlQueryObject.lastError().databaseText();
+            QString errorMsg;
+            errorMsg += "Query: " + sqlQueryObject.executedQuery();
+            errorMsg += "\nReason: " + sqlQueryObject.lastError().driverText();
+            errorMsg += sqlQueryObject.lastError().databaseText();
+            errorMsg += "\n With parameters:";
+            for (const auto& key : sqlQueryObject.boundValues().keys())
+            {
+                errorMsg += "\n";
+                errorMsg += "    " + key + " = " + sqlQueryObject.boundValues()[key].toString();
+            }
+
+            // wenn das programm hier abstürzt muss die sqlQuery überprüft werden. Um erst einmal weiter
+            // zu machen kann das qFatal zu QWarning geändert werden. Dann gibt es lediglich eine warnung
+            qFatal("%s", errorMsg.toLatin1().constData());
         }
     }
         // if a sql string was given call the .exec() method with this parameter
@@ -270,9 +281,18 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject,
     {
         if (!sqlQueryObject.exec(sqlQueryString))
         {
-            qWarning() << "Failed: " << sqlQueryObject.executedQuery() << "\n Reason: "
-                       << sqlQueryObject.lastError().driverText()
-                       << sqlQueryObject.lastError().databaseText();
+            QString errorMsg;
+            errorMsg += "Query: " + sqlQueryObject.executedQuery();
+            errorMsg += "\nReason: " + sqlQueryObject.lastError().driverText();
+            errorMsg += sqlQueryObject.lastError().databaseText();
+            errorMsg += "\n With parameters:";
+            for (const auto& key : sqlQueryObject.boundValues().keys())
+            {
+                errorMsg += "\n";
+                errorMsg += "    " + key + " = " + sqlQueryObject.boundValues()[key].toString();
+            }
+
+            qFatal("%s", errorMsg.toLatin1().constData());
         }
     }
 
@@ -336,7 +356,8 @@ bool SqliteConnector::_loadLastDatabase()
         file.close();
 
         return openDatabase(path);
-    } else
+    }
+    else
     {
         return false;
     }
