@@ -32,11 +32,12 @@ public:
         return instance;
     }
 
+    bool isDatabaseOpen(void);
+
     void createDatabase(const QString path);
 
     bool openDatabase(const QString path);
 
-    QSqlDatabase* getDb(){return &_db;}
     QString getDatabaseName();
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);

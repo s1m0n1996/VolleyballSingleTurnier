@@ -406,3 +406,14 @@ QString SqliteConnector::getDatabaseName()
     }
     return path;
 }
+
+/*!
+ * \brief Gibt den 7zurück ob die Datenbank geöffnet ist.
+ *
+ * \return ob dieDatenbank offen ist
+ *
+ */
+bool SqliteConnector::isDatabaseOpen(void)
+{
+    return _db.isOpen();
+}

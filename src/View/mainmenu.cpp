@@ -164,11 +164,11 @@ void MainMenu::connecting()
 void MainMenu::setButtonEnableState()
 {
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
-    _playermanagment->setEnabled(sqliteConnector->getDb()->isOpen() && !_gameManagement->isTournamentStarted()
+    _playermanagment->setEnabled(sqliteConnector->isDatabaseOpen() && !_gameManagement->isTournamentStarted()
                                  && (_gameManagement->getTournamentId() >= 0));
 
 
-    bool showGameButtons = sqliteConnector->getDb()->isOpen() && _gameManagement->isTournamentStarted();
+    bool showGameButtons = sqliteConnector->isDatabaseOpen() && _gameManagement->isTournamentStarted();
     _tournament->setEnabled(showGameButtons);
     _viewer->setEnabled(showGameButtons);
     _referee->setEnabled(showGameButtons);
@@ -273,14 +273,14 @@ void MainMenu::createWidgets()
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
 
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _playermanagment->setEnabled(sqlitConnector->getDb()->isOpen());
-    _tournament->setEnabled(sqlitConnector->getDb()->isOpen());
-    _viewer->setEnabled(sqlitConnector->getDb()->isOpen());
-    _referee->setEnabled(sqlitConnector->getDb()->isOpen());
-    _statitsic->setEnabled(sqlitConnector->getDb()->isOpen());
+    _tournament->setEnabled(sqlitConnector->isDatabaseOpen());
+    _playermanagment->setEnabled(sqlitConnector->isDatabaseOpen());
+    _tournament->setEnabled(sqlitConnector->isDatabaseOpen());
+    _viewer->setEnabled(sqlitConnector->isDatabaseOpen());
+    _referee->setEnabled(sqlitConnector->isDatabaseOpen());
+    _statitsic->setEnabled(sqlitConnector->isDatabaseOpen());
 
-    if (sqlitConnector->getDb()->isOpen())
+    if (sqlitConnector->isDatabaseOpen())
     {
         _noteDatabase->setVisible(false);
     }
