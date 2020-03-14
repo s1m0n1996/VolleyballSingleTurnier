@@ -27,8 +27,8 @@
 #include "View/windowedit.h"
 #include "View/windowlabel.h"
 
-PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent):
-    QMainWindow(parent)
+PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget* parent) :
+        QMainWindow(parent)
 {
     _playerManagementModel = playerManagementModel;
     _playerManagementModel->refreshDatabasePlayerTable();
@@ -150,7 +150,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
 {
 
     Player* newPlayer = new Player(_playernameEdit->text(),
-            QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd"), _countryEdit->text());
+                                   QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd"), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newPlayer);
 
 
@@ -168,7 +168,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
         QByteArray data = newPlayer->loadPicture();
         QPixmap pixmap;
 
-        pixmap.loadFromData(data,"jpg");
+        pixmap.loadFromData(data, "jpg");
 
         int w = _photoLabel->width();
         int h = _photoLabel->height();
@@ -176,9 +176,8 @@ void PlayermanagementWindow::addPlayerToDatabase()
         QTransform rotate;
         rotate.rotate(90);
 
-        pixmap = pixmap.scaled(w,h,Qt::KeepAspectRatio);
+        pixmap = pixmap.scaled(w, h, Qt::KeepAspectRatio);
         pixmap = pixmap.transformed(rotate);
-
 
         _photo->setPixmap(pixmap);
 
@@ -263,14 +262,13 @@ void PlayermanagementWindow::addPhotoWithSelection()
     QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
     Player* activePlayer;
     QString path = QFileDialog::getOpenFileName(this,
-                                        tr("Bild laden"), "",
-                                        tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
-
+                                                tr("Bild laden"), "",
+                                                tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
 
 
     for (QModelIndex index : selectedRows)
     {
-       activePlayer = new Player(
+        activePlayer = new Player(
                 modelAll->index(index.row(), 0).data().toString(),
                 modelAll->index(index.row(), 1).data().toDate(),
                 modelAll->index(index.row(), 2).data().toString());
@@ -291,10 +289,10 @@ void PlayermanagementWindow::addPhotoWithSelection()
 }
 
 void PlayermanagementWindow::addPhotoWithButton()
-{   
+{
     QString path = QFileDialog::getOpenFileName(this,
-                                        tr("Bild laden"), "",
-                                        tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
+                                                tr("Bild laden"), "",
+                                                tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
 
     // save file in database
     QFile file(path);
@@ -307,6 +305,7 @@ void PlayermanagementWindow::addPhotoWithButton()
     }
 
 }
+
 /*!
  * \brief Erstellt den Tournierplan
  *
@@ -330,14 +329,17 @@ void PlayermanagementWindow::connecting()
 
     connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
     connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
-    connect(_allPlayerTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createDeleteMenu()));
-    connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(createRestoreMenu()));
+    connect(_allPlayerTableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(createDeleteMenu()));
+    connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(createRestoreMenu()));
 
-    connect(_playernameEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableAddPlayerButton()));
-    connect(_countryEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableAddPlayerButton()));
-    connect(_birthdayEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_playernameEdit, SIGNAL(textChanged(
+                                            const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_countryEdit, SIGNAL(textChanged(
+                                         const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_birthdayEdit, SIGNAL(textChanged(
+                                          const QString &)), this, SLOT(enableAddPlayerButton()));
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_addPhoto,SIGNAL(released()),this, SLOT(addPhotoWithButton()));    
+    connect(_addPhoto, SIGNAL(released()), this, SLOT(addPhotoWithButton()));
 
 
     connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
@@ -365,31 +367,30 @@ void PlayermanagementWindow::createWidges()
     _gamePlayerLabel->setTitleStyle();
 
     showTable();
-    _addPlayerForNewTournament      = new WindowButton("");
+    _addPlayerForNewTournament = new WindowButton("");
     _addPlayerForNewTournament->setIcon(QIcon(":/img/right.png"));
-    _addPlayerForNewTournament->setIconSize(QSize(65,65));
+    _addPlayerForNewTournament->setIconSize(QSize(65, 65));
 
-    _deletePlayerForNewTournament   = new WindowButton("");
+    _deletePlayerForNewTournament = new WindowButton("");
     _deletePlayerForNewTournament->setIcon(QIcon(":/img/left.png"));
-    _deletePlayerForNewTournament->setIconSize(QSize(65,65));
-
+    _deletePlayerForNewTournament->setIconSize(QSize(65, 65));
 
 
     _nameMissingPlayersLabel = new WindowLabel("noch zu benötigte Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(
-    QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
+            QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 
-    _addPlayer          = new QGroupBox();
+    _addPlayer = new QGroupBox();
     _addPlayer->setTitle("Spieler zum aktuellen Spiel hinzufügen:");
     _addPlayer->setStyleSheet("QGroupBox{"
                               "font-size: 25px;"
                               "font-family: Candara;} ");
 
-    _playernameEdit     = new WindowEdit("Max Mustermann", DataType::name);
+    _playernameEdit = new WindowEdit("Max Mustermann", DataType::name);
     _playernameEdit->setMaxLength(20);
-    _birthdayEdit       = new WindowEdit("1990-01-30", DataType::date);
-    _countryEdit        = new WindowEdit("Deutschland", DataType::country);
+    _birthdayEdit = new WindowEdit("1990-01-30", DataType::date);
+    _countryEdit = new WindowEdit("Deutschland", DataType::country);
     _countryEdit->setMaxLength(3);
 
     _playernameLabel    = new WindowLabel("Spielername");
@@ -401,20 +402,20 @@ void PlayermanagementWindow::createWidges()
 
     _addPhoto = new WindowButton("Foto hinzufügen");
     _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
-    _addPhoto->setIconSize(QSize(33,33));
+    _addPhoto->setIconSize(QSize(33, 33));
 
-    _addPlayerButton        = new WindowButton("Spieler hinzufügen");
+    _addPlayerButton = new WindowButton("Spieler hinzufügen");
     _addPlayerButton->setIcon(QIcon(":/img/addPlayer.png"));
-    _addPlayerButton->setIconSize(QSize(40,40));
+    _addPlayerButton->setIconSize(QSize(40, 40));
     _addPlayerButton->setEnabled(false);
 
 
-    _startTournamentButton  = new WindowButton("Turnier starten");
+    _startTournamentButton = new WindowButton("Turnier starten");
     _startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
     _startTournamentButton->setIcon(QIcon(":/img/createDart.png"));
-    _startTournamentButton->setIconSize(QSize(65,65));
-    _startTournamentButton->setFixedSize(250,40);
+    _startTournamentButton->setIconSize(QSize(65, 65));
+    _startTournamentButton->setFixedSize(250, 40);
 
 
     _menuDelete = new QMenu();
@@ -432,14 +433,14 @@ void PlayermanagementWindow::createWidges()
         _startTournamentButton->setEnabled(true);
     }
 
-     _byteArray = new QByteArray();
+    _byteArray = new QByteArray();
 }
 
 void PlayermanagementWindow::showTable()
 {
     _allPlayerTableView  = new TableView;
     _gamePlayerTableView = new TableView;
-    _deletedPlayersTableView  = new TableView;
+    _deletedPlayersTableView = new TableView;
 
     _allPlayerTableView->setModel(_playerManagementModel->getDatabaseTableModel());
     _allPlayerTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -462,7 +463,7 @@ void PlayermanagementWindow::showTable()
 
 void PlayermanagementWindow::setAllLayout()
 {
-    QWidget* widget= new QWidget;
+    QWidget* widget = new QWidget;
     setCentralWidget(widget);
 
     QVBoxLayout* mainLayout             = new QVBoxLayout;
@@ -479,8 +480,8 @@ void PlayermanagementWindow::setAllLayout()
 
     mainLayout->addWidget(_title);
 
-    titleTabelViewLayout->addWidget(_allPlayerLabel,0,Qt::AlignHCenter);
-    titleTabelViewLayout->addWidget(_gamePlayerLabel,0,Qt::AlignHCenter);
+    titleTabelViewLayout->addWidget(_allPlayerLabel, 0, Qt::AlignHCenter);
+    titleTabelViewLayout->addWidget(_gamePlayerLabel, 0, Qt::AlignHCenter);
 
     tabelViewLayout->addWidget(_allPlayerTableView);
     tabelViewLayout->addLayout(addDeleteLayout);
@@ -503,13 +504,13 @@ void PlayermanagementWindow::setAllLayout()
     editLayout->addWidget(_addPhoto);
     editLayout->addWidget(_photo);
 
-    addPlayerLayout->addLayout(labelLayout,0,0);
-    addPlayerLayout->addLayout(editLayout,0,1);
+    addPlayerLayout->addLayout(labelLayout, 0, 0);
+    addPlayerLayout->addLayout(editLayout, 0, 1);
     addPlayerLayout->addWidget(_addPlayerButton, 2, Qt::AlignRight);
 
     _addPlayer->setLayout(addPlayerLayout);
 
-    tournamentStartLayout->addWidget(_startTournamentButton,Qt::AlignRight, Qt::AlignBottom, Qt::AlignBottom);
+    tournamentStartLayout->addWidget(_startTournamentButton, Qt::AlignRight, Qt::AlignBottom, Qt::AlignBottom);
 
     bottomLayout->addWidget(_addPlayer);
     bottomLayout->addStretch();
@@ -528,4 +529,4 @@ void PlayermanagementWindow::setAllLayout()
 void PlayermanagementWindow::showDeletedPlayers(void)
 {
     _deletedPlayersTableView->show();
- }
+}
