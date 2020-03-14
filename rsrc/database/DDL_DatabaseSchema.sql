@@ -1,5 +1,5 @@
 
-PRAGMA foreign_keys = ON;
+-- PRAGMA foreign_keys = ON
 
 -- #####################################################################################################################
 -- create player_pictures_list table
@@ -15,7 +15,7 @@ CREATE TABLE player_pictures_list
     picture BLOB    NOT NULL
 );
 
-CREATE UNIQUE INDEX player_pictures_id_uindex
+CREATE INDEX player_pictures_id_uindex
     ON player_pictures_list (id);
 
 
