@@ -321,7 +321,7 @@ void PlayermanagementWindow::startTournament()
     Gameboard gameBoard(_playerManagementModel->getPlayersForNextGame());
     window()->close();
     GameManagement* gameManagement = &GameManagement::instance();
-    gameManagement->setIsTournamentStarted();
+    gameManagement->tournamentChanged();
 }
 
 void PlayermanagementWindow::connecting()

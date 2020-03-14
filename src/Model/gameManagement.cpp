@@ -9,7 +9,6 @@ GameManagement::GameManagement(void)
     _db = &SqliteConnector::instance();
 
     loadLastTournament();
-    setIsTournamentStarted();
 }
 
 /*!
@@ -45,7 +44,6 @@ WHERE name = :name
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
 
-    setIsTournamentStarted();
     emit tournamentChanged();
 }
 
@@ -83,7 +81,6 @@ WHERE id = :id
     _sportTypeId = rawData[0][3].toInt();
     _sportTypeId = rawData[0][4].toInt();
 
-    setIsTournamentStarted();
     emit tournamentChanged();
 }
 
@@ -110,9 +107,9 @@ WHERE sport_type_id = :sportTypeId
     sqlQuery.bindValue(":gameModeId", _gameModeId);
 
 
-    QList<QList<QVariant>> nextIdFromDatabase = _db->sqlQuery(sqlQuery);
+    const int nextIdFromDatabase = _db->sqlQuery(sqlQuery)[0][0].toInt();
 
-    const int nextTournamentId = nextIdFromDatabase.isEmpty() ? 1 : nextIdFromDatabase[0][0].toInt();
+    const int nextTournamentId = nextIdFromDatabase < 1 ? 1 : nextIdFromDatabase;
 
     sqlPrepare = R"(
 INSERT INTO tournament_list (id, sport_type_id, game_mode_id, name, date)
@@ -128,7 +125,7 @@ VALUES (:id, :sportTypeId, :gameModeId, :name, :date)
     sqlQuery.bindValue(":date", date);
 
     _db->sqlQuery(sqlQuery);
-    setIsTournamentStarted();
+    emit tournamentChanged();
 }
 
 /*!
@@ -163,7 +160,6 @@ LIMIT 1
     _tournamentName = rawData[0][1].toString();
     _tournamentDate = rawData[0][2].toString();
 
-    setIsTournamentStarted();
     emit tournamentChanged();
 }
 
@@ -198,8 +194,7 @@ WHERE sport_type_id = :sportTypeId
     return savedTournaments;
 }
 
-void GameManagement::setIsTournamentStarted(void)
-{
+bool GameManagement::isTournamentStarted() {
     QString sqlPrepare = R"(
 SELECT count(*)
 FROM game_board_list
@@ -214,14 +209,7 @@ WHERE sport_type_id = :sportTypeId
     sqlQuery.bindValue(":gameModeId", _gameModeId);
     sqlQuery.bindValue(":tournamentId", _tournamentId);
 
-    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
-    if (rawData.isEmpty())
-    {
-        return;
-    }
+    const int nGames = _db->sqlQuery(sqlQuery)[0][0].toInt();
 
-    int nGames = rawData[0][0].toInt();
-
-    _isTournamentStarted = (0 < nGames);
-    emit tournamentChanged();
+    return 0 < nGames;
 }
