@@ -80,6 +80,7 @@ void SqliteConnector::createDatabase(const QString path)
         file.close();
     }
     _saveLastPath(const_cast<QString&>(path));
+    emit databaseChanged();
 }
 
 /*!
@@ -112,6 +113,7 @@ bool SqliteConnector::openDatabase(QString path)
         return false;
     }
     _saveLastPath(const_cast<QString&>(path));
+    emit databaseChanged();
     return true;
 }
 

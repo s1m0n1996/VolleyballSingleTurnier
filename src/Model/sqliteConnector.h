@@ -24,7 +24,9 @@
  * This Class handles the full connection to the database.
  *
 */
-class SqliteConnector {
+class SqliteConnector : public QObject
+{
+Q_OBJECT
 
 public:
     static SqliteConnector &instance(void) {
@@ -46,6 +48,10 @@ public:
     QList<QList<QVariant>> sqlQuery(const QString &sqlPrepare, const QList<QVariant> &parameters);
 
     static void printTable(const QList<QList<QVariant>> &table);
+
+signals:
+    void databaseChanged(void);
+
 
 
 private:

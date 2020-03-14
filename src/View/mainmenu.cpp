@@ -30,8 +30,10 @@
 MainMenu::MainMenu(QMainWindow* parent) :
         QMainWindow(parent)
 {
+    _sqliteConnector = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
     createWidgets();
+    refreshDatabase();
     setwholeLayout();
     connecting();
 
@@ -157,6 +159,7 @@ void MainMenu::connecting()
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
+    connect(_sqliteConnector, SIGNAL(databaseChanged()), this, SLOT(refreshDatabase()));
 }
 
 void MainMenu::setButtonEnableState()
@@ -283,8 +286,6 @@ void MainMenu::createWidgets()
         _noteDatabase->setVisible(false);
     }
 
-    _playerManagementModel = new PlayerManagement();
-    _refereeModel = new Referee();
 }
 
 void MainMenu::setwholeLayout()
@@ -307,4 +308,22 @@ void MainMenu::setwholeLayout()
     widget->setLayout(layout);
 }
 
+void MainMenu::refreshDatabase()
+{
+    if (!_sqliteConnector->isDatabaseOpen())
+    {
+        return;
+    }
 
+    if (!_playerManagementModel)
+    {
+        delete _playerManagementModel;
+    }
+    _playerManagementModel = new PlayerManagement();
+
+    if (!_refereeModel)
+    {
+        delete _refereeModel;
+    }
+    _refereeModel = new Referee();
+}

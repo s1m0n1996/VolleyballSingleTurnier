@@ -55,6 +55,7 @@ private slots:
     void loadTournament();
     void setTournamentName();
     void setButtonEnableState();
+    void refreshDatabase();
 
 private:
     void connecting();
@@ -76,7 +77,7 @@ private:
     WindowLabel*            _noteDatabase   = nullptr;
     WindowLabel*            _noteTournament = nullptr;
     CreateTournamentPopUp*    _tournamentName = nullptr;
-    LoadTournamentPopup* _loadTournamentPopup;
+    LoadTournamentPopup* _loadTournamentPopup = nullptr;
 
     WindowButton* _playermanagment    = nullptr;
     WindowButton* _tournament         = nullptr;
@@ -84,11 +85,12 @@ private:
     WindowButton* _referee            = nullptr;
     WindowButton* _statitsic          = nullptr;
 
-    PlayerManagement*       _playerManagementModel;
-    Referee*                _refereeModel;
-    RefereepopupWinningLeg* _refereePopupModel;
+    SqliteConnector*        _sqliteConnector = nullptr;
+    PlayerManagement*       _playerManagementModel = nullptr;
+    Referee*                _refereeModel = nullptr;
+    RefereepopupWinningLeg* _refereePopupModel = nullptr;
 
-    GameManagement* _gameManagement;
+    GameManagement* _gameManagement = nullptr;
 
 
 };
