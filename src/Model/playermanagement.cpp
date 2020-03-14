@@ -67,16 +67,35 @@ void PlayerManagement::addPlayerForNewGame(const Player addPlayer)
         return;
     }
 
+    // check if the player exists in the new tournament
     QString sqlPrepare = R"(
-INSERT INTO tournament_players_list (player_id, sport_type_id, game_mode_id, tournament_id)
-VALUES ((SELECT id FROM player_list WHERE name = :name AND birthday = :birthday AND country = :country), :sportTypeId, :gameModeId, :tournamentId)
+SELECT count(*)
+FROM tournament_players_list
+WHERE player_id = :playerId
+  AND sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
 )";
-
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
-    sqlQuery.bindValue(":name", addPlayer.getName());
-    sqlQuery.bindValue(":birthday", addPlayer.getBirthday());
-    sqlQuery.bindValue(":country", addPlayer.getCountry());
+    sqlQuery.bindValue(":playerId", addPlayer.getId());
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+
+    if (0 < _db->sqlQuery(sqlQuery)[0][0].toInt())
+    {
+        return;
+    }
+
+
+    sqlPrepare = R"(
+INSERT INTO tournament_players_list (player_id, sport_type_id, game_mode_id, tournament_id)
+VALUES (:playerId, :sportTypeId, :gameModeId, :tournamentId)
+)";
+
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":playerId", addPlayer.getId());
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
