@@ -1,7 +1,7 @@
 #include "Model/game.h"
 
 // FIXME: nicht immer einfach spieler 2 und 4 aufrufen
-Game::Game():_playerA(2),_playerB(4)
+Game::Game()
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
@@ -40,11 +40,19 @@ void Game::loadNextGame()
     _gameId = newGame[0][0].toInt();
     if (newGame[0][1] > 0)
     {
-        _playerA = Player(newGame[0][1].toInt());
+        if (!_playerA)
+        {
+            delete _playerA;
+        }
+        _playerA = new Player(newGame[0][1].toInt());
     }
     if (newGame[0][2] > 0)
     {
-        _playerB = Player(newGame[0][2].toInt());
+        if (!_playerB)
+        {
+            delete _playerB;
+        }
+        _playerB = new Player(newGame[0][2].toInt());
     }
 }
 

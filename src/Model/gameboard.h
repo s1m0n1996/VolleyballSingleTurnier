@@ -3,7 +3,6 @@
 
 #include "Model/player.h"
 #include "Model/game.h"
-#include "Model/game.h"
 #include <QList>
 #include <ctime>
 #include "QDate"

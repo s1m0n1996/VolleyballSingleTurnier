@@ -15,8 +15,8 @@ public:
     void loadNextGame(void);
     void setNextWinner(int winnerId);
     void prepareNextGame(int winnerId);
-    int getPlayerAId(){return _playerA.getId();}
-    int getPlayerBId(){return _playerB.getId();}
+    int getPlayerAId(){return _playerA->getId();}
+    int getPlayerBId(){return _playerB->getId();}
     int getGameId(){return _gameId;}
     bool getIsLastGame(){return _isLastgame;}
     QList<QString> getAllGamesWithNames();
@@ -37,8 +37,8 @@ private:
     GameManagement* _gameManagement;
     int _gameId;
     bool _isLastgame;
-    Player _playerA;
-    Player _playerB;
+    Player* _playerA = nullptr;
+    Player* _playerB = nullptr;
     QList<QString> _allPlayers;
 
 //signals:
