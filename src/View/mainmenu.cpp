@@ -210,8 +210,6 @@ void MainMenu::setTournamentName()
 
 void MainMenu::createWidgets()
 {
-    SqliteConnector* sqliteConnector = &SqliteConnector::instance();
-    setWindowTitle("Datenbank " + sqliteConnector->getDatabaseName());
     setWindowIcon(QIcon(":/img/darts.png"));
 
     _playerData = new QMenu();
@@ -314,6 +312,8 @@ void MainMenu::refreshDatabase()
     {
         return;
     }
+
+    setWindowTitle("Datei: " + _sqliteConnector->getDatabaseName());
 
     if (!_playerManagementModel)
     {
