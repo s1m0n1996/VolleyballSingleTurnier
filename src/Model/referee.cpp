@@ -20,14 +20,17 @@ Referee::Referee()
 
 void Referee::updatePlayer()
 {
-    _allPlayers.clear();
-    Game game;
-    _gameId = game.getGameId();
-    _allPlayers.append(game.getPlayerAId());
-    _allPlayers.append(game.getPlayerBId());
-    qDebug() << "Updateplayer";
-    qDebug() << "Allplayer" << _allPlayers;
-    emit valueChanged();
+    if (_gameManagement->isTournamentStarted())
+    {
+        _allPlayers.clear();
+        Game game;
+        _gameId = game.getGameId();
+        _allPlayers.append(game.getPlayerAId());
+        _allPlayers.append(game.getPlayerBId());
+        qDebug() << "Updateplayer";
+        qDebug() << "Allplayer" << _allPlayers;
+        emit valueChanged();
+    }
 }
 
 /*!
