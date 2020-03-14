@@ -236,7 +236,7 @@ void MainMenu::createWidgets()
     _title = new WindowLabel("Hauptmenü - DartsTurnier");
     _title->setMainTitleStyle();
 
-    _noteDatabase = new WindowLabel("Zu Beginn muss ein Spiel neu erzeugt oder geladen werden");
+    _noteDatabase = new WindowLabel("Zu beginn muss eine Datei erstellt oder geladen werden");
     _noteDatabase->setStyleSheet("QLabel{"
                                  "font-size: 25px;"
                                  "font-family: Candara;"
