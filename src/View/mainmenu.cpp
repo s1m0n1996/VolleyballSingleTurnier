@@ -31,7 +31,6 @@ MainMenu::MainMenu(QMainWindow* parent) :
         QMainWindow(parent)
 {
     _sqliteConnector = &SqliteConnector::instance();
-    _gameManagement = &GameManagement::instance();
     createWidgets();
     refreshDatabase();
     setwholeLayout();
@@ -39,7 +38,6 @@ MainMenu::MainMenu(QMainWindow* parent) :
 
     setMinimumSize(700, 600);
     setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
-    setTournamentName();
     setButtonEnableState();
 }
 
@@ -314,6 +312,9 @@ void MainMenu::refreshDatabase()
     }
 
     setWindowTitle("Datei: " + _sqliteConnector->getDatabaseName());
+
+    _gameManagement = &GameManagement::instance();
+    setTournamentName();
 
     if (!_playerManagementModel)
     {
