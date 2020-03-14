@@ -19,7 +19,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Model/game.cpp \
     Model/gameboard.cpp \
-    Model/model.cpp \
     Model/player.cpp \
     Model/playerstatistics.cpp \
     Model/referee.cpp \
@@ -52,7 +51,6 @@ SOURCES += \
 HEADERS += \
     Model/game.h \
     Model/gameboard.h \
-    Model/model.h \
     Model/player.h \
     Model/playerstatistics.h \
     Model/referee.h \

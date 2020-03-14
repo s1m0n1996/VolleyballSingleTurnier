@@ -9,7 +9,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "Model/model.h"
 #include "Model/playermanagement.h"
 #include "Model/sqliteConnector.h"
 #include "View/mainmenu.h"
@@ -28,9 +27,8 @@
 #include <QDebug>
 #include <QSizePolicy>
 
-MainMenu::MainMenu(Model* model, QMainWindow* parent) :
-        QMainWindow(parent),
-        _model(model)
+MainMenu::MainMenu(QMainWindow* parent) :
+        QMainWindow(parent)
 {
     _gameManagement = &GameManagement::instance();
     createWidgets();

@@ -26,7 +26,6 @@ include_directories(../)
 set(MOC_HEADERS
         Model/game.h
         Model/gameboard.h
-        Model/model.h
         Model/player.h
         Model/playerstatistics.h
         Model/referee.h
@@ -60,7 +59,6 @@ set(MOC_HEADERS
 set(SOURCES
         Model/game.cpp
         Model/gameboard.cpp
-        Model/model.cpp
         Model/player.cpp
         Model/playerstatistics.cpp
         Model/referee.cpp

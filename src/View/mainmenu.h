@@ -36,7 +36,7 @@ class MainMenu : public QMainWindow
     Q_OBJECT
 
 public:
-    MainMenu(Model* model, QMainWindow* parent = nullptr);
+    MainMenu(QMainWindow* parent = nullptr);
     ~MainMenu();
 
     WindowLabel* getNote(){return _noteDatabase;}
