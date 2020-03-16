@@ -11,6 +11,15 @@ Viewer::Viewer()
     _loadDoc = QJsonDocument::fromJson(saveData);
 }
 
+/*!
+ * \brief Erstellt eine QList mit den möglichen Finishwegen.
+ *
+ * \return void
+ *
+ * In dieser Methode wird aus dem JSON-Dokument welches die möglichen Finishwege beinhaltet, eine Liste
+ * erstellet, wo nun alle möglichen Finishwege enthalten sind.
+ *
+ */
 void Viewer::createJsonDocument(int throwCounter, int remainScore)
 {
     qDebug() << "hrowCOunter" << throwCounter;

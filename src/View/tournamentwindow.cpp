@@ -56,7 +56,7 @@ void TournamentWindow::createWidgets()
 
 void TournamentWindow::createRects()
 {
-    double numberOfPlayer = _playerManagement->countSelectedPlayersForNewGame();     //TODO: Maximale SPieler auf 64 limitieren
+    double numberOfPlayer = _playerManagement->countSelectedPlayersForNewGame();
     double numberOfPlayerIntern = numberOfPlayer;
 
     // ANzahl der Spalten berechnen
@@ -284,31 +284,35 @@ void TournamentWindow::createTexts()
     QList<QRectF> allRects;
     QList<QString> allPlayersForAllGames;
 
-    allPlayersForAllGames = game.getAllPlayersForGameboardView();
-    qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
-
-    for(int i = 0; i < _numberOfColumn; i++)
+    if(!game.getIsLastGame())
     {
-        int rectCount = _rects[i].size();
-        for(int k = 0; k < rectCount; k++)
+        allPlayersForAllGames = game.getAllPlayersForGameboardView();
+        qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
+
+        for(int i = 0; i < _numberOfColumn; i++)
         {
-           allRects.append(_rects[i][k]);
+            int rectCount = _rects[i].size();
+            for(int k = 0; k < rectCount; k++)
+            {
+               allRects.append(_rects[i][k]);
+            }
         }
+
+        int allRectCount = allRects.size();
+        for (int i = 0; i < allRectCount; i++)
+        {
+                QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
+                allPlayernames->setPos(allRects[i].x(),allRects[i].y());
+                allPlayernames->setFont(QFont("Candara", 10));
+                _gameBoard->addItem(allPlayernames);
+        }
+
+        QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
+
+        QGridLayout* layout = new QGridLayout;
+        layout->addWidget(_title);
+        layout->addWidget(viewGame);
+        setLayout(layout);
     }
 
-    int allRectCount = allRects.size();
-    for (int i = 0; i < allRectCount; i++)
-    {
-            QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
-            allPlayernames->setPos(allRects[i].x(),allRects[i].y());
-            allPlayernames->setFont(QFont("Candara", 10));
-            _gameBoard->addItem(allPlayernames);
-    }
-
-    QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
-
-    QGridLayout* layout = new QGridLayout;
-    layout->addWidget(_title);
-    layout->addWidget(viewGame);
-    setLayout(layout);
 }

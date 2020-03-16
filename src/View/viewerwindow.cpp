@@ -43,6 +43,16 @@ ViewerWindow::~ViewerWindow()
     delete ui;
 }
 
+
+/*!
+ * \brief Schreibt alle Werte in die Ui rein.
+ *
+ * \return void
+ *
+ * Diese Methode holt vom Model alle relevanten Werte und schreibt diese dann in die Ui Datei.
+ * Es wird das Foto des jewailigen Spielers aus der Datenbank geladen und angezeigt.
+ *
+ */
 void ViewerWindow::writeScore()
 {   
     scene->update(0,0,20,10);
@@ -129,6 +139,15 @@ void ViewerWindow::scoreIsUnder170InLeg()
 
 
 
+/*!
+ * \brief Schreibt den möglichen Weg ein Leg zu gewinnen in die Ui.
+ *
+ * \return void
+ *
+ * Diese Methode schreibt sobald sie das Signal vom Model bekommt den möglichen Weg ein Leg zu gewinnen
+ * in die Ui rein.
+ *
+ */
 void ViewerWindow::possibleWayToFinishLeg()
 {
     qDebug() << "emit";
@@ -153,6 +172,15 @@ void ViewerWindow::possibleWayToFinishLeg()
 
 }
 
+/*!
+ * \brief Setzt den möglichen Weg das Leg zu gewinnen auf einen leeren String zurück
+ *
+ * \return void
+ *
+ * Diese Methode setzt die möglichen Weg das Leg zu gewinnen zurück, wenn vom Model das Signal kommt,
+ * das kein Wurf mehr verfügbar ist.
+ *
+ */
 void ViewerWindow::remainingThrowsAreZeroInLeg()
 {
     if (_aktivePlayer == _player1)
@@ -167,7 +195,4 @@ void ViewerWindow::remainingThrowsAreZeroInLeg()
         ui->possibleWayToFinishThrow2FromPlayer2->setText("");
         ui->possibleWayToFinishThrow3FromPlayer2->setText("");
     }
-
 }
-
-

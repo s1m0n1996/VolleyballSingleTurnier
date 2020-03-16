@@ -134,7 +134,7 @@ int Referee::getAktivePlayer()
 
 /*!
  * \brief Berechnet den Wert des geworfenen Dartpfeils.
- * \param[in,in] Den Multiplikator des Wurf [int], die Punktzahl des Wurf's ohne Multiplikator [int]
+ * \param[int,int] Den Multiplikator des Wurf [int], die Punktzahl des Wurf's ohne Multiplikator [int]
  * \return void
  *
  * Diese Metohde berechent den Wert des geworfenen Dartpfeils
@@ -248,7 +248,15 @@ void Referee::legWinningCondition()
     }
 }
 
-
+/*!
+ * \brief Gibt ein Singal raus sobald die Restpunktzahl unter 170 Punkte ist.
+ *
+ * \return void
+ *
+ * Diese Methode prüft ob bei einem Spieler die Restpunktzahl unter 170 ist, wenn dieses
+ * der Fall ist, dann wird ein Singal rausgegeben.
+ *
+ */
 void Referee::scoreIsUnder170InLeg()
 {
     if ((_remainScore[_player] <= 170 and _remainScore[_player] >= 0) and _remainingThrows > 0)
@@ -259,6 +267,15 @@ void Referee::scoreIsUnder170InLeg()
     }
 }
 
+/*!
+ * \brief Gibt ein Singal raus wenn keine Würfe in einem Leg für einen Spieler verfügbar sind.
+ *
+ * \return void
+ *
+ * Dieses Methode sendet ein Signal sobald ein der aktive Spieler während er dran ist keinen
+ * Wurf mehr zurverfügung hat.
+ *
+ */
 void Referee::remainingThrowsAreZeroInLeg()
 {
     if (_remainingThrows == 0)

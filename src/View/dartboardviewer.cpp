@@ -12,6 +12,18 @@ QRectF DartboardViewer::boundingRect() const
     return QRectF();
 }
 
+/*!
+ * \brief Zeichnet die Dartscheibe für den Zuschauer und färbt diese ein sobald etwas geworfen wurde.
+ *
+ * \return void
+ *
+ * Diese Methode zeichnet die Dartscheibe. Es werden die einzelnen Felder generiert, indem in Objekt
+ * davon gezeichnet wird und dieses dann immer um 18 Grad gedreht wird bis es 20 Felder davon gibt.
+ * Die unterschiedlichen Segmenete werden jewails übereinander gelget. Sobald etwas geworfen wurde
+ * ändert sich die Farbe in dem jeweiligen Feld. Wenn es der erste Wurf war, dann ist die Farbe "Magenta"
+ * beim zweiten Wurf "Blau" und beim dritten Wurf "Gelb".
+ *
+ */
 void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
@@ -49,6 +61,8 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     int remainingThrows = _referee->getRemainingThrows();
 
 
+    // Hier wird die QList für den Multiplikator gesetzt, damit man immer weiß welcher Multiplikator
+    // zu welchem Wurf gehört.
     if(remainingThrows == 2)
     {
         _allMulti[0] = valueOfMultiplikator;
@@ -71,6 +85,7 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     qDebug() <<"alle Würfe" <<_allThrows;
 
+    // Die Farbliste für die geworfenen Würfe wird angelegt
     for(int i = 0; i < 4; i++)
     {
         changingColour.append(QList<QBrush>());
@@ -118,7 +133,8 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
         }
     }
-//Bulls_Eye
+
+    //Bulls_Eye
     colourListOfAllFields[1].append(Qt::darkGreen);
     colourListOfAllFields[2].append(Qt::red);
 
@@ -167,6 +183,7 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     }
 
+    //Die einzelnen Segmente der Dartscheibe werden erstellt.
     singleFieldOneRightLine.moveTo(0,0);
     singleFieldOneRightLine.lineTo(37,-230);
     singleFieldOneRightLine.closeSubpath();
@@ -297,5 +314,3 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->drawEllipse(-12,-12,25,25);
 
 }
-
-

@@ -191,13 +191,30 @@ void RefereeWindow::writeNextPlayer()
     ui->playerName->setText(player.getName());
 }
 
-
+/*!
+ * \brief Öffnet ein Popupfenter sobald der Spieler sich überworfen hat.
+ *
+ * \return void
+ *
+ * Diese Methode öffnet ein Popuppfentser und die Dartscheibe wird sobald das Fenster da ist auf
+ * unenable gesetzt.
+ *
+ */
 void RefereeWindow::playerBust()
 {
     _popupBustLeg->show();
     ui->DartboardView->setEnabled(false);
 }
 
+/*!
+ * \brief Öffnet ein Popupfenter sobald der Spieler das Leg gewonnen hat.
+ *
+ * \return void
+ *
+ * Diese Methode öffnet ein Popuppfentser und die Dartscheibe wird sobald das Fenster da ist auf
+ * unenable gesetzt.
+ *
+ */
 void RefereeWindow::playerWinsLeg()
 {
     _popupWinningLeg->show();
@@ -208,7 +225,7 @@ void RefereeWindow::mouseReleasedOnDartboard()
 {
     qDebug() <<"x" <<ui->DartboardView->x <<"y" <<ui->DartboardView->y;
     _valueMultiplikator = valueMultiplikator();
-    _valueScoreWithoutMultiplikator =valueScoreWithoutMultiplikator();
+    _valueScoreWithoutMultiplikator = valueScoreWithoutMultiplikator();
 
     _referee->singleThrowScore(_valueMultiplikator, _valueScoreWithoutMultiplikator);
     _referee->scoreIsUnder170InLeg();
@@ -217,6 +234,18 @@ void RefereeWindow::mouseReleasedOnDartboard()
 
 }
 
+
+/*!
+ * \brief Schreibt alle Werte aus dem Model in die vorhergesehnen Felder rein.
+ *
+ * \return void
+ *
+ * Holt sich die Werte aus dem Model und schreibt diese nun in die dafür vorgesehene UI in die passenden
+ * Labels.
+ * Der Button für den Nächsten Spieler wird erst auf enable gesetzt wenn der aktive Spieler keine Würfe
+ * mehr hat.
+ *
+ */
 void RefereeWindow::writeScore()
 {
     ui->throw1->setText(QString::number(_referee->getThrows()[0]));
