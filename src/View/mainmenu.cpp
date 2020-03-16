@@ -155,8 +155,6 @@ void MainMenu::connecting()
     connect(_loadPlayer, SIGNAL(triggered()), this, SLOT(loadDatabase()));
     connect(_newTournament, SIGNAL(triggered()), this, SLOT(createTournament()));
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
-    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
-    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
     connect(_sqliteConnector, SIGNAL(databaseChanged()), this, SLOT(refreshDatabase()));
 }
 
@@ -316,6 +314,8 @@ void MainMenu::refreshDatabase()
     setWindowTitle("Datei: " + _sqliteConnector->getDatabaseName());
 
     _gameManagement = &GameManagement::instance();
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
     setTournamentName();
 
     if (!_playerManagementModel)
