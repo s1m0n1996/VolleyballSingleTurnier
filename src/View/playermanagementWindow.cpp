@@ -158,6 +158,15 @@ void PlayermanagementWindow::addPlayerToDatabase()
     _birthdayEdit->clear();
     _countryEdit->clear();
 
+    // reset background color
+    QPalette palette = _birthdayEdit->palette();
+    palette.setColor(_birthdayEdit->backgroundRole(), Qt::white);
+    _birthdayEdit->setToolTip("");
+    _birthdayEdit->setAutoFillBackground(true);
+    _birthdayEdit->setPalette(palette);
+
+
+
     _playerManagementModel->refreshDatabasePlayerTable();
 
     if (!(_byteArray->isEmpty()))
@@ -338,6 +347,8 @@ void PlayermanagementWindow::connecting()
                                          const QString &)), this, SLOT(enableAddPlayerButton()));
     connect(_birthdayEdit, SIGNAL(textChanged(
                                           const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_birthdayEdit, SIGNAL(textChanged(
+                                          const QString &)), this, SLOT(setPlayerDateBackground()));
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
     connect(_addPhoto, SIGNAL(released()), this, SLOT(addPhotoWithButton()));
 
@@ -349,10 +360,39 @@ void PlayermanagementWindow::connecting()
 
 void PlayermanagementWindow::enableAddPlayerButton()
 {
+    QDate date = QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd");
     QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
 
-    _addPlayerButton->setEnabled(!(_countryEdit->text().isEmpty()) && !(_birthdayEdit->text().isEmpty()) &&
-                                 (re.exactMatch(_birthdayEdit->text())));
+    _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty() && date.isValid() &&
+                                 re.exactMatch(_birthdayEdit->text()));
+}
+
+/*!
+ * \brief Färbe Hintergrund rot, wenn das Datum ungültig ist
+ *
+ * Der hintergrunf der Datumseingabe wird rot gefärbt und es wird ein Tooltip hinzugefügt, damit man erkennt das
+ * das eingegebene Datum ungültig ist.
+ * Wenn das Datum gültig ist wird der Hintergrund grün gefärbt.
+ */
+void PlayermanagementWindow::setPlayerDateBackground()
+{
+    QDate date = QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd");
+
+    QPalette palette = _birthdayEdit->palette();
+
+    if (date.isValid())
+    {
+        palette.setColor(_birthdayEdit->backgroundRole(), Qt::green);
+        _birthdayEdit->setToolTip("");
+    }
+    else
+    {
+        palette.setColor(_birthdayEdit->backgroundRole(), Qt::red);
+        _birthdayEdit->setToolTip("Ungültiges Datum");
+    }
+
+    _birthdayEdit->setAutoFillBackground(true);
+    _birthdayEdit->setPalette(palette);
 }
 
 void PlayermanagementWindow::createWidges()
