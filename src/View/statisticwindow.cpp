@@ -395,7 +395,7 @@ void StatisticWindow::_refreshPieDiagram(const QMap<QString, double>& diagramDat
     {
         invertedMap.append(QPair<double, QString>(diagramData[key], key));
     }
-    qSort(invertedMap);
+    std::sort(invertedMap.begin(), invertedMap.end());
 
     for (auto data : invertedMap)
     {
