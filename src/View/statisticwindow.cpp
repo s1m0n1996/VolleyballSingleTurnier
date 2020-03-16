@@ -204,6 +204,10 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->horizontalHeader()->hide();
     tableView->verticalHeader()->hide();
+    tableView->setShowGrid(false);
+    tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
     _choosePlayerComboBox->setModel(model);
     _choosePlayerComboBox->setView(tableView);
@@ -251,6 +255,10 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
     tableView->horizontalHeader()->hide();
     tableView->verticalHeader()->hide();
     tableView->hideColumn(2);
+    tableView->setShowGrid(false);
+    tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
     _chooseTournamentComboBox->setModel(model);
     _chooseTournamentComboBox->setView(tableView);
