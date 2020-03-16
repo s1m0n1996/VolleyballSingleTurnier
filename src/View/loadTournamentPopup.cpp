@@ -1,9 +1,10 @@
 
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QComboBox>
+#include <QHeaderView>
+
 #include "loadTournamentPopup.h"
-
-class QComboBox;
-
-class QGridLayout;
 
 /*!
  * \brief Konstruktor
@@ -102,13 +103,33 @@ void LoadTournamentPopup::_connect()
  */
 void LoadTournamentPopup::_loadAllTournamentsFromDatabase()
 {
+    QStandardItemModel* model = new QStandardItemModel(0, 3);
+
     QList<QList<QString>> savedTournaments = _gameManagement->getSavedTournaments();
 
     for (QList<QString>& tournament : savedTournaments)
     {
-        const QString name = tournament[0] + _splitNameAndDate + tournament[1];
-        _comboBox->addItem(name);
+        QList<QStandardItem*> tournamentItems;
+        tournamentItems.append(new QStandardItem(tournament[0]));
+        tournamentItems.append(new QStandardItem(tournament[1]));
+        tournamentItems.append(new QStandardItem(tournament[2]));
+
+        model->appendRow(tournamentItems);
     }
+    QTableView* tableView = new QTableView();
+    tableView->setModel(model);
+    tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableView->horizontalHeader()->hide();
+    tableView->verticalHeader()->hide();
+    tableView->hideColumn(2);
+    tableView->setShowGrid(false);
+    tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+
+    _comboBox->setModel(model);
+    _comboBox->setView(tableView);
 }
 
 /*!
@@ -120,9 +141,8 @@ void LoadTournamentPopup::_loadAllTournamentsFromDatabase()
  */
 void LoadTournamentPopup::_loadTournamentForGame()
 {
-    QList<QString> loadTournament = _comboBox->currentText().split(_splitNameAndDate);
+    QAbstractItemModel* tournamentModel = _comboBox->view()->model();
 
-    _gameManagement->loadOtherTournament(loadTournament[0],
-            QDate::fromString(loadTournament[1], "yyyy-MM-dd"));
+    _gameManagement->loadOtherTournament(tournamentModel->index(_comboBox->currentIndex(), 2).data().toInt());
     window()->close();
 }

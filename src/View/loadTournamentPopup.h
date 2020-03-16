@@ -39,7 +39,6 @@ private:
     QComboBox* _comboBox;
     WindowLabel* _firstLabel;
     WindowButton* _loadButton;
-    QString _splitNameAndDate = " - ";
 
     void _createWidgets(void);
 

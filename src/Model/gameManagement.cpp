@@ -52,7 +52,7 @@ WHERE name = :name
  *
  * \param[in] id the tournament name
  */
-void GameManagement::loadOtherTournament(int& id)
+void GameManagement::loadOtherTournament(const int& id)
 {
     QString sqlPrepare = R"(
 SELECT id, name, date, sport_type_id, game_mode_id

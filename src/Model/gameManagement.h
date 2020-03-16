@@ -30,7 +30,7 @@ public:
 
     void createNewTournament(const QString& name, const QDate& date);
     void loadOtherTournament(const QString& name, const QDate& date);
-    void loadOtherTournament(int& id);
+    void loadOtherTournament(const int& id);
     void loadLastTournament(void);
     QList<QList<QString>> getSavedTournaments(void);
 
