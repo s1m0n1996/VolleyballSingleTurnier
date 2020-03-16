@@ -4,7 +4,7 @@
 * \author Nico Meyer
 */
 
-#include "View/refereewindow.h"
+#include "View/refereeWindow.h"
 #include "ui_refereewindow.h"
 #include "View/dartboard.h"
 #include <QtMath>

@@ -15,17 +15,17 @@
 #include <QMenuBar>
 #include <QGroupBox>
 
-#include "View/playermanagementWindow.h"
-#include "Model/playermanagement.h"
+#include "View/playerManagementWindow.h"
+#include "Model/playerManagement.h"
 #include "Model/player.h"
 #include "Model/gameboard.h"
 
-#include "View/tabelview.h"
-#include "View/tournamentwindow.h"
+#include "View/tabelView.h"
+#include "View/tournamentWindow.h"
 
-#include "View/windowbutton.h"
-#include "View/windowedit.h"
-#include "View/windowlabel.h"
+#include "View/windowButton.h"
+#include "View/windowEdit.h"
+#include "View/windowLabel.h"
 
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget* parent) :
         QMainWindow(parent)

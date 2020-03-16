@@ -7,8 +7,8 @@
 #include <QWindow>
 #include <QGridLayout>
 
-#include "View/windowlabel.h"
-#include "View/windowbutton.h"
+#include "View/windowLabel.h"
+#include "View/windowButton.h"
 #include "Model/gameManagement.h"
 
 /*!

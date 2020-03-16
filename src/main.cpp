@@ -6,10 +6,10 @@
 
 #include "View/mainmenu.h"
 #include "View/dartboard.h"
-#include "View/refereewindow.h"
+#include "View/refereeWindow.h"
 #include <QApplication>
 
-#include "View/statisticwindow.h"
+#include "View/statisticWindow.h"
 
 
 

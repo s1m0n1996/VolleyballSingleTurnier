@@ -1,4 +1,4 @@
-#include "playerstatistics.h"
+#include "playerStatistics.h"
 
 PlayerStatistics::PlayerStatistics()
 {

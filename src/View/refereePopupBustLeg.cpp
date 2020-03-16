@@ -4,7 +4,7 @@
 * \author Nico Meyer
 */
 
-#include "refereepopupbustleg.h"
+#include "refereePopupBustLeg.h"
 
 RefereePopupBustLeg::RefereePopupBustLeg(QWidget *parent) : QWidget(parent)
 {

@@ -9,18 +9,18 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "Model/playermanagement.h"
+#include "Model/playerManagement.h"
 #include "Model/sqliteConnector.h"
 #include "View/mainmenu.h"
-#include "View/playermanagementWindow.h"
-#include "View/refereewindow.h"
-#include "View/statisticwindow.h"
-#include "View/refereepopupwinningleg.h"
-#include "View/tournamentwindow.h"
+#include "View/playerManagementWindow.h"
+#include "View/refereeWindow.h"
+#include "View/statisticWindow.h"
+#include "View/refereePopupWinningLeg.h"
+#include "View/tournamentWindow.h"
 #include "View/createTournamentPopup.h"
-#include "View/viewerwindow.h"
-#include "View/windowbutton.h"
-#include "View/windowlabel.h"
+#include "View/viewerWindow.h"
+#include "View/windowButton.h"
+#include "View/windowLabel.h"
 #include "Model/gameManagement.h"
 #include "View/loadTournamentPopup.h"
 

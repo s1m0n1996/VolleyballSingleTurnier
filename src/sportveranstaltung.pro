@@ -20,30 +20,30 @@ SOURCES += \
     Model/game.cpp \
     Model/gameboard.cpp \
     Model/player.cpp \
-    Model/playerstatistics.cpp \
+    Model/playerStatistics.cpp \
     Model/referee.cpp \
     Model/sqliteConnector.cpp \
-    Model/playermanagement.cpp \
+    Model/playerManagement.cpp \
     Model/statistics.cpp \
     Model/viewer.cpp \
     View/createTournamentPopup.cpp \
     View/dartboard.cpp \
-    View/dartboardviewer.cpp \
-    View/drilldownchart.cpp \
-    View/drilldownslice.cpp \
+    View/dartboardViewer.cpp \
+    View/drilldownChart.cpp \
+    View/drilldownSlice.cpp \
     View/gameboardWindow.cpp \
     View/mainmenu.cpp \
-    View/playermanagementWindow.cpp \
-    View/refereepopupbustleg.cpp \
-    View/refereepopupwinningleg.cpp \
-    View/refereewindow.cpp \
-    View/statisticwindow.cpp \
-    View/tabelview.cpp \
-    View/tournamentwindow.cpp \
-    View/viewerwindow.cpp \
-    View/windowbutton.cpp \
-    View/windowedit.cpp \
-    View/windowlabel.cpp \
+    View/playerManagementWindow.cpp \
+    View/refereePopupBustLeg.cpp \
+    View/refereePopupWinningLeg.cpp \
+    View/refereeWindow.cpp \
+    View/statisticWindow.cpp \
+    View/tabelView.cpp \
+    View/tournamentWindow.cpp \
+    View/viewerWindow.cpp \
+    View/windowButton.cpp \
+    View/windowEdit.cpp \
+    View/windowLabel.cpp \
     Model/gameManagement.cpp \
     View/loadTournamentPopup.cpp \
     main.cpp
@@ -52,30 +52,30 @@ HEADERS += \
     Model/game.h \
     Model/gameboard.h \
     Model/player.h \
-    Model/playerstatistics.h \
+    Model/playerStatistics.h \
     Model/referee.h \
     Model/sqliteConnector.h \
-    Model/playermanagement.h \
+    Model/playerManagement.h \
     Model/statistics.h \
     Model/viewer.h \
     View/createTournamentPopup.h \
     View/dartboard.h \
-    View/dartboardviewer.h \
+    View/dartboardViewer.h \
+    View/drilldownChart.h \
+    View/drilldownSlice.h \
     View/gameboardWindow.h \
-    View/drilldownchart.h \
-    View/drilldownslice.h \
     View/mainmenu.h \
-    View/playermanagementWindow.h \
-    View/refereepopupbustleg.h \
-    View/refereepopupwinningleg.h \
-    View/refereewindow.h \
-    View/statisticwindow.h \
-    View/tabelview.h \
-    View/tournamentwindow.h \
-    View/viewerwindow.h \
-    View/windowbutton.h \
-    View/windowedit.h \
-    View/windowlabel.h \
+    View/playerManagementWindow.h \
+    View/refereePopupBustLeg.h \
+    View/refereePopupWinningLeg.h \
+    View/refereeWindow.h \
+    View/statisticWindow.h \
+    View/tabelView.h \
+    View/tournamentWindow.h \
+    View/viewerWindow.h \
+    View/windowButton.h \
+    View/windowEdit.h \
+    View/windowLabel.h \
     Model/gameManagement.h \
     View/loadTournamentPopup.h
 

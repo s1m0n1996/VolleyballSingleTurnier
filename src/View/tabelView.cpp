@@ -3,7 +3,7 @@
 * \brief Diese Klasse besitzt Informationen über das Aussehen eines TabelViews
 * \author Lea Kesselmeier
 */
-#include "tabelview.h"
+#include "tabelView.h"
 #include <QHeaderView>
 /*!
  * \brief TabelView::TabelView ist Konstruktor der Klasse TabelView

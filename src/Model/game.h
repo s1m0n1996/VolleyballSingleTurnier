@@ -3,7 +3,7 @@
 #include "Model/player.h"
 #include "Model/sqliteConnector.h"
 #include "Model/gameManagement.h"
-#include "Model/playermanagement.h"
+#include "Model/playerManagement.h"
 
 
 class Game //: public QObject

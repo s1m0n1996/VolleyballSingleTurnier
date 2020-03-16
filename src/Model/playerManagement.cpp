@@ -1,5 +1,5 @@
 
-#include "Model/playermanagement.h"
+#include "Model/playerManagement.h"
 
 
 PlayerManagement::PlayerManagement()

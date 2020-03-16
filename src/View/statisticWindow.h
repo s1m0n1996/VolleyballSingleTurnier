@@ -18,8 +18,8 @@ class QGroupBox;
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
 #include <QtCharts/QLineSeries>
-#include <View/drilldownchart.h>
-#include <View/drilldownslice.h>
+#include <View/drilldownChart.h>
+#include <View/drilldownSlice.h>
 #include <QValueAxis>
 
 

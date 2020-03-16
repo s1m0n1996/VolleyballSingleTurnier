@@ -26,8 +26,8 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include "drilldownchart.h"
-#include "drilldownslice.h"
+#include "drilldownChart.h"
+#include "drilldownSlice.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -60,4 +60,4 @@ void DrilldownChart::handleSliceClicked(QPieSlice *slice)
     changeSeries(drilldownSlice->drilldownSeries());
 }
 
-#include "moc_drilldownchart.cpp"
+#include "moc_drilldownChart.cpp"

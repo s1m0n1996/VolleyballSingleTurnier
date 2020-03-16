@@ -1,4 +1,4 @@
-#include "statisticwindow.h"
+#include "statisticWindow.h"
 #include <QIcon>
 #include <QLabel>
 
@@ -31,12 +31,12 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-#include "View/windowbutton.h"
-#include "View/windowedit.h"
-#include "View/windowlabel.h"
-#include "Model/playermanagement.h"
+#include "View/windowButton.h"
+#include "View/windowEdit.h"
+#include "View/windowLabel.h"
+#include "Model/playerManagement.h"
 #include "Model/player.h"
-#include "Model/playerstatistics.h"
+#include "Model/playerStatistics.h"
 
 StatisticWindow::StatisticWindow(QWidget* parent) :
         QMainWindow(parent)

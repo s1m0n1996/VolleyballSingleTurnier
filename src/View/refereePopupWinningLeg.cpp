@@ -4,7 +4,7 @@
 * \author Nico Meyer
 */
 
-#include "refereepopupwinningleg.h"
+#include "refereePopupWinningLeg.h"
 
 RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent)
 {

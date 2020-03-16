@@ -1,4 +1,4 @@
-#include "tournamentwindow.h"
+#include "tournamentWindow.h"
 #include <QPen>
 #include <QPainter>
 #include <QGridLayout>
@@ -9,8 +9,8 @@
 #include <QtMath>
 #include <QIcon>
 #include <QLabel>
-#include <View/windowbutton.h>
-#include <View/windowlabel.h>
+#include <View/windowButton.h>
+#include <View/windowLabel.h>
 
 
 TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget *parent) :

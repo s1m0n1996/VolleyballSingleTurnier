@@ -11,8 +11,8 @@
 #include <QMainWindow>
 #include "Model/referee.h"
 #include "Model/viewer.h"
-#include "View/refereepopupwinningleg.h"
-#include "View/refereepopupbustleg.h"
+#include "View/refereePopupWinningLeg.h"
+#include "View/refereePopupBustLeg.h"
 
 
 QT_BEGIN_NAMESPACE

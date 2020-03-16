@@ -10,10 +10,10 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QGridLayout>
-#include <View/tournamentwindow.h>
-#include "View/windowbutton.h"
-#include "View/windowedit.h"
-#include "View/windowlabel.h"
+#include <View/tournamentWindow.h>
+#include "View/windowButton.h"
+#include "View/windowEdit.h"
+#include "View/windowLabel.h"
 #include <QDebug>
 
 class RefereePopupBustLeg : public QWidget

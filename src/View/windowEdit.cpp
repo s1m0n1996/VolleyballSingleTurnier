@@ -3,7 +3,7 @@
 * \brief Diese Klasse besitzt die Informationen zu den Edits
 * \author Lea Kesselmeier
 */
-#include "windowedit.h"
+#include "windowEdit.h"
 #include <QRegExp>
 #include <QRegExpValidator>
 

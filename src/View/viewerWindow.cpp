@@ -1,7 +1,7 @@
-#include "viewerwindow.h"
+#include "viewerWindow.h"
 #include "ui_viewerWindow.h"
 #include "Model/statistics.h"
-#include "View/dartboardviewer.h"
+#include "View/dartboardViewer.h"
 #include <QGraphicsScene>
 
 ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :

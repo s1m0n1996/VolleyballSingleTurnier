@@ -10,7 +10,7 @@
 
 #include "Model/referee.h"
 #include "Model/viewer.h"
-#include "View/dartboardviewer.h"
+#include "View/dartboardViewer.h"
 
 namespace Ui {
 class ViewerWindow;

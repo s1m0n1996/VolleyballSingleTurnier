@@ -3,7 +3,7 @@
 * \brief Diese Klasse besitzt die Informationen zu den Edits
 * \author Lea Kesselmeier
 */
-#include "windowlabel.h"
+#include "windowLabel.h"
 /*!
  * \brief WindowLabel::WindowLabel ist Konstruktor der Klasse WindowLabel
  * \param text ist der Text, den das Label anzeigen soll, der Default ist leer

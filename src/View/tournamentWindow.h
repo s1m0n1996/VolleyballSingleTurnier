@@ -8,7 +8,7 @@
 #include <QGraphicsWidget>
 #include <QGraphicsTextItem>
 #include "Model/referee.h"
-#include "Model/playermanagement.h"
+#include "Model/playerManagement.h"
 class WindowLabel;
 class WindowButton;
 class QLabel;

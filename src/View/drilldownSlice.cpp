@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-#include "drilldownslice.h"
+#include "drilldownSlice.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -69,4 +69,4 @@ void DrilldownSlice::showHighlight(bool show)
     setExploded(show);
 }
 
-#include "moc_drilldownslice.cpp"
+#include "moc_drilldownSlice.cpp"
