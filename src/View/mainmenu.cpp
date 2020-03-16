@@ -166,12 +166,12 @@ void MainMenu::setButtonEnableState()
 
     _tournamentData->setEnabled(sqliteConnector->isDatabaseOpen());
     _noteTournament->setVisible(sqliteConnector->isDatabaseOpen());
+    _statitsic->setEnabled(sqliteConnector->isDatabaseOpen());
 
     bool showGameButtons = sqliteConnector->isDatabaseOpen() && _gameManagement->isTournamentStarted();
     _tournament->setEnabled(showGameButtons);
     _viewer->setEnabled(showGameButtons);
     _referee->setEnabled(showGameButtons);
-    _statitsic->setEnabled(showGameButtons);
 }
 
 void MainMenu::createTournament()
