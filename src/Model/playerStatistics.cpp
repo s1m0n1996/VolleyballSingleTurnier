@@ -614,7 +614,7 @@ QMap<QString, double> PlayerStatistics::_convertAverage(QSqlQuery& sqlQuery)
 /*!
  * \brief Gibt den Average zurück
  *
- * \return Average
+ * \return Average von 3 geworfenen Pfeilen
  *
  */
 QMap<QString, double> PlayerStatistics::getAverage(void)
@@ -638,7 +638,7 @@ FROM (SELECT AVG(value_type_id * value) * 3 AS average, player_id
  *
  * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
  *
- * \return Average
+ * \return Average von 3 geworfenen Pfeilen
  *
  */
 QMap<QString, double> PlayerStatistics::getAverage(const int tournamentId)

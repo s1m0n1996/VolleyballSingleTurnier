@@ -287,14 +287,6 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
     _chooseTournamentComboBox->setModel(model);
     _chooseTournamentComboBox->setView(tableView);
 
-
-    /*// create game combo box
-    _chooseGameComboBox = new QComboBox;
-    _chooseGameComboBox->setMinimumWidth(400);
-
-    _chooseGameComboBox->addItem("Spiel Auswählen");
-    */
-
     // add combo boxes to group box
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_chooseTournamentComboBox);
@@ -611,6 +603,11 @@ void StatisticWindow::showAverageHistoryChart(void)
     }
 }
 
+/*!
+ * \brief Zeige 10 am Meisten getroffenen Felder
+ *
+ * Es werden die 10 am meisten getroffenen Felder angezeigt
+ */
 void StatisticWindow::showMostHittingFieldsDiagram(void)
 {
     _chart->setTitle("die 10 am Meinsten geworfenen Felder");
@@ -633,6 +630,11 @@ void StatisticWindow::showMostHittingFieldsDiagram(void)
     }
 }
 
+/*!
+ * \brief Zeige den Durchschnitt aller Spieler
+ *
+ * In dieser Methode werden die passenden Daten der Average Statistik geholt.
+ */
 void StatisticWindow::showAverage(void)
 {
     _chart->setTitle("Average");
