@@ -25,12 +25,9 @@ void Dartboard::mouseMoveEvent(QMouseEvent *event)
 
 void Dartboard::mouseReleaseEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event);
     emit mouseReleasedOnDartboard();
 }
-
-
-
-
 
 void Dartboard::setPixmap ( const QPixmap & p)
 {
@@ -56,6 +53,7 @@ QPixmap Dartboard::scaledPixmap() const
 
 void Dartboard::resizeEvent(QResizeEvent * e)
 {
+    Q_UNUSED(e);
     if(!pix.isNull())
         QLabel::setPixmap(scaledPixmap());
 }

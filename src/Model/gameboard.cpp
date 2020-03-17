@@ -17,6 +17,7 @@ void Gameboard::prepareGameRandomly()
     int i = 0;
     for(const Player& item : _players)
     {
+        Q_UNUSED(item);
         int k = rand()%_players.size();
         _players.swap(i,k);
         i++;
