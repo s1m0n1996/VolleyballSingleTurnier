@@ -247,12 +247,12 @@ void TournamentWindow::createLines()
     {
         // links
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x(),
-                         _rects[_numberOfColumn - 1].last().y() - _hight / 2,
+                         _rects[_numberOfColumn - 1].last().y() + _hight / 2,
                 _rects[_numberOfColumn - 1].last().x() - 50 ,
-                _rects[_numberOfColumn - 1].last().y() - _hight / 2));
+                _rects[_numberOfColumn - 1].last().y() + _hight / 2));
 
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() - 50,
-                         _rects[_numberOfColumn - 1].last().y() - _hight / 2,
+                         _rects[_numberOfColumn - 1].last().y() + _hight / 2,
                 _rects[_numberOfColumn - 1].last().x() - 50,
                 _rects[_numberOfColumn - 1].last().y()));
 
@@ -262,12 +262,12 @@ void TournamentWindow::createLines()
                 _rects[_numberOfColumn - 1].last().y()));
         // rechts
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width,
-                         _rects[_numberOfColumn - 1].last().y() + _hight / 2,
+                         _rects[_numberOfColumn - 1].last().y() - _hight / 2,
                 _rects[_numberOfColumn - 1].last().x() + _width + 50 ,
-                _rects[_numberOfColumn - 1].last().y() + _hight / 2));
+                _rects[_numberOfColumn - 1].last().y() - _hight / 2));
 
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width + 50,
-                         _rects[_numberOfColumn - 1].last().y() + _hight / 2,
+                         _rects[_numberOfColumn - 1].last().y() - _hight / 2,
                 _rects[_numberOfColumn - 1].last().x() + _width + 50,
                 _rects[_numberOfColumn - 1].last().y()));
 

@@ -128,14 +128,7 @@ void Referee::nextPlayerAfterWinningLeg()
 
 int Referee::getAktivePlayer()
 {
-    if(_player == 0)
-    {
-        return _allPlayers[0];
-    }
-    else
-    {
-        return _allPlayers[1];
-    }
+   return _allPlayers[_player];
 }
 
 /*QString Referee::getAktivePlayer()
@@ -586,5 +579,3 @@ void Referee::loadLastThrows()
     }
     return;
 }
-
-
