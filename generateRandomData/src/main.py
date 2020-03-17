@@ -70,7 +70,7 @@ def save_players_in_database() -> None:
     players = list()
 
     with open(PLAYER_CSV_PATH, "r", encoding="UTF-8", newline='') as csvfile:
-        csv_reader = csv.reader(csvfile, delimiter=";")
+        csv_reader = csv.reader(csvfile, delimiter=",")
         for name, birthday, country in csv_reader:
             players.append(dict(
                 name=name,
@@ -402,5 +402,5 @@ if __name__ == '__main__':
     if CREATE_PLAYERS_FROM_CSV:
         save_players_in_database()
 
-    tournament_id = create_tournament("TOURNAMENT_NAME", "test", COUNT_OF_PLAYERS)
+    tournament_id = create_tournament(TOURNAMENT_NAME, "test", COUNT_OF_PLAYERS)
     play_tournament(tournament_id)
