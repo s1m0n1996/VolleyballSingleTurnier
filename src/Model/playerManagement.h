@@ -17,7 +17,7 @@
 /*!
  * \file playermanagement.h
  * \author Simon Flörke
- * \brief A class for the player management
+ * \brief Model Klasse der Meldestelle
  *
  *
 */
@@ -29,33 +29,31 @@ public:
 
     QList<Player> getAllStoredPlayers(bool onlyAvailable = true);
 
-    QList<Player> getPlayersForNextGame();
+    QList<Player> getPlayersForNextGame(void);
 
-    QSqlQueryModel* getDatabaseTableModel(){return _databasePlayerTable;}
+    QSqlQueryModel* getDatabaseTableModel(void){return _databasePlayerTable;}
 
-    QSqlQueryModel* getNextGamePlayerTableModel(){return _nextGamePlayerTableModel;}
+    QSqlQueryModel* getNextGamePlayerTableModel(void){return _nextGamePlayerTableModel;}
 
-    QSqlQueryModel* getDeletedPlayerTableModel(){return _deletedPlayerTableModel;}
+    QSqlQueryModel* getDeletedPlayerTableModel(void){return _deletedPlayerTableModel;}
 
-    void addPlayerForNewGame(const Player addPlayer);
+    void addPlayerForNewGame(const Player& addPlayer);
 
-    void addPlayerForNewGame(const QList<Player> addPlayers);
+    void deletePlayerForNewGame(const Player& deletePlayer);
 
-    void dropPlayerForNewGame(const Player dropPlayer);
+    int countSelectedPlayersForNewGame(void);
 
-    int countSelectedPlayersForNewGame();
+    int countMissingPlayersForNewGame(void);
 
-    int countMissingPlayersForNewGame();
+    void refreshDatabasePlayerTable(void);
 
-    void refreshDatabasePlayerTable();
+    void refreshNextGamePlayerTable(void);
 
-    void refreshNextGamePlayerTable();
+    void refreshDeletedPlayerTable(void);
 
-    void refreshDeletedPlayerTable();
+    void deletePlayerFromDatabase(Player& deletePlayer);
 
-    void dropPlayerFromDatabase(Player dropPlayer);
-
-    void restorePlayerFromDatabase(const Player restoredPlayer);
+    void restorePlayerFromDatabase(const Player& restoredPlayer);
 
 signals:
     void valueChanged(void);

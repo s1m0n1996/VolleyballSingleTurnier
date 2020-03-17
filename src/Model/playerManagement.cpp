@@ -2,7 +2,7 @@
 #include "Model/playerManagement.h"
 
 
-PlayerManagement::PlayerManagement()
+PlayerManagement::PlayerManagement(void)
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
@@ -12,21 +12,21 @@ PlayerManagement::PlayerManagement()
 }
 
 /*!
- * \brief get all players
+ * \brief Gebe alle Spieler zurück
  *
- * \param[in]onlyAvailable default: true. get only players who is the available flag true.
+ * \param[in]onlyAvailable default: true. gebe nur verfügbare Spieler zurück
  *
- * \return a list of player objects
+ * \return Liste von Spieler objekten
  *
- * This method returned all players that are stored in the database.
- * For Example the player_list table from the database have this entries:
+ * Es werden alle Spieler verfügbaren aus der Datenbank geladen
+ * \example die player_list Tabelle hat folgende Einträge:
  *
  * id   name    birthday    country     is_available
  * 1	Klaus	2010-12-15	DE	        1
  * 2	Hilde	2000-12-15	DE	        1
  * 3	Peter	2020-12-15	DE	        1
  *
- * you get a list of 3 Player objects
+ * es wird eine Liste von 3 Spielern zurückgegeben
  */
 QList<Player> PlayerManagement::getAllStoredPlayers(bool onlyAvailable)
 {
@@ -60,7 +60,7 @@ ORDER BY name;
  *
  * Es können maximal 64 Spieler hinzugefügt werden. Danach ist die Methode nicht mehr aufrufbar.
  */
-void PlayerManagement::addPlayerForNewGame(const Player addPlayer)
+void PlayerManagement::addPlayerForNewGame(const Player& addPlayer)
 {
     if (countSelectedPlayersForNewGame() > 64)
     {
@@ -107,26 +107,13 @@ VALUES (:playerId, :sportTypeId, :gameModeId, :tournamentId)
 }
 
 /*!
- * \brief add a player to the actual turnier gameboard
+ * \brief Lösche einen Spieler vom neuen Spiel
  *
- * \param[in] addPlayer the player that would be added to the actual turnier gameboard
- */
-void PlayerManagement::addPlayerForNewGame(const QList<Player> addPlayer)
-{
-    for (Player player : addPlayer)
-    {
-        addPlayerForNewGame(player);
-    }
-}
-
-/*!
- * \brief drop a player to the actual turnier gameboard
- *
- * \param[in] dropPlayer the player from the list that would be added to the actual turnier gameboard
+ * \param[in] deletePlayer the player from the list that would be added to the actual turnier gameboard
  *
  * This method is the undo function for addPlayerForNewGame
  */
-void PlayerManagement::dropPlayerForNewGame(const Player dropPlayer)
+void PlayerManagement::deletePlayerForNewGame(const Player& deletePlayer)
 {
     QString sqlPrepare = R"(
 DELETE
@@ -140,9 +127,9 @@ WHERE player_id =
 
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
-    sqlQuery.bindValue(":name", dropPlayer.getName());
-    sqlQuery.bindValue(":birthday", dropPlayer.getBirthday());
-    sqlQuery.bindValue(":country", dropPlayer.getCountry());
+    sqlQuery.bindValue(":name", deletePlayer.getName());
+    sqlQuery.bindValue(":birthday", deletePlayer.getBirthday());
+    sqlQuery.bindValue(":country", deletePlayer.getCountry());
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
@@ -154,11 +141,11 @@ WHERE player_id =
 }
 
 /*!
- * \brief count the players that are selected for the new game
+ * \brief Zähle alle spieler im aktuellen/Neuen Spiel
  *
- * \return number of players
+ * \return anzahl der Spieler
  */
-int PlayerManagement::countSelectedPlayersForNewGame()
+int PlayerManagement::countSelectedPlayersForNewGame(void)
 {
     QString sqlPrepare = R"(
 SELECT Count(*)
@@ -185,18 +172,18 @@ WHERE sport_type_id = :sportTypeId
 }
 
 /*!
- * \brief count the players they are missing to start the game
+ * \brief Zähle Spieler die noch benötigt werden, um das Spiel zu beginnen
  *
- * \return missing players of the list
+ * \return anzahl fehlemnder Spieler
  *
- * Count the players they are missing to the next 2^n compatible.
+ * Zähle die Spieler die noch benötigt werden, um auf eine 2^n kompatibilität zu kommen.
  *
- * Examples:
- * if you have 3 players the next 2^n compatible is 4 and the method returned 1.
- * if you have 4 players it is 2^n compatible and the method returned 0.
- * if you have 5 players the next 2^n compatible is 8 and the method returned 3.
+ * \example:
+ * bei 3 Spielern im aktuellen Spiel ist die nächste 2^n kompatibilität 4 also wird 1 fehlender Spieler zurückgegeben.
+ * bei 4 Spielern im aktuellen Spiel wird eine 0 zurückgegeben da es 2^n kompatibilität ist.
+ * bei 5 Spielern im aktuellen Spiel ist die nächste 2^n kompatibilität 8 also werden 3 fehlender Spieler zurückgegeben.
  */
-int PlayerManagement::countMissingPlayersForNewGame()
+int PlayerManagement::countMissingPlayersForNewGame(void)
 {
     int nActualPlayers = countSelectedPlayersForNewGame();
 
@@ -223,11 +210,11 @@ int PlayerManagement::countMissingPlayersForNewGame()
 }
 
 /*!
- * \brief create or refresh the player table from the database
+ * \brief Aktualisiere Tabelle mit allen Spielern
  *
- * this method refresh the model data from the table. After a call the same data from the database are in the model.
+ * Es wird die Tabelle im Model aktualisiert, welche alle Spieler darstellt.
  */
-void PlayerManagement::refreshDatabasePlayerTable()
+void PlayerManagement::refreshDatabasePlayerTable(void)
 {
     _databasePlayerTable->setQuery("SELECT name, birthday, country FROM player_list where is_available >= 1");
 
@@ -237,11 +224,11 @@ void PlayerManagement::refreshDatabasePlayerTable()
 }
 
 /*!
- * \brief create or refresh the player tablefor the next game from the database
+ * \brief Aktualisiere Tabelle mit Spielern für das nächste Spiel
  *
- * this method refresh the model data from the table. After a call the same data from the database are in the model.
+ * Es wird die Tabelle im Model aktualisiert, welche alle Spieler des neuen Spiels darstellt
  */
-void PlayerManagement::refreshNextGamePlayerTable()
+void PlayerManagement::refreshNextGamePlayerTable(void)
 {
     QSqlQuery sqlQuery;
 
@@ -267,7 +254,12 @@ WHERE sport_type_id = :sportTypeId
     _nextGamePlayerTableModel->setHeaderData(2, Qt::Horizontal, tr("Land"));
 }
 
-void PlayerManagement::refreshDeletedPlayerTable()
+/*!
+ * \brief Aktualisiere Tabelle mit gelöschten Spielern
+ *
+ * Es wird die Tabelle im Model aktualisiert, welche alle gelöschten Spieler darstellt.
+ */
+void PlayerManagement::refreshDeletedPlayerTable(void)
 {
     _deletedPlayerTableModel->setQuery("SELECT name, birthday, country FROM player_list where is_available = 0");
 
@@ -277,15 +269,14 @@ void PlayerManagement::refreshDeletedPlayerTable()
 }
 
 /*!
- * \brief drop a player from the database
+ * \brief Lösche einen Spieler aus der Datenbank
  *
- * \param[in] player object that would be dropped
+ * \param[in] deletePlayer Spieler objekt, welches gelöscht werden soll.
  *
- * This method drop a player from the database virtual.
- * So the Player would not delete from the database really. Only the is_available flag was set to false.
- * The reason that the player can not delete really from the database is that the foreign keys needs the players.
+ * Der Spieler wird nicht wirklich aus der Datenbank gelöscht.
+ * Es wird nur das is_available flag auf false bzw. null gesetzt, dass der spieler nichtmehr geladen wird.
  */
-void PlayerManagement::dropPlayerFromDatabase(Player dropPlayer)
+void PlayerManagement::deletePlayerFromDatabase(Player& deletePlayer)
 {
 
     QString sqlPrepare = R"(
@@ -296,7 +287,7 @@ WHERE id = :id
 
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
-    sqlQuery.bindValue(":id", dropPlayer.getId());
+    sqlQuery.bindValue(":id", deletePlayer.getId());
 
     _db->sqlQuery(sqlQuery);
 
@@ -304,7 +295,15 @@ WHERE id = :id
     refreshDeletedPlayerTable();
 }
 
-void PlayerManagement::restorePlayerFromDatabase(const Player restoredPlayer)
+/*!
+ * \brief Stelle gelöschten Spieler wieder her
+ *
+ * \param[in] restoredPlayer Spieler objekt, welches gelöscht werden soll.
+ *
+ * Der Spieler wird nicht wirklich aus der Datenbank gelöscht.
+ * Es wird nur das is_available flag auf false bzw. null gesetzt, dass der spieler nichtmehr geladen wird.
+ */
+void PlayerManagement::restorePlayerFromDatabase(const Player& restoredPlayer)
 {
     QString sqlPrepare = R"(
 UPDATE player_list
@@ -322,8 +321,14 @@ WHERE id = :id
     refreshDeletedPlayerTable();
 }
 
-
-QList<Player> PlayerManagement::getPlayersForNextGame()
+/*!
+ * \brief Gebe alle Spieler des aktuellen Turnier zurück
+ *
+ * \return Liste von Spieler objekten
+ *
+ * Es werden alle Spieler im aktuellen Turnier zurückgegeben
+ */
+QList<Player> PlayerManagement::getPlayersForNextGame(void)
 {
 
     QString sqlPrepare = R"(

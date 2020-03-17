@@ -6,11 +6,10 @@
 
 /*!
  * \file gameManagement.h
- * \brief this class handles the global parameter for the game
+ * \brief Die Singelton Klasse hat die Globalen parameter des Spiels
  * \author Simon Flörke
  *
- * Thia class is a singleton class and would be used as global parameters that all models works with
- * the same tournament and game.
+ * Es werden alle Globalen parameter gespeichert und es kann darauf zugegriffen werden.
 */
 class GameManagement : public QObject
 {

@@ -12,10 +12,14 @@ GameManagement::GameManagement(void)
 }
 
 /*!
- * \brief load a tournament
+ * \brief Turnier Laden
  *
- * \param[in] name the tournament name
- * \param[in] date the tournament date in format: "YYYY-MM-dd"
+ * \param[in] name Turnier Name
+ * \param[in] Datum im Format: "YYYY-MM-dd"
+ *
+ * Es wird das angegebene Turnier aus der Datenbank geladen und und die Membervariablen geschrieben.
+ * Wenn es das angegebene Turnier nicht gibt, werden die membervariablen nicht verändert
+ * und bleiben auf dem alten Wert.
  */
 void GameManagement::loadOtherTournament(const QString& name, const QDate& date)
 {
@@ -48,9 +52,13 @@ WHERE name = :name
 }
 
 /*!
- * \brief load a tournament
+ * \brief Turnier Laden
  *
- * \param[in] id the tournament name
+ * \param[in] Die Turnier ID
+ *
+ * Es wird das angegebene Turnier aus der Datenbank geladen und und die Membervariablen geschrieben.
+ * Wenn es das angegebene Turnier nicht gibt, werden die membervariablen nicht verändert
+ * und bleiben auf dem alten Wert.
  */
 void GameManagement::loadOtherTournament(const int& id)
 {
@@ -85,13 +93,17 @@ WHERE id = :id
 }
 
 /*!
- * \brief Create a new tournament in the database
+ * \brief Neues Turnier Erstellen
  *
- * \param[in] name the tournament name
- * \param[in] date the tournament date in format: "YYYY-MM-dd"
+ * \param[in] Turniername
+ * \param[in] Turnierdatum im format: "YYYY-MM-dd"
  *
- * this method creates a new tournament in the database.
- * Attention this method only create a new tournament if you wil use the new tournament you must load it!
+ * Es wird ein Turnier mit den eingegebenen parametern in der Datenbank erstellt.
+ * Eine Turnier Id wird automatisch erstellt.
+ * Wenn es das Turnier bereits gibt stürzt das Programm ab.
+ *
+ * Hinweis: Es wird nur ein Turnier erstellt und nicht geladen. Wenn das neu erstellte Turnier auch geladen werden soll,
+ * muss zusätzlich (<GameManagement>"::")n<loadOtherTournament>"("<id>")" aufgerufen werden.
  */
 void GameManagement::createNewTournament(const QString& name, const QDate& date)
 {
@@ -129,9 +141,10 @@ VALUES (:id, :sportTypeId, :gameModeId, :name, :date)
 }
 
 /*!
- * \brief load the last tournament
+ * \brief Letztes Turnier laden
  *
- * this method load the last tournament from the database.
+ * Es wird das letzte tuenier geladen.
+ * Das letzte Turnier ist das mit der höchsten Id.
  */
 void GameManagement::loadLastTournament(void)
 {
@@ -163,6 +176,18 @@ LIMIT 1
     emit tournamentChanged();
 }
 
+/*!
+ * \brief Lade alle Gespeicherten Turniere
+ *
+ * \return alle gespeicherten Turniere in einer zweidimensionalen Liste
+ *
+ * \example
+ * (
+ *      ("Turniername 1", "Datum", Turnier Id),
+ *      ("Turniername 2", "Datum", Turnier Id),
+ * )
+ *
+ */
 QList<QList<QString>> GameManagement::getSavedTournaments(void)
 {
     QString sqlPrepare = R"(
@@ -194,6 +219,15 @@ WHERE sport_type_id = :sportTypeId
     return savedTournaments;
 }
 
+/*!
+ * \brief Ist das Turnier gestartet
+ *
+ * \return ist das Turnier gestartet = true sonst false
+ *
+ * Gibt zurück ob das Turnier gestartet ist. Das Turnier wird als gestartet erkannt, sobalt spieler
+ * in der game_board_list Tabelle eingetragen sind. Dies ist der Fall, sobalt in der Meldestelle auf
+ * Turnier erstellen geklickt wird.
+ */
 bool GameManagement::isTournamentStarted() {
     QString sqlPrepare = R"(
 SELECT count(*)

@@ -132,7 +132,7 @@ void PlayermanagementWindow::dropPlayerForNewGame()
 
     for (Player& player: players)
     {
-        _playerManagementModel->dropPlayerForNewGame(player);
+        _playerManagementModel->deletePlayerForNewGame(player);
     }
 
     _gamePlayerTableView->selectionModel()->clearSelection();
@@ -238,7 +238,7 @@ void PlayermanagementWindow::deletePlayer()
 
     for (Player& player: players)
     {
-        _playerManagementModel->dropPlayerFromDatabase(player);
+        _playerManagementModel->deletePlayerFromDatabase(player);
     }
 
     _allPlayerTableView->selectionModel()->clearSelection();
