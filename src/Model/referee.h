@@ -38,7 +38,7 @@ public:
     int getNumberOfCurrentLeg();
 
     void setActivePlayer(int activePlayerId);
-
+    void resetAllStats();
     void loadLastGame();
     void loadLastThrows();
 

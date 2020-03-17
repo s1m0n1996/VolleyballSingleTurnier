@@ -29,8 +29,20 @@ void Referee::updatePlayer()
         _allPlayers.append(game.getPlayerBId());
         qDebug() << "Updateplayer";
         qDebug() << "Allplayer" << _allPlayers;
+        resetAllStats();
         emit valueChanged();
     }
+}
+
+
+void Referee::resetAllStats()
+{
+    _throwCounter = 0;
+    _allThrows = {0,0,0};
+    _allThrowsWithoutMulti = {0,0,0};
+    _remainScore = {501,501};
+    _wasLastThrowInLegToWin = false;            //TODO: Muss geguckt werden ob die rein müssen oder nicht
+    _wasLastThrowInLegToBust = false;
 }
 
 /*!
