@@ -11,23 +11,31 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     _viewer(viewer)
 {
     Viewer* viewers = new Viewer;
-    _viewer = viewers;
+    _viewer = viewers;    
 
     setWindowIcon(QIcon(":/img/viewer.png"));
-
     ui->setupUi(this);
 
     ui->title->setMainTitleStyle();
+    ui->nameOfPlayer1->setBold();
+    ui->nameOfPlayer2->setBold();
+    ui->aktivePlayer->setBold();
+    ui->remainScore->setBold();
+    ui->remainScorePlayer1Label->setBold();
+    ui->remainScorePlayer1->setBold();
+    ui->remainScorePlayer2Label->setBold();
+    ui->remainScorePlayer2->setBold();
+    ui->countOfWinningLegsPlayer1->setBold();
+    ui->countOfWinningLegsPlayer1Label->setBold();
+    ui->countOfWinningLegsPlayer2->setBold();
+    ui->countOfWinningLegsPlayer2Label->setBold();
+
 
     ui->groupBox_3->setStyleSheet("border:none");
     connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
     connect(_referee,SIGNAL(scoreIsUnder170()),this, SLOT(scoreIsUnder170InLeg()));
     connect(_referee,SIGNAL(remainingThrowsAreZero()),this, SLOT(remainingThrowsAreZeroInLeg()));
     connect(_viewer,SIGNAL(howToFinishLeg()),this,SLOT(possibleWayToFinishLeg()));
-    //wenn nächster Spieler dran
-    ui->player1GroupBox->setStyleSheet("border-color: red;");
-    ui->player2GroupBox->setStyleSheet("border-color: red;");
-
 
 
     _dartboard->setPos(0, 0);
@@ -106,6 +114,7 @@ void ViewerWindow::writeScore()
 
     ui->aktivePlayer->setText(aktivePlayer.getName());
 
+
     if (_aktivePlayer == _player1)
     {
         ui->throw1FromPlayer1->setText(QString::number(_referee->getThrows()[0]));
@@ -114,6 +123,13 @@ void ViewerWindow::writeScore()
         ui->all3ThrowsPlayer1->setText(QString::number(_referee->getThrowScore()));
         ui->remainingThrowsForPlayer1->setText(QString::number(_referee->getRemainingThrows()));
         ui->countOfWinningLegsPlayer1->setText(QString::number(_referee->getCountOfWinningLegs()));
+        ui->remainScore->setText("Restpunktzahl: " + (QString::number(_referee->getRemainScoreForViewer()[0])));
+        ui->player1GroupBox->setStyleSheet("QGroupBox{"
+                                           "border-color: green;"
+                                           "border-width: 3px;"
+                                           "border-style: solid;}");
+        ui->player2GroupBox->setStyleSheet("QGroupBox{"
+                                           "border-color: black;}");
     }
     else
     {
@@ -123,6 +139,14 @@ void ViewerWindow::writeScore()
         ui->all3ThrowsPlayer2->setText(QString::number(_referee->getThrowScore()));
         ui->remainingThrowsForPlayer2->setText(QString::number(_referee->getRemainingThrows()));
         ui->countOfWinningLegsPlayer2->setText(QString::number(_referee->getCountOfWinningLegs()));
+        ui->remainScore->setText("Restpunktzahl: " + QString::number(_referee->getRemainScoreForViewer()[1]));
+        ui->player2GroupBox->setStyleSheet("QGroupBox{"
+                                           "border-color: green;"
+                                           "border-width: 3px;"
+                                           "border-style: solid;}");
+        ui->player1GroupBox->setStyleSheet("QGroupBox{"
+                                           "border-color: black;}");
+
     }
 
     ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[0]));

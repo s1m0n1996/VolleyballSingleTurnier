@@ -30,6 +30,12 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     ui->setupUi(this);
 
     ui->title->setMainTitleStyle();
+    ui->countWinningLegs->setBold();
+    ui->countWinningLegsLabel->setBold();
+    ui->playerNameLabel->setBold();
+    ui->playerName->setBold();
+    ui->remainScoreLabel->setBold();
+    ui->remainScore->setBold();
 
     QPixmap* pix = new QPixmap(":/img/Dartboard.png");
     ui->DartboardView->setPixmap(*pix);

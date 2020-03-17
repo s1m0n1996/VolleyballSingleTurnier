@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>567</width>
-    <height>514</height>
+    <width>657</width>
+    <height>581</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -95,13 +95,6 @@
               <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_8">
-                 <item>
-                  <widget class="WindowLabel" name="label_3">
-                   <property name="text">
-                    <string>Spieler 1:</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item>
                   <widget class="WindowLabel" name="nameOfPlayer1">
                    <property name="text">
@@ -240,7 +233,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
-                  <widget class="WindowLabel" name="label_11">
+                  <widget class="WindowLabel" name="remainScorePlayer1Label">
                    <property name="text">
                     <string>Restpunktzahl:</string>
                    </property>
@@ -258,7 +251,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout">
                  <item>
-                  <widget class="WindowLabel" name="label_17">
+                  <widget class="WindowLabel" name="countOfWinningLegsPlayer1Label">
                    <property name="text">
                     <string>Anzahl der gewonnen Legs:</string>
                    </property>
@@ -276,14 +269,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_21">
                  <item>
-                  <widget class="QLabel" name="label_2">
+                  <widget class="WindowLabel" name="label_2">
                    <property name="text">
                     <string>Average:</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="averageOfPlayer1">
+                  <widget class="WindowLabel" name="averageOfPlayer1">
                    <property name="text">
                     <string/>
                    </property>
@@ -324,14 +317,14 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_17">
                <item>
-                <widget class="WindowLabel" name="label_7">
+                <widget class="WindowLabel" name="aktivePlayer">
                  <property name="text">
-                  <string>Aktiver Spieler:</string>
+                  <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="WindowLabel" name="aktivePlayer">
+                <widget class="WindowLabel" name="remainScore">
                  <property name="text">
                   <string/>
                  </property>
@@ -384,13 +377,6 @@
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                 <item>
-                  <widget class="WindowLabel" name="label_21">
-                   <property name="text">
-                    <string>Spieler 2:</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item>
                   <widget class="WindowLabel" name="nameOfPlayer2">
                    <property name="text">
@@ -529,7 +515,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_15">
                  <item>
-                  <widget class="WindowLabel" name="label_35">
+                  <widget class="WindowLabel" name="remainScorePlayer2Label">
                    <property name="text">
                     <string>Restpunktzahl:</string>
                    </property>
@@ -547,7 +533,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_16">
                  <item>
-                  <widget class="WindowLabel" name="label_37">
+                  <widget class="WindowLabel" name="countOfWinningLegsPlayer2Label">
                    <property name="text">
                     <string>Anzahl der gewonnen Legs:</string>
                    </property>
@@ -565,14 +551,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_22">
                  <item>
-                  <widget class="QLabel" name="label_12">
+                  <widget class="WindowLabel" name="label_12">
                    <property name="text">
                     <string>Average:</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="averageOfPlayer2">
+                  <widget class="WindowLabel" name="averageOfPlayer2">
                    <property name="text">
                     <string/>
                    </property>
@@ -659,8 +645,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>567</width>
-     <height>21</height>
+     <width>657</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

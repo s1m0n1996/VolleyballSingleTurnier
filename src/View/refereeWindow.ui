@@ -149,7 +149,7 @@
               </widget>
              </item>
              <item row="7" column="0" colspan="2">
-              <widget class="WindowLabel" name="label">
+              <widget class="WindowLabel" name="remainScoreLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -193,7 +193,7 @@
               </widget>
              </item>
              <item row="1" column="0" colspan="2">
-              <widget class="WindowLabel" name="label_4">
+              <widget class="WindowLabel" name="playerNameLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -394,7 +394,7 @@
               </widget>
              </item>
              <item row="8" column="0" colspan="2">
-              <widget class="WindowLabel" name="label_2">
+              <widget class="WindowLabel" name="countWinningLegsLabel">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -527,6 +527,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>WindowLabel</class>
+   <extends>QLabel</extends>
+   <header>View/windowlabel.h</header>
+  </customwidget>
+  <customwidget>
    <class>Dartboard</class>
    <extends>QLabel</extends>
    <header location="global">View/dartboard.h</header>
@@ -535,11 +540,6 @@
    <class>WindowButton</class>
    <extends>QPushButton</extends>
    <header location="global">View/windowbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>WindowLabel</class>
-   <extends>QLabel</extends>
-   <header>View/windowlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

@@ -24,7 +24,11 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
 
 WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
 {
-    WindowLabel(text, parent);
+    setStyleSheet("QLabel{"
+                  "font-size: 25px;"
+                  "font-family: Candara;}");
+    setText(text);
+//    WindowLabel(text, parent);
 }
 
 
@@ -56,7 +60,7 @@ void WindowLabel::setTitleStyle()
 void WindowLabel::setMainTitleStyle()
 {
     setStyleSheet("QLabel{"
-                  "font-size: 45px;"
+                  "font-size: 55px;"
                   "font-family: Candara;"
                   "border-bottom-width: 1px;"
                   "border-bottom-style: solid;"
@@ -65,4 +69,12 @@ void WindowLabel::setMainTitleStyle()
 
     setAlignment(Qt::AlignCenter);
 
+}
+
+void WindowLabel::setBold()
+{
+    setStyleSheet("QLabel{"
+                  "font-size: 25px;"
+                  "font-family: Candara;"
+                  "font-weight: bold;}");
 }

@@ -20,6 +20,7 @@ public:
     void setStartTournamentStyle(void);
     void setTitleStyle(void);
     void setMainTitleStyle(void);
+    void setBold(void);
 
 
 public:
