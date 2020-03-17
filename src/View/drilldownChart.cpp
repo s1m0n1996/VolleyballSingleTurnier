@@ -52,6 +52,7 @@ void DrilldownChart::changeSeries(QAbstractSeries *series)
     m_currentSeries = series;
     addSeries(series);
     setTitle(series->name());
+    setFont(QFont("Candara"));
 }
 
 void DrilldownChart::handleSliceClicked(QPieSlice *slice)

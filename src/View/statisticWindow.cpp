@@ -31,6 +31,7 @@
 
 QT_CHARTS_USE_NAMESPACE
 
+#include "View/tabelView.h"
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
@@ -46,7 +47,9 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
     _gameManagement = &GameManagement::instance();
 
     _axisX = new QValueAxis;
+    _axisX->setLabelsFont(QFont("Candara"));
     _axisY = new QValueAxis;
+    _axisY->setLabelsFont(QFont("Candara"));
 
     setWindowTitle("Statistik");
     setWindowIcon(QIcon(":/img/statistic.png"));
@@ -57,6 +60,7 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
     // test pie
 
     QPieSeries* series = new QPieSeries(_chart);
+
 
     series->setPieSize(1);
 
@@ -89,9 +93,11 @@ void StatisticWindow::_createWidgets(void)
 
     _chart = new DrilldownChart();
     _chart->setAnimationOptions(QChart::SeriesAnimations);
+
     _chart->legend()->setMarkerShape(QLegend::MarkerShapeRectangle);
     _chart->legend()->setVisible(true);
     _chart->legend()->setAlignment(Qt::AlignRight);
+    _chart->legend()->setFont(QFont("Candara"));
     _chart->series().setSharable(true);
 
     _chart->addAxis(_axisY, Qt::AlignLeft);
@@ -153,8 +159,14 @@ void StatisticWindow::_connect(void)
  */
 QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
 {
-    QGroupBox* groupBox = new QGroupBox(tr("Wähle eine kategorie"));
+    QGroupBox* groupBox = new QGroupBox(tr("Wähle eine Kategorie"));
+    groupBox->setStyleSheet("QGroupBox{"
+                             "font-size: 20px;"
+                             "font-family: Candara;}");
     _chooseCategoryComboBox = new QComboBox;
+    _chooseCategoryComboBox->setStyleSheet("QComboBox{"
+                                           "font-size: 20px;"
+                                           "font-family: Candara;}");
     _chooseCategoryComboBox->setMinimumWidth(400);
 
     _chooseCategoryComboBox->addItem("Gewinner");
@@ -181,7 +193,13 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
 QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle einen Spieler"));
+    groupBox->setStyleSheet("QGroupBox{"
+                             "font-size: 20px;"
+                             "font-family: Candara;}");
     _choosePlayerComboBox = new QComboBox;
+    _choosePlayerComboBox->setStyleSheet("QComboBox{"
+                                           "font-size: 20px;"
+                                           "font-family: Candara;}");
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
@@ -198,7 +216,7 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
         model->appendRow(playerItems);
     }
 
-    QTableView* tableView = new QTableView();
+    TableView* tableView = new TableView();
     tableView->setModel(model);
     tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -228,14 +246,20 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
 QGroupBox* StatisticWindow::_createFilterGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle ein Turnier aus"));
+    groupBox->setStyleSheet("QGroupBox{"
+                             "font-size: 20px;"
+                             "font-family: Candara;}");
 
     // create tournament combo box
     _chooseTournamentComboBox = new QComboBox;
+    _chooseTournamentComboBox->setStyleSheet("QComboBox{"
+                                           "font-size: 20px;"
+                                           "font-family: Candara;}");
     _chooseTournamentComboBox->setMinimumWidth(400);
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
-    model->appendRow(new QStandardItem("Turnier Auswählen"));
+    model->appendRow(new QStandardItem("Alle Turnier"));
 
     QList<QList<QString>> tournaments = _gameManagement->getSavedTournaments();
     for (QList<QString> tournament : tournaments)
@@ -248,7 +272,7 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
         model->appendRow(tournamentItems);
     }
 
-    QTableView* tableView = new QTableView();
+    TableView* tableView = new TableView();
     tableView->setModel(model);
     tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
