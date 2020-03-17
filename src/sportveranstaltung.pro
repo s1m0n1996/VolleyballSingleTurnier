@@ -19,7 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Model/game.cpp \
     Model/gameboard.cpp \
-Model/gameManagement.cpp \
+    Model/gameManagement.cpp \
     Model/player.cpp \
     Model/playerStatistics.cpp \
     Model/referee.cpp \

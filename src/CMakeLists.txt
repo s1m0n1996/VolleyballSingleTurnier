@@ -26,6 +26,7 @@ include_directories(../)
 set(MOC_HEADERS
         Model/game.h
         Model/gameboard.h
+        Model/gameManagement.h
         Model/player.h
         Model/playerStatistics.h
         Model/referee.h
@@ -38,7 +39,6 @@ set(MOC_HEADERS
         View/dartboardViewer.h
         View/drilldownChart.h
         View/drilldownSlice.h
-        View/gameboardWindow.h
         View/mainmenu.h
         View/playerManagementWindow.h
         View/refereePopupBustLeg.h
@@ -51,7 +51,6 @@ set(MOC_HEADERS
         View/windowButton.h
         View/windowEdit.h
         View/windowLabel.h
-        Model/gameManagement.h
         View/loadTournamentPopup.h
         )
 
@@ -59,6 +58,7 @@ set(MOC_HEADERS
 set(SOURCES
         Model/game.cpp
         Model/gameboard.cpp
+        Model/gameManagement.cpp
         Model/player.cpp
         Model/playerStatistics.cpp
         Model/referee.cpp
@@ -71,7 +71,6 @@ set(SOURCES
         View/dartboardViewer.cpp
         View/drilldownChart.cpp
         View/drilldownSlice.cpp
-        View/gameboardWindow.cpp
         View/mainmenu.cpp
         View/playerManagementWindow.cpp
         View/refereePopupBustLeg.cpp
@@ -84,7 +83,6 @@ set(SOURCES
         View/windowButton.cpp
         View/windowEdit.cpp
         View/windowLabel.cpp
-        Model/gameManagement.cpp
         View/loadTournamentPopup.cpp
         main.cpp
         )
