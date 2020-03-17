@@ -98,7 +98,7 @@ void MainMenu::openStatisticWindow()
 /*!
  * \brief Erstellt eine Datenbank
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Ein Pfad wird von dem Benutzer festgelegt und dort wird eine sqlite Datenbank mit dem gewünschten Namen erzeugt
@@ -123,7 +123,7 @@ void MainMenu::createDatabase()
 /*!
  * \brief Laden einer existierenden Datenbank
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Der Pfad, indem die bereits erstellten Datenbank gespeichert wurden, wird geöffnet und der Benutzer kann eine Datenbank zu öffnen auswählen

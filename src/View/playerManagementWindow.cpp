@@ -14,6 +14,8 @@
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QGroupBox>
+#include <QCalendarWidget>
+
 
 #include "View/playerManagementWindow.h"
 #include "Model/playerManagement.h"
@@ -63,7 +65,7 @@ PlayermanagementWindow::~PlayermanagementWindow()
 /*!
  * \brief Anzeige der benötigten Spieler zum Turnierbeginn
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Das Label mit der Überschrift und der Spieleranzahl wird erzeugt, und aktualisiert
@@ -85,7 +87,7 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 /*!
  * \brief Einfügen eines oder mehrere neuen Spieler zu einem Spiel
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
@@ -109,7 +111,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
 /*!
  * \brief Löschen eines oder mehrere neuen Spieler zu einem Spiel
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
@@ -139,7 +141,7 @@ void PlayermanagementWindow::dropPlayerForNewGame()
 /*!
  * \brief Einfügen eines neuen Spieler zu gesamten Spielerdatenbank
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Ein Objekt der Klasse Player wird erzeugt, dem erden die neuen Varibalen mitgegeben
@@ -318,7 +320,7 @@ void PlayermanagementWindow::addPhotoWithButton()
 /*!
  * \brief Erstellt den Tournierplan
  *
- * \param void
+ * \param[in] void
  * \return void
  *
  * Diese methode erstellt startet das Turnier. Dadurh wird der Spielplan erstellt und das Spiel geht in den
@@ -427,10 +429,11 @@ void PlayermanagementWindow::createWidges()
                               "font-size: 25px;"
                               "font-family: Candara;} ");
 
+
     _playernameEdit = new WindowEdit("Max Mustermann", DataType::name);
     _playernameEdit->setMaxLength(20);
     _birthdayEdit = new WindowEdit("1990-01-30", DataType::date);
-    _countryEdit = new WindowEdit("Deutschland", DataType::country);
+    _countryEdit = new WindowEdit("DE", DataType::country);
     _countryEdit->setMaxLength(3);
 
     _playernameLabel    = new WindowLabel("Spielername");
@@ -439,6 +442,8 @@ void PlayermanagementWindow::createWidges()
     _photoLabel         = new WindowLabel("Foto");
 
     _photo = new WindowLabel("");
+    _calendar = new QCalendarWidget;
+    _calendarButton= new WindowButton("");
 
     _addPhoto = new WindowButton("Foto hinzufügen");
     _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
@@ -540,6 +545,8 @@ void PlayermanagementWindow::setAllLayout()
 
     editLayout->addWidget(_playernameEdit);
     editLayout->addWidget(_birthdayEdit);
+    editLayout->addWidget(_calendar);
+    editLayout->addWidget(_calendarButton);
     editLayout->addWidget(_countryEdit);
     editLayout->addWidget(_addPhoto);
     editLayout->addWidget(_photo);

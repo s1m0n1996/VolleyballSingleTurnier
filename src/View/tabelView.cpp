@@ -7,7 +7,7 @@
 #include <QHeaderView>
 /*!
  * \brief TabelView::TabelView ist Konstruktor der Klasse TabelView
- * \param parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
  * Man kann Reihen makrieren und neu einfärben

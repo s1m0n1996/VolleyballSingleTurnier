@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Model/game.cpp \
     Model/gameboard.cpp \
+Model/gameManagement.cpp \
     Model/player.cpp \
     Model/playerStatistics.cpp \
     Model/referee.cpp \
@@ -27,11 +28,10 @@ SOURCES += \
     Model/statistics.cpp \
     Model/viewer.cpp \
     View/createTournamentPopup.cpp \
-    View/dartboard.cpp \
+    View/dartboard.cpp \ 
     View/dartboardViewer.cpp \
     View/drilldownChart.cpp \
     View/drilldownSlice.cpp \
-    View/gameboardWindow.cpp \
     View/mainmenu.cpp \
     View/playerManagementWindow.cpp \
     View/refereePopupBustLeg.cpp \
@@ -44,26 +44,25 @@ SOURCES += \
     View/windowButton.cpp \
     View/windowEdit.cpp \
     View/windowLabel.cpp \
-    Model/gameManagement.cpp \
     View/loadTournamentPopup.cpp \
     main.cpp
 
 HEADERS += \
     Model/game.h \
     Model/gameboard.h \
-    Model/player.h \
+    Model/gameManagement.h \
+    Model/player.h \ 
     Model/playerStatistics.h \
     Model/referee.h \
-    Model/sqliteConnector.h \
+    Model/sqliteConnector.h \   
     Model/playerManagement.h \
     Model/statistics.h \
     Model/viewer.h \
     View/createTournamentPopup.h \
-    View/dartboard.h \
+    View/dartboard.h \ 
     View/dartboardViewer.h \
     View/drilldownChart.h \
     View/drilldownSlice.h \
-    View/gameboardWindow.h \
     View/mainmenu.h \
     View/playerManagementWindow.h \
     View/refereePopupBustLeg.h \
@@ -76,7 +75,6 @@ HEADERS += \
     View/windowButton.h \
     View/windowEdit.h \
     View/windowLabel.h \
-    Model/gameManagement.h \
     View/loadTournamentPopup.h
 
 FORMS += \

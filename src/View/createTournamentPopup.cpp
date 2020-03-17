@@ -1,5 +1,5 @@
 #include "createTournamentPopup.h"
-#include "View/mainmenu.h"
+//#include "View/mainmenu.h"
 
 CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 {

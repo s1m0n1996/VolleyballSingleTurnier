@@ -10,12 +10,11 @@ class QGroupBox;
 class QMenu;
 class QLabel;
 class TableView;
-class TournamentWindow;
 class ViewerWindow;
 class WindowButton;
 class WindowEdit;
 class WindowLabel;
-
+class QCalendarWidget;
 
 
 /*!
@@ -40,7 +39,7 @@ public:
 
 
 signals:
-public slots:    
+public slots:
     void setMissingPlayersForNewTournamentLabel(void);
     void startTournament(void);
 
@@ -66,7 +65,7 @@ private:
     void connecting(void);
 
 
-    PlayerManagement* _playerManagementModel = nullptr; 
+    PlayerManagement* _playerManagementModel = nullptr;
 
     WindowLabel*    _title      = nullptr;
 
@@ -93,7 +92,7 @@ private:
     WindowLabel* _playernameLabel           = nullptr;
     WindowLabel* _birthdayLabel             = nullptr;
     WindowLabel* _countryLabel              = nullptr;
-    WindowLabel* _photoLabel                     = nullptr;
+    WindowLabel* _photoLabel                = nullptr;
 
     WindowLabel* _photo = nullptr;
 
@@ -102,6 +101,8 @@ private:
     WindowEdit*     _birthdayEdit               = nullptr;
     WindowEdit*     _countryEdit                = nullptr;
     WindowButton*   _addPhoto                   = nullptr;
+    WindowButton*   _calendarButton             = nullptr;
+    QCalendarWidget* _calendar                  = nullptr;
 
     WindowButton* _addPlayerButton          = nullptr;
     WindowButton* _startTournamentButton    = nullptr;

@@ -10,7 +10,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QGridLayout>
-#include <View/tournamentWindow.h>
+//#include <View/tournamentwindow.h>
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
