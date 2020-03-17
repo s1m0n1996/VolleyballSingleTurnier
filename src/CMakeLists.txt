@@ -52,6 +52,7 @@ set(MOC_HEADERS
         View/windowEdit.h
         View/windowLabel.h
         View/loadTournamentPopup.h
+        View/winnerpopup.h
         )
 
 # set .cpp files
@@ -84,6 +85,7 @@ set(SOURCES
         View/windowEdit.cpp
         View/windowLabel.cpp
         View/loadTournamentPopup.cpp
+        View/winnerpopup.cpp
         main.cpp
         )
 
