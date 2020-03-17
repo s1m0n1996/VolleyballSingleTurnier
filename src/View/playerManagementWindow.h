@@ -14,6 +14,7 @@ class ViewerWindow;
 class WindowButton;
 class WindowEdit;
 class WindowLabel;
+class QDateEdit;
 class QCalendarWidget;
 
 
@@ -101,8 +102,9 @@ private:
     WindowEdit*     _birthdayEdit               = nullptr;
     WindowEdit*     _countryEdit                = nullptr;
     WindowButton*   _addPhoto                   = nullptr;
-    WindowButton*   _calendarButton             = nullptr;
+
     QCalendarWidget* _calendar                  = nullptr;
+    QDateEdit*      _birthday                   = nullptr;
 
     WindowButton* _addPlayerButton          = nullptr;
     WindowButton* _startTournamentButton    = nullptr;

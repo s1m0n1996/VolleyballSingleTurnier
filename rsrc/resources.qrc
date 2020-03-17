@@ -17,5 +17,6 @@
         <file>img/statistic.png</file>
         <file>img/backgroundGamePlan.png</file>
         <file>img/crowns.png</file>
+        <file>img/calendar.png</file>
     </qresource>
 </RCC>

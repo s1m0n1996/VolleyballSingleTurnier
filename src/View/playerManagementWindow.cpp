@@ -15,6 +15,7 @@
 #include <QMenuBar>
 #include <QGroupBox>
 #include <QCalendarWidget>
+#include <QDateEdit>
 
 
 #include "View/playerManagementWindow.h"
@@ -149,24 +150,15 @@ void PlayermanagementWindow::dropPlayerForNewGame()
  * Die Edits der Namen,Geburtstag und Land werden wieder frei beschreibbar gemacht
  */
 void PlayermanagementWindow::addPlayerToDatabase()
-{
-
+{    
     Player* newPlayer = new Player(_playernameEdit->text(),
-                                   QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd"), _countryEdit->text());
+                                  _birthday->date(), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newPlayer);
 
 
     _playernameEdit->clear();
-    _birthdayEdit->clear();
+    _birthday->clear();
     _countryEdit->clear();
-
-    // reset background color
-    QPalette palette = _birthdayEdit->palette();
-    palette.setColor(_birthdayEdit->backgroundRole(), Qt::white);
-    _birthdayEdit->setToolTip("");
-    _birthdayEdit->setAutoFillBackground(true);
-    _birthdayEdit->setPalette(palette);
-
 
 
     _playerManagementModel->refreshDatabasePlayerTable();
@@ -177,22 +169,6 @@ void PlayermanagementWindow::addPlayerToDatabase()
         newPlayer->savePicture(*_byteArray);
 
         QByteArray data = newPlayer->loadPicture();
-        QPixmap pixmap;
-
-        pixmap.loadFromData(data, "jpg");
-
-        int w = _photoLabel->width();
-        int h = _photoLabel->height();
-
-        QTransform rotate;
-        rotate.rotate(90);
-
-        pixmap = pixmap.scaled(w, h, Qt::KeepAspectRatio);
-        pixmap = pixmap.transformed(rotate);
-
-        _photo->setPixmap(pixmap);
-
-        _byteArray->clear();
     }
 
 }
@@ -360,13 +336,10 @@ void PlayermanagementWindow::connecting()
     connect(_showDeletedPlayersAction, SIGNAL(triggered()), this, SLOT(showDeletedPlayers()));
 }
 
+
 void PlayermanagementWindow::enableAddPlayerButton()
 {
-    QDate date = QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd");
-    QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
-
-    _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty() && date.isValid() &&
-                                 re.exactMatch(_birthdayEdit->text()));
+    _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty());
 }
 
 /*!
@@ -441,9 +414,26 @@ void PlayermanagementWindow::createWidges()
     _countryLabel       = new WindowLabel("Land");
     _photoLabel         = new WindowLabel("Foto");
 
-    _photo = new WindowLabel("");
-    _calendar = new QCalendarWidget;
-    _calendarButton= new WindowButton("");
+
+
+    _birthday = new QDateEdit();
+    _birthday->setCalendarPopup(true);
+    _birthday->setStyleSheet("QDateEdit::drop-down {"
+                             "image:url(:/img/calendar.png);"
+                             "spacing:5px;"
+                             "width:60px;"
+                             "height:25px;"
+                             "subcontrol-position: right top;"
+                             "subcontrol-origin:margin; }"
+                             "QDateEdit{"
+                             "font-size: 20px;"
+                             "font-family: Candara;"
+                             "spacing: 5px;}"
+                             "QCalendarWidget{"
+                             "font-size: 20px;"
+                             "font-family: Candara;}");
+
+
 
     _addPhoto = new WindowButton("Foto hinzufügen");
     _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
@@ -544,12 +534,9 @@ void PlayermanagementWindow::setAllLayout()
     labelLayout->addWidget(_photoLabel);
 
     editLayout->addWidget(_playernameEdit);
-    editLayout->addWidget(_birthdayEdit);
-    editLayout->addWidget(_calendar);
-    editLayout->addWidget(_calendarButton);
+    editLayout->addWidget(_birthday);
     editLayout->addWidget(_countryEdit);
     editLayout->addWidget(_addPhoto);
-    editLayout->addWidget(_photo);
 
     addPlayerLayout->addLayout(labelLayout, 0, 0);
     addPlayerLayout->addLayout(editLayout, 0, 1);
