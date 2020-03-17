@@ -3,6 +3,7 @@
 #define SPORTVERANSTALTUNG_GAMEMANAGEMENT_H
 
 #include "Model/sqliteConnector.h"
+#include "Model/player.h"
 
 /*!
  * \file gameManagement.h
@@ -27,6 +28,7 @@ public:
     QString getTournamentDate(void) {return _tournamentDate;}
     bool isTournamentStarted(void);
     bool isTournamentFinished(void);
+    Player getTournamentWinner(void);
 
     void createNewTournament(const QString& name, const QDate& date);
     void loadOtherTournament(const QString& name, const QDate& date);

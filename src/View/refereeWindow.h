@@ -13,6 +13,7 @@
 #include "Model/viewer.h"
 #include "View/refereePopupWinningLeg.h"
 #include "View/refereePopupBustLeg.h"
+#include "View/winnerpopup.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -40,6 +41,7 @@ public slots:
     void playerBust();
     void playerWinsLeg();
     void nextPlayerAfterWinningLeg();
+    void tournamentIsWon();
 
 
 
@@ -49,6 +51,8 @@ private:
     Viewer* _viewer;
     RefereepopupWinningLeg* _popupWinningLeg;
     RefereePopupBustLeg* _popupBustLeg;
+    WinnerPopup* _winnerPopup;
+    GameManagement* _gameManagement;
     const int _miss                     = 0;
     const int _single                   = 1;
     const int _double                   = 2;

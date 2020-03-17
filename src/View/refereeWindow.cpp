@@ -7,6 +7,7 @@
 #include "View/refereeWindow.h"
 #include "ui_refereewindow.h"
 #include "View/dartboard.h"
+#include "Model/gameManagement.h"
 #include <QtMath>
 #include <QtDebug>
 #include <QResizeEvent>
@@ -19,6 +20,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     _popupWinningLeg(popupWinningLeg),
     _popupBustLeg(popupBustLeg)
 {
+    _gameManagement = &GameManagement::instance();
     RefereepopupWinningLeg* winLeg = new RefereepopupWinningLeg;
     _popupWinningLeg = winLeg;
 
@@ -55,6 +57,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
     connect(_popupBustLeg,SIGNAL(playerBustLeg()),this,SLOT(nextPlayer()));
     connect(_popupBustLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+    connect(_referee, SIGNAL(tournamentFinished()), this, SLOT (tournamentIsWon()));
 
     writeScore();
 }
@@ -62,6 +65,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
 RefereeWindow::~RefereeWindow()
 {
     delete ui;
+    delete _winnerPopup;
 }
 
 /*!
@@ -281,4 +285,12 @@ void RefereeWindow::writeScore()
      ui->undoLastThrow->setEnabled(true);
 
     writeNextPlayer();
+}
+
+void RefereeWindow::tournamentIsWon(void)
+{
+    _winnerPopup = new WinnerPopup(_gameManagement->getTournamentWinner().getName());
+    _winnerPopup->setWinnerTournament();
+    _winnerPopup->show();
+    close();
 }

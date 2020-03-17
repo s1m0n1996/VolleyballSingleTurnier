@@ -3,12 +3,14 @@
 #include "View/windowLabel.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <utility>
 
 WinnerPopup::WinnerPopup(QString winnerName, QWidget *parent) : QWidget(parent)
 {
     setWindowTitle("Gewinner");
-    createWidgets(winnerName);
+    createWidgets(std::move(winnerName));
     setwholeLayout();
+    connect(_okButton, SIGNAL(released()), this, SLOT(close()));
 }
 
 WinnerPopup::~WinnerPopup()
@@ -27,7 +29,7 @@ void WinnerPopup::createWidgets(QString winnerName)
                            "font-family: Candara;"
                            "font-weight: bold;}");
 
-    _winner = new WindowLabel(winnerName);
+    _winner = new WindowLabel(std::move(winnerName));
     _winner->setStyleSheet("QLabel{"
                            "font-size: 40px;"
                            "font-family: Candara;"
@@ -37,8 +39,6 @@ void WinnerPopup::createWidgets(QString winnerName)
     _crown->setPixmap(QPixmap(":/img/crowns.png").scaled(300,300,Qt::KeepAspectRatio));
 
     _okButton = new WindowButton("OK");
-
-
 }
 
 void WinnerPopup::setwholeLayout()

@@ -329,4 +329,5 @@ void MainMenu::refreshDatabase()
         delete _refereeModel;
     }
     _refereeModel = new Referee();
+    connect(_refereeModel, SIGNAL(tournamentFinished()), this, SLOT(setButtonEnableState()));
 }

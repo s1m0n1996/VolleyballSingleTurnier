@@ -57,7 +57,7 @@ signals:
     void scoreIsUnder170(void);
     void remainingThrowsAreZero(void);
     void gameListChanged(void);
-   // void tournamentFinishes(void);
+    void tournamentFinished(void);
 
 public slots:
     void updatePlayer();

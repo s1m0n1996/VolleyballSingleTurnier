@@ -41,6 +41,10 @@ void Referee::updatePlayer()
         resetAllStats();
         emit valueChanged();
     }
+    else
+    {
+        emit tournamentFinished();
+    }
 }
 
 /*!

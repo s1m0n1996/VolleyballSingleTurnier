@@ -277,3 +277,32 @@ WHERE sport_type_id = :sportTypeId
 
     return 0 == notPlayedGames;
 }
+
+/*!
+ * \brief Gebe Gewinner vom tournier aus
+ *
+ * \return das Gewinner vom Tournier
+ *
+ * Wenn es keinen Gewinner gibt, stürzt das programm ab.
+ */
+Player GameManagement::getTournamentWinner()
+{
+    QString sqlPrepare = R"(
+SELECT winner_id
+FROM game_board_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+ORDER BY id DESC
+LIMIT 1
+)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
+    sqlQuery.bindValue(":tournamentId", _tournamentId);
+
+    Player wonPlayer = Player(_db->sqlQuery(sqlQuery)[0][0].toInt());
+
+    return wonPlayer;
+}
