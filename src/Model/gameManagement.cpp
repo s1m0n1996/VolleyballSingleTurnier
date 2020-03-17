@@ -247,3 +247,33 @@ WHERE sport_type_id = :sportTypeId
 
     return 0 < nGames;
 }
+
+/*!
+ * \brief Ist das Turnier beendet
+ *
+ * \return ist das Turnier bendet = true sonst false
+ *
+ * Gibt zurück ob das Turnier beendet ist. Das Turnier wird als beendet erkannt, sobalt kein Feld
+ * in der game_board_list Tabelle NULL ist.
+ */
+bool GameManagement::isTournamentFinished()
+{
+    QString sqlPrepare = R"(
+SELECT count(*)
+FROM game_board_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+  AND winner_id is NULL
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _sportTypeId);
+    sqlQuery.bindValue(":gameModeId", _gameModeId);
+    sqlQuery.bindValue(":tournamentId", _tournamentId);
+
+    const int notPlayedGames = _db->sqlQuery(sqlQuery)[0][0].toInt();
+
+    return 0 == notPlayedGames;
+}

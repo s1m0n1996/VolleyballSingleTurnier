@@ -30,7 +30,7 @@ Referee::Referee()
 void Referee::updatePlayer()
 {
 
-    if (_gameManagement->isTournamentStarted())
+    if (_gameManagement->isTournamentStarted() and !_gameManagement->isTournamentFinished())
     {
         _allPlayers.clear();
         Game game;

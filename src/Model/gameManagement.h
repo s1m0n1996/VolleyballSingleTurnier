@@ -26,6 +26,7 @@ public:
     QString getTournamentName(void) {return _tournamentName;}
     QString getTournamentDate(void) {return _tournamentDate;}
     bool isTournamentStarted(void);
+    bool isTournamentFinished(void);
 
     void createNewTournament(const QString& name, const QDate& date);
     void loadOtherTournament(const QString& name, const QDate& date);
