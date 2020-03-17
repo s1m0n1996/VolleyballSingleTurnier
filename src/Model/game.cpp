@@ -29,6 +29,8 @@ void Game::loadNextGame()
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
 
+    qDebug() << "Gametyp" << newGame;
+
     if (newGame.isEmpty())
     {
         qDebug() << "Was last game in Tournament";          //TODO: Die Dartscheibe unable setzten!!
@@ -348,7 +350,8 @@ QList<QString> Game::getAllWinnersInTournament()
 
     for(const QVariant liste : nextGames)
     {
-        winnerList.append(liste.toList()[0].toString());
+        Player player(liste.toList()[0].toInt());
+        winnerList.append(player.getName());
     }
     return winnerList;
 }

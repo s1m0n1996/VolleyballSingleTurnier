@@ -564,11 +564,9 @@ void Referee::loadLastGame(){
                  _winningLegCounter[1]+=1;
             }
         }
-        if(legPoints[i][0]!=501 & legPoints[i+1][0]!=501)
+        if(legPoints[i][0]!=501 && legPoints[i+1][0]!=501)              //TODO: WARUM
         {
-
             loadLastThrows();
-
             if(_allPlayers[0]<_allPlayers[1])
             {
                 _remainScore[0] = 501 - legPoints[i][0].toInt();
