@@ -380,9 +380,10 @@ void Referee::undoThrow()
         _remainScore[_player] = _remainScore[_player] + _allThrows[_throwCounter - 1];
         _allThrows[_throwCounter - 1] = 0;
          _allThrowsWithoutMulti[_throwCounter - 1] = 0;
-       // _throwScoreWithoutMulti = _allThrows[_throwCounter - 1];
         _throwCounter--;
     }
+
+    _wasLastThrowInLegToBust = false;
 
     scoreIsUnder170InLeg();
     emit valueChanged();

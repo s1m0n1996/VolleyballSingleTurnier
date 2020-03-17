@@ -210,6 +210,7 @@ void RefereeWindow::playerBust()
 {
     _popupBustLeg->show();
     ui->DartboardView->setEnabled(false);
+    ui->undoLastThrow->setEnabled(false);
 }
 
 /*!
@@ -225,6 +226,7 @@ void RefereeWindow::playerWinsLeg()
 {
     _popupWinningLeg->show();
     ui->DartboardView->setEnabled(false);
+    ui->undoLastThrow->setEnabled(false);
 }
 
 void RefereeWindow::mouseReleasedOnDartboard()
@@ -275,6 +277,8 @@ void RefereeWindow::writeScore()
         ui->nextPlayer->setEnabled(false);
         ui->DartboardView->setEnabled(true);
     }
+
+     ui->undoLastThrow->setEnabled(true);
 
     writeNextPlayer();
 }
