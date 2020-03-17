@@ -5,11 +5,9 @@
 */
 
 #include "View/mainmenu.h"
-#include "View/dartboard.h"
-#include "View/refereeWindow.h"
 #include <QApplication>
 
-#include "View/statisticWindow.h"
+#include "View/WinnerPopup.h"
 
 
 
@@ -19,7 +17,6 @@ int main(int argc, char *argv[])
 
     MainMenu* mainMenu= new MainMenu();
     mainMenu -> show();
-
 
     return a.exec();
 }

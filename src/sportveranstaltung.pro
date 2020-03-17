@@ -28,7 +28,7 @@ SOURCES += \
     Model/statistics.cpp \
     Model/viewer.cpp \
     View/createTournamentPopup.cpp \
-    View/dartboard.cpp \ 
+    View/dartboard.cpp \
     View/dartboardViewer.cpp \
     View/drilldownChart.cpp \
     View/drilldownSlice.cpp \
@@ -45,21 +45,22 @@ SOURCES += \
     View/windowEdit.cpp \
     View/windowLabel.cpp \
     View/loadTournamentPopup.cpp \
+    View/winnerpopup.cpp \
     main.cpp
 
 HEADERS += \
     Model/game.h \
     Model/gameboard.h \
     Model/gameManagement.h \
-    Model/player.h \ 
+    Model/player.h \
     Model/playerStatistics.h \
     Model/referee.h \
-    Model/sqliteConnector.h \   
+    Model/sqliteConnector.h \
     Model/playerManagement.h \
     Model/statistics.h \
     Model/viewer.h \
     View/createTournamentPopup.h \
-    View/dartboard.h \ 
+    View/dartboard.h \
     View/dartboardViewer.h \
     View/drilldownChart.h \
     View/drilldownSlice.h \
@@ -75,7 +76,8 @@ HEADERS += \
     View/windowButton.h \
     View/windowEdit.h \
     View/windowLabel.h \
-    View/loadTournamentPopup.h
+    View/loadTournamentPopup.h \
+    View/winnerpopup.h
 
 FORMS += \
     View/refereewindow.ui \

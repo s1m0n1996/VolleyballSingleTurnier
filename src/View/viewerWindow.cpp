@@ -38,6 +38,7 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     connect(_viewer,SIGNAL(howToFinishLeg()),this,SLOT(possibleWayToFinishLeg()));
 
 
+
     _dartboard->setPos(0, 0);
     scene->addItem(_dartboard);
 

@@ -5,6 +5,9 @@
 */
 
 #include "refereePopupWinningLeg.h"
+#include "View/WinnerPopup.h"
+#include "Model/referee.h"
+#include <Model/player.h>
 
 RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent)
 {
@@ -42,6 +45,12 @@ void RefereepopupWinningLeg::openRefereeWinningLeg(void)
 {
     emit playerWonLeg();
     setWindowFlags(Qt::SubWindow);
+    Referee* referee = new Referee();
+    Player player(referee->getAktivePlayer());
+    WinnerPopup* winnerLeg = new WinnerPopup(player.getName());
+    winnerLeg->setWinnerLeg();
+    winnerLeg->show();
+
 }
 
 void RefereepopupWinningLeg::openRefereeUndoLastThrow(void)
