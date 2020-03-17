@@ -471,6 +471,8 @@ void StatisticWindow::_dataChangesDetected(void)
 
     _refreshSelectedPlayer();
 
+    _choosePlayerComboBox->setEnabled(true);
+
     switch (_getSelectedChartType())
     {
         case statistic::type::Winner:
@@ -486,12 +488,14 @@ void StatisticWindow::_dataChangesDetected(void)
             showTripleChart();
             break;
         case statistic::type::History:
-            showThrowHistoryChart();
+            showAverageHistoryChart();
             break;
         case statistic::type::MostHittingField:
             showMostHittingFieldsDiagram();
             break;
         case statistic::type::Average:
+            _choosePlayerComboBox->setCurrentIndex(0);
+            _choosePlayerComboBox->setEnabled(false);
             showAverage();
             break;
     }
@@ -560,7 +564,7 @@ void StatisticWindow::showTripleChart(void)
  *
  * In dieser Methode werden die passenden Daten der Average Statistik geholt.
  */
-void StatisticWindow::showThrowHistoryChart(void)
+void StatisticWindow::showAverageHistoryChart(void)
 {
     _chart->removeAllSeries();
     _chart->setTitle("Average Historie");
@@ -613,16 +617,8 @@ void StatisticWindow::showAverage(void)
     {
         _refreshPieDiagram(_playerStatistic->getAverage());
     }
-    else if (_selectedPlayer && _getSelectedTournamentId() < 0)
-    {
-        _refreshPieDiagram(_playerStatistic->getAverage(_selectedPlayer));
-    }
     else if (!_selectedPlayer && _getSelectedTournamentId() >= 0)
     {
         _refreshPieDiagram(_playerStatistic->getAverage(_getSelectedTournamentId()));
-    }
-    else if (_selectedPlayer && _getSelectedTournamentId() >= 0)
-    {
-        _refreshPieDiagram(_playerStatistic->getAverage(_selectedPlayer, _getSelectedTournamentId()));
     }
 }

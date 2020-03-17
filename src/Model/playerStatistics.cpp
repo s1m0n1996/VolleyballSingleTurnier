@@ -621,32 +621,7 @@ QMap<QString, double> PlayerStatistics::getAverage(void)
 {
     QString sqlPrepare = R"(
 SELECT name, average
-FROM (SELECT AVG(value_type_id * value) AS average, player_id
-      FROM leg_history_list
-      GROUP BY player_id)
-         INNER JOIN player_list pl ON player_id = pl.id
-)";
-
-    QSqlQuery sqlQuery;
-    sqlQuery.prepare(sqlPrepare);
-
-    return _convertAverage(sqlQuery);
-}
-
-/*!
- * \brief Gibt den Average zurück
- *
- * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
- *
- * \return Average
- *
- */
-// TODO: welche daten sollen vom spieler angezeigt werden???
-QMap<QString, double> PlayerStatistics::getAverage(const Player* player)
-{
-    QString sqlPrepare = R"(
-SELECT name, average
-FROM (SELECT AVG(value_type_id * value) AS average, player_id
+FROM (SELECT AVG(value_type_id * value) * 3 AS average, player_id
       FROM leg_history_list
       GROUP BY player_id)
          INNER JOIN player_list pl ON player_id = pl.id
@@ -670,35 +645,7 @@ QMap<QString, double> PlayerStatistics::getAverage(const int tournamentId)
 {
     QString sqlPrepare = R"(
 SELECT name, average
-FROM (SELECT AVG(value_type_id * value) AS average, player_id
-      FROM leg_history_list
-      WHERE tournament_id = :tournamentId
-      GROUP BY player_id)
-         INNER JOIN player_list pl ON player_id = pl.id
-)";
-
-    QSqlQuery sqlQuery;
-    sqlQuery.prepare(sqlPrepare);
-    sqlQuery.bindValue(":tournamentId", tournamentId);
-
-    return _convertAverage(sqlQuery);
-}
-
-/*!
- * \brief Gibt den Average zurück
- *
- * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
- * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
- *
- * \return Average
- *
- */
-// TODO: welche daten sollen vom spieler angezeigt werden???
-QMap<QString, double> PlayerStatistics::getAverage(const Player* player, const int tournamentId)
-{
-    QString sqlPrepare = R"(
-SELECT name, average
-FROM (SELECT AVG(value_type_id * value) AS average, player_id
+FROM (SELECT AVG(value_type_id * value) * 3 AS average, player_id
       FROM leg_history_list
       WHERE tournament_id = :tournamentId
       GROUP BY player_id)

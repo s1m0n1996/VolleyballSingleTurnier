@@ -50,7 +50,7 @@ public slots:
     void showSingleChart(void);
     void showDoubleChart(void);
     void showTripleChart(void);
-    void showThrowHistoryChart(void);
+    void showAverageHistoryChart(void);
     void showMostHittingFieldsDiagram(void);
     void showAverage(void);
     void _dataChangesDetected(void);

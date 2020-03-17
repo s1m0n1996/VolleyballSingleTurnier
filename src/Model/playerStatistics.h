@@ -36,9 +36,7 @@ public:
     QMap<QString, double> get10MostHittingFields(const Player* player, const int tournamentId);
 
     QMap<QString, double> getAverage(void);
-    QMap<QString, double> getAverage(const Player* player);
     QMap<QString, double> getAverage(const int tournamentId);
-    QMap<QString, double> getAverage(const Player* player, const int tournamentId);
 
 private:
     SqliteConnector* _db;
