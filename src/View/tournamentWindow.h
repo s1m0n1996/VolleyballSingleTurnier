@@ -42,7 +42,9 @@ private:
     QList<QList<QRectF>> _rects;
     QList<QList<QLineF>> _lines;
 
-    double _numberOfColumn = 0;
+    QList<QString> _texts;
+
+    int _numberOfColumn = 0;
 
     void createWidgets(void);
     WindowLabel* _title= nullptr;
@@ -53,6 +55,9 @@ private:
 
     void createRects(void);
     void createLines(void);
+    void createColours(void);
+
+    QList<QString> winner;
 
 };
 

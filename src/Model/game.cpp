@@ -350,7 +350,7 @@ QList<QString> Game::getAllWinnersInTournament()
 
     for(const QVariant liste : nextGames)
     {
-        Player player(liste.toList()[0].toInt());
+        Player player(liste.toList()[1].toInt());
         winnerList.append(player.getName());
     }
     return winnerList;

@@ -22,6 +22,7 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     createRects();
     createLines();
     createTexts();
+    //createColours();
 
 
     for (int i = 0; i < _numberOfColumn; i++)
@@ -96,11 +97,11 @@ void TournamentWindow::createRects()
         {
             if (counter < 2)
             {
-                _beginYFirstRec = _beginYFirstRec + 40;
+                _beginYFirstRec = _beginYFirstRec + 40.0;
             }
             else
             {
-                _beginYFirstRec = _beginYFirstRec + 140;
+                _beginYFirstRec = _beginYFirstRec + 140.0;
                 counter = 0;
             }
 
@@ -113,15 +114,15 @@ void TournamentWindow::createRects()
     else
     {
         _rects[0].append(QRectF(_beginXLeft, _beginYFirstRec, _width, _hight));
-        _rects[0].append(QRectF(_beginXLeft, _beginYFirstRec + 40, _width, _hight));
+        _rects[0].append(QRectF(_beginXLeft, _beginYFirstRec + 40.0, _width, _hight));
     }
 
 
     int counter2 = 0;
     _beginXLeft = _beginXLeft + _xSpacing + _width;
     _beginXRight = _beginXRight - _xSpacing - _width;
-    _beginYFirstRec = _rects[0][0].y() + _hight + 10;
-    _beginYSecondRec = 3 * _hight + 100;
+    _beginYFirstRec = _rects[0][0].y() + _hight + 10.0;
+    _beginYSecondRec = 3 * _hight + 100.0;
 
     // Die übrigen Spalten mit Rechtecken füllen
     for(int i = 1; i < _numberOfColumn; i++)
@@ -132,11 +133,11 @@ void TournamentWindow::createRects()
         {
             if (counter2 < 2)
             {
-                _beginYFirstRec = _beginYFirstRec + 40;
+                _beginYFirstRec = _beginYFirstRec + 40.0;
             }
             else
             {
-                _beginYFirstRec = _beginYFirstRec + _beginYSecondRec + 100;
+                _beginYFirstRec = _beginYFirstRec + _beginYSecondRec + 100.0;
                 counter2 = 0;
             }
 
@@ -149,15 +150,15 @@ void TournamentWindow::createRects()
         }
         _beginXLeft = _beginXLeft + _xSpacing + _width;
         _beginXRight = _beginXRight - _xSpacing - _width;
-        _beginYSecondRec = (_rects[0][0].y() + _hight + 10) * ((qPow(2,i + 2) - 2)) + 40;
-        _beginYFirstRec = _rects[0][0].y() + (3 + (i - 1) * (4 + (2 * (i - 2)))) * _hight + 10 + 100 * (qPow(2,i) - 1);
+        _beginYSecondRec = (_rects[0][0].y() + _hight + 10.0) * ((qPow(2,i + 2) - 2)) + 40.0;
+        _beginYFirstRec = _rects[0][0].y() + (3 + (i - 1) * (4 + (2 * (i - 2)))) * _hight + 10.0 + 100.0 * (qPow(2,i) - 1);
         counter2 = 0;
     }
 
     // FinalSpiel hinzufügen
     if (numberOfPlayer > 2)
     {
-        int beginFinalGame = _rects[_numberOfColumn - 1][0].x() + ((_rects[_numberOfColumn - 1][1].x() - _rects[_numberOfColumn - 1][0].x()) / 2);
+        double beginFinalGame = _rects[_numberOfColumn - 1][0].x() + ((_rects[_numberOfColumn - 1][1].x() - _rects[_numberOfColumn - 1][0].x()) / 2.0);
         _rects[_numberOfColumn - 1].append(QRectF(beginFinalGame, _rects[_numberOfColumn - 1][0].y(), _width, _hight));
         _rects[_numberOfColumn - 1].append(QRectF(beginFinalGame, _rects[_numberOfColumn - 1][2].y(), _width, _hight));
     }
@@ -165,7 +166,7 @@ void TournamentWindow::createRects()
 
 void TournamentWindow::createLines()
 {
-    for (int i = 0; i < _numberOfColumn; i++)
+    for (double i = 0.0; i < _numberOfColumn; i++)
     {
         _lines.append(QList<QLineF>());
     }
@@ -173,9 +174,9 @@ void TournamentWindow::createLines()
     // Alle Splaten werden durchgegangen damit alle Rechtecke verbunden werden können
     for (int i = 0; i < _numberOfColumn - 1; i++)
     {
-        int numberOfRects = _rects[i].size();
+        double numberOfRects = _rects[i].size();
 
-        double lengthLineY1 = 0;
+        double lengthLineY1 = 0.0;
 
         // Linien von links die nach unten gehen
         for (int k = 2; k < numberOfRects; k += 8)
@@ -184,7 +185,7 @@ void TournamentWindow::createLines()
             {
                 double startLineX1Left = _rects[i][k].x() + _width;
                 double startLineY1 = _rects[i][k].y();
-                double lengthLineX1 = 50;
+                double lengthLineX1 = 50.0;
                 lengthLineY1 = _rects[i + 1][2].y() - _rects[i][2].y() - _hight / 2;
 
                 _lines[i].append(QLineF(startLineX1Left, startLineY1, startLineX1Left + lengthLineX1, startLineY1));
@@ -200,7 +201,7 @@ void TournamentWindow::createLines()
             {
                 double startLineX1 = _rects[i][k].x() + _width;
                 double startLineY1 = _rects[i][k].y();
-                double lengthLineX1 = 50;
+                double lengthLineX1 = 50.0;
                 lengthLineY1 = _rects[i + 1][2].y() - _rects[i][2].y() - _hight / 2;
 
                 _lines[i].append(QLineF(startLineX1, startLineY1, startLineX1 + lengthLineX1, startLineY1));
@@ -216,7 +217,7 @@ void TournamentWindow::createLines()
             {
                 double startLineX1Right = _rects[i][k].x();
                 double startLineY1 = _rects[i][k].y();
-                double lengthLineX1 = 50;
+                double lengthLineX1 = 50.0;
                 lengthLineY1 = _rects[i + 1][2].y() - _rects[i][2].y() - _hight / 2;
 
                 _lines[i].append(QLineF(startLineX1Right, startLineY1, startLineX1Right - lengthLineX1, startLineY1));
@@ -232,7 +233,7 @@ void TournamentWindow::createLines()
             {
                 double startLineX1Right = _rects[i][k].x();
                 double startLineY1 = _rects[i][k].y();
-                double lengthLineX1 = 50;
+                double lengthLineX1 = 50.0;
                 lengthLineY1 = _rects[i + 1][2].y() - _rects[i][2].y() - _hight / 2;
 
                 _lines[i].append(QLineF(startLineX1Right, startLineY1, startLineX1Right - lengthLineX1, startLineY1));
@@ -248,33 +249,64 @@ void TournamentWindow::createLines()
         // links
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x(),
                          _rects[_numberOfColumn - 1].last().y() + _hight / 2,
-                _rects[_numberOfColumn - 1].last().x() - 50 ,
+                _rects[_numberOfColumn - 1].last().x() - 50.0 ,
                 _rects[_numberOfColumn - 1].last().y() + _hight / 2));
 
-        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() - 50,
+        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() - 50.0,
                          _rects[_numberOfColumn - 1].last().y() + _hight / 2,
-                _rects[_numberOfColumn - 1].last().x() - 50,
+                _rects[_numberOfColumn - 1].last().x() - 50.0,
                 _rects[_numberOfColumn - 1].last().y()));
 
-        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() - 50,
+        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() - 50.0,
                          _rects[_numberOfColumn - 1].last().y(),
-                _rects[_numberOfColumn - 1].last().x() - 50 - _width,
+                _rects[_numberOfColumn - 1].last().x() - 50.0 - _width,
                 _rects[_numberOfColumn - 1].last().y()));
         // rechts
         _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width,
                          _rects[_numberOfColumn - 1].last().y() - _hight / 2,
-                _rects[_numberOfColumn - 1].last().x() + _width + 50 ,
+                _rects[_numberOfColumn - 1].last().x() + _width + 50.0 ,
                 _rects[_numberOfColumn - 1].last().y() - _hight / 2));
 
-        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width + 50,
+        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width + 50.0,
                          _rects[_numberOfColumn - 1].last().y() - _hight / 2,
-                _rects[_numberOfColumn - 1].last().x() + _width + 50,
+                _rects[_numberOfColumn - 1].last().x() + _width + 50.0,
                 _rects[_numberOfColumn - 1].last().y()));
 
-        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width + 50,
+        _lines[0].append(QLineF(_rects[_numberOfColumn - 1].last().x() + _width + 50.0,
                          _rects[_numberOfColumn - 1].last().y(),
-                _rects[_numberOfColumn - 1].last().x() + _width + 50 + _width,
+                _rects[_numberOfColumn - 1].last().x() + _width + 50.0 + _width,
                 _rects[_numberOfColumn - 1].last().y()));
+    }
+}
+
+void TournamentWindow::createColours()
+{
+    qDebug() << "ALlPlayers" <<_texts;
+    qDebug() << "Winners" <<winner;
+    for(int m = 0; m < _rects.size(); m++)
+    {
+        for(int i = 0; i < _rects[m].size(); i++)
+        {
+            for(int t = 0; t < winner.size(); t++)
+            {
+                if(winner[t] == _texts[i])
+                {
+                    qDebug()<<"hallllooooooooooo" << winner;
+                    if(m >= 1)
+                    {
+                        _gameBoard->addRect(_rects[m][i - 2],QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+                        winner.removeAt(t);
+                        break;
+                    }
+                    else
+                    {
+                        _gameBoard->addRect(_rects[m][i],QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+                        winner.removeAt(t);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -284,27 +316,31 @@ void TournamentWindow::createTexts()
     QList<QRectF> allRects;
     QList<QString> allPlayersForAllGames;
 
-    //if(!game.wasFinal())
-    //{
+    winner = game.getAllWinnersInTournament();
+
+
+    if(!game.wasFinal())
+    {
         allPlayersForAllGames = game.getAllPlayersForGameboardView();
         qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
+        _texts = allPlayersForAllGames;
 
         for(int i = 0; i < _numberOfColumn; i++)
         {
             int rectCount = _rects[i].size();
             for(int k = 0; k < rectCount; k++)
             {
-               allRects.append(_rects[i][k]);
+                allRects.append(_rects[i][k]);
             }
         }
 
         int allRectCount = allRects.size();
         for (int i = 0; i < allRectCount; i++)
         {
-                QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
-                allPlayernames->setPos(allRects[i].x(),allRects[i].y());
-                allPlayernames->setFont(QFont("Candara", 10));
-                _gameBoard->addItem(allPlayernames);
+            QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
+            allPlayernames->setPos(allRects[i].x(),allRects[i].y());
+            allPlayernames->setFont(QFont("Candara", 10));
+            _gameBoard->addItem(allPlayernames);
         }
 
         QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
@@ -313,6 +349,9 @@ void TournamentWindow::createTexts()
         layout->addWidget(_title);
         layout->addWidget(viewGame);
         setLayout(layout);
-    //}
+    }
 
+    createColours();
 }
+
+
