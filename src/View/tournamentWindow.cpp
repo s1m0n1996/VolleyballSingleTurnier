@@ -284,8 +284,8 @@ void TournamentWindow::createTexts()
     QList<QRectF> allRects;
     QList<QString> allPlayersForAllGames;
 
-    if(!game.getIsLastGame())
-    {
+    //if(!game.wasFinal())
+    //{
         allPlayersForAllGames = game.getAllPlayersForGameboardView();
         qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
 
@@ -313,6 +313,6 @@ void TournamentWindow::createTexts()
         layout->addWidget(_title);
         layout->addWidget(viewGame);
         setLayout(layout);
-    }
+    //}
 
 }

@@ -5,7 +5,6 @@ Game::Game()
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
-    _isLastgame = false;
     loadNextGame();
 }
 
@@ -33,9 +32,10 @@ void Game::loadNextGame()
     if (newGame.isEmpty())
     {
         qDebug() << "Was last game in Tournament";          //TODO: Die Dartscheibe unable setzten!!
-        _isLastgame = true;
+        emit tournamentFinishes();
         return;
     }
+    qDebug() << "WARUM SPRINGST DU HIER REIN";
 
     _gameId = newGame[0][0].toInt();
     if (newGame[0][1] > 0)
@@ -56,10 +56,23 @@ void Game::loadNextGame()
     }
 }
 
+bool Game::wasFinal()
+{
+    if(getNumberOfGamesInTournament()-getNumberOfWinnerInTournament() == 1)
+    {
+        return true;
+    }
+    return  false;
+}
+
 
 void Game::setNextWinner(int winnerId)
 {
-    prepareNextGame(winnerId);
+    if(!wasFinal())
+    {
+        prepareNextGame(winnerId);
+    }
+
     QString sqlPrepare = R"(
                          UPDATE game_board_list
                          SET winner_id = :winnerId
@@ -75,7 +88,6 @@ void Game::setNextWinner(int winnerId)
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     _db->sqlQuery(sqlQuery);
-
 }
 
 
@@ -313,6 +325,31 @@ QList<QString> Game::getAllPlayersForGameboardView()
 
 QString Game::getNameOfPlayerForGameView(int playerId)
 {
-    qDebug() << "SpielerId:" << playerId;
     return playerId > 0 ? Player(playerId).getName() : "";
 }
+
+
+QList<QString> Game::getAllWinnersInTournament()
+{
+    QList<QString> winnerList;
+    QString sqlPrepare = R"(
+                         SELECT id ,winner_id
+                         FROM game_board_list
+                         WHERE sport_type_id = :sportTypeId
+                           AND game_mode_id = :gameModeId
+                           AND tournament_id = :tournamentId
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
+
+    for(const QVariant liste : nextGames)
+    {
+        winnerList.append(liste.toList()[0].toString());
+    }
+    return winnerList;
+}
+

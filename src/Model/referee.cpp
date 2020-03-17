@@ -18,8 +18,18 @@ Referee::Referee()
 }
 
 
+/*!
+ * \brief Lädt die Spieler für das nächste Spiel
+ *
+ * \return void
+ *
+ * Bekommt von der Klasse "Game" die Spieler Id´s vom nächsten Spiel und lädt diese
+ * in die Membervariable
+ *
+ */
 void Referee::updatePlayer()
 {
+
     if (_gameManagement->isTournamentStarted())
     {
         _allPlayers.clear();
@@ -28,15 +38,22 @@ void Referee::updatePlayer()
         _allPlayers.append(game.getPlayerAId());
         _allPlayers.append(game.getPlayerBId());
         qDebug() << "Updateplayer";
-        qDebug() << "Allplayer" << _allPlayers;
         resetAllStats();
         emit valueChanged();
     }
 }
 
-
+/*!
+ * \brief Setzt alle Spielwerte auf den Anfangswert
+ *
+ * \return void
+ *
+ *Setzt alle Spielwerte auf den Anfangswert
+ *
+ */
 void Referee::resetAllStats()
 {
+    _winningLegCounter  = {0,0};
     _throwCounter = 0;
     _allThrows = {0,0,0};
     _allThrowsWithoutMulti = {0,0,0};
@@ -123,19 +140,22 @@ void Referee::nextPlayerAfterWinningLeg()
         emit valueChanged();
         setWinner();
     }
-
 }
 
+
+/*!
+ * \brief Gibt die Player Id des aktiven Spielers wieder
+ *
+ * \return int
+ *
+ * Diese Metohde gibt die Id des Spielers der aktuell am Zug ist zurück
+ *
+ */
 int Referee::getAktivePlayer()
 {
    return _allPlayers[_player];
 }
 
-/*QString Referee::getAktivePlayer()
-{
-    Player aktivePlayer(getAktivePlayerId());
-    return aktivePlayer.getName();
-}*/
 
 /*!
  * \brief Berechnet den Wert des geworfenen Dartpfeils.
@@ -202,6 +222,15 @@ void Referee::setRemainScore()
 }
 
 
+/*!
+ * \brief Legt den Gewinner des Spieles fest
+ *
+ * \return void
+ *
+ * Sobald drei Legs gewonnen wurden legt diese Methode den Gewinner fest und
+ * übergibt ihn an das Spiel
+ *
+ */
 void Referee::setWinner()
 {
     if (_winningLegCounter[_player] == 3)
@@ -253,6 +282,7 @@ void Referee::legWinningCondition()
     }
 }
 
+
 /*!
  * \brief Gibt ein Singal raus sobald die Restpunktzahl unter 170 Punkte ist.
  *
@@ -272,6 +302,7 @@ void Referee::scoreIsUnder170InLeg()
     }
 }
 
+
 /*!
  * \brief Gibt ein Singal raus wenn keine Würfe in einem Leg für einen Spieler verfügbar sind.
  *
@@ -289,10 +320,12 @@ void Referee::remainingThrowsAreZeroInLeg()
     }
 }
 
+
 int Referee::valueMultiplikator()
 {
     return _valueMultiplikator;
 }
+
 
 QList<int> Referee::allThrowsWithoutMultiplikator()
 {
@@ -399,6 +432,15 @@ QList<int> Referee::getAllPlayersForViewer()
 }
 
 
+/*!
+ * \brief Gibt die letzte Leg Id des gleichen Spiels wieder
+ *
+ * \return int
+ *
+ * Diese Methode ist vorbereitend für die loadLastGame() Methode und liefert
+ * die letzte Leg Id im gleichen Spiel
+ *
+ */
 int Referee::getLastLegIdInSameGame()
 {
     QString sqlPrepare = R"(SELECT id
@@ -444,6 +486,14 @@ int Referee::getNumberOfCurrentLeg()
 }
 
 
+/*!
+ * \brief Setzt den aktiven Spieler auf die übergeben Spieler Id
+ *
+ * \param[in] die zu setztene Spieler Id
+ * \return void
+ *
+ *
+ */
 void Referee::setActivePlayer(int activePlayerId)
 {
     qDebug() << _allPlayers[1];
@@ -458,6 +508,13 @@ void Referee::setActivePlayer(int activePlayerId)
 }
 
 
+/*!
+ * \brief Lädt das zuletzt unbeendete Spiel in einem geladenen Turnier
+ *
+ * \return void
+ *
+ *
+ */
 void Referee::loadLastGame(){
     QString sqlPrepare = R"(
                          SELECT punkte, player_id, game_board_id, tournament_id
@@ -541,6 +598,12 @@ void Referee::loadLastGame(){
 }
 
 
+/*!
+ * \brief Lädt die zuletzt geworfenen Würfe eines unbeendeten Spiels in dem geladenen Turnier
+ *
+ * \return void
+ *
+ */
 void Referee::loadLastThrows()
 {
     QString sqlPrepare = R"(
