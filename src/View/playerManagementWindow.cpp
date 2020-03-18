@@ -494,6 +494,7 @@ void PlayermanagementWindow::setAllLayout()
 {
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
+    widget->setStyleSheet("background: white;");
 
     QVBoxLayout* mainLayout             = new QVBoxLayout;
     QHBoxLayout* titleTabelViewLayout   = new QHBoxLayout;

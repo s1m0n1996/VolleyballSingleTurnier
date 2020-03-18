@@ -12,8 +12,7 @@ RefereePopupBustLeg::RefereePopupBustLeg(QWidget *parent) : QWidget(parent)
     setWindowTitle("Richteransicht");
     _refereeInformation = new WindowLabel("Der Spieler hat sich überworfen\n"
                                           "oder nicht mit einem Doppel beendet.");
-//    _refereeInformation->setStyleSheet("QFont{"
-//                                       "");
+
     _refereeInformation->setTitleStyle();
     _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde,\n"
                                      "dann auf den Button 'Nächster Spieler' klicken\n"

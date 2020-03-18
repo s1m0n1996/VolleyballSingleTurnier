@@ -1,3 +1,8 @@
+/*!
+* \file winnerpopup.cpp
+* \brief Diese Klasse erzeugt ein Fenster mit dem Namen des Gewinner eines Spieles und eines Turniers
+* \author Lea Kesselmeier
+*/
 #include "winnerpopup.h"
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
@@ -39,12 +44,14 @@ void WinnerPopup::createWidgets(QString winnerName)
     _crown->setPixmap(QPixmap(":/img/crowns.png").scaled(300,300,Qt::KeepAspectRatio));
 
     _okButton = new WindowButton("OK");
+    setStyleSheet("background: white;");
 }
 
 void WinnerPopup::setwholeLayout()
 {
     QVBoxLayout* layout = new QVBoxLayout;
     QHBoxLayout* layoutButton = new QHBoxLayout;
+
 
     layoutButton->addWidget(_okButton,Qt::AlignRight, Qt::AlignRight);
 

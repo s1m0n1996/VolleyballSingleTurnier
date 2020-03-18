@@ -30,6 +30,7 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     setWindowIcon(QIcon(":/img/referee.png"));
 
     ui->setupUi(this);
+    ui->centralwidget->setStyleSheet("background: white;");
 
     ui->title->setMainTitleStyle();
     ui->countWinningLegs->setBold();

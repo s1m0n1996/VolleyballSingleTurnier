@@ -288,7 +288,7 @@ void MainMenu::setwholeLayout()
 {
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
-
+    widget->setStyleSheet("background: white;");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(_title, 0, Qt::AlignCenter);

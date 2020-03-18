@@ -114,6 +114,8 @@ void StatisticWindow::_setLayout(void)
 
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
+    widget->setStyleSheet("background: white;");
+
     QVBoxLayout* mainLayout = new QVBoxLayout;
     QGridLayout* chartLayout = new QGridLayout;
     QVBoxLayout* chooseLayout = new QVBoxLayout;

@@ -13,7 +13,8 @@ RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent
 {
 
 
-    _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen. Wenn der Wurf richtig eingegeben wurde");
+    _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen,\n"
+                                          "wenn der Wurf richtig eingegeben wurde");
     _refereeInformation->setTitleStyle();
     _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde,\n"
                                      "dann auf den Button 'Leg gewonnen' klicken\n"
