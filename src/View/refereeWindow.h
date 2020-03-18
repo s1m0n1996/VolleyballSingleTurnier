@@ -29,9 +29,7 @@ public:
                            RefereePopupBustLeg* popupBustLeg = nullptr, QWidget *parent = nullptr);
     ~RefereeWindow();
 
-public slots:
-    int valueMultiplikator();
-    int valueScoreWithoutMultiplikator();
+private slots:
     void mouseCurrentPos();
     void mouseReleasedOnDartboard();
     void writeScore();
@@ -44,7 +42,6 @@ public slots:
     void tournamentIsWon();
 
 
-
 private:
     Ui::RefereeWindow *ui;
     Referee* _referee;
@@ -53,6 +50,10 @@ private:
     RefereePopupBustLeg* _popupBustLeg;
     WinnerPopup* _winnerPopup;
     GameManagement* _gameManagement;
+
+    int valueMultiplikator();
+    int valueScoreWithoutMultiplikator();
+
     const int _miss                     = 0;
     const int _single                   = 1;
     const int _double                   = 2;
