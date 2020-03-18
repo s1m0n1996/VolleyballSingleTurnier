@@ -109,14 +109,14 @@ void Referee::nextPlayer()
  */
 void Referee::nextPlayerAfterWinningLeg()
 {
-    _remainScore[0] = 501;
-    _remainScore[1] = 501;
-    _throwCounter = 0;
-    _allThrows[0] = 0;
-    _allThrows[1] = 0;
-    _allThrows[2] = 0;
-    _wasLastThrowInLegToWin = false;
-    _wasLastThrowInLegToBust = false;
+        _remainScore[0] = 501;
+        _remainScore[1] = 501;
+        _throwCounter = 0;
+        _allThrows[0] = 0;
+        _allThrows[1] = 0;
+        _allThrows[2] = 0;
+        _wasLastThrowInLegToWin = false;
+        _wasLastThrowInLegToBust = false;
 
     if (_winningLegCounter[0] < 3 and _winningLegCounter[1] < 3)
     {
@@ -257,6 +257,7 @@ void Referee::legWinningCondition()
     if (_remainScore[_player] == 0 and _valueMultiplikator == 2
         and _throwCounter <= 3 and _winningLegCounter[_player] < 3)
     {
+        setLegWinner(getAktivePlayer());
         _winningLegCounter[_player]++;
         _wasLastThrowInLegToWin = true;
         _wasLastThrowInLegToBust = false;
@@ -681,7 +682,7 @@ void Referee::writeLegIntoDatabase(int legId)
 
 void Referee::setLegWinner(int winnerId)
 {
-    qDebug() << "Setlegwinner" << getLastLegIdInSameGame();
+    qDebug() << "Legnummer" << getNumberOfCurrentLeg();
     QString sqlPrepare = R"(
                          UPDATE leg_list
                          SET winner_id = :winnerId
@@ -694,7 +695,7 @@ void Referee::setLegWinner(int winnerId)
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
     sqlQuery.bindValue(":winnerId", winnerId);
-    sqlQuery.bindValue(":legId", getLastLegIdInSameGame()+1);
+    sqlQuery.bindValue(":legId", getNumberOfCurrentLeg());
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     sqlQuery.bindValue(":gameId", _gameId);
     sqlQuery.bindValue(":sportModeId", _gameManagement->getSportTypeId());

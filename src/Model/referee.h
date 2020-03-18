@@ -27,7 +27,6 @@ public:
     void legWinningCondition();
 
     int getAktivePlayer();              //TODO: Name des Spielers
-    int getAktivePlayerId();
     QList<int> getThrows();
     int getRemainScore();
     int getCountOfWinningLegs();
