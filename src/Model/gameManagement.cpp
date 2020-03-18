@@ -279,11 +279,11 @@ WHERE sport_type_id = :sportTypeId
 }
 
 /*!
- * \brief Gebe Gewinner vom tournier aus
+ * \brief Gebe Gewinner vom Turnier aus
  *
- * \return das Gewinner vom Tournier
+ * \return das Gewinner vom Turnier
  *
- * Wenn es keinen Gewinner gibt, stürzt das programm ab.
+ * Wenn es keinen Gewinner gibt, stürzt das Programm ab.
  */
 Player GameManagement::getTournamentWinner()
 {
