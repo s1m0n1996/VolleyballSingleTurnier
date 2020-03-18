@@ -176,11 +176,9 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
         }
         else if (_allMulti[i] == 0)
         {
-            for(int i = 0; i < colourListOfAllFields[0].size(); i++)
-            colourListOfAllFields[0][i] = changingColour[remainingThrows][0];
+            for(int k = 0; k < colourListOfAllFields[0].size(); k++)
+            colourListOfAllFields[0][k] = changingColour[remainingThrows][0];
         }
-
-
     }
 
     //Die einzelnen Segmente der Dartscheibe werden erstellt.
