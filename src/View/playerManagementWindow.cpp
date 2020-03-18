@@ -150,7 +150,7 @@ void PlayermanagementWindow::dropPlayerForNewGame()
  * Die Edits der Namen,Geburtstag und Land werden wieder frei beschreibbar gemacht
  */
 void PlayermanagementWindow::addPlayerToDatabase()
-{    
+{
     Player* newPlayer = new Player(_playernameEdit->text(),
                                   _birthday->date(), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newPlayer);
@@ -258,14 +258,14 @@ void PlayermanagementWindow::addPhotoWithSelection()
                 modelAll->index(selectedRows[0].row(), 2).data().toString()
         );
         // save file in database
-    QFile file(path);
-    if (file.exists())
-    {
+        QFile file(path);
+        if (file.exists())
+        {
             file.open(QIODevice::ReadOnly);
             QByteArray byteArray = file.readAll();
             player.savePicture(byteArray);
             file.close();
-    }
+        }
     }
 }
 
@@ -499,7 +499,7 @@ void PlayermanagementWindow::setAllLayout()
     QHBoxLayout* titleTabelViewLayout   = new QHBoxLayout;
     QVBoxLayout* maxPlayerLayout        = new QVBoxLayout;
     QHBoxLayout* tabelViewLayout        = new QHBoxLayout;
-    QVBoxLayout* addDeleteLayout        = new QVBoxLayout;        
+    QVBoxLayout* addDeleteLayout        = new QVBoxLayout;
     QHBoxLayout* bottomLayout           = new QHBoxLayout;
     QVBoxLayout* labelLayout            = new QVBoxLayout;
     QVBoxLayout* editLayout             = new QVBoxLayout;
