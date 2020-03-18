@@ -275,7 +275,7 @@ WHERE sport_type_id = :sportTypeId
 
     const int notPlayedGames = _db->sqlQuery(sqlQuery)[0][0].toInt();
 
-    return 0 == notPlayedGames;
+    return 0 == notPlayedGames && isTournamentStarted();
 }
 
 /*!

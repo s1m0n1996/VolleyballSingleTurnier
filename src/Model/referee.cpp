@@ -41,7 +41,7 @@ void Referee::updatePlayer()
         createAllpossibleLegs();
         emit valueChanged();
     }
-    else
+    else if (_gameManagement->isTournamentFinished())
     {
         emit tournamentFinished();
     }
