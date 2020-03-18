@@ -16,7 +16,6 @@
 class Player
 {
 public:
-    Player();
     Player(const QString name,
            const QDate birthday,
            const QString country);
