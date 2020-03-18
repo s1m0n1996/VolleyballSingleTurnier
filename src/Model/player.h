@@ -5,6 +5,14 @@
 #include <QDebug>
 #include "Model/sqliteConnector.h"
 
+/*!
+ * \file player.h
+ * \author Simon Flörke
+ * \brief Spieler Klasse, welche einen Spieler repräsentiert
+ *
+ * Es werden verschiedene Methoden für einen Spieler bereitgestellt.
+ *
+*/
 class Player
 {
 public:

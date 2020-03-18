@@ -2,6 +2,20 @@
 
 #include "Model/player.h"
 
+/*!
+ * \brief Es wird ein Spieler erstellt
+ *
+ * \param[in] name Spielername
+ * \param[in] birthday Geburtstag
+ * \param[in] country Land
+ *
+ * Es wird ein Spielerobjekt erstellt.
+ * Beim erstellen des Objektes wird der Spieler automatisch in die Datenbank eingetragen, sofern dieser nicht schon
+ * vorhanden ist.
+ *
+ * Wenn der Spieler bereits vorhanden ist wird die Membervariable _id aus der Datenbank geladen.
+ *
+ */
 Player::Player(const QString name, const QDate birthday, const QString country)
 {
     if (!birthday.isValid())
@@ -20,6 +34,18 @@ Player::Player(const QString name, const QDate birthday, const QString country)
     _id = _getPlayerIdFromDatabase();
 }
 
+/*!
+ * \brief Es wird ein Spieler Geladen
+ *
+ * \param[in] id Spieler Id
+ *
+ * Es wird ein Spielerobjekt erstellt.
+ * Der Die Spieler Id muss bereits in der Datenbank eingetragen sein.
+ * Es werden alle zugehörigen Daten aus der Datenbank in die Membervariablen geschrieben dazu gehören:
+ * - name
+ * - geburtstag
+ * - Land
+ */
 Player::Player(const int id)
 {
     _db = &SqliteConnector::instance();
@@ -47,10 +73,12 @@ WHERE id = :id;
     _country = player[3].toString();
 }
 
-/// To add a Player to the SqLite Database.
-/*
- * this method add a player to the SqLite Database. In the Database the id was increment up automatic
- * and the default value for the column is_available is 0.
+/*!
+ * \brief Der Spieler wird in der Datenbank gespeichert.
+ *
+ * Es muss vorher beispielsweise mit der Methode _isPlayerUnknown kontrolliert werden,
+ * ob es den Spieler bereits gibt, da die Methode nur ausgeführt werden darf, wenn der Spieler noch nicht
+ * in der Datenbank vorhanden ist.
  */
 void Player::_addPlayerToDatabase()
 {
@@ -68,7 +96,12 @@ VALUES (:name, :birthday, :country);
     _db->sqlQuery(sqlQuery);
 }
 
-
+/*!
+ * \brief Kontrolliere ob der Spieler bereits in der Datenbank vorhanden ist.
+ *
+ * \return true wenn es den Spieler noch nicht gibt und false wenn der Spieler bereits vorhanden ist
+ *
+ */
 bool Player::_isPlayerUnknown()
 {
     QString sqlPrepare = R"(
@@ -89,6 +122,13 @@ AND country = :country
 
 }
 
+/*!
+ * \brief Gebe die id des Spielers zurück
+ *
+ * Anhand der einzigartigen Daten Name, Geburtstag und Land wird die zugehörige is des Spielers aus der
+ * Datenbank geladen.
+ * Bei Aufruf der Methode muss der Spieler bereits in der Datenbank vorhanden sein.
+ */
 int Player::_getPlayerIdFromDatabase()
 {
     QString sqlPrepare = R"(
@@ -115,9 +155,9 @@ AND country = :country
 }
 
 /*!
- * \brief Speichere ein bild zu einem Spieler
+ * \brief Speichere ein Bild zu einem Spieler
  *
- * \param[in] picture das bild, welches dem Spieler hinzugefügt werden soll
+ * \param[in] picture das Bild, welches dem Spieler hinzugefügt werden soll
  *
  * Diese Methode lädt ein Bild in die Datenbank, und weist dieses Bild dann dem Spieler zu.
  */
@@ -167,7 +207,7 @@ WHERE id = :playerId
 }
 
 /*!
- * \brief Lade ein bild zu einem Spieler
+ * \brief Lade ein Bild zu einem Spieler
  *
  * \return das Bild im QByteArray Objekt
  *
@@ -198,4 +238,3 @@ WHERE player_list.id = :playerId
 
     return picture;
 }
-
