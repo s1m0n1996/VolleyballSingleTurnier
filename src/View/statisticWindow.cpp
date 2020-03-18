@@ -170,9 +170,9 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     _chooseCategoryComboBox->setMinimumWidth(400);
 
     _chooseCategoryComboBox->addItem("Gewinner");
-    _chooseCategoryComboBox->addItem("Single Würfe");
-    _chooseCategoryComboBox->addItem("Double Würfe");
-    _chooseCategoryComboBox->addItem("Triple Würfe");
+    //_chooseCategoryComboBox->addItem("Single Würfe");
+    //_chooseCategoryComboBox->addItem("Double Würfe");
+    //_chooseCategoryComboBox->addItem("Triple Würfe");
     _chooseCategoryComboBox->addItem("Am meisten getroffenes Feld");
     _chooseCategoryComboBox->addItem("Average");
     _chooseCategoryComboBox->addItem("Average Historie");
@@ -527,6 +527,7 @@ void StatisticWindow::_dataChangesDetected(void)
  */
 void StatisticWindow::showWinnerChart(void)
 {
+    _chart->setTitle("Prozentuale anzahl gewonnener Spiele");
     if (!_selectedPlayer && _getSelectedTournamentId() < 0)
     {
         _refreshPieDiagram(_playerStatistic->getWinningStatistic());
@@ -552,7 +553,7 @@ void StatisticWindow::showWinnerChart(void)
  */
 void StatisticWindow::showSingleChart(void)
 {
-
+    _chart->setTitle("Single Würfe");
 }
 
 /*!
@@ -562,7 +563,7 @@ void StatisticWindow::showSingleChart(void)
  */
 void StatisticWindow::showDoubleChart(void)
 {
-
+    _chart->setTitle("Double Würfe");
 }
 
 /*!
@@ -572,7 +573,7 @@ void StatisticWindow::showDoubleChart(void)
  */
 void StatisticWindow::showTripleChart(void)
 {
-
+    _chart->setTitle("Tripple Würfe");
 }
 
 /*!
