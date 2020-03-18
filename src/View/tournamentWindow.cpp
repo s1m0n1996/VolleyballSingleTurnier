@@ -22,7 +22,6 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     createRects();
     createLines();
     createTexts();
-    //createColours();
 
 
     for (int i = 0; i < _numberOfColumn; i++)
@@ -300,53 +299,6 @@ void TournamentWindow::createLines()
 }
 
 /*!
- * \brief Die Rechtecke werden farbig markiert, sobald ein Gewinner aus der Partie feststeht.
- *
- * \return void
- *
- * Diese Methode färbt den Rahmen der Rechtecke grün, wenn dieser Spieler das Spiel gewonnen hat.
- *
- */
-void TournamentWindow::createColours()
-{
-    qDebug() << "ALlPlayers" <<_texts;
-    qDebug() << "Winners" <<winner;
-    for(int m = 0; m < _rects.size(); m++)
-    {
-        for(int i = 0; i < _rects[m].size(); i++)
-        {
-            for(int t = 0; t < winner.size(); t++)
-            {
-                if(winner[t] == _texts[i])
-                {
-                    qDebug()<<"hallllooooooooooo" << winner;
-                    if(m >= 1)
-                    {
-                        _gameBoard->addRect(_rects[m][i - 2],QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-                        winner.removeAt(t);
-                        break;
-                    }
-                    else
-                    {
-                        _gameBoard->addRect(_rects[m][i],QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-                        winner.removeAt(t);
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-//    QGraphicsPixmapItem* test = new QGraphicsPixmapItem(QPixmap());
-//    test->setPixmap(QPixmap(":/img/crwons.png"));
-//    test->setPos(_rects[0][1].x(),_rects[0][1].y());
-//    //test->setPos(500,500);
-//    //test->show();
-//    _gameBoard->addItem(test);
-}
-
-
-/*!
  * \brief Die Namen der einzelnen Spieler werden in die Rechtecke geschrieben.
  *
  * \return void
@@ -364,29 +316,40 @@ void TournamentWindow::createTexts()
     winner = game.getAllWinnersInTournament();
 
 
-    if(!game.wasFinal())
+    allPlayersForAllGames = game.getAllPlayersForGameboardView();
+    qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
+    _texts = allPlayersForAllGames;
+    qDebug() << _texts;
+
+    for(int i = 0; i < _numberOfColumn; i++)
     {
-        allPlayersForAllGames = game.getAllPlayersForGameboardView();
-        qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
-        _texts = allPlayersForAllGames;
-
-        for(int i = 0; i < _numberOfColumn; i++)
+        int rectCount = _rects[i].size();
+        for(int k = 0; k < rectCount; k++)
         {
-            int rectCount = _rects[i].size();
-            for(int k = 0; k < rectCount; k++)
-            {
-                allRects.append(_rects[i][k]);
-            }
+            allRects.append(_rects[i][k]);
         }
+    }
 
-        int allRectCount = allRects.size();
-        for (int i = 0; i < allRectCount; i++)
-        {
-            QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
-            allPlayernames->setPos(allRects[i].x(),allRects[i].y());
-            allPlayernames->setFont(QFont("Candara", 10));
-            _gameBoard->addItem(allPlayernames);
-        }
+    int allRectCount = allRects.size();
+    for (int i = 0; i < allRectCount; i++)
+    {
+        QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
+        allPlayernames->setPos(allRects[i].x(),allRects[i].y());
+        allPlayernames->setFont(QFont("Candara", 10));
+        _gameBoard->addItem(allPlayernames);
+
+        // test->setPixmap(QPixmap(":/img/crwons.png"));
+
+        //            QRectF test;
+        //            test.setX(_rects[_numberOfColumn -1 ].last().x());
+        //            test.setY(_rects[_numberOfColumn -1 ].last().y() + 500);
+        //            test.setWidth(1000);
+        //            test.setHeight(1000);
+
+        //            QBrush neu;
+        //            neu.setTextureImage(QImage(":/img/crwons.png"));
+
+        //            _gameBoard->addRect(test,QPen(),QBrush(neu));
 
         QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
 
@@ -397,6 +360,45 @@ void TournamentWindow::createTexts()
     }
 
     createColours();
+}
+
+/*!
+ * \brief Die Rechtecke werden farbig markiert, sobald ein Gewinner aus der Partie feststeht.
+ *
+ * \return void
+ *
+ * Diese Methode färbt den Rahmen der Rechtecke grün, wenn dieser Spieler das Spiel gewonnen hat.
+ *
+ */
+void TournamentWindow::createColours()
+{
+    qDebug() << "ALlPlayers" <<_texts;
+    qDebug() << "Winners" <<winner;
+    qDebug() << "Länge rects 1" <<_rects.size();
+
+    qDebug() << "Länge winner" <<winner.size();
+    qDebug() << "Spalten" <<_numberOfColumn;
+
+    qDebug() << _texts;
+
+    for(int m = 0; m < _numberOfColumn; m++)
+    {
+        qDebug() << "Längerect2" <<_rects[m].size();
+        qDebug() << _rects[m];
+        qDebug() << m;
+        for(int i = 0; i < _rects[m].size(); i++)
+        {
+            for(int t = 0; t < winner.size(); t++)
+            {
+                if(winner[t] == _texts[i] and winner[t] != "")
+                {
+                    _gameBoard->addRect(_rects[m][i],QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+                    winner.removeAt(t);
+                    break;
+                }
+            }
+        }
+    }
 }
 
 
