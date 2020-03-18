@@ -1,8 +1,3 @@
-/*!
-* \file sqliteConnector.cpp
-* \brief this class make the connection to the sqLite Database
-* \author Simon Flörke
-*/
 
 #include "sqliteConnector.h"
 
@@ -13,13 +8,13 @@ SqliteConnector::SqliteConnector(void)
 
 
 /*!
- * \brief Create a new database.
+ * \brief Erstelle eine neue Datenbank.
  *
- * \param[in] path the absolute file path and file name with data type (.sqlite)
+ * \param[in] path der absolute pfad, wo die neue Datenbank gespeichert werden soll.
  * \return void
  *
- * This method creates a new database at the path you selected.
- * when the new database is created, the DDL files would execute and the schema was build.
+ * Es wird eine neue sqLite an dem eingegebenen Pfad Datenbank erstellt.
+ * Wird das Datenbankschema erstellt, sodass die Datenbank benutzt werden kann.
  *
  */
 void SqliteConnector::createDatabase(const QString path)
@@ -97,13 +92,13 @@ VALUES (:picture)
 }
 
 /*!
- * \brief Open an existing database.
+ * \brief Öffne existierende Datenbank
  *
- * \param[in] path the absolute file path and file name with data type (.sqlite)
+ * \param[in] path der absolute pfad der sqLite Datenbank.
  * \return void
  *
- * This Method open an existing database.
- * If you want to open a database file that not exist, the a error was aborted the opening process.
+ * Wenn ein pfad üpbergeben wird, der nicht existiert, oder wo keine Datenbank hinter liegt,
+ * wird eine Warnung ausgegeben.
  */
 bool SqliteConnector::openDatabase(QString path)
 {
@@ -131,9 +126,16 @@ bool SqliteConnector::openDatabase(QString path)
 }
 
 /*!
- * \brief Execute a sql query with sqlQuery oject
- * \param[in] sqlQuery object
- * \return the requested data from the sqlStatement
+ * \brief Fphre die sql Anfrage aus
+ * \param[in, out] sqlQuery Objekt
+ * \return die zurückgegebenen daten in einer 2 dimensionalen liste
+ *
+ * Es werden die angefragten daten in tabellenform zurückgegeben. Die Tabelle ist als 2 Dimensionalen Liste aufgebaut.
+ * Dabei steht die erste Dimension für die Zeilen und die zweite für die Spalten.
+ *
+ * Wenn die anfrage fehlschlägt stürzt das programm mit einem qFatal() ab.
+ *
+ * Es kann auch sein dass die angefragten daten nicht existieren, dann wird eine leere Liste zurückgegeben.
  */
 QList<QList<QVariant>> SqliteConnector::sqlQuery(QSqlQuery& sqlQuery)
 {
@@ -141,7 +143,9 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(QSqlQuery& sqlQuery)
 }
 
 /*!
- * \brief executes a sql query.
+ * \brief Führe eine sql anfrage aus
+ *
+ * \param[in,out] sqlQueryObject das query object welches ausgeführt werden soll.
  *
  * This Function executes an sql query. If the Query fails you get a error message why it fails.
  * If the sqlQuery successful runs, you get the data in form a matrix form.
@@ -171,8 +175,12 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject)
 }
 
 /*!
- * \brief Print a table.
- * This method print a requested table in qDebug() for easier debugging.
+ * \brief Gebe tabelle auf der Konsole aus
+ *
+ * \param[in] table zurückgegebene daten der Datenbank
+ *
+ * Die einegebene Tabelle oder 2 Dimensionale liste wird in der console ausgegeben.
+ * Dies dient nur zum besseren debugging.
  */
 void SqliteConnector::printTable(const QList<QList<QVariant>>& table)
 {
@@ -190,11 +198,16 @@ void SqliteConnector::printTable(const QList<QList<QVariant>>& table)
 }
 
 /*!
- * \brief save the last loaded db file path
+ * \brief Speicher den Pfad in Datei
  *
- * \param[in]path the path from the last loaded db
+ * \param[in] Dateipfad von der letzten geladenen Datenbank
  *
- * This method save the last db file path in a .tmp file near the .exe.
+ * Es wird die letzte Geladene Datenbank in einer Datei auf der Festplatte Gespeichert, um bei einem erneuten
+ * Programstart diesen pfad wieder auszulesen und zu öffnen.
+ *
+ * Die .tmp datei wird neben der .exe gespeichert
+ * This method save the last db file path in a .tmp file near the .exe
+ *
  */
 void SqliteConnector::_saveLastPath(QString& path)
 {
@@ -209,10 +222,10 @@ void SqliteConnector::_saveLastPath(QString& path)
 }
 
 /*!
- * \brief load the last db file
+ * \brief Lase zuletzt benutzte Datenbank
  *
- * This method load the last used db file path.
- * load the path from the .tmp file that was stored in the _saveLastPath method.
+ * Es wird die letzte Benutzte Datenbank geladen.
+ * Dazu wird der letzte pfad aus der .temp datei geladen, welcher in der Methode _saveLastPath gespeichert wurde.
  */
 bool SqliteConnector::_loadLastDatabase()
 {
@@ -234,12 +247,12 @@ bool SqliteConnector::_loadLastDatabase()
 }
 
 /*!
- * \brief convert the returnes sql data
+ * \brief Konvetiere daten
  *
- * \param[in] the sql query data object
+ * \param[in] sqlQuery object
  *
- * This method converts the sql query objekt in a 2 dimensional list.
- * The sqlQuery object must be executed before.
+ * die zurückgegebenen daten der Datenbank werden in eine 2 dimensionale Liste konvetiert.
+ * Das sql Objekt muss voher ausgeführt werden.
  */
 QList<QList<QVariant>> SqliteConnector::_convertReturnedData(QSqlQuery& sqlQuery)
 {
@@ -278,9 +291,9 @@ QString SqliteConnector::getDatabaseName()
 }
 
 /*!
- * \brief Gibt den 7zurück ob die Datenbank geöffnet ist.
+ * \brief Gibt zurück ob die Datenbank geöffnet ist.
  *
- * \return ob dieDatenbank offen ist
+ * \return true, wenn die Datenbank geöffet ist sonst false
  *
  */
 bool SqliteConnector::isDatabaseOpen(void)

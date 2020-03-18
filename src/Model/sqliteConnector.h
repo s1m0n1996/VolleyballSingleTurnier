@@ -1,8 +1,3 @@
-/*!
-* \file sqliteConnector.cpp
-* \brief this class make the connection to the sqLite Database
-* \author Simon Flörke
-*/
 
 #ifndef SPORTVERANSTALTUNG_SQLITECONNECTOR_H
 #define SPORTVERANSTALTUNG_SQLITECONNECTOR_H
@@ -19,9 +14,10 @@
 /*!
  * \file sqliteConnector.h
  * \author Simon Flörke
- * \brief A singleton class for the connection to the database.
+ * \brief Eine Singleton Klasse, welche die verbindung zur datenbank übernimmt.
  *
- * This Class handles the full connection to the database.
+ * Die Klasse kümmert sich um die verbindung der Datenbank.
+ * Schlägt etwas fehl werden sollvolle Fehlermeldungen ausgegeben.
  *
 */
 class SqliteConnector : public QObject
