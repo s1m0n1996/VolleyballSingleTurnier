@@ -240,39 +240,33 @@ void PlayermanagementWindow::restorePlayer()
     }
 
     _allPlayerTableView->selectionModel()->clearSelection();
-
 }
 
 void PlayermanagementWindow::addPhotoWithSelection()
 {
     QAbstractItemModel* modelAll = _allPlayerTableView->model();
     QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
-    Player* activePlayer;
     QString path = QFileDialog::getOpenFileName(this,
                                                 tr("Bild laden"), "",
                                                 tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
 
-
-    for (QModelIndex index : selectedRows)
+    if (!selectedRows.isEmpty())
     {
-        activePlayer = new Player(
-                modelAll->index(index.row(), 0).data().toString(),
-                modelAll->index(index.row(), 1).data().toDate(),
-                modelAll->index(index.row(), 2).data().toString());
+        Player player(
+                modelAll->index(selectedRows[0].row(), 0).data().toString(),
+                modelAll->index(selectedRows[0].row(), 1).data().toDate(),
+                modelAll->index(selectedRows[0].row(), 2).data().toString()
+        );
+        // save file in database
+        QFile file(path);
+        if (file.exists())
+        {
+            file.open(QIODevice::ReadOnly);
+            QByteArray byteArray = file.readAll();
+            player.savePicture(byteArray);
+            file.close();
+        }
     }
-
-    // save file in database
-    QFile file(path);
-    if (file.exists())
-    {
-
-        file.open(QIODevice::ReadOnly);
-        QByteArray byteArray = file.readAll();
-        activePlayer->savePicture(byteArray);
-        file.close();
-    }
-
-
 }
 
 void PlayermanagementWindow::addPhotoWithButton()
