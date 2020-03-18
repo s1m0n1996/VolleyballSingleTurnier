@@ -33,17 +33,6 @@ public:
     int getGameStart();
     int getThrowScore();
     int getRemainingThrows();
-    int getLastLegIdInSameGame();
-    int getNumberOfCurrentLeg();
-
-    void setActivePlayer(int activePlayerId);
-    void resetAllStats();
-    void loadLastGame();
-    void loadLastThrows();
-    void setLegWinner(int winnerId);
-    void createAllPossibleLegs();
-
-    void writeLegIntoDatabase(int legId);
 
     // Methoden für den Zuschauer
     void scoreIsUnder170InLeg();
@@ -89,6 +78,16 @@ private:
      QList<int> _allPlayers;
      SqliteConnector* _db;
      GameManagement* _gameManagement;
+
+    int getLastLegIdInSameGame();
+    int getNumberOfCurrentLeg();
+    void setActivePlayer(int activePlayerId);
+    void resetAllStats();
+    void loadLastGame();
+    void loadLastThrows();
+    void setLegWinner(int winnerId);
+    void createAllPossibleLegs();
+    void writeLegIntoDatabase(int legId);
 };
 
 #endif // REFEREE_H
