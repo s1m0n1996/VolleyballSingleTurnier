@@ -316,7 +316,7 @@
             <layout class="QHBoxLayout" name="horizontalLayout_20">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_17">
-               <item>
+               <item alignment="Qt::AlignHCenter">
                 <widget class="WindowLabel" name="aktivePlayer">
                  <property name="text">
                   <string/>

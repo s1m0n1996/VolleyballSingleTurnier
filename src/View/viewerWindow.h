@@ -36,6 +36,12 @@ private:
     QGraphicsScene* scene = new QGraphicsScene;
 
     DartboardViewer* _dartboard = new DartboardViewer(_referee);
+
+    void connecting(void);
+    void setPhoto(Player playerA, Player playerB);
+    void setAktionPlayer1(void);
+    void setAktionPlayer2(void);
+    void modifiWidgets(void);
     int _player1 = 0;
     int _player2 = 0;
     int _aktivePlayer = 0;

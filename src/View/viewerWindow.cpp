@@ -15,7 +15,31 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
 
     setWindowIcon(QIcon(":/img/viewer.png"));
     ui->setupUi(this);
+    ui->centralwidget->setStyleSheet("background: white;");
 
+    modifiWidgets();
+    connecting();
+}
+
+
+ViewerWindow::~ViewerWindow()
+{
+    delete ui;
+}
+
+
+void ViewerWindow::connecting(void)
+{
+    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
+    connect(_referee,SIGNAL(scoreIsUnder170()),this, SLOT(scoreIsUnder170InLeg()));
+    connect(_referee,SIGNAL(remainingThrowsAreZero()),this, SLOT(remainingThrowsAreZeroInLeg()));
+    connect(_viewer,SIGNAL(howToFinishLeg()),this,SLOT(possibleWayToFinishLeg()));
+
+}
+
+
+void ViewerWindow::modifiWidgets()
+{
     ui->title->setMainTitleStyle();
     ui->nameOfPlayer1->setBold();
     ui->nameOfPlayer2->setBold();
@@ -30,26 +54,16 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     ui->countOfWinningLegsPlayer2->setBold();
     ui->countOfWinningLegsPlayer2Label->setBold();
 
-
-    ui->groupBox_3->setStyleSheet("border:none");
-    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
-    connect(_referee,SIGNAL(scoreIsUnder170()),this, SLOT(scoreIsUnder170InLeg()));
-    connect(_referee,SIGNAL(remainingThrowsAreZero()),this, SLOT(remainingThrowsAreZeroInLeg()));
-    connect(_viewer,SIGNAL(howToFinishLeg()),this,SLOT(possibleWayToFinishLeg()));
-
-
+    ui->groupBox_3->setStyleSheet("border: none;");
+    ui->photoPlayer2->setStyleSheet("border: none;");
+    ui->photoPlayer1->setStyleSheet("border: none;");
+    ui->graphicsView->setStyleSheet("border: none");
 
     _dartboard->setPos(0, 0);
     scene->addItem(_dartboard);
 
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scale(0.8,0.8);
-
-}
-
-ViewerWindow::~ViewerWindow()
-{
-    delete ui;
 }
 
 
@@ -78,7 +92,68 @@ void ViewerWindow::writeScore()
     ui->nameOfPlayer1->setText(playerA.getName());
     ui->nameOfPlayer2->setText(playerB.getName());
 
+    setPhoto(playerA, playerB);
 
+    _aktivePlayer = _referee->getAktivePlayer();
+    Player aktivePlayer(_aktivePlayer);
+
+    ui->aktivePlayer->setText(aktivePlayer.getName());
+
+
+    if (_aktivePlayer == _player1)
+    {
+        setAktionPlayer1();
+    }
+    else
+    {
+        setAktionPlayer2();
+    }
+
+    ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
+    ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
+    ui->averageOfPlayer1->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerA)));
+    ui->averageOfPlayer2->setText(QString::number(statisticsPlayerB.getAverageOfPlayerInCurrentGame(playerB)));
+}
+
+
+void ViewerWindow::setAktionPlayer1(void)
+{
+    ui->throw1FromPlayer1->setText(QString::number(_referee->getThrows()[0]));
+    ui->throw2FromPlayer1->setText(QString::number(_referee->getThrows()[1]));
+    ui->throw3FromPlayer1->setText(QString::number(_referee->getThrows()[2]));
+    ui->all3ThrowsPlayer1->setText(QString::number(_referee->getThrowScore()));
+    ui->remainingThrowsForPlayer1->setText(QString::number(_referee->getRemainingThrows()));
+    ui->countOfWinningLegsPlayer1->setText(QString::number(_referee->getCountOfWinningLegs()));
+    ui->remainScore->setText("Restpunktzahl: " + (QString::number(_referee->getRemainScoreForViewer()[0])));
+    ui->player1GroupBox->setStyleSheet("QGroupBox{"
+                                       "border-color: green;"
+                                       "border-width: 3px;"
+                                       "border-style: solid;}");
+    ui->player2GroupBox->setStyleSheet("QGroupBox{"
+                                       "border-color: black;}");
+}
+
+
+void ViewerWindow::setAktionPlayer2(void)
+{
+    ui->throw1FromPlayer2->setText(QString::number(_referee->getThrows()[0]));
+    ui->throw2FromPlayer2->setText(QString::number(_referee->getThrows()[1]));
+    ui->throw3FromPlayer2->setText(QString::number(_referee->getThrows()[2]));
+    ui->all3ThrowsPlayer2->setText(QString::number(_referee->getThrowScore()));
+    ui->remainingThrowsForPlayer2->setText(QString::number(_referee->getRemainingThrows()));
+    ui->countOfWinningLegsPlayer2->setText(QString::number(_referee->getCountOfWinningLegs()));
+    ui->remainScore->setText("Restpunktzahl: " + QString::number(_referee->getRemainScoreForViewer()[1]));
+    ui->player2GroupBox->setStyleSheet("QGroupBox{"
+                                       "border-color: green;"
+                                       "border-width: 3px;"
+                                       "border-style: solid;}");
+    ui->player1GroupBox->setStyleSheet("QGroupBox{"
+                                       "border-color: black;}");
+}
+
+
+void ViewerWindow::setPhoto(Player playerA, Player playerB)
+{
     QByteArray dataA = playerA.loadPicture();
     QByteArray dataB = playerB.loadPicture();
 
@@ -94,66 +169,20 @@ void ViewerWindow::writeScore()
     int wB = ui->photoPlayer1->width();
     int hB = ui->photoPlayer1->height();
 
-    QTransform rotate1;
-    rotate1.rotate(90);
+//    QTransform rotate1;
+//    rotate1.rotate(90);
 
-    QTransform rotate2;
-    rotate2.rotate(270);
+//    QTransform rotate2;
+//    rotate2.rotate(270);
 
     pixmapA = pixmapA.scaled(wA,hA,Qt::KeepAspectRatio);
-    pixmapA = pixmapA.transformed(rotate1);
+//    pixmapA = pixmapA.transformed(rotate1);
 
     pixmapB = pixmapB.scaled(wB,hB,Qt::KeepAspectRatio);
-    pixmapB = pixmapB.transformed(rotate2);
-
+//    pixmapB = pixmapB.transformed(rotate2);
 
     ui->photoPlayer1->setPixmap(pixmapA);
     ui->photoPlayer2->setPixmap(pixmapB);
-
-    _aktivePlayer = _referee->getAktivePlayer();
-    Player aktivePlayer(_aktivePlayer);
-
-    ui->aktivePlayer->setText(aktivePlayer.getName());
-
-
-    if (_aktivePlayer == _player1)
-    {
-        ui->throw1FromPlayer1->setText(QString::number(_referee->getThrows()[0]));
-        ui->throw2FromPlayer1->setText(QString::number(_referee->getThrows()[1]));
-        ui->throw3FromPlayer1->setText(QString::number(_referee->getThrows()[2]));
-        ui->all3ThrowsPlayer1->setText(QString::number(_referee->getThrowScore()));
-        ui->remainingThrowsForPlayer1->setText(QString::number(_referee->getRemainingThrows()));
-        ui->countOfWinningLegsPlayer1->setText(QString::number(_referee->getCountOfWinningLegs()));
-        ui->remainScore->setText("Restpunktzahl: " + (QString::number(_referee->getRemainScoreForViewer()[0])));
-        ui->player1GroupBox->setStyleSheet("QGroupBox{"
-                                           "border-color: green;"
-                                           "border-width: 3px;"
-                                           "border-style: solid;}");
-        ui->player2GroupBox->setStyleSheet("QGroupBox{"
-                                           "border-color: black;}");
-    }
-    else
-    {
-        ui->throw1FromPlayer2->setText(QString::number(_referee->getThrows()[0]));
-        ui->throw2FromPlayer2->setText(QString::number(_referee->getThrows()[1]));
-        ui->throw3FromPlayer2->setText(QString::number(_referee->getThrows()[2]));
-        ui->all3ThrowsPlayer2->setText(QString::number(_referee->getThrowScore()));
-        ui->remainingThrowsForPlayer2->setText(QString::number(_referee->getRemainingThrows()));
-        ui->countOfWinningLegsPlayer2->setText(QString::number(_referee->getCountOfWinningLegs()));
-        ui->remainScore->setText("Restpunktzahl: " + QString::number(_referee->getRemainScoreForViewer()[1]));
-        ui->player2GroupBox->setStyleSheet("QGroupBox{"
-                                           "border-color: green;"
-                                           "border-width: 3px;"
-                                           "border-style: solid;}");
-        ui->player1GroupBox->setStyleSheet("QGroupBox{"
-                                           "border-color: black;}");
-
-    }
-
-    ui->remainScorePlayer1->setText(QString::number(_referee->getRemainScoreForViewer()[0]));
-    ui->remainScorePlayer2->setText(QString::number(_referee->getRemainScoreForViewer()[1]));
-    ui->averageOfPlayer1->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerA)));
-    ui->averageOfPlayer2->setText(QString::number(statisticsPlayerB.getAverageOfPlayerInCurrentGame(playerB)));
 }
 
 
@@ -161,7 +190,6 @@ void ViewerWindow::scoreIsUnder170InLeg()
 {
     _viewer->createJsonDocument(_referee->getRemainingThrows(), _referee->getRemainScore());
 }
-
 
 
 /*!
@@ -196,6 +224,7 @@ void ViewerWindow::possibleWayToFinishLeg()
     }
 
 }
+
 
 /*!
  * \brief Setzt den möglichen Weg das Leg zu gewinnen auf einen leeren String zurück
