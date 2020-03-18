@@ -142,13 +142,16 @@ FROM player_pictures_list
 ORDER BY id DESC
 LIMIT 1;
 )";
-    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQueryString);
+    sqlQuery.prepare(sqlQueryString);
+    QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
     if (rawData.isEmpty())
     {
         return;
     }
 
     int lastPictureId = rawData[0][0].toInt();
+
+    sqlQuery.clear();
 
     // step3: set the picture id for the player
     sqlPrepare = R"(
