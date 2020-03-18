@@ -131,29 +131,6 @@ bool SqliteConnector::openDatabase(QString path)
 }
 
 /*!
- * \brief Execute a sqlQuery With a QString.
- *
- * \param[in] sqlStatement a String with the pure SQL-Query like: "SELECT * FROM player_list;"
- * \return the requested data from the sqlStatement
- *
- * With this method you can execute a pure QString in the database.
- * You get the requested information from the table in a matrix form (2-dimensional list).
- * If the Query fails, the function aborted with an error message and returned an empty list.
- */
-QList<QList<QVariant>> SqliteConnector::sqlQuery(const QString& sqlStatement)
-{
-
-    QSqlQuery sqlQuery;
-
-    if (!_db.open())
-    {
-        qCritical() << "database is not opened";
-    }
-
-    return _executeQuery(sqlQuery, sqlStatement);
-}
-
-/*!
  * \brief Execute a sql query with sqlQuery oject
  * \param[in] sqlQuery object
  * \return the requested data from the sqlStatement
@@ -169,49 +146,24 @@ QList<QList<QVariant>> SqliteConnector::sqlQuery(QSqlQuery& sqlQuery)
  * This Function executes an sql query. If the Query fails you get a error message why it fails.
  * If the sqlQuery successful runs, you get the data in form a matrix form.
  */
-QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject, const QString& sqlQueryString)
+QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject)
 {
-
-    // if no sql string was given call the .exec() method without parameter because the parameters was
-    // bind at the object before
-    if (sqlQueryString == "")
+    if (!sqlQueryObject.exec())
     {
-        if (!sqlQueryObject.exec())
+        QString errorMsg;
+        errorMsg += "Query: " + sqlQueryObject.executedQuery();
+        errorMsg += "\nReason: " + sqlQueryObject.lastError().driverText();
+        errorMsg += sqlQueryObject.lastError().databaseText();
+        errorMsg += "\n With parameters:";
+        for (const auto& key : sqlQueryObject.boundValues().keys())
         {
-            QString errorMsg;
-            errorMsg += "Query: " + sqlQueryObject.executedQuery();
-            errorMsg += "\nReason: " + sqlQueryObject.lastError().driverText();
-            errorMsg += sqlQueryObject.lastError().databaseText();
-            errorMsg += "\n With parameters:";
-            for (const auto& key : sqlQueryObject.boundValues().keys())
-            {
-                errorMsg += "\n";
-                errorMsg += "    " + key + " = " + sqlQueryObject.boundValues()[key].toString();
-            }
-
-            // wenn das programm hier abstürzt muss die sqlQuery überprüft werden. Um erst einmal weiter
-            // zu machen kann das qFatal zu QWarning geändert werden. Dann gibt es lediglich eine warnung
-            qFatal("%s", errorMsg.toLatin1().constData());
+            errorMsg += "\n";
+            errorMsg += "    " + key + " = " + sqlQueryObject.boundValues()[key].toString();
         }
-    }
-        // if a sql string was given call the .exec() method with this parameter
-    else
-    {
-        if (!sqlQueryObject.exec(sqlQueryString))
-        {
-            QString errorMsg;
-            errorMsg += "Query: " + sqlQueryObject.executedQuery();
-            errorMsg += "\nReason: " + sqlQueryObject.lastError().driverText();
-            errorMsg += sqlQueryObject.lastError().databaseText();
-            errorMsg += "\n With parameters:";
-            for (const auto& key : sqlQueryObject.boundValues().keys())
-            {
-                errorMsg += "\n";
-                errorMsg += "    " + key + " = " + sqlQueryObject.boundValues()[key].toString();
-            }
 
-            qFatal("%s", errorMsg.toLatin1().constData());
-        }
+        // wenn das programm hier abstürzt muss die sqlQuery überprüft werden. Um erst einmal weiter
+        // zu machen kann das qFatal zu QWarning geändert werden. Dann gibt es lediglich eine warnung
+        qFatal("%s", errorMsg.toLatin1().constData());
     }
 
     // convert the returned data in a pretty 2-dimensional list

@@ -42,7 +42,6 @@ public:
 
     QString getDatabaseName();
 
-    QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
     QList<QList<QVariant>> sqlQuery(QSqlQuery& sqlQuery);
 
     static void printTable(const QList<QList<QVariant>> &table);
@@ -63,7 +62,7 @@ private:
     SqliteConnector(const SqliteConnector &) = delete;  // copy Constructor
     SqliteConnector &operator=(const SqliteConnector &) = delete; // Kopierzuweisungsoperator
 
-    static QList<QList<QVariant>> _executeQuery(QSqlQuery& sqlQueryObject, const QString& sqlQueryString = "");
+    static QList<QList<QVariant>> _executeQuery(QSqlQuery& sqlQueryObject);
     static QList<QList<QVariant>> _convertReturnedData(QSqlQuery& sqlQuery);
     void _saveLastPath(QString& path);
     bool _loadLastDatabase(void);
