@@ -82,7 +82,6 @@ private:
      QList<int> _remainScore        = {501,501};
      QList<int> _allThrows          = {0,0,0};
      QList<int> _allThrowsWithoutMulti = {0,0,0};
-     //TODO: Muss noch ein String werden. Mit der Game Klasse absprechen
      QList<int> _allPlayers;
      SqliteConnector* _db;
      GameManagement* _gameManagement;

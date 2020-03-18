@@ -11,6 +11,12 @@ Gameboard::Gameboard(QList <Player> players)
 }
 
 
+/*!
+ * \brief Mischt die Spielerliste zufällig
+ *
+ * \return void
+ *
+ */
 void Gameboard::prepareGameRandomly()
 {
     randomInitialisation();
@@ -25,6 +31,14 @@ void Gameboard::prepareGameRandomly()
 }
 
 
+/*!
+ * \brief Erzeugt die ersten Spiele des Turniers
+ *
+ * \return void
+ *
+ * Schreibt die ersten Spiele in die Datenbank
+ *
+ */
 void Gameboard::createFirstGames()
 {
     for (int i = 1; i < _players.size() ; i=i+2)
@@ -46,6 +60,15 @@ void Gameboard::createFirstGames()
 }
 
 
+/*!
+ * \brief Erzeugt die Spiele des Turniers nach der ersten Runde
+ *
+ * \return void
+ *
+ * Schreibt die restlichen Spiele in die Datenbank, die nach der ersten Runde
+ * erzeugt werden. Das heißt die Spiele, bei denen noch keine Spieler feststehen.
+ *
+ */
 void Gameboard::createRemainingGames()
 {
     int numberOfGames = 0;
@@ -72,6 +95,15 @@ void Gameboard::createRemainingGames()
 }
 
 
+/*!
+ * \brief Gibt die Game Id aus einem Turnier wieder
+ *
+ * \return void
+ *
+ * Gibt die letzte erstellte Game Id eines Turniers wieder. Wenn es
+ * noch kein erstelltes Spiel gibt, gibt die Methode 0 wieder.
+ *
+ */
 int Gameboard::getLastGameIdInSameTournament()
 {
     QString sqlPrepare = R"(SELECT id

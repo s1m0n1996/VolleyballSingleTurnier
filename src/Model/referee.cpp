@@ -37,7 +37,6 @@ void Referee::updatePlayer()
         _gameId = game.getGameId();
         _allPlayers.append(game.getPlayerAId());
         _allPlayers.append(game.getPlayerBId());
-        qDebug() << "Updateplayer";
         resetAllStats();
         emit valueChanged();
     }
@@ -57,6 +56,7 @@ void Referee::updatePlayer()
  */
 void Referee::resetAllStats()
 {
+    //writeLegIntoDatabase();                   Wo musst du hin??
     _winningLegCounter  = {0,0};
     _throwCounter = 0;
     _allThrows = {0,0,0};
@@ -85,7 +85,6 @@ void Referee::nextPlayer()
         }
         _wasLastThrowInLegToBust = false;
     }
-
     // switch player id
     _player = !_player;
 
@@ -180,8 +179,6 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         _allThrowsWithoutMulti[_throwCounter] = _throwScoreWithoutMulti;
         _valueMultiplikator = valueMultiplikator;
         _throwCounter++;
-        qDebug() << _allPlayers << "Aktive:" << _player;
-        qDebug() << getAktivePlayer();
 
         QString sqlPrepare = R"(
                              INSERT INTO leg_history_list (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id, player_id, time, value_type_id, value)
@@ -399,10 +396,6 @@ int Referee::getRemainScore()
     return _remainScore[_player];
 }
 
-//QString Referee::getWinner()
-//{
-
-//}
 
 int Referee::getCountOfWinningLegs()
 {
@@ -423,7 +416,6 @@ int Referee::getRemainingThrows()
 {
     return _remainingThrows = 3 - _throwCounter;
 }
-
 
 
 QList<int> Referee::getRemainScoreForViewer()
@@ -480,6 +472,12 @@ int Referee::getLastLegIdInSameGame()
 }
 
 
+/*!
+ * \brief Gibt die aktuelle Anzahl an Legs wieder
+ *
+ * \return int
+ *
+ */
 int Referee::getNumberOfCurrentLeg()
 {
     int legId = 1;
@@ -501,7 +499,6 @@ int Referee::getNumberOfCurrentLeg()
  */
 void Referee::setActivePlayer(int activePlayerId)
 {
-    qDebug() << _allPlayers[1];
     if(activePlayerId == _allPlayers[1])
     {
         _player = 1;

@@ -11,6 +11,14 @@ Game::Game()
 //TODO: GameId muss noch aus der Datenbank entnommen werden
 
 
+/*!
+ * \brief Lädt das nächste Spiel aus der Datenbank
+ *
+ * \return void
+ *
+ * Schreibt die ersten Spiele in die Datenbank
+ *
+ */
 void Game::loadNextGame()
 {
 
@@ -58,6 +66,13 @@ void Game::loadNextGame()
     }
 }
 
+/*!
+ * \brief Berechnet ob es das letzte Spiel in der Datenbank war
+ *
+ * \return bool
+ *
+ *
+ */
 bool Game::wasFinal()
 {
     if(getNumberOfGamesInTournament()-getNumberOfWinnerInTournament() == 1)
@@ -68,6 +83,16 @@ bool Game::wasFinal()
 }
 
 
+/*!
+ * \brief Erzeugt die ersten Spiele des Turniers
+ *
+ * \param[in] die Spieler Id des Gewinners eines Spiels
+ * \return void
+ *
+ * Schreibt die übergeben Gewinner Id in das aktuelle Spiel in der
+ * Datenbank
+ *
+ */
 void Game::setNextWinner(int winnerId)
 {
     if(!wasFinal())
@@ -93,6 +118,16 @@ void Game::setNextWinner(int winnerId)
 }
 
 
+/*!
+ * \brief Schreibt die Gewinner in die Folgespiele
+ *
+ * \param[in]
+ * \return void
+ *
+ * Schreibt die Gewinner des letzten Spiels in die nächsten Spiele und
+ * berechnet die neuen Gegenspieler
+ *
+ */
 void Game::prepareNextGame(int winnerId)
 {
     int counter = getNumberOfWinnerInTournament()%4;
@@ -116,6 +151,16 @@ void Game::prepareNextGame(int winnerId)
 }
 
 
+/*!
+ * \brief Schreibt die Gewinner für das Finale in die Datenbank
+ *
+ * \param[in] Spieler Id des Gewinners
+ * \return void
+ *
+ * Behandelt einen Ausnahmefall falls das es die letzten beide Spiele vor dem Finale
+ * waren und schreibt die beiden Gegenspieler in die Datenbank
+ *
+ */
 void Game::setWinnerToPrepareFinal(int winnerId)
 {
     QString sqlPrepare = R"(
@@ -280,6 +325,12 @@ int Game::getNumberOfGamesInTournament()
 }
 
 
+/*!
+ * \brief Erzeugt eine Spielerliste in der angepassten Reihenfolge für den Turnierplan
+ *
+ * \return QList<QString>
+ *
+ */
 QList<QString> Game::getAllPlayersForGameboardView()
 {
     QList <QString> allPlayers;
