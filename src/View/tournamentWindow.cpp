@@ -43,6 +43,7 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     connect(_referee,SIGNAL(gameListChanged()),this, SLOT(createTexts()));
 }
 
+
 void TournamentWindow::createWidgets()
 {
     setWindowTitle("Spielplan");
@@ -55,6 +56,15 @@ void TournamentWindow::createWidgets()
     _crown->setPixmap(QPixmap(":/img/crwons.png"));
 }
 
+/*!
+ * \brief Es werden alle Rectecke erstellt welche im Spielplan angezeigt werden sollen.
+ *
+ * \return void
+ *
+ * Diese Methode erstellt anhand der Personen welche an einem Turnier teilnehmen die passende
+ * Anzahl an Rechtecken.
+ *
+ */
 void TournamentWindow::createRects()
 {
     double numberOfPlayer = _playerManagement->countSelectedPlayersForNewGame();
@@ -164,6 +174,16 @@ void TournamentWindow::createRects()
     }
 }
 
+/*!
+ * \brief Es werden alle Lininen (Verbindungslininen zwischen den Rechtecken)
+ *  erstellt welche im Spielplan angezeigt werden sollen.
+ *
+ * \return void
+ *
+ * Diese Methode erstellt anhand der Anzahl von Rechtecken welche in der Methode(void TournamentWindow::createRects())
+ * berechnet wurde die passende Anzahl an Verbindungslininen ziwschen den einezelnen Rechtecken.
+ *
+ */
 void TournamentWindow::createLines()
 {
     for (double i = 0.0; i < _numberOfColumn; i++)
@@ -279,6 +299,14 @@ void TournamentWindow::createLines()
     }
 }
 
+/*!
+ * \brief Die Rechtecke werden farbig markiert, sobald ein Gewinner aus der Partie feststeht.
+ *
+ * \return void
+ *
+ * Diese Methode färbt den Rahmen der Rechtecke grün, wenn dieser Spieler das Spiel gewonnen hat.
+ *
+ */
 void TournamentWindow::createColours()
 {
     qDebug() << "ALlPlayers" <<_texts;
@@ -308,8 +336,25 @@ void TournamentWindow::createColours()
             }
         }
     }
+
+//    QGraphicsPixmapItem* test = new QGraphicsPixmapItem(QPixmap());
+//    test->setPixmap(QPixmap(":/img/crwons.png"));
+//    test->setPos(_rects[0][1].x(),_rects[0][1].y());
+//    //test->setPos(500,500);
+//    //test->show();
+//    _gameBoard->addItem(test);
 }
 
+
+/*!
+ * \brief Die Namen der einzelnen Spieler werden in die Rechtecke geschrieben.
+ *
+ * \return void
+ *
+ * Diese Methode schreibt die Namen in richtiger Reihenfolge (nach Spielen) in die Rechtecke.
+ * Das endgültige Layout für das Fenster wird hier festgelegt.
+ *
+ */
 void TournamentWindow::createTexts()
 {
     Game game;
