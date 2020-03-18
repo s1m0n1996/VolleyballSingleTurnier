@@ -65,3 +65,13 @@ void WinnerPopup::setWinnerTournament()
     _title->setText("Der Gewinner des Turniers ist");
 }
 
+void WinnerPopup::connecting()
+{
+    connect(_okButton,SIGNAL(released()), this , SLOT(closeRefereeWindow()));
+}
+
+void WinnerPopup::closeRefereeWindow()
+{
+    emit clickedOk();
+    close();
+}

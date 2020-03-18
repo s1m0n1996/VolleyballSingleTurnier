@@ -14,6 +14,12 @@ public:
     void setWinnerLeg(void);
     void setWinnerTournament(void);
 
+private slots:
+    void closeRefereeWindow();
+
+
+signals:
+    void clickedOk();
 
 private:
     void connecting();

@@ -258,14 +258,14 @@ void PlayermanagementWindow::addPhotoWithSelection()
                 modelAll->index(selectedRows[0].row(), 2).data().toString()
         );
         // save file in database
-        QFile file(path);
-        if (file.exists())
-        {
+    QFile file(path);
+    if (file.exists())
+    {
             file.open(QIODevice::ReadOnly);
             QByteArray byteArray = file.readAll();
             player.savePicture(byteArray);
             file.close();
-        }
+    }
     }
 }
 

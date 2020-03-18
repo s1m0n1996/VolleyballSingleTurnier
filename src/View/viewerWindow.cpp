@@ -85,8 +85,8 @@ void ViewerWindow::writeScore()
     QPixmap pixmapA;
     QPixmap pixmapB;
 
-    pixmapA.loadFromData(dataA,"jpg");
-    pixmapB.loadFromData(dataB,"jpg");
+    pixmapA.loadFromData(dataA);
+    pixmapB.loadFromData(dataB);
 
     int wA = ui->photoPlayer1->width();
     int hA = ui->photoPlayer1->height();

@@ -22,7 +22,6 @@ public:
 public slots:
     void createTexts(void);
 
-
 private:
     Referee* _referee;
     PlayerManagement* _playerManagement;

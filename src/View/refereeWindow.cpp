@@ -230,7 +230,7 @@ void RefereeWindow::playerWinsLeg()
 {
     _popupWinningLeg->show();
     ui->DartboardView->setEnabled(false);
- ui->undoLastThrow->setEnabled(false);
+    ui->undoLastThrow->setEnabled(false);
 }
 
 void RefereeWindow::mouseReleasedOnDartboard()
