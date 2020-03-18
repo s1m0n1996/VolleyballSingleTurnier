@@ -137,7 +137,6 @@ VALUES (:id, :sportTypeId, :gameModeId, :name, :date)
     sqlQuery.bindValue(":date", date);
 
     _db->sqlQuery(sqlQuery);
-    emit tournamentChanged();
 }
 
 /*!
