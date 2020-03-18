@@ -16,7 +16,6 @@ Referee::Referee()
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(updatePlayer()));
 }
 
-
 /*!
  * \brief Lädt die Spieler für das nächste Spiel
  *
@@ -28,7 +27,6 @@ Referee::Referee()
  */
 void Referee::updatePlayer()
 {
-
     if (_gameManagement->isTournamentStarted() and !_gameManagement->isTournamentFinished())
     {
         _allPlayers.clear();
@@ -38,7 +36,7 @@ void Referee::updatePlayer()
         _allPlayers.append(game.getPlayerBId());
         resetAllStats();
         loadLastGame();
-        createAllpossibleLegs();
+        createAllPossibleLegs();
         emit valueChanged();
     }
     else if (_gameManagement->isTournamentFinished())
@@ -153,7 +151,6 @@ int Referee::getAktivePlayer()
    return _allPlayers[_player];
 }
 
-
 /*!
  * \brief Berechnet den Wert des geworfenen Dartpfeils.
  * \param[int,int] Den Multiplikator des Wurf [int], die Punktzahl des Wurf's ohne Multiplikator [int]
@@ -205,7 +202,6 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
     }
 }
 
-
 QList<int> Referee::getThrows()
 {
     return _allThrows;
@@ -215,7 +211,6 @@ void Referee::setRemainScore()
 {
     _remainScore[_player] = _remainScore[_player] - _singleThrowScore;
 }
-
 
 /*!
  * \brief Legt den Gewinner des Spieles fest
@@ -277,7 +272,6 @@ void Referee::legWinningCondition()
     }
 }
 
-
 /*!
  * \brief Gibt ein Singal raus sobald die Restpunktzahl unter 170 Punkte ist.
  *
@@ -297,7 +291,6 @@ void Referee::scoreIsUnder170InLeg()
     }
 }
 
-
 /*!
  * \brief Gibt ein Singal raus wenn keine Würfe in einem Leg für einen Spieler verfügbar sind.
  *
@@ -315,14 +308,12 @@ void Referee::remainingThrowsAreZeroInLeg()
     }
 }
 
-
-int Referee::valueMultiplikator()
+int Referee::getValueMultiplikator()
 {
     return _valueMultiplikator;
 }
 
-
-QList<int> Referee::allThrowsWithoutMultiplikator()
+QList<int> Referee::getAllThrowsWithoutMultiplikator()
 {
     return _allThrowsWithoutMulti;
 }
@@ -384,7 +375,6 @@ void Referee::undoThrow()
     emit valueChanged();
 }
 
-
 int Referee::getRemainScore()
 {
     return _remainScore[_player];
@@ -421,7 +411,6 @@ QList<int> Referee::getAllPlayersForViewer()
 {
     return  _allPlayers;
 }
-
 
 /*!
  * \brief Gibt die letzte Leg Id des gleichen Spiels wieder
@@ -465,7 +454,6 @@ int Referee::getLastLegIdInSameGame()
     return lastId;
 }
 
-
 /*!
  * \brief Gibt die aktuelle Anzahl an Legs wieder
  *
@@ -481,7 +469,6 @@ int Referee::getNumberOfCurrentLeg()
     }
     return legId;
 }
-
 
 /*!
  * \brief Setzt den aktiven Spieler auf die übergeben Spieler Id
@@ -502,7 +489,6 @@ void Referee::setActivePlayer(int activePlayerId)
         _player = 0;
     }
 }
-
 
 /*!
  * \brief Lädt das zuletzt unbeendete Spiel in einem geladenen Turnier
@@ -590,7 +576,6 @@ void Referee::loadLastGame(){
     }
 }
 
-
 /*!
  * \brief Lädt die zuletzt geworfenen Würfe eines unbeendeten Spiels in dem geladenen Turnier
  *
@@ -635,8 +620,7 @@ void Referee::loadLastThrows()
     }
 }
 
-
-void Referee::createAllpossibleLegs()
+void Referee::createAllPossibleLegs()
 {
     QString sqlPrepare = R"(
                          SELECT * FROM leg_list
@@ -659,9 +643,7 @@ void Referee::createAllpossibleLegs()
             writeLegIntoDatabase(i+1);
         }
     }
-    return;
 }
-
 
 void Referee::writeLegIntoDatabase(int legId)
 {
@@ -678,7 +660,6 @@ void Referee::writeLegIntoDatabase(int legId)
     sqlQuery.bindValue(":gameMode", _gameManagement->getGameModeId());
     _db->sqlQuery(sqlQuery);
 }
-
 
 void Referee::setLegWinner(int winnerId)
 {
@@ -702,5 +683,3 @@ void Referee::setLegWinner(int winnerId)
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     _db->sqlQuery(sqlQuery);
 }
-
-

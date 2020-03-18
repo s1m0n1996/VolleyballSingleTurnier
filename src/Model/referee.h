@@ -41,15 +41,15 @@ public:
     void loadLastGame();
     void loadLastThrows();
     void setLegWinner(int winnerId);
-    void createAllpossibleLegs();
+    void createAllPossibleLegs();
 
     void writeLegIntoDatabase(int legId);
 
     // Methoden für den Zuschauer
     void scoreIsUnder170InLeg();
     void remainingThrowsAreZeroInLeg();
-    int valueMultiplikator();
-    QList<int> allThrowsWithoutMultiplikator();
+    int getValueMultiplikator();
+    QList<int> getAllThrowsWithoutMultiplikator();
     QList<int> getRemainScoreForViewer();
     QList<int> getAllPlayersForViewer();
 

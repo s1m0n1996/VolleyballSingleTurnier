@@ -56,8 +56,8 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 
 
-    int valueOfMultiplikator = _referee->valueMultiplikator();
-    _allThrows = _referee->allThrowsWithoutMultiplikator();
+    int valueOfMultiplikator = _referee->getValueMultiplikator();
+    _allThrows = _referee->getAllThrowsWithoutMultiplikator();
     int remainingThrows = _referee->getRemainingThrows();
 
 
