@@ -22,7 +22,6 @@ public:
 private:
     SqliteConnector* _db;
     GameManagement* _gameManagement;
-    double calculateAverage(QList<QList<QVariant>> list);
 };
 
 #endif // STATISTICS_H

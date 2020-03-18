@@ -11,13 +11,13 @@ double Statistics::getAverageOfPlayerInCurrentGame(const Player& player)
 {
     Game game;
     QString sqlPrepare = R"(
-                         SELECT *
-                         FROM leg_history_list
-                         WHERE sport_type_id = :sportTypeId
-                           AND game_mode_id = :gameModeId
-                           AND tournament_id = :tournamentId
-                           AND game_board_id = :gameId
-                           AND player_id = :playerId
+SELECT AVG(value * value_type_id) AS average
+FROM leg_history_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+  AND game_board_id = :gameId
+  AND player_id = :playerId
     )";
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
@@ -26,27 +26,27 @@ double Statistics::getAverageOfPlayerInCurrentGame(const Player& player)
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     sqlQuery.bindValue(":gameId", game.getGameId());
     sqlQuery.bindValue(":playerId", player.getId());
-    QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);
-    return calculateAverage(list);
+
+    return _db->sqlQuery(sqlQuery)[0][0].toDouble();
 }
 
 
 double Statistics::getAverageOfPlayerEver(const Player& player)
 {
     QString sqlPrepare = R"(
-                         SELECT *
-                         FROM leg_history_list
-                         WHERE sport_type_id = :sportTypeId
-                           AND game_mode_id = :gameModeId
-                           AND player_id = :playerId;
+SELECT AVG(value * value_type_id) AS average
+FROM leg_history_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND player_id = :playerId
     )";
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
     sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
     sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
     sqlQuery.bindValue(":playerId", player.getId());
-    QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);
-    return calculateAverage(list);
+
+    return _db->sqlQuery(sqlQuery)[0][0].toDouble();
 }
 
 
@@ -54,14 +54,14 @@ double Statistics::getAverageOfPlayerInCurrentLeg(const Player& player, const in
 {
     Game game;
     QString sqlPrepare = R"(
-                         SELECT *
-                         FROM leg_history_list
-                         WHERE sport_type_id = :sportTypeId
-                           AND game_mode_id = :gameModeId
-                           AND tournament_id = :tournamentId
-                           AND game_board_id = :gameId
-                           AND leg_id = :legId
-                           AND player_id = :playerId
+SELECT AVG(value * value_type_id) AS average
+FROM leg_history_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+  AND game_board_id = :gameId
+  AND leg_id = :legId
+  AND player_id = :playerId
     )";
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
@@ -71,30 +71,9 @@ double Statistics::getAverageOfPlayerInCurrentLeg(const Player& player, const in
     sqlQuery.bindValue(":gameId", game.getGameId());
     sqlQuery.bindValue(":legId", legId);
     sqlQuery.bindValue(":playerId", player.getId());
-    QList<QList<QVariant>> list = _db->sqlQuery(sqlQuery);
-    return calculateAverage(list);
+
+    return _db->sqlQuery(sqlQuery)[0][0].toDouble();
 }
-
-
-double Statistics::calculateAverage(QList<QList<QVariant>> list)
-{
-    double average = 0;
-
-    if (list.isEmpty())
-    {
-        qWarning() << "The list of throws of this Player is empty";
-        return 0.0;
-    }
-    //qDebug() << "Test:" << list.size();
-
-    for (int i=0; i<list.size(); i++)
-    {
-        average += list[i][8].toDouble()  * list[i][9].toDouble();
-    }
-
-    return average/list.size();
-}
-
 
 int Statistics::getWonGamesOfPlayer(const Player& player)
 {
