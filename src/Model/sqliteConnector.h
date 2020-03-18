@@ -44,8 +44,6 @@ public:
 
     QList<QList<QVariant>> sqlQuery(const QString& sqlStatement);
     QList<QList<QVariant>> sqlQuery(QSqlQuery& sqlQuery);
-    QList<QList<QVariant>> sqlQuery(const QString &sqlPrepare, const QStringList &parameters);
-    QList<QList<QVariant>> sqlQuery(const QString &sqlPrepare, const QList<QVariant> &parameters);
 
     static void printTable(const QList<QList<QVariant>> &table);
 
