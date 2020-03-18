@@ -108,6 +108,15 @@ void Referee::nextPlayer()
  */
 void Referee::nextPlayerAfterWinningLeg()
 {
+    _remainScore[0] = 501;
+    _remainScore[1] = 501;
+    _throwCounter = 0;
+    _allThrows[0] = 0;
+    _allThrows[1] = 0;
+    _allThrows[2] = 0;
+    _wasLastThrowInLegToWin = false;
+    _wasLastThrowInLegToBust = false;
+
     if (_winningLegCounter[0] < 3 and _winningLegCounter[1] < 3)
     {
         int allWonLegsInMatch = _winningLegCounter[0] + _winningLegCounter[1];
@@ -120,26 +129,10 @@ void Referee::nextPlayerAfterWinningLeg()
             _player = 1;
         }
 
-        _remainScore[0] = 501;
-        _remainScore[1] = 501;
-        _throwCounter = 0;
-        _allThrows[0] = 0;
-        _allThrows[1] = 0;
-        _allThrows[2] = 0;
-        _wasLastThrowInLegToWin = false;
-        _wasLastThrowInLegToBust = false;
         emit valueChanged();
     }
     else
     {
-        _remainScore[0] = 501;
-        _remainScore[1] = 501;
-        _throwCounter = 0;
-        _allThrows[0] = 0;
-        _allThrows[1] = 0;
-        _allThrows[2] = 0;
-        _wasLastThrowInLegToWin = false;
-        _wasLastThrowInLegToBust = false;
         emit valueChanged();
         setWinner();
     }
@@ -594,7 +587,6 @@ void Referee::loadLastGame(){
         }
         loadLastThrows();
     }
-    return;
 }
 
 
@@ -640,5 +632,4 @@ void Referee::loadLastThrows()
             setActivePlayer(_allPlayers[1]);
         }
     }
-    return;
 }
