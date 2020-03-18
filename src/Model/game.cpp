@@ -273,7 +273,12 @@ int Game::getNextGameIdForPlayerB(void)
     return nextGames[0][0].toInt();
 }
 
-
+/*!
+ * \brief Gibt die Anzahl der Gewinner des aktuellen Turniers wieder
+ *
+ * \return int
+ *
+ */
 int Game::getNumberOfWinnerInTournament(void)
 {
     QString sqlPrepare = R"(
@@ -295,6 +300,12 @@ int Game::getNumberOfWinnerInTournament(void)
 }
 
 
+/*!
+ * \brief Gibt die Anzahl von Spielen des aktuellen Turniers wieder
+ *
+ * \return int
+ *
+ */
 int Game::getNumberOfGamesInTournament()
 {
     QString sqlPrepare = R"(

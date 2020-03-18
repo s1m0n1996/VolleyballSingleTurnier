@@ -23,12 +23,13 @@ public:
     QList<QString> getAllGamesWithNames();
     QList<QString> getAllPlayersForGameboardView();
     QList<QString> getAllWinnersInTournament();
-    QString getNameOfPlayerForGameView(int playerId);
+
 
 signals:
     void tournamentFinishes();
 
 private:
+    QString getNameOfPlayerForGameView(int playerId);
     int getNextGameIdForPlayerA(void);
     int getNextGameIdForPlayerB(void);
     int getNumberOfWinnerInTournament(void);
