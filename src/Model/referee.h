@@ -41,6 +41,10 @@ public:
     void resetAllStats();
     void loadLastGame();
     void loadLastThrows();
+    void setLegWinner(int winnerId);
+    void createAllpossibleLegs();
+
+    void writeLegIntoDatabase(int legId);
 
     // Methoden für den Zuschauer
     void scoreIsUnder170InLeg();
@@ -76,6 +80,7 @@ private:
      int _remainingThrows           = 0;
      int _gameId                    = 0;            // Muss noch übergeben werden.
      int _tournamentId              = 0;
+     bool _gameWasLoaded            = false;
      bool _wasLastThrowInLegToWin   = false;
      bool _wasLastThrowInLegToBust  = false;
      QList<int> _winningLegCounter  = {0,0};

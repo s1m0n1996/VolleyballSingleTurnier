@@ -13,7 +13,6 @@ Referee::Referee()
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
     updatePlayer();
-    loadLastGame();
     connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(updatePlayer()));
 }
 
@@ -38,6 +37,8 @@ void Referee::updatePlayer()
         _allPlayers.append(game.getPlayerAId());
         _allPlayers.append(game.getPlayerBId());
         resetAllStats();
+        loadLastGame();
+        createAllpossibleLegs();
         emit valueChanged();
     }
     else
@@ -261,7 +262,6 @@ void Referee::legWinningCondition()
         _wasLastThrowInLegToBust = false;
         emit valueChanged();
         emit playerWinsLeg();
-       // setWinner();
     }
     else if ((_remainScore[_player] == 0 and _valueMultiplikator != 2)
              or (_remainScore[_player] < 0 and _throwCounter <= 3)
@@ -559,7 +559,7 @@ void Referee::loadLastGame(){
                  _winningLegCounter[1]+=1;
             }
         }
-        if(legPoints[i][0]!=501 && legPoints[i+1][0]!=501)              //TODO: WARUM
+        if(legPoints[i][0]!=501 && legPoints[i+1][0]!=501)
         {
             loadLastThrows();
             if(_allPlayers[0]<_allPlayers[1])
@@ -633,3 +633,73 @@ void Referee::loadLastThrows()
         }
     }
 }
+
+
+void Referee::createAllpossibleLegs()
+{
+    QString sqlPrepare = R"(
+                         SELECT * FROM leg_list
+                         WHERE sport_type_id = :sportId
+                         AND game_mode_id = :gameModeId
+                         AND game_board_id = :gameId
+                         AND tournament_id = :tournamentId
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":gameId", _gameId);
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    QList<QList<QVariant>> leglist = _db->sqlQuery(sqlQuery);
+    if(leglist.isEmpty())
+    {
+        for (int i= 0; i < 5; i++)
+        {
+            writeLegIntoDatabase(i+1);
+        }
+    }
+    return;
+}
+
+
+void Referee::writeLegIntoDatabase(int legId)
+{
+    QString sqlPrepare = R"(
+                         INSERT INTO leg_list (id, game_board_id, sport_type_id, game_mode_id, tournament_id)
+                         VALUES (:legId, :gameId, :sportId, :gameMode, :tournamentId)
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":legId", legId);
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameId", _gameId);
+    sqlQuery.bindValue(":sportId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameMode", _gameManagement->getGameModeId());
+    _db->sqlQuery(sqlQuery);
+}
+
+
+void Referee::setLegWinner(int winnerId)
+{
+    qDebug() << "Setlegwinner" << getLastLegIdInSameGame();
+    QString sqlPrepare = R"(
+                         UPDATE leg_list
+                         SET winner_id = :winnerId
+                         WHERE id = :legId
+                         AND tournament_id = :tournamentId
+                         AND game_board_id = :gameId
+                         AND game_mode_id = :gameModeId
+                         AND sport_type_id = :sportModeId
+                         )";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":winnerId", winnerId);
+    sqlQuery.bindValue(":legId", getLastLegIdInSameGame()+1);
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameId", _gameId);
+    sqlQuery.bindValue(":sportModeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    _db->sqlQuery(sqlQuery);
+}
+
+

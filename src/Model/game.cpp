@@ -37,15 +37,12 @@ void Game::loadNextGame()
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
 
-    qDebug() << "Gametyp" << newGame;
-
     if (newGame.isEmpty())
     {
         qDebug() << "Was last game in Tournament";          //TODO: Die Dartscheibe unable setzten!!
         emit tournamentFinishes();
         return;
     }
-    qDebug() << "WARUM SPRINGST DU HIER REIN";
 
     _gameId = newGame[0][0].toInt();
     if (newGame[0][1] > 0)
@@ -75,11 +72,7 @@ void Game::loadNextGame()
  */
 bool Game::wasFinal()
 {
-    if(getNumberOfGamesInTournament()-getNumberOfWinnerInTournament() == 1)
-    {
-        return true;
-    }
-    return  false;
+    return getNumberOfGamesInTournament()-getNumberOfWinnerInTournament() == 1;
 }
 
 
@@ -183,16 +176,13 @@ void Game::setWinnerToPrepareFinal(int winnerId)
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
 
-    qDebug() << "Final:" << newGame;
 
     if(newGame.isEmpty())
     {
-        qDebug() << "Finaascaw";
         setWinnerPlayerAinDatabase(winnerId);
     }
     else
     {
-        qDebug() << "Finawdapü,acwascaw";
         setWinnerPlayerBinDatabase(winnerId);
     }
 }
@@ -334,6 +324,7 @@ int Game::getNumberOfGamesInTournament()
 QList<QString> Game::getAllPlayersForGameboardView()
 {
     QList <QString> allPlayers;
+    qDebug() << "vorher";
 
     QString sqlPrepare = R"(
                          SELECT MAX(id)
@@ -372,6 +363,7 @@ QList<QString> Game::getAllPlayersForGameboardView()
     allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][0].toInt()));
     allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][1].toInt()));
 
+    qDebug() << "AlleSpieler" << allPlayers;
     return allPlayers;
 }
 
