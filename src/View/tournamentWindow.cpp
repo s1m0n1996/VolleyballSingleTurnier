@@ -39,6 +39,13 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
         }
     }
 
+    QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
+
+    QGridLayout* layout = new QGridLayout;
+    layout->addWidget(_title);
+    layout->addWidget(viewGame);
+    setLayout(layout);
+
     connect(_referee,SIGNAL(gameListChanged()),this, SLOT(createTexts()));
 }
 
@@ -315,11 +322,8 @@ void TournamentWindow::createTexts()
 
     winner = game.getAllWinnersInTournament();
 
-
     allPlayersForAllGames = game.getAllPlayersForGameboardView();
-    qDebug() <<"Alle Spieler" <<allPlayersForAllGames;
     _texts = allPlayersForAllGames;
-    qDebug() << _texts;
 
     for(int i = 0; i < _numberOfColumn; i++)
     {
@@ -338,25 +342,12 @@ void TournamentWindow::createTexts()
         allPlayernames->setFont(QFont("Candara", 10));
         _gameBoard->addItem(allPlayernames);
 
-        // test->setPixmap(QPixmap(":/img/crwons.png"));
+//        QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
 
-        //            QRectF test;
-        //            test.setX(_rects[_numberOfColumn -1 ].last().x());
-        //            test.setY(_rects[_numberOfColumn -1 ].last().y() + 500);
-        //            test.setWidth(1000);
-        //            test.setHeight(1000);
-
-        //            QBrush neu;
-        //            neu.setTextureImage(QImage(":/img/crwons.png"));
-
-        //            _gameBoard->addRect(test,QPen(),QBrush(neu));
-
-        QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
-
-        QGridLayout* layout = new QGridLayout;
-        layout->addWidget(_title);
-        layout->addWidget(viewGame);
-        setLayout(layout);
+//        QGridLayout* layout = new QGridLayout;
+//        layout->addWidget(_title);
+//        layout->addWidget(viewGame);
+//        setLayout(layout);
     }
 
     createColours();
@@ -372,30 +363,44 @@ void TournamentWindow::createTexts()
  */
 void TournamentWindow::createColours()
 {
-    qDebug() << "ALlPlayers" <<_texts;
-    qDebug() << "Winners" <<winner;
-    qDebug() << "Länge rects 1" <<_rects.size();
+    QList<QList<QString>> test;
 
-    qDebug() << "Länge winner" <<winner.size();
-    qDebug() << "Spalten" <<_numberOfColumn;
+    for(int i = 0; i < _numberOfColumn; i++)
+    {
+        test.append(QList<QString>());
+    }
+int indicatorWhereToStartInTextList = 0;
 
-    qDebug() << _texts;
+    for(int k = 0; k < _numberOfColumn; k++)
+    {
+        if(k == 1)
+        {
+             indicatorWhereToStartInTextList = _rects[k - 1].size();
+        }
+        else if(k > 1)
+        {
+            indicatorWhereToStartInTextList = indicatorWhereToStartInTextList + _rects[k - 1].size();
+        }
+
+        for(int m = 0; m <_rects[k].size(); m++)
+        {
+            test[k].append(_texts[m + indicatorWhereToStartInTextList]);
+        }
+    }
 
     for(int m = 0; m < _numberOfColumn; m++)
     {
-        qDebug() << "Längerect2" <<_rects[m].size();
-        qDebug() << _rects[m];
-        qDebug() << m;
         for(int i = 0; i < _rects[m].size(); i++)
         {
             for(int t = 0; t < winner.size(); t++)
             {
-                if(winner[t] == _texts[i] and winner[t] != "")
+                if(winner[t] == test[m][i] and winner[t] != "")
                 {
                     _gameBoard->addRect(_rects[m][i],QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                     winner.removeAt(t);
                     break;
                 }
+
             }
         }
     }
