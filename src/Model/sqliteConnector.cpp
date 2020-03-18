@@ -24,9 +24,6 @@ SqliteConnector::SqliteConnector(void)
  */
 void SqliteConnector::createDatabase(const QString path)
 {
-    // TODO: checke ob datei bereits vorhanden ist und gebe eine warnung "wollen sie die datei wirklich überschreiben"
-    //  aus. dann muss die Alte datei Gelöscht werden und eine neue angelegt werden"
-    // TODO: logging system einführen
     if (_db.isOpen())
     {
         _db.close();
@@ -80,6 +77,22 @@ void SqliteConnector::createDatabase(const QString path)
         file.close();
     }
     _saveLastPath(const_cast<QString&>(path));
+
+    // save default picture in database
+    QFile defaultPicture;
+    defaultPicture.setFileName(":/img/user.png");
+    if (defaultPicture.open(QIODevice::ReadOnly))
+    {
+        QString sqlPrepare = R"(
+INSERT INTO player_pictures_list (picture)
+VALUES (:picture)
+)";
+        QSqlQuery sqlQuery;
+        sqlQuery.prepare(sqlPrepare);
+        sqlQuery.bindValue(":picture", defaultPicture.readAll());
+        sqlQuery.exec();
+    }
+
     emit databaseChanged();
 }
 
