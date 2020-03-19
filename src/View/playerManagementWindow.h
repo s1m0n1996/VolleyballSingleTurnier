@@ -43,8 +43,6 @@ private slots:
     void addPlayerToDatabase(void);
     void addPhotoWithButton(void);
 
-
-
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);
 
@@ -60,14 +58,11 @@ private slots:
     void createDeleteMenu(void);
     void createRestoreMenu(void);
 
-
-
 private:
     void createWidges(void);
     void showTable(void);
     void setAllLayout(void);
     void connecting(void);
-
 
     PlayerManagement* _playerManagementModel = nullptr;
 

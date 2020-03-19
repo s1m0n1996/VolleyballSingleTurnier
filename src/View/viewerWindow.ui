@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>657</width>
+    <width>709</width>
     <height>581</height>
    </rect>
   </property>
@@ -93,7 +93,7 @@
                  <item>
                   <widget class="WindowLabel" name="label_23">
                    <property name="text">
-                    <string>Wurf1:</string>
+                    <string>1. Wurf:</string>
                    </property>
                   </widget>
                  </item>
@@ -111,7 +111,7 @@
                  <item>
                   <widget class="WindowLabel" name="label_25">
                    <property name="text">
-                    <string>Wurf2:</string>
+                    <string>2. Wurf:</string>
                    </property>
                   </widget>
                  </item>
@@ -129,7 +129,7 @@
                  <item>
                   <widget class="WindowLabel" name="label_27">
                    <property name="text">
-                    <string>Wurf3:</string>
+                    <string>3. Wurf:</string>
                    </property>
                   </widget>
                  </item>
@@ -393,7 +393,7 @@
                  <item>
                   <widget class="WindowLabel" name="label_4">
                    <property name="text">
-                    <string>Wurf1:</string>
+                    <string>1. Wurf:</string>
                    </property>
                   </widget>
                  </item>
@@ -411,7 +411,7 @@
                  <item>
                   <widget class="WindowLabel" name="label_5">
                    <property name="text">
-                    <string>Wurf2:</string>
+                    <string>2. Wurf:</string>
                    </property>
                   </widget>
                  </item>
@@ -429,7 +429,7 @@
                  <item>
                   <widget class="WindowLabel" name="label_6">
                    <property name="text">
-                    <string>Wurf3:</string>
+                    <string>3. Wurf:</string>
                    </property>
                   </widget>
                  </item>
@@ -605,7 +605,7 @@
           <item row="2" column="2">
            <widget class="QLabel" name="colourlegend">
             <property name="text">
-             <string>Farblegende: 1 Wurf: MAGENTA; 2 Wurf: BLAU; 3 Wurf: GELB</string>
+             <string>Farblegende: 1. Wurf: MAGENTA; 2. Wurf: BLAU; 3. Wurf: GELB</string>
             </property>
            </widget>
           </item>
@@ -652,7 +652,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>657</width>
+     <width>709</width>
      <height>21</height>
     </rect>
    </property>

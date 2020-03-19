@@ -8,7 +8,7 @@
  * \author Lea Kesselmeier
  *
  * Jedes Label bekommt das selbe StyleSheet beim Erzeugen
- * JE nach Anwendung werden andere StyleSheets benutzt
+ * Je nach Anwendung werden andere StyleSheets benutzt
 */
 class WindowLabel: public QLabel
 {

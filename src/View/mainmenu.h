@@ -41,7 +41,6 @@ public:
 
     WindowLabel* getNote(){return _noteDatabase;}
 
-public slots:
 
 private slots:
     void openPlayermanagmentWindow();
@@ -49,13 +48,16 @@ private slots:
     void openViewerWindow();
     void openRefereeWindow();
     void openStatisticWindow();
+
     void createDatabase();
     void loadDatabase();
+    void refreshDatabase();
+
     void createTournament();
     void loadTournament();
     void setTournamentName();
-    void setButtonEnableState();
-    void refreshDatabase();
+
+    void setButtonEnableState();    
 
 private:
     void connecting();
@@ -63,6 +65,12 @@ private:
     void setAllLayout();
 
     Model*      _model = nullptr;
+
+    SqliteConnector*        _sqliteConnector        = nullptr;
+    PlayerManagement*       _playerManagementModel  = nullptr;
+    Referee*                _refereeModel           = nullptr;
+    RefereepopupWinningLeg* _refereePopupModel      = nullptr;
+    GameManagement*         _gameManagement         = nullptr;
 
     QMenu*      _playerData    = nullptr;
     QAction*    _loadPlayer    = nullptr;
@@ -74,10 +82,10 @@ private:
 
     WindowLabel* _title = nullptr;
 
-    WindowLabel*            _noteDatabase   = nullptr;
-    WindowLabel*            _noteTournament = nullptr;
-    CreateTournamentPopUp*    _tournamentName = nullptr;
-    LoadTournamentPopup* _loadTournamentPopup = nullptr;
+    WindowLabel*            _noteDatabase               = nullptr;
+    WindowLabel*            _noteTournament             = nullptr;
+    CreateTournamentPopUp*  __createTournamentPopup     = nullptr;
+    LoadTournamentPopup*    _loadTournamentPopup        = nullptr;
 
     WindowButton* _playermanagment    = nullptr;
     WindowButton* _tournament         = nullptr;
@@ -85,12 +93,6 @@ private:
     WindowButton* _referee            = nullptr;
     WindowButton* _statitsic          = nullptr;
 
-    SqliteConnector*        _sqliteConnector = nullptr;
-    PlayerManagement*       _playerManagementModel = nullptr;
-    Referee*                _refereeModel = nullptr;
-    RefereepopupWinningLeg* _refereePopupModel = nullptr;
-
-    GameManagement* _gameManagement = nullptr;
 
 
 };

@@ -151,7 +151,7 @@ void PlayermanagementWindow::addPhotoWithButton()
  * \param[in] void
  * \return void
  *
- * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
+ * Die Indices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
  * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
  */
 void PlayermanagementWindow::addPlayerForNewGame()
@@ -175,7 +175,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
  * \param[in] void
  * \return void
  *
- * Die Inices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
+ * Die Indices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
  * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
  */
 void PlayermanagementWindow::dropPlayerForNewGame()

@@ -58,7 +58,7 @@ MainMenu::~MainMenu()
 
     delete _noteDatabase;
     delete _noteTournament;
-    delete _tournamentName;
+    delete __createTournamentPopup;
 
     delete _playermanagment;
     delete _tournament;
@@ -193,8 +193,8 @@ void MainMenu::setButtonEnableState(void)
 
 void MainMenu::createTournament(void)
 {
-    _tournamentName = new CreateTournamentPopUp;
-    _tournamentName->show();
+    __createTournamentPopup = new CreateTournamentPopUp;
+    __createTournamentPopup->show();
 }
 
 void MainMenu::loadTournament(void)

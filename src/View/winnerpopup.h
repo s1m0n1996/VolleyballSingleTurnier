@@ -4,7 +4,13 @@
 class WindowLabel;
 class WindowButton;
 
-
+/*!
+ * \file winnerpopup.h
+ * \brief Die Klasse WinnerPopup erzuegt ein PopUp Fenster, welches den Gewinner anzeigt
+ * \author Lea Kesselmeier
+ *
+ * Der Gewinner ene Spieles bzw Turniees wird angezeigt
+*/
 class WinnerPopup : public QWidget
 {
     Q_OBJECT
