@@ -86,3 +86,5 @@ void WindowLabel::setWinnerStyle(void)
                                "font-weight: bold;}");
 
 }
+
+
