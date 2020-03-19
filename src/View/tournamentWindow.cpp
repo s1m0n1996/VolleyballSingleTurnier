@@ -56,7 +56,7 @@ void TournamentWindow::createWidgets()
     setWindowIcon(QIcon(":/img/gameplan.png"));
 
     _title = new WindowLabel("Spielplan");
-    //    _title->setMainTitleStyle();
+    _title->setMainTitleStyle();
 
 }
 
@@ -399,5 +399,3 @@ void TournamentWindow::createColours()
         }
     }
 }
-
-
