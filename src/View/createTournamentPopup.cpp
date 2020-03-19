@@ -57,6 +57,8 @@ void CreateTournamentPopUp::createWidgets(void)
                              "QCalendarWidget{"
                              "font-size: 20px;"
                              "font-family: Arial Nova Light;}");
+    QDate currentDate = QDate::currentDate();
+    _date->setDate(currentDate);
 
     _nameLabel = new WindowLabel("Turniername");
     _nameEdit = new WindowEdit("Turniername", DataType::name);

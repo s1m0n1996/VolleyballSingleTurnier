@@ -36,25 +36,31 @@ public:
     explicit PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent = nullptr);
     ~PlayermanagementWindow();
 
-
 signals:
 private slots:
     void setMissingPlayersForNewTournamentLabel(void);
-    void startTournament(void);
+
+    void addPlayerToDatabase(void);
+    void addPhotoWithButton(void);
+
+
 
     void addPlayerForNewGame(void);
     void dropPlayerForNewGame(void);
-    void createDeleteMenu(void);
-    void createRestoreMenu(void);
+
     void deletePlayer(void);
     void restorePlayer(void);
 
     void addPhotoWithSelection(void);
-    void addPhotoWithButton(void);
-    void addPlayerToDatabase(void);
-    void enableAddPlayerButton(void);
 
+    void startTournament(void);
+    void enableAddPlayerButton(void);
     void showDeletedPlayers(void);
+
+    void createDeleteMenu(void);
+    void createRestoreMenu(void);
+
+
 
 private:
     void createWidges(void);

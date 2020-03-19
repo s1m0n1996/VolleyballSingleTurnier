@@ -86,6 +86,66 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 }
 
 /*!
+ * \brief Einfügen eines neuen Spieler zu gesamten Spielerdatenbank
+ *
+ * \param[in] void
+ * \return void
+ *
+ * Ein Objekt der Klasse Player wird erzeugt, dem erden die neuen Varibalen mitgegeben
+ * Dieser wird dann sowohl dem aktuellen Spiel als auch der gesamten Spielerdatenabnk hinzugefügt
+ * Die Edits der Namen,Geburtstag und Land werden wieder frei beschreibbar gemacht
+ */
+void PlayermanagementWindow::addPlayerToDatabase()
+{
+    Player* newPlayer = new Player(_playernameEdit->text(),
+                                  _birthday->date(), _countryEdit->text());
+    _playerManagementModel->addPlayerForNewGame(*newPlayer);
+
+
+    _playernameEdit->clear();
+    _birthday->setDate(QDate(1990,10,21));
+    _countryEdit->clear();
+
+
+    _playerManagementModel->refreshDatabasePlayerTable();
+
+    if (!(_byteArray->isEmpty()))
+    {
+
+        newPlayer->savePicture(*_byteArray);
+
+        QByteArray data = newPlayer->loadPicture();
+    }
+
+}
+
+/*!
+ * \brief Ein Foto zu einem Spieler beim erstellen hinzufügen
+ *
+ * \param[in] void
+ * \return void
+ *
+ * Das in ein ByteArray gespeicherte Foto wird dem gerade erzeugten Spieler sofort hinzugefügt
+ */
+void PlayermanagementWindow::addPhotoWithButton()
+{
+    QString path = QFileDialog::getOpenFileName(this,
+                                                tr("Bild laden"), "",
+                                                tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
+
+    // save file in database
+    QFile file(path);
+    if (file.exists())
+    {
+
+        file.open(QIODevice::ReadOnly);
+        *_byteArray = file.readAll();
+        file.close();
+    }
+
+}
+
+/*!
  * \brief Einfügen eines oder mehrere neuen Spieler zu einem Spiel
  *
  * \param[in] void
@@ -137,40 +197,6 @@ void PlayermanagementWindow::dropPlayerForNewGame()
     }
 
     _gamePlayerTableView->selectionModel()->clearSelection();
-}
-
-/*!
- * \brief Einfügen eines neuen Spieler zu gesamten Spielerdatenbank
- *
- * \param[in] void
- * \return void
- *
- * Ein Objekt der Klasse Player wird erzeugt, dem erden die neuen Varibalen mitgegeben
- * Dieser wird dann sowohl dem aktuellen Spiel als auch der gesamten Spielerdatenabnk hinzugefügt
- * Die Edits der Namen,Geburtstag und Land werden wieder frei beschreibbar gemacht
- */
-void PlayermanagementWindow::addPlayerToDatabase()
-{
-    Player* newPlayer = new Player(_playernameEdit->text(),
-                                  _birthday->date(), _countryEdit->text());
-    _playerManagementModel->addPlayerForNewGame(*newPlayer);
-
-
-    _playernameEdit->clear();
-    _birthday->clear();
-    _countryEdit->clear();
-
-
-    _playerManagementModel->refreshDatabasePlayerTable();
-
-    if (!(_byteArray->isEmpty()))
-    {
-
-        newPlayer->savePicture(*_byteArray);
-
-        QByteArray data = newPlayer->loadPicture();
-    }
-
 }
 
 /*!
@@ -265,33 +291,6 @@ void PlayermanagementWindow::addPhotoWithSelection()
             file.close();
         }
     }
-}
-
-
-/*!
- * \brief Ein Foto zu einem Spieler beim erstellen hinzufügen
- *
- * \param[in] void
- * \return void
- *
- * Das in ein ByteArray gespeicherte Foto wird dem gerade erzeugten Spieler sofort hinzugefügt
- */
-void PlayermanagementWindow::addPhotoWithButton()
-{
-    QString path = QFileDialog::getOpenFileName(this,
-                                                tr("Bild laden"), "",
-                                                tr("Photo File (*.png, *.jpg) ;; All Files (*.*)"));
-
-    // save file in database
-    QFile file(path);
-    if (file.exists())
-    {
-
-        file.open(QIODevice::ReadOnly);
-        *_byteArray = file.readAll();
-        file.close();
-    }
-
 }
 
 /*!
@@ -409,8 +408,7 @@ void PlayermanagementWindow::createWidges()
                              "QCalendarWidget{"
                              "font-size: 20px;"
                              "font-family: Arial Nova Light;}");
-
-
+    _birthday->setDate(QDate(1990,10,21));
 
     _addPhoto = new WindowButton("Foto hinzufügen");
     _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
