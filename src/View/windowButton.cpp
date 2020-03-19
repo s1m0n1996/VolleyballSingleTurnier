@@ -24,7 +24,7 @@ WindowButton::WindowButton(QString text, QWidget* parent) : QPushButton(parent)
                   "color: #dcdcdc;"
                   "background-color: #333333;"
                   "font-size: 20px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova Light;"
                   "border-width: 20px;}"
 
                   "QPushButton:hover{"
@@ -53,7 +53,7 @@ WindowButton::WindowButton(QWidget* parent,QString text) : QPushButton(parent)
                   "color: #dcdcdc;"
                   "background-color: #333333;"
                   "font-size: 20px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova Light;"
                   "border-width: 20px;}"
 
                   "QPushButton:hover{"
@@ -81,13 +81,13 @@ void WindowButton::setEnableStyle()
                   "color: #dcdcdc;"
                   "background-color: #40b946;"
                   "font-size: 20px;"
-                  "font-family: Candara;}"
+                  "font-family: Arial Nova Light;}"
 
                   "QPushButton:hover{"
                   "color: #dcdcdc;"
                   "background-color: #339436;"
                   "font-size: 20px;"
-                  "font-family: Candara;}"
+                  "font-family: Arial Nova Light;}"
 
                   "QPushButton:disabled{"
                   "background-color: #acacac;}"
@@ -111,7 +111,7 @@ void WindowButton::mainMenuStyle()
                   "color: #dcdcdc;"
                   "background-color: #333333;"
                   "font-size: 22px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova Light;"
                   "font: bold;}"
 
                   "QPushButton:hover{"

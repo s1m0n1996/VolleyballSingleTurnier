@@ -22,11 +22,11 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
                              "subcontrol-origin:margin; }"
                              "QDateEdit{"
                              "font-size: 20px;"
-                             "font-family: Candara;"
+                             "font-family: Arial Nova Light;"
                              "spacing: 5px;}"
                              "QCalendarWidget{"
                              "font-size: 20px;"
-                             "font-family: Candara;}");
+                             "font-family: Arial Nova Light;}");
 
     _nameLabel = new WindowLabel("Turniername");
     _nameEdit = new WindowEdit("Turniername", DataType::name);

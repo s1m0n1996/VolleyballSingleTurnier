@@ -21,6 +21,7 @@ public:
     void setTitleStyle(void);
     void setMainTitleStyle(void);
     void setBold(void);
+    void setWinnerStyle(void);
 
 
 public:

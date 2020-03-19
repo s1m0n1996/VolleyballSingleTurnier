@@ -47,9 +47,9 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
     _gameManagement = &GameManagement::instance();
 
     _axisX = new QValueAxis;
-    _axisX->setLabelsFont(QFont("Candara"));
+    _axisX->setLabelsFont(QFont("Arial Nova Light"));
     _axisY = new QValueAxis;
-    _axisY->setLabelsFont(QFont("Candara"));
+    _axisY->setLabelsFont(QFont("Arial Nova Light"));
 
     setWindowTitle("Statistik");
     setWindowIcon(QIcon(":/img/statistic.png"));
@@ -97,7 +97,7 @@ void StatisticWindow::_createWidgets(void)
     _chart->legend()->setMarkerShape(QLegend::MarkerShapeRectangle);
     _chart->legend()->setVisible(true);
     _chart->legend()->setAlignment(Qt::AlignRight);
-    _chart->legend()->setFont(QFont("Candara"));
+    _chart->legend()->setFont(QFont("Arial Nova Light"));
     _chart->series().setSharable(true);
 
     _chart->addAxis(_axisY, Qt::AlignLeft);
@@ -164,11 +164,11 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     QGroupBox* groupBox = new QGroupBox(tr("Wähle eine Kategorie"));
     groupBox->setStyleSheet("QGroupBox{"
                              "font-size: 20px;"
-                             "font-family: Candara;}");
+                             "font-family: Arial Nova Light;}");
     _chooseCategoryComboBox = new QComboBox;
     _chooseCategoryComboBox->setStyleSheet("QComboBox{"
                                            "font-size: 20px;"
-                                           "font-family: Candara;}");
+                                           "font-family: Arial Nova Light;}");
     _chooseCategoryComboBox->setMinimumWidth(400);
 
     _chooseCategoryComboBox->addItem("Gewinner");
@@ -197,11 +197,11 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
     QGroupBox* groupBox = new QGroupBox(tr("Wähle einen Spieler"));
     groupBox->setStyleSheet("QGroupBox{"
                              "font-size: 20px;"
-                             "font-family: Candara;}");
+                             "font-family: Arial Nova Light;}");
     _choosePlayerComboBox = new QComboBox;
     _choosePlayerComboBox->setStyleSheet("QComboBox{"
                                            "font-size: 20px;"
-                                           "font-family: Candara;}");
+                                           "font-family: Arial Nova Light;}");
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
@@ -250,13 +250,13 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
     QGroupBox* groupBox = new QGroupBox(tr("Wähle ein Turnier aus"));
     groupBox->setStyleSheet("QGroupBox{"
                              "font-size: 20px;"
-                             "font-family: Candara;}");
+                             "font-family: Arial Nova Light;}");
 
     // create tournament combo box
     _chooseTournamentComboBox = new QComboBox;
     _chooseTournamentComboBox->setStyleSheet("QComboBox{"
                                            "font-size: 20px;"
-                                           "font-family: Candara;}");
+                                           "font-family: Arial Nova Light;}");
     _chooseTournamentComboBox->setMinimumWidth(400);
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);
@@ -529,7 +529,7 @@ void StatisticWindow::_dataChangesDetected(void)
  */
 void StatisticWindow::showWinnerChart(void)
 {
-    _chart->setTitle("Prozentuale anzahl gewonnener Spiele");
+    _chart->setTitle("Prozentuale Anzahl gewonnener Spiele");
     if (!_selectedPlayer && _getSelectedTournamentId() < 0)
     {
         _refreshPieDiagram(_playerStatistic->getWinningStatistic());
@@ -613,7 +613,7 @@ void StatisticWindow::showAverageHistoryChart(void)
  */
 void StatisticWindow::showMostHittingFieldsDiagram(void)
 {
-    _chart->setTitle("die 10 am Meinsten geworfenen Felder");
+    _chart->setTitle("Die 10 am meisten getroffenen Felder");
 
     if (!_selectedPlayer && _getSelectedTournamentId() < 0)
     {

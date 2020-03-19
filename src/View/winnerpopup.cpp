@@ -13,6 +13,10 @@
 WinnerPopup::WinnerPopup(QString winnerName, QWidget *parent) : QWidget(parent)
 {
     setWindowTitle("Gewinner");
+    setWindowIcon(QIcon(":/img/crowns.png"));
+    setMinimumSize(700, 600);
+    setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    setStyleSheet("background: white;");
     createWidgets(std::move(winnerName));
     setwholeLayout();
     connect(_okButton, SIGNAL(released()), this, SLOT(close()));
@@ -25,26 +29,17 @@ WinnerPopup::~WinnerPopup()
 
 void WinnerPopup::createWidgets(QString winnerName)
 {
-    setWindowIcon(QIcon(":/img/crowns.png"));
-    setMinimumSize(700, 600);
-    setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     _title = new WindowLabel("Der Gewinner des Spiels ist");
-    _title->setStyleSheet("QLabel{"
-                           "font-size: 40px;"
-                           "font-family: Candara;"
-                           "font-weight: bold;}");
+    _title->setWinnerStyle();
 
     _winner = new WindowLabel(std::move(winnerName));
-    _winner->setStyleSheet("QLabel{"
-                           "font-size: 40px;"
-                           "font-family: Candara;"
-                           "font-weight: bold;}");
+    _winner->setWinnerStyle();
 
     _crown = new WindowLabel("");
     _crown->setPixmap(QPixmap(":/img/crowns.png").scaled(300,300,Qt::KeepAspectRatio));
 
     _okButton = new WindowButton("OK");
-    setStyleSheet("background: white;");
+
 }
 
 void WinnerPopup::setwholeLayout()

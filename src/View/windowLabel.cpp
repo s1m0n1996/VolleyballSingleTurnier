@@ -18,7 +18,7 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Candara;}");
+                  "font-family: Arial Nova Light;}");
     setText(text);
 }
 
@@ -26,9 +26,8 @@ WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Candara;}");
+                  "font-family: Arial Nova Light;}");
     setText(text);
-//    WindowLabel(text, parent);
 }
 
 
@@ -36,7 +35,7 @@ void WindowLabel::setNotStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova Light;"
                   "color: red;}");
 }
 
@@ -44,14 +43,14 @@ void WindowLabel::setStartTournamentStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
-                  "font-family: Candara;}");
+                  "font-family: Arial Nova Light;}");
 }
 
 void WindowLabel::setTitleStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
-                  "font-family: Candara;}");
+                  "font-family: Arial Nova Light;}");
 
     setAlignment(Qt::AlignCenter);
 
@@ -61,7 +60,7 @@ void WindowLabel::setMainTitleStyle()
 {
     setStyleSheet("QLabel{"
                   "font-size: 55px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova Light;"
                   "border-bottom-width: 1px;"
                   "border-bottom-style: solid;"
                   "border-radius: 0px;"
@@ -75,6 +74,15 @@ void WindowLabel::setBold()
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Candara;"
+                  "font-family: Arial Nova Light;"
                   "font-weight: bold;}");
+}
+
+void WindowLabel::setWinnerStyle(void)
+{
+    setStyleSheet("QLabel{"
+                               "font-size: 40px;"
+                               "font-family: Candara;"
+                               "font-weight: bold;}");
+
 }

@@ -13,15 +13,14 @@ RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent
 {
 
 
-    _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen,\n"
-                                          "wenn der Wurf richtig eingegeben wurde");
+    _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen,\n");
     _refereeInformation->setTitleStyle();
     _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde,\n"
                                      "dann auf den Button 'Leg gewonnen' klicken\n"
                                      "ansonsten auf den Button 'Letzten Wurf rückgänig machen'");
 
     _legWin = new WindowButton("Leg gewonnen");
-    _undoLastThrow = new WindowButton("Letzten Wurf rückgänig machen");
+    _undoLastThrow = new WindowButton("Letzten Wurf rückgänig");
 
 
     QGridLayout* layout = new QGridLayout;

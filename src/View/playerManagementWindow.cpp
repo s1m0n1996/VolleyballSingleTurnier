@@ -332,6 +332,13 @@ void PlayermanagementWindow::enableAddPlayerButton()
     _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty());
 }
 
+/*!
+ * \brief Färbe Hintergrund rot, wenn das Datum ungültig ist
+ *
+ * Der hintergrunf der Datumseingabe wird rot gefärbt und es wird ein Tooltip hinzugefügt, damit man erkennt das
+ * das eingegebene Datum ungültig ist.
+ * Wenn das Datum gültig ist wird der Hintergrund grün gefärbt.
+ */
 
 void PlayermanagementWindow::createWidges()
 {
@@ -363,11 +370,12 @@ void PlayermanagementWindow::createWidges()
     _addPlayer->setTitle("Spieler zum aktuellen Spiel hinzufügen:");
     _addPlayer->setStyleSheet("QGroupBox{"
                               "font-size: 25px;"
-                              "font-family: Candara;} ");
+                              "font-family: Arial Nova Light;} ");
 
 
     _playernameEdit = new WindowEdit("Max Mustermann", DataType::name);
     _playernameEdit->setMaxLength(20);
+
     _countryEdit = new WindowEdit("DE", DataType::country);
     _countryEdit->setMaxLength(3);
 
@@ -389,11 +397,11 @@ void PlayermanagementWindow::createWidges()
                              "subcontrol-origin:margin; }"
                              "QDateEdit{"
                              "font-size: 20px;"
-                             "font-family: Candara;"
+                             "font-family: Arial Nova Light;"
                              "spacing: 5px;}"
                              "QCalendarWidget{"
                              "font-size: 20px;"
-                             "font-family: Candara;}");
+                             "font-family: Arial Nova Light;}");
 
 
 
@@ -475,7 +483,6 @@ void PlayermanagementWindow::setAllLayout()
     QGridLayout* addPlayerLayout        = new QGridLayout;
     QGridLayout* tournamentStartLayout  = new QGridLayout;
 
-
     mainLayout->addWidget(_title);
 
     titleTabelViewLayout->addWidget(_allPlayerLabel, 0, Qt::AlignHCenter);
@@ -513,12 +520,10 @@ void PlayermanagementWindow::setAllLayout()
     bottomLayout->addStretch();
     bottomLayout->addLayout(tournamentStartLayout);
 
-
     mainLayout->addLayout(maxPlayerLayout);
     mainLayout->addLayout(titleTabelViewLayout);
     mainLayout->addLayout(tabelViewLayout);
     mainLayout->addLayout(bottomLayout);
-
 
     widget->setLayout(mainLayout);
 }

@@ -193,7 +193,7 @@ void MainMenu::setTournamentName()
         _noteTournament->setText("Bitte zuerst ein Turnier erstellen oder Laden");
         _noteTournament->setStyleSheet("QLabel{"
                                        "font-size: 25px;"
-                                       "font-family: Candara;"
+                                       "font-family: Arial Nova Light;"
                                        "color: red;}");
     } else
     {
@@ -201,7 +201,7 @@ void MainMenu::setTournamentName()
                                  + " vom " + _gameManagement->getTournamentDate());
         _noteTournament->setStyleSheet("QLabel{"
                                        "font-size: 25px;"
-                                       "font-family: Candara;"
+                                       "font-family: Arial Nova Light;"
                                        "color: black;}");
     }
 }
@@ -238,7 +238,7 @@ void MainMenu::createWidgets()
     _noteDatabase = new WindowLabel("Zu beginn muss eine Datei erstellt oder geladen werden");
     _noteDatabase->setStyleSheet("QLabel{"
                                  "font-size: 25px;"
-                                 "font-family: Candara;"
+                                 "font-family: Arial Nova Light;"
                                  "color: red;}");
 
     _noteTournament = new WindowLabel("Aktuelles Turnier");
