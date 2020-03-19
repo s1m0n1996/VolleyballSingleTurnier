@@ -29,6 +29,14 @@
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
 
+/*!
+ * \brief PlayermanagementWindow::PlayermanagementWindow ist Konstruktor der Klasse PlayermanagementWindow
+ * \param[in] playerManagementModel ist das dazugehörige Model
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Das Fenster wird im Konstruktor erstellt
+ */
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget* parent) :
         QMainWindow(parent)
 {

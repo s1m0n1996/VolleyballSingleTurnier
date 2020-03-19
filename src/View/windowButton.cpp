@@ -8,10 +8,11 @@
 
 /*!
  * \brief WindowButton::WindowButton ist Konstruktor der Klasse WindowButtons
- * \param text ist der Text, den der Button tragen soll, der Defalut ist leer
- * \param parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \param[in] text ist der Text, den der Button tragen soll, der Defalut ist leer
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
+ * Erzeugt Button in einem dunkelem Desing und bestimmer Größe und Eigenschaften beim drüber gehen
  */
 WindowButton::WindowButton(QString text, QWidget* parent) : QPushButton(parent)
 {
@@ -41,7 +42,14 @@ WindowButton::WindowButton(QString text, QWidget* parent) : QPushButton(parent)
 
 }
 
-
+/*!
+ * \brief WindowButton::WindowButton ist Konstruktor der Klasse WindowButtons
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \param[in] text ist der Text, den der Button tragen soll, der Defalut ist leer
+ * \return void
+ *
+ * Dieser kosntruktor wurde für die Widgets, die in der ui erzeugt werden erstellt, denn diese haben eines parent
+ */
 WindowButton::WindowButton(QWidget* parent,QString text) : QPushButton(parent)
 {
     int fixSizeX = 35;
@@ -71,7 +79,7 @@ WindowButton::WindowButton(QWidget* parent,QString text) : QPushButton(parent)
 }
 /*!
  * \brief setzt das StyleSheet, wenn der Button nicht drüchbar ist
- * \param void
+ * \param[in] void
  * \return void
  *
  */
@@ -96,7 +104,7 @@ void WindowButton::setEnableStyle()
 
 /*!
  * \brief setzt Größe, StyleSheet und nicht drückbar für die MainMenuButtons
- * \param void
+ * \param[in] void
  * \return void
  *
  */

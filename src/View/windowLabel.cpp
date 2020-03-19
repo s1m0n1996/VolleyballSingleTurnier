@@ -6,12 +6,12 @@
 #include "windowLabel.h"
 /*!
  * \brief WindowLabel::WindowLabel ist Konstruktor der Klasse WindowLabel
- * \param text ist der Text, den das Label anzeigen soll, der Default ist leer
- * \param parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \param[in] text ist der Text, den das Label anzeigen soll, der Default ist leer
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
- * Normalen Stlye wird im Konstsruktor festgelegt
- * verschiedene Versionen werden in Funktionen festgelegt
+ * Normalen Stlye wird im Konstsruktor festgelegt.
+ * verschiedene Versionen werden in Funktionen festgelegt.
  */
 
 WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
@@ -22,6 +22,14 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
     setText(text);
 }
 
+/*!
+ * \brief WindowLabel::WindowLabel ist Konstruktor der Klasse WindowLabel
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \param[in] text ist der Text, den das Label anzeigen soll, der Default ist leer
+ * \return void
+ *
+ *Dieser kosntruktor wurde für die Widgets, die in der ui erzeugt werden erstellt, denn diese haben eines parent
+ */
 WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
 {
     setStyleSheet("QLabel{"

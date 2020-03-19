@@ -9,8 +9,8 @@
 
 /*!
  * \brief WindowEdit::WindowEdit ist Konstruktor der Klasse WindowEdit
- * \param placeholder ist der Text, den das Edit anzeigen soll, der Default ist leer
- * \param parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \param[in] placeholder ist der Text, den das Edit anzeigen soll, der Default ist leer
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
  * Je nachdem welches playeholder es ist, können nur bestimmte Zeichen eingegben werden, um Fehler zu minimieren

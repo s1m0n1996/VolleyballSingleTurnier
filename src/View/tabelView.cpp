@@ -10,7 +10,7 @@
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
- * Man kann Reihen makrieren und neu einfärben
+ * Man kann Reihen makrieren, dabei werden die grün einegfärbt
  * Man kann mehrere Reihen auswählen
  */
 TableView::TableView(QWidget* parent) : QTableView(parent)

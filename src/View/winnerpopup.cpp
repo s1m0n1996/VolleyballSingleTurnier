@@ -9,6 +9,15 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <utility>
+/*!
+ * \brief WinnerPopup::WinnerPopup ist Konstruktor der Klasse WinnerPopup
+ * \param[in] winnerName ist der Name des Gewinner, welcher anzeigen werden soll, der Default ist leer
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Das Fenster zeigt im Konstrukto den Gewinner eines Spieles an und kann mit einer Funltion den Gewinner eines Turnier anzeigen.
+ * über dem Gewinnnernamen erschien eine Krone.
+ */
 
 WinnerPopup::WinnerPopup(QString winnerName, QWidget *parent) : QWidget(parent)
 {
@@ -19,12 +28,29 @@ WinnerPopup::WinnerPopup(QString winnerName, QWidget *parent) : QWidget(parent)
     setStyleSheet("background: white;");
     createWidgets(std::move(winnerName));
     setwholeLayout();
-    connect(_okButton, SIGNAL(released()), this, SLOT(close()));
 }
 
 WinnerPopup::~WinnerPopup()
 {
 
+}
+
+
+void WinnerPopup::setWinnerLeg()
+{
+    _title->setText("Der Gewinner des Legs ist");
+}
+
+void WinnerPopup::setWinnerTournament()
+{
+    _title->setText("Der Gewinner des Turniers ist");
+}
+
+
+void WinnerPopup::closeRefereeWindow()
+{
+    emit clickedOk();
+    close();
 }
 
 void WinnerPopup::createWidgets(QString winnerName)
@@ -56,24 +82,7 @@ void WinnerPopup::setwholeLayout()
     layout->addLayout(layoutButton);
     setLayout(layout);
 }
-
-void WinnerPopup::setWinnerLeg()
-{
-    _title->setText("Der Gewinner des Legs ist");
-}
-
-void WinnerPopup::setWinnerTournament()
-{
-    _title->setText("Der Gewinner des Turniers ist");
-}
-
 void WinnerPopup::connecting()
 {
     connect(_okButton,SIGNAL(released()), this , SLOT(closeRefereeWindow()));
-}
-
-void WinnerPopup::closeRefereeWindow()
-{
-    emit clickedOk();
-    close();
 }
