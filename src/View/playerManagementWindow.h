@@ -2,10 +2,10 @@
 #define PLAYERMANAGMENT_H
 
 #include <QMainWindow>
-
-
 class PlayerManagement;
 class QAction;
+class QDateEdit;
+class QCalendarWidget;
 class QGroupBox;
 class QMenu;
 class QLabel;
@@ -14,8 +14,6 @@ class ViewerWindow;
 class WindowButton;
 class WindowEdit;
 class WindowLabel;
-class QDateEdit;
-class QCalendarWidget;
 
 
 /*!
@@ -40,7 +38,7 @@ public:
 
 
 signals:
-public slots:
+private slots:
     void setMissingPlayersForNewTournamentLabel(void);
     void startTournament(void);
 
@@ -67,6 +65,8 @@ private:
 
     PlayerManagement* _playerManagementModel = nullptr;
 
+    QByteArray* _byteArray                   = nullptr;
+
     WindowLabel*    _title      = nullptr;
 
     WindowLabel* _allPlayerLabel    = nullptr;
@@ -77,6 +77,7 @@ private:
     TableView* _deletedPlayersTableView     = nullptr;
 
     QMenu*        _menuDelete                    = nullptr;
+    QAction*      _showDeletedPlayersAction      = nullptr;
     QAction*      _deletePlayerInAllTournament   = nullptr;
     QAction*      _addPhotoAction                = nullptr;
     WindowButton* _addPlayerForNewTournament     = nullptr;
@@ -85,8 +86,6 @@ private:
     WindowLabel* _nameMissingPlayersLabel        = nullptr;
     WindowLabel* _valueMissingPlayersLabel       = nullptr;
 
-    QByteArray* _byteArray                       = nullptr;
-
     QGroupBox* _addPlayer                       = nullptr;
 
     WindowLabel* _playernameLabel           = nullptr;
@@ -94,19 +93,16 @@ private:
     WindowLabel* _countryLabel              = nullptr;
     WindowLabel* _photoLabel                = nullptr;
 
-    WindowLabel* _photo = nullptr;
-
 
     WindowEdit*     _playernameEdit             = nullptr;
+    QCalendarWidget* _calendar                  = nullptr;
+    QDateEdit*      _birthday                   = nullptr;
     WindowEdit*     _countryEdit                = nullptr;
     WindowButton*   _addPhoto                   = nullptr;
 
-    QDateEdit*      _birthday                   = nullptr;
 
     WindowButton* _addPlayerButton          = nullptr;
-    WindowButton* _startTournamentButton    = nullptr;
-
-    QAction* _showDeletedPlayersAction;
+    WindowButton* _startTournamentButton    = nullptr;    
 
 };
 #endif // PLAYERMANAGMENT_H

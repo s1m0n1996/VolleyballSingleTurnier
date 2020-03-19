@@ -3,29 +3,28 @@
 * \brief Diese Klasse ist die View Klasse der Meldestelle
 * \author Lea Kesselmeier
 */
-#include <QHeaderView>
+
 #include <QAction>
 #include <QAbstractItemView>
-#include <QModelIndex>
-#include <QMenu>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QIcon>
-#include <QFileDialog>
-#include <QMenuBar>
-#include <QGroupBox>
 #include <QCalendarWidget>
 #include <QDateEdit>
+#include <QFileDialog>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QIcon>
+#include <QMenuBar>
+#include <QMenu>
+#include <QModelIndex>
 
+#include "Model/gameboard.h"
+#include "Model/player.h"
+#include "Model/playerManagement.h"
 
 #include "View/playerManagementWindow.h"
-#include "Model/playerManagement.h"
-#include "Model/player.h"
-#include "Model/gameboard.h"
-
 #include "View/tabelView.h"
 #include "View/tournamentWindow.h"
-
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
@@ -33,6 +32,9 @@
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget* parent) :
         QMainWindow(parent)
 {
+    setWindowIcon(QIcon(":/img/darts.png"));
+    setWindowTitle("Meldestelle");
+
     _playerManagementModel = playerManagementModel;
     _playerManagementModel->refreshDatabasePlayerTable();
     _playerManagementModel->refreshNextGamePlayerTable();
@@ -40,8 +42,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     createWidges();
     setAllLayout();
     connecting();
-    setWindowIcon(QIcon(":/img/darts.png"));
-    setWindowTitle("Meldestelle");
+
 }
 
 PlayermanagementWindow::~PlayermanagementWindow()
@@ -172,32 +173,14 @@ void PlayermanagementWindow::addPlayerToDatabase()
 
 }
 
-void PlayermanagementWindow::createDeleteMenu()
-{
-    QAction* deletePlayer = new QAction("Löschen", this);
-    _addPhotoAction       = new QAction("Foto hinzufügen");
-    connect(deletePlayer, SIGNAL(triggered()), this, SLOT(deletePlayer()));
-    connect(_addPhotoAction, SIGNAL(triggered()), this, SLOT(addPhotoWithSelection()));
-
-    QMenu* deleteMenu = new QMenu(this);
-    deleteMenu->addAction(deletePlayer);
-    deleteMenu->addSeparator();
-    deleteMenu->addAction(_addPhotoAction);
-
-    deleteMenu->exec(QCursor::pos());
-}
-
-void PlayermanagementWindow::createRestoreMenu()
-{
-    QAction* restorePlayer = new QAction("Wiederherstellen", this);
-    connect(restorePlayer, SIGNAL(triggered()), this, SLOT(restorePlayer()));
-
-    QMenu* restoreMenu = new QMenu(this);
-    restoreMenu->addAction(restorePlayer);
-
-    restoreMenu->exec(QCursor::pos());
-}
-
+/*!
+ * \brief Löschen eines Spielers
+ *
+ * \param[in] void
+ * \return void
+ *
+ * Alle markierten Splaten werden einem neuen Player Objekt übergebn, welcher dann über eine Funtkion aus der Model gelöscht wird
+ */
 void PlayermanagementWindow::deletePlayer()
 {
     QAbstractItemModel* modelGame = _allPlayerTableView->model();
@@ -220,6 +203,14 @@ void PlayermanagementWindow::deletePlayer()
 
 }
 
+/*!
+ * \brief Wiederherstellen eines gelöschten Spielers
+ *
+ * \param[in] void
+ * \return void
+ *
+ *
+ */
 void PlayermanagementWindow::restorePlayer()
 {
     QAbstractItemModel* deletedPlayersModel = _deletedPlayersTableView->model();
@@ -241,6 +232,14 @@ void PlayermanagementWindow::restorePlayer()
     _allPlayerTableView->selectionModel()->clearSelection();
 }
 
+/*!
+ * \brief Ein Foto zu einem Spieler über Auswahl in der Tabelle hinzufügen
+ *
+ * \param[in] void
+ * \return void
+ *
+ * Durch makieren eines Spielers wird das ausgewählte Foto, welches in einem Bytearray gespeichert ist, diesem Spieler hinzugefügt
+ */
 void PlayermanagementWindow::addPhotoWithSelection()
 {
     QAbstractItemModel* modelAll = _allPlayerTableView->model();
@@ -268,6 +267,15 @@ void PlayermanagementWindow::addPhotoWithSelection()
     }
 }
 
+
+/*!
+ * \brief Ein Foto zu einem Spieler beim erstellen hinzufügen
+ *
+ * \param[in] void
+ * \return void
+ *
+ * Das in ein ByteArray gespeicherte Foto wird dem gerade erzeugten Spieler sofort hinzugefügt
+ */
 void PlayermanagementWindow::addPhotoWithButton()
 {
     QString path = QFileDialog::getOpenFileName(this,
@@ -292,7 +300,7 @@ void PlayermanagementWindow::addPhotoWithButton()
  * \param[in] void
  * \return void
  *
- * Diese methode erstellt startet das Turnier. Dadurh wird der Spielplan erstellt und das Spiel geht in den
+ * Diese Methode startet das eigentiche Turnier. Dadurh wird der Spielplan erstellt und das Spiel geht in den
  * Zustand, das es gestartet ist.
  */
 void PlayermanagementWindow::startTournament()
@@ -303,42 +311,41 @@ void PlayermanagementWindow::startTournament()
     gameManagement->tournamentChanged();
 }
 
-void PlayermanagementWindow::connecting()
-{
-    connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
-
-    connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
-    connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
-    connect(_allPlayerTableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(createDeleteMenu()));
-    connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(createRestoreMenu()));
-
-    connect(_playernameEdit, SIGNAL(textChanged(
-                                            const QString &)), this, SLOT(enableAddPlayerButton()));
-    connect(_countryEdit, SIGNAL(textChanged(
-                                         const QString &)), this, SLOT(enableAddPlayerButton()));
-
-    connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
-    connect(_addPhoto, SIGNAL(released()), this, SLOT(addPhotoWithButton()));
-
-
-    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
-
-    connect(_showDeletedPlayersAction, SIGNAL(triggered()), this, SLOT(showDeletedPlayers()));
-}
-
-
 void PlayermanagementWindow::enableAddPlayerButton()
 {
     _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty());
 }
 
-/*!
- * \brief Färbe Hintergrund rot, wenn das Datum ungültig ist
- *
- * Der hintergrunf der Datumseingabe wird rot gefärbt und es wird ein Tooltip hinzugefügt, damit man erkennt das
- * das eingegebene Datum ungültig ist.
- * Wenn das Datum gültig ist wird der Hintergrund grün gefärbt.
- */
+void PlayermanagementWindow::showDeletedPlayers(void)
+{
+    _deletedPlayersTableView->show();
+}
+
+void PlayermanagementWindow::createDeleteMenu()
+{
+    QAction* deletePlayer = new QAction("Löschen", this);
+    _addPhotoAction       = new QAction("Foto hinzufügen");
+    connect(deletePlayer, SIGNAL(triggered()), this, SLOT(deletePlayer()));
+    connect(_addPhotoAction, SIGNAL(triggered()), this, SLOT(addPhotoWithSelection()));
+
+    QMenu* deleteMenu = new QMenu(this);
+    deleteMenu->addAction(deletePlayer);
+    deleteMenu->addSeparator();
+    deleteMenu->addAction(_addPhotoAction);
+
+    deleteMenu->exec(QCursor::pos());
+}
+
+void PlayermanagementWindow::createRestoreMenu()
+{
+    QAction* restorePlayer = new QAction("Wiederherstellen", this);
+    connect(restorePlayer, SIGNAL(triggered()), this, SLOT(restorePlayer()));
+
+    QMenu* restoreMenu = new QMenu(this);
+    restoreMenu->addAction(restorePlayer);
+
+    restoreMenu->exec(QCursor::pos());
+}
 
 void PlayermanagementWindow::createWidges()
 {
@@ -528,7 +535,25 @@ void PlayermanagementWindow::setAllLayout()
     widget->setLayout(mainLayout);
 }
 
-void PlayermanagementWindow::showDeletedPlayers(void)
+void PlayermanagementWindow::connecting()
 {
-    _deletedPlayersTableView->show();
+    connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
+
+    connect(_addPlayerForNewTournament, SIGNAL(released()), this, SLOT(addPlayerForNewGame()));
+    connect(_deletePlayerForNewTournament, SIGNAL(released()), this, SLOT(dropPlayerForNewGame()));
+    connect(_allPlayerTableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(createDeleteMenu()));
+    connect(_deletedPlayersTableView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(createRestoreMenu()));
+
+    connect(_playernameEdit, SIGNAL(textChanged(
+                                            const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_countryEdit, SIGNAL(textChanged(
+                                         const QString &)), this, SLOT(enableAddPlayerButton()));
+
+    connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
+    connect(_addPhoto, SIGNAL(released()), this, SLOT(addPhotoWithButton()));
+
+
+    connect(_startTournamentButton, SIGNAL(released()), this, SLOT(startTournament()));
+
+    connect(_showDeletedPlayersAction, SIGNAL(triggered()), this, SLOT(showDeletedPlayers()));
 }
