@@ -56,10 +56,8 @@ void TournamentWindow::createWidgets()
     setWindowIcon(QIcon(":/img/gameplan.png"));
 
     _title = new WindowLabel("Spielplan");
-//    _title->setMainTitleStyle();
+    //    _title->setMainTitleStyle();
 
-    _crown = new QLabel();
-    _crown->setPixmap(QPixmap(":/img/crwons.png"));
 }
 
 /*!
@@ -336,31 +334,13 @@ void TournamentWindow::createTexts()
 
 
     int allRectCount = allRects.size();
+
     for (int i = 0; i < allRectCount; i++)
     {
         QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
         allPlayernames->setPos(allRects[i].x(),allRects[i].y());
         allPlayernames->setFont(QFont("Candara", 10));
         _gameBoard->addItem(allPlayernames);
-
-//        QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
-
-  //            QRectF test;
-        //            test.setX(_rects[_numberOfColumn -1 ].last().x());
-        //            test.setY(_rects[_numberOfColumn -1 ].last().y() + 500);
-        //            test.setWidth(1000);
-        //            test.setHeight(1000);
-
-        //            QBrush neu;
-        //            neu.setTextureImage(QImage(":/img/crwons.png"));
-
-        //            _gameBoard->addRect(test,QPen(),QBrush(neu));
-
-        QGraphicsView* viewGame = new QGraphicsView(_gameBoard);
-        QGridLayout* layout = new QGridLayout;
-        layout->addWidget(_title);
-        layout->addWidget(viewGame);
-        setLayout(layout);
     }
 
 
@@ -383,13 +363,14 @@ void TournamentWindow::createColours()
     {
         test.append(QList<QString>());
     }
-int indicatorWhereToStartInTextList = 0;
+
+    int indicatorWhereToStartInTextList = 0;
 
     for(int k = 0; k < _numberOfColumn; k++)
     {
         if(k == 1)
         {
-             indicatorWhereToStartInTextList = _rects[k - 1].size();
+            indicatorWhereToStartInTextList = _rects[k - 1].size();
         }
         else if(k > 1)
         {
@@ -414,7 +395,6 @@ int indicatorWhereToStartInTextList = 0;
                     winner.removeAt(t);
                     break;
                 }
-
             }
         }
     }

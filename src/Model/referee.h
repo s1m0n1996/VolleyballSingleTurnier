@@ -66,7 +66,7 @@ private:
      int _winner                    = 0;
      int _throwScore                = 0;
      int _remainingThrows           = 0;
-     int _gameId                    = 0;            // Muss noch übergeben werden.
+     int _gameId                    = 0;
      int _tournamentId              = 0;
      bool _gameWasLoaded            = false;
      bool _wasLastThrowInLegToWin   = false;

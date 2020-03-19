@@ -236,7 +236,6 @@ void RefereeWindow::playerWinsLeg()
 
 void RefereeWindow::mouseReleasedOnDartboard()
 {
-    qDebug() <<"x" <<ui->DartboardView->x <<"y" <<ui->DartboardView->y;
     _valueMultiplikator = valueMultiplikator();
     _valueScoreWithoutMultiplikator = valueScoreWithoutMultiplikator();
 

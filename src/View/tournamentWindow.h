@@ -50,7 +50,6 @@ private:
     WindowButton* _startGame= nullptr;
     QGraphicsScene* _gameBoard = new QGraphicsScene();
 
-    QLabel* _crown = nullptr;
 
     void createRects(void);
     void createLines(void);

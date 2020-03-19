@@ -5,7 +5,7 @@
 */
 
 #include "refereePopupWinningLeg.h"
-#include "View/WinnerPopup.h"
+#include "View/winnerpopup.h"
 #include "Model/referee.h"
 #include <Model/player.h>
 

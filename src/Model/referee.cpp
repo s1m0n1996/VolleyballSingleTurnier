@@ -286,7 +286,6 @@ void Referee::scoreIsUnder170InLeg()
     if ((_remainScore[_player] <= 170 and _remainScore[_player] >= 0) and _remainingThrows > 0)
 
     {
-        qDebug() << "Emit Score uner 170";
         emit scoreIsUnder170();
     }
 }
@@ -663,7 +662,6 @@ void Referee::writeLegIntoDatabase(int legId)
 
 void Referee::setLegWinner(int winnerId)
 {
-    qDebug() << "Legnummer" << getNumberOfCurrentLeg();
     QString sqlPrepare = R"(
                          UPDATE leg_list
                          SET winner_id = :winnerId

@@ -22,8 +22,6 @@ Viewer::Viewer()
  */
 void Viewer::createJsonDocument(int throwCounter, int remainScore)
 {
-    qDebug() << "hrowCOunter" << throwCounter;
-    qDebug() << "remain Score" << remainScore;
     QJsonArray listWithHowToFinishLeg = _loadDoc[QString::number(throwCounter)][QString::number(remainScore)].toArray();
 
     _listWithHowToFinishLeg.clear();
