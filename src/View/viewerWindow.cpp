@@ -116,6 +116,15 @@ void ViewerWindow::writeScore()
 }
 
 
+/*!
+ * \brief Schreibt alle Werte für den ersten Spieler in die Ui.
+ *
+ * \return void
+ *
+ * Diese Methode holt vom Model alle relevanten Werte von Spieler 1
+ * und schreibt diese dann in die Ui Datei.
+ *
+ */
 void ViewerWindow::setAktionPlayer1(void)
 {
     ui->throw1FromPlayer1->setText(QString::number(_referee->getThrows()[0]));
@@ -133,7 +142,15 @@ void ViewerWindow::setAktionPlayer1(void)
                                        "border-color: black;}");
 }
 
-
+/*!
+ * \brief Schreibt alle Werte für den zweiten Spieler in die Ui.
+ *
+ * \return void
+ *
+ * Diese Methode holt vom Model alle relevanten Werte von Spieler 2
+ * und schreibt diese dann in die Ui Datei.
+ *
+ */
 void ViewerWindow::setAktionPlayer2(void)
 {
     ui->throw1FromPlayer2->setText(QString::number(_referee->getThrows()[0]));
@@ -151,7 +168,14 @@ void ViewerWindow::setAktionPlayer2(void)
                                        "border-color: black;}");
 }
 
-
+/*!
+ * \brief Setzt für die aktiven Spieler das Foto welches in der Datenbank liegt..
+ *
+ * \return void
+ *
+ * Die Fotos der Spieler werden aus der Datenbank geholt und dann in der Ui angezeigt.
+ *
+ */
 void ViewerWindow::setPhoto(Player playerA, Player playerB)
 {
     QByteArray dataA = playerA.loadPicture();
