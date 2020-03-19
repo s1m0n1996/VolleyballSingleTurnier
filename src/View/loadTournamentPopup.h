@@ -26,7 +26,7 @@ class LoadTournamentPopup : public QWidget
 Q_OBJECT
 
 public:
-    LoadTournamentPopup();
+    LoadTournamentPopup(void);
     ~LoadTournamentPopup();
 
 private slots:
@@ -34,19 +34,17 @@ private slots:
     void _loadTournamentForGame(void);
 
 private:
-
-    GameManagement* _gameManagement;
-    QComboBox* _comboBox;
-    WindowLabel* _firstLabel;
-    WindowButton* _loadButton;
-
+    void _loadAllTournamentsFromDatabase(void);
     void _createWidgets(void);
-
-    void _setLayout(void);
-
+    void _setAllLayout(void);
     void _connect(void);
 
-    void _loadAllTournamentsFromDatabase(void);
+    GameManagement* _gameManagement;
+    QComboBox* _comboBox = nullptr;
+    WindowLabel* _informationLabel = nullptr;
+    WindowButton* _loadButton;
+
+
 };
 
 #endif //SPORTVERANSTALTUNG_LOADTOURNAMENTPOPUP_H

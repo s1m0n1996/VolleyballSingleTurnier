@@ -23,10 +23,10 @@ public:
     ~ViewerWindow();
 
 public slots:
-    void writeScore();
-    void scoreIsUnder170InLeg();
-    void possibleWayToFinishLeg();
-    void remainingThrowsAreZeroInLeg();
+    void writeScore(void);
+    void scoreIsUnder170InLeg(void);
+    void possibleWayToFinishLeg(void);
+    void remainingThrowsAreZeroInLeg(void);
 
 private:
     Ui::ViewerWindow *ui;
@@ -42,6 +42,7 @@ private:
     void setAktionPlayer1(void);
     void setAktionPlayer2(void);
     void modifiWidgets(void);
+
     int _player1 = 0;
     int _player2 = 0;
     int _aktivePlayer = 0;

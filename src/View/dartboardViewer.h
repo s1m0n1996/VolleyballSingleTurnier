@@ -12,7 +12,7 @@ class DartboardViewer: public QGraphicsObject
 {
 public:
     DartboardViewer(Referee* referee, QGraphicsItem *parent = nullptr);
-    QRectF boundingRect() const override;
+    QRectF boundingRect(void) const override;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
 
 private:

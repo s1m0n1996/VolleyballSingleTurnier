@@ -22,17 +22,16 @@ public:
     int x = 0;
     int y = 0;
 
-
     virtual int heightForWidth( int width ) const override;
-    virtual QSize sizeHint() const override;
-    QPixmap scaledPixmap() const;
+    virtual QSize sizeHint(void) const override;
+    QPixmap scaledPixmap(void) const;
 
 public slots:
-    void setPixmap ( const QPixmap & );
+    void setPixmap (const QPixmap &);
     void resizeEvent(QResizeEvent *)override;
 signals:
-    void mouseReleasedOnDartboard();
-    void mousePos();
+    void mouseReleasedOnDartboard(void);
+    void mousePos(void);
 
 private:
     QPixmap pix;

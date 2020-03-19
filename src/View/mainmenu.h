@@ -43,26 +43,26 @@ public:
 
 
 private slots:
-    void openPlayermanagmentWindow();
-    void openTournamentWindow();
-    void openViewerWindow();
-    void openRefereeWindow();
-    void openStatisticWindow();
+    void openPlayermanagmentWindow(void);
+    void openTournamentWindow(void);
+    void openViewerWindow(void);
+    void openRefereeWindow(void);
+    void openStatisticWindow(void);
 
-    void createDatabase();
-    void loadDatabase();
-    void refreshDatabase();
+    void createDatabase(void);
+    void loadDatabase(void);
+    void refreshDatabase(void);
 
-    void createTournament();
-    void loadTournament();
-    void setTournamentName();
+    void createTournament(void);
+    void loadTournament(void);
+    void setTournamentName(void);
 
-    void setButtonEnableState();    
+    void setButtonEnableState(void);
 
 private:
-    void connecting();
-    void createWidgets();
-    void setAllLayout();
+    void connecting(void);
+    void createWidgets(void);
+    void setAllLayout(void);
 
     Model*      _model = nullptr;
 

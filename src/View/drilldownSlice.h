@@ -44,10 +44,10 @@ class DrilldownSlice : public QPieSlice
 public:
     DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries);
     virtual ~DrilldownSlice();
-    QAbstractSeries *drilldownSeries() const;
+    QAbstractSeries *drilldownSeries(void) const;
 
 public Q_SLOTS:
-    void updateLabel();
+    void updateLabel(void);
     void showHighlight(bool show);
 
 private:

@@ -4,23 +4,24 @@
 #include <QObject>
 #include <QMainWindow>
 
+class GameManagement;
+class PlayerStatistics;
+class PlayerManagement;
+class Player;
+class QComboBox;
+class QGroupBox;
 class QLabel;
 class WindowButton;
 class WindowEdit;
 class WindowLabel;
-class GameManagement;
-class QComboBox;
-class PlayerStatistics;
-class PlayerManagement;
-class Player;
-class QGroupBox;
 
 #include <QtWidgets/QWidget>
 #include <QtCharts/QChartGlobal>
 #include <QtCharts/QLineSeries>
+#include <QValueAxis>
 #include <View/drilldownChart.h>
 #include <View/drilldownSlice.h>
-#include <QValueAxis>
+
 
 
 QT_CHARTS_BEGIN_NAMESPACE

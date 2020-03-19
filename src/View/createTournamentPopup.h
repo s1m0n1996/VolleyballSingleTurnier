@@ -27,6 +27,8 @@ private:
     void setAllLayout(void);
     void connecting(void);
 
+    GameManagement* _gameManagement;
+
     WindowLabel* _dateLabel = nullptr;
     QDateEdit* _date        = nullptr;;
     WindowEdit* _dateEdit = nullptr;
@@ -36,7 +38,7 @@ private:
 
     WindowButton* _createTournament = nullptr;
 
-    GameManagement* _gameManagement;
+
 };
 
 #endif // TOURNEMENTNAMEPOPUP_H

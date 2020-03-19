@@ -17,12 +17,17 @@ class TournamentWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget  *parent = nullptr);
+    TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget  *parent = nullptr);
 
 public slots:
     void createTexts(void);
 
-private:
+private:    
+    void createWidgets(void);
+    void createRects(void);
+    void createLines(void);
+    void createColours(void);
+
     Referee* _referee;
     PlayerManagement* _playerManagement;
 
@@ -45,15 +50,9 @@ private:
 
     int _numberOfColumn = 0;
 
-    void createWidgets(void);
     WindowLabel* _title= nullptr;
     WindowButton* _startGame= nullptr;
     QGraphicsScene* _gameBoard = new QGraphicsScene();
-
-
-    void createRects(void);
-    void createLines(void);
-    void createColours(void);
 
     QList<QString> winner;
 

@@ -14,7 +14,7 @@ class TableView : public QTableView
 {
     Q_OBJECT
 public:
-    explicit TableView(QWidget *parent = nullptr);
+    TableView(QWidget *parent = nullptr);
 
 signals:
 

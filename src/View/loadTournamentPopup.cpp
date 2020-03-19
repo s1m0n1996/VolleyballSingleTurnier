@@ -15,7 +15,7 @@ LoadTournamentPopup::LoadTournamentPopup()
 {
     _gameManagement = &GameManagement::instance();
     _createWidgets();
-    _setLayout();
+    _setAllLayout();
     _connect();
 }
 
@@ -27,7 +27,7 @@ LoadTournamentPopup::LoadTournamentPopup()
 LoadTournamentPopup::~LoadTournamentPopup()
 {
     delete _comboBox;
-    delete _firstLabel;
+    delete _informationLabel;
     delete _loadButton;
 };
 
@@ -41,9 +41,9 @@ void LoadTournamentPopup::_createWidgets()
     setWindowTitle("Turnier Laden");
     setWindowIcon(QIcon(":/img/darts.png"));
 
-    _firstLabel = new WindowLabel("Bitte ein Turnier auswählen");
-    _firstLabel->setTitleStyle();
-    _firstLabel->setMaximumHeight(100);
+    _informationLabel = new WindowLabel("Bitte ein Turnier auswählen");
+    _informationLabel->setTitleStyle();
+    _informationLabel->setMaximumHeight(100);
 
     _comboBox = new QComboBox;
     _comboBox->setMinimumHeight(50);
@@ -64,10 +64,10 @@ void LoadTournamentPopup::_createWidgets()
  *
  * In dieser Methode wird das Layout für das komplette Fester gesetzt.
  */
-void LoadTournamentPopup::_setLayout()
+void LoadTournamentPopup::_setAllLayout()
 {
     QVBoxLayout* mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(_firstLabel);
+    mainLayout->addWidget(_informationLabel);
     mainLayout->addWidget(_comboBox);
 
     QHBoxLayout* footerLayout = new QHBoxLayout;

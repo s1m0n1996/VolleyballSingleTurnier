@@ -30,19 +30,25 @@ public:
     ~RefereeWindow();
 
 private slots:
-    void mouseCurrentPos();
-    void mouseReleasedOnDartboard();
-    void writeScore();
-    void nextPlayer();
-    void undoLastThrow();
-    void writeNextPlayer();
-    void playerBust();
-    void playerWinsLeg();
-    void nextPlayerAfterWinningLeg();
-    void tournamentIsWon();
+    void mouseCurrentPos(void);
+    void mouseReleasedOnDartboard(void);
+    void writeScore(void);
+    void nextPlayer(void);
+    void undoLastThrow(void);
+    void writeNextPlayer(void);
+    void playerBust(void);
+    void playerWinsLeg(void);
+    void nextPlayerAfterWinningLeg(void);
+    void tournamentIsWon(void);
 
 
 private:
+    void connecting(void);
+    void modifiWidgets(void);
+
+    int valueMultiplikator(void);
+    int valueScoreWithoutMultiplikator(void);
+
     Ui::RefereeWindow *ui;
     Referee* _referee;
     Viewer* _viewer;
@@ -50,11 +56,7 @@ private:
     RefereePopupBustLeg* _popupBustLeg;
     WinnerPopup* _winnerPopup;
     GameManagement* _gameManagement;
-    void connecting(void);
-    void modifiWidgets(void);
 
-    int valueMultiplikator();
-    int valueScoreWithoutMultiplikator();
 
     const int _miss                     = 0;
     const int _single                   = 1;

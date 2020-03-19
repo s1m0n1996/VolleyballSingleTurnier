@@ -21,16 +21,16 @@ public:
     void setWinnerTournament(void);
 
 private slots:
-    void closeRefereeWindow();
+    void closeRefereeWindow(void);
 
 
 signals:
-    void clickedOk();
+    void clickedOk(void);
 
 private:
-    void connecting();
+    void connecting(void);
     void createWidgets(QString winnerName);
-    void setwholeLayout();
+    void setwholeLayout(void);
 
     WindowLabel* _crown     = nullptr;
     WindowLabel* _winner    = nullptr;
