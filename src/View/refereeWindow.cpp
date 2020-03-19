@@ -30,35 +30,10 @@ RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinn
     setWindowIcon(QIcon(":/img/referee.png"));
 
     ui->setupUi(this);
-    ui->centralwidget->setStyleSheet("background: white;");
 
-    ui->title->setMainTitleStyle();
-    ui->countWinningLegs->setBold();
-    ui->countWinningLegsLabel->setBold();
-    ui->playerNameLabel->setBold();
-    ui->playerName->setBold();
-    ui->remainScoreLabel->setBold();
-    ui->remainScore->setBold();
+    modifiWidgets();
 
-    QPixmap* pix = new QPixmap(":/img/Dartboard.png");
-    ui->DartboardView->setPixmap(*pix);
-
-    connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
-    connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
-
-    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
-    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
-    connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
-    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
-
-    connect(_referee,SIGNAL(playerWinsLeg()),this, SLOT(playerWinsLeg()));
-    connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayerAfterWinningLeg()));
-    connect(_popupWinningLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
-
-    connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
-    connect(_popupBustLeg,SIGNAL(playerBustLeg()),this,SLOT(nextPlayer()));
-    connect(_popupBustLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
-    connect(_referee, SIGNAL(tournamentFinished()), this, SLOT (tournamentIsWon()));
+    connecting();
 
     writeScore();
 }
@@ -293,4 +268,40 @@ void RefereeWindow::tournamentIsWon(void)
     _winnerPopup->setWinnerTournament();
     _winnerPopup->show();
     close();
+}
+
+void RefereeWindow::modifiWidgets(void)
+{
+    ui->centralwidget->setStyleSheet("background: white;");
+
+    ui->title->setMainTitleStyle();
+    ui->countWinningLegs->setBold();
+    ui->countWinningLegsLabel->setBold();
+    ui->playerNameLabel->setBold();
+    ui->playerName->setBold();
+    ui->remainScoreLabel->setBold();
+    ui->remainScore->setBold();
+
+    QPixmap* pix = new QPixmap(":/img/Dartboard.png");
+    ui->DartboardView->setPixmap(*pix);
+
+}
+void RefereeWindow::connecting(void)
+{
+    connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
+    connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
+
+    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
+    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
+    connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
+    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
+
+    connect(_referee,SIGNAL(playerWinsLeg()),this, SLOT(playerWinsLeg()));
+    connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayerAfterWinningLeg()));
+    connect(_popupWinningLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+
+    connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
+    connect(_popupBustLeg,SIGNAL(playerBustLeg()),this,SLOT(nextPlayer()));
+    connect(_popupBustLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+    connect(_referee, SIGNAL(tournamentFinished()), this, SLOT (tournamentIsWon()));
 }

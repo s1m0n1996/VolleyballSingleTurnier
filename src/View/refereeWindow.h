@@ -50,6 +50,8 @@ private:
     RefereePopupBustLeg* _popupBustLeg;
     WinnerPopup* _winnerPopup;
     GameManagement* _gameManagement;
+    void connecting(void);
+    void modifiWidgets(void);
 
     int valueMultiplikator();
     int valueScoreWithoutMultiplikator();
