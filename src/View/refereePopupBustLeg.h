@@ -31,6 +31,9 @@ public slots:
     void openRefereeUndoLastThrow(void);
 
 private:
+    void createWidgets(void);
+    void setAllLayout(void);
+    void connecting(void);
     WindowLabel* _refereeInformation = nullptr;
     WindowLabel* _refereeAction = nullptr;
     WindowButton* _nextPlayer = nullptr;

@@ -11,17 +11,43 @@
 
 RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent)
 {
+    setWindowIcon(QIcon(":/img/referee.png"));
+    setWindowTitle("Richteransicht");
+    setWindowFlags(Qt::SubWindow);
 
+    createWidgets();
 
+    setAllLayout();
+
+    connecting();
+}
+
+void RefereepopupWinningLeg::openRefereeWinningLeg(void)
+{
+    emit playerWonLeg();
+    setWindowFlags(Qt::SubWindow);
+}
+
+void RefereepopupWinningLeg::openRefereeUndoLastThrow(void)
+{
+    emit undoLastThrow();
+    setWindowFlags(Qt::SubWindow);
+}
+
+void RefereepopupWinningLeg::createWidgets(void)
+{
     _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen,\n");
     _refereeInformation->setTitleStyle();
-    _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde,\n"
-                                     "dann auf den Button 'Leg gewonnen' klicken\n"
-                                     "ansonsten auf den Button 'Letzten Wurf rückgänig machen'");
+    _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde 'Leg gewonnen',\n"
+                                     "ansonsten 'Letzten Wurf rückgänig'");
 
     _legWin = new WindowButton("Leg gewonnen");
     _undoLastThrow = new WindowButton("Letzten Wurf rückgänig");
 
+}
+
+void RefereepopupWinningLeg::setAllLayout(void)
+{
 
     QGridLayout* layout = new QGridLayout;
     QHBoxLayout* buttonLayout = new QHBoxLayout;
@@ -35,20 +61,11 @@ RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent
     layout ->  addLayout(buttonLayout,2,1);
 
     setLayout(layout);
+}
+
+void RefereepopupWinningLeg::connecting(void)
+{
 
     connect(_legWin, SIGNAL(released()), this, SLOT(openRefereeWinningLeg()));
     connect(_undoLastThrow, SIGNAL(released()), this, SLOT(openRefereeUndoLastThrow()));
-    setWindowFlags(Qt::SubWindow);
-}
-
-void RefereepopupWinningLeg::openRefereeWinningLeg(void)
-{
-    emit playerWonLeg();
-    setWindowFlags(Qt::SubWindow);
-}
-
-void RefereepopupWinningLeg::openRefereeUndoLastThrow(void)
-{
-    emit undoLastThrow();
-    setWindowFlags(Qt::SubWindow);
 }

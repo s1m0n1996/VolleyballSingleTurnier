@@ -31,14 +31,16 @@ MainMenu::MainMenu(QMainWindow* parent) :
         QMainWindow(parent)
 {
     _sqliteConnector = &SqliteConnector::instance();
+    setMinimumSize(700, 600);
+    setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+
     createWidgets();
     refreshDatabase();
     setAllLayout();
     connecting();
 
-    setMinimumSize(700, 600);
-    setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     setButtonEnableState();
+
 }
 
 MainMenu::~MainMenu()
@@ -64,32 +66,32 @@ MainMenu::~MainMenu()
     delete _referee;
 }
 
-void MainMenu::openPlayermanagmentWindow()
+void MainMenu::openPlayermanagmentWindow(void)
 {
     PlayermanagementWindow* playermanagment = new PlayermanagementWindow(_playerManagementModel);
      playermanagment->showMaximized();
 }
 
-void MainMenu::openTournamentWindow()
+void MainMenu::openTournamentWindow(void)
 {
     TournamentWindow* tournamentWindow = new TournamentWindow(_refereeModel, _playerManagementModel);
     tournamentWindow->showMaximized();
 }
 
-void MainMenu::openViewerWindow()
+void MainMenu::openViewerWindow(void)
 {
     ViewerWindow* viewerWindow = new ViewerWindow(_refereeModel);
     viewerWindow->showMaximized();
 }
 
-void MainMenu::openRefereeWindow()
+void MainMenu::openRefereeWindow(void)
 {
     RefereeWindow* refereeWindow = new RefereeWindow(_refereeModel);
     refereeWindow->show();
 }
 
 
-void MainMenu::openStatisticWindow()
+void MainMenu::openStatisticWindow(void)
 {
     StatisticWindow* statisticWindow = new StatisticWindow();
     statisticWindow->showMaximized();
@@ -104,7 +106,7 @@ void MainMenu::openStatisticWindow()
  * Ein Pfad wird von dem Benutzer festgelegt und dort wird eine sqlite Datenbank mit dem gewünschten Namen erzeugt
  * Wenn diese Datenbank geöffnet wurde, werden die Buttons wieder freigeschaltet und die Warnung entfernt
  */
-void MainMenu::createDatabase()
+void MainMenu::createDatabase(void)
 {
     QString path = QFileDialog::getSaveFileName(this,
                                                 tr("Datenbank anlegen"), "",
@@ -129,7 +131,7 @@ void MainMenu::createDatabase()
  * Der Pfad, indem die bereits erstellten Datenbank gespeichert wurden, wird geöffnet und der Benutzer kann eine Datenbank zu öffnen auswählen
  * Wenn eine sqlite Datenbank geöffnet wurde, werden die Buttons wieder freigeschaltet und die Warnung entfernt
  */
-void MainMenu::loadDatabase()
+void MainMenu::loadDatabase(void)
 {
     QString path = QFileDialog::getOpenFileName(this,
                                                 tr("Datenbank laden"), "",
@@ -144,21 +146,36 @@ void MainMenu::loadDatabase()
     _noteDatabase->setVisible(false);
 }
 
-void MainMenu::connecting()
+void MainMenu::refreshDatabase()
 {
-    connect(_playermanagment, SIGNAL(released()), this, SLOT(openPlayermanagmentWindow()));
-    connect(_tournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
-    connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
-    connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
-    connect(_statitsic, SIGNAL(released()), this, SLOT(openStatisticWindow()));
-    connect(_newPlayer, SIGNAL(triggered()), this, SLOT(createDatabase()));
-    connect(_loadPlayer, SIGNAL(triggered()), this, SLOT(loadDatabase()));
-    connect(_newTournament, SIGNAL(triggered()), this, SLOT(createTournament()));
-    connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
-    connect(_sqliteConnector, SIGNAL(databaseChanged()), this, SLOT(refreshDatabase()));
+    if (!_sqliteConnector->isDatabaseOpen())
+    {
+        return;
+    }
+
+    setWindowTitle("Datei: " + _sqliteConnector->getDatabaseName());
+
+    _gameManagement = &GameManagement::instance();
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
+    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
+    setTournamentName();
+
+    if (!_playerManagementModel)
+    {
+        delete _playerManagementModel;
+    }
+    _playerManagementModel = new PlayerManagement();
+
+    if (!_refereeModel)
+    {
+        delete _refereeModel;
+    }
+    _refereeModel = new Referee();
+    connect(_refereeModel, SIGNAL(tournamentFinished()), this, SLOT(setButtonEnableState()));
 }
 
-void MainMenu::setButtonEnableState()
+
+void MainMenu::setButtonEnableState(void)
 {
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
     _playermanagment->setEnabled(sqliteConnector->isDatabaseOpen() && !_gameManagement->isTournamentStarted()
@@ -174,19 +191,19 @@ void MainMenu::setButtonEnableState()
     _referee->setEnabled(showGameButtons and !_gameManagement->isTournamentFinished());
 }
 
-void MainMenu::createTournament()
+void MainMenu::createTournament(void)
 {
     _tournamentName = new CreateTournamentPopUp;
     _tournamentName->show();
 }
 
-void MainMenu::loadTournament()
+void MainMenu::loadTournament(void)
 {
     _loadTournamentPopup = new LoadTournamentPopup;
     _loadTournamentPopup->show();
 }
 
-void MainMenu::setTournamentName()
+void MainMenu::setTournamentName(void)
 {
     if (_gameManagement->getTournamentId() < 0)
     {
@@ -201,7 +218,7 @@ void MainMenu::setTournamentName()
 
 }
 
-void MainMenu::createWidgets()
+void MainMenu::createWidgets(void)
 {
     setWindowIcon(QIcon(":/img/darts.png"));
 
@@ -276,7 +293,7 @@ void MainMenu::createWidgets()
 
 }
 
-void MainMenu::setAllLayout()
+void MainMenu::setAllLayout(void)
 {
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
@@ -296,30 +313,16 @@ void MainMenu::setAllLayout()
     widget->setLayout(layout);
 }
 
-void MainMenu::refreshDatabase()
+void MainMenu::connecting(void)
 {
-    if (!_sqliteConnector->isDatabaseOpen())
-    {
-        return;
-    }
-
-    setWindowTitle("Datei: " + _sqliteConnector->getDatabaseName());
-
-    _gameManagement = &GameManagement::instance();
-    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setButtonEnableState()));
-    connect(_gameManagement, SIGNAL(tournamentChanged()), this, SLOT(setTournamentName()));
-    setTournamentName();
-
-    if (!_playerManagementModel)
-    {
-        delete _playerManagementModel;
-    }
-    _playerManagementModel = new PlayerManagement();
-
-    if (!_refereeModel)
-    {
-        delete _refereeModel;
-    }
-    _refereeModel = new Referee();
-    connect(_refereeModel, SIGNAL(tournamentFinished()), this, SLOT(setButtonEnableState()));
+    connect(_playermanagment, SIGNAL(released()), this, SLOT(openPlayermanagmentWindow()));
+    connect(_tournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
+    connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
+    connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
+    connect(_statitsic, SIGNAL(released()), this, SLOT(openStatisticWindow()));
+    connect(_newPlayer, SIGNAL(triggered()), this, SLOT(createDatabase()));
+    connect(_loadPlayer, SIGNAL(triggered()), this, SLOT(loadDatabase()));
+    connect(_newTournament, SIGNAL(triggered()), this, SLOT(createTournament()));
+    connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
+    connect(_sqliteConnector, SIGNAL(databaseChanged()), this, SLOT(refreshDatabase()));
 }
