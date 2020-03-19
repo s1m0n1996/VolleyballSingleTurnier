@@ -83,8 +83,6 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
         }
     }
 
-    qDebug() <<"alle Würfe" <<_allThrows;
-
     // Die Farbliste für die geworfenen Würfe wird angelegt
     for(int i = 0; i < 4; i++)
     {
@@ -158,9 +156,6 @@ void DartboardViewer::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             valuesOfDartboard[i] = {20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5};
         }
     }
-
-
-    qDebug() << "value of Multi" <<valueOfMultiplikator;
 
     for(int i = 0; i < 3; i++)
     {
