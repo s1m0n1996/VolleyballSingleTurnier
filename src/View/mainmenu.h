@@ -60,7 +60,7 @@ private slots:
 private:
     void connecting();
     void createWidgets();
-    void setwholeLayout();
+    void setAllLayout();
 
     Model*      _model = nullptr;
 

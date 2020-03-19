@@ -23,6 +23,10 @@ public slots:
     void enableCreateTournamentButton(void);
 
 private:
+    void createWidgets(void);
+    void setAllLayout(void);
+    void connecting(void);
+
     WindowLabel* _dateLabel = nullptr;
     QDateEdit* _date        = nullptr;;
     WindowEdit* _dateEdit = nullptr;

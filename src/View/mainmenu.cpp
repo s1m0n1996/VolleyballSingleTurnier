@@ -33,7 +33,7 @@ MainMenu::MainMenu(QMainWindow* parent) :
     _sqliteConnector = &SqliteConnector::instance();
     createWidgets();
     refreshDatabase();
-    setwholeLayout();
+    setAllLayout();
     connecting();
 
     setMinimumSize(700, 600);
@@ -284,7 +284,7 @@ void MainMenu::createWidgets()
 
 }
 
-void MainMenu::setwholeLayout()
+void MainMenu::setAllLayout()
 {
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
