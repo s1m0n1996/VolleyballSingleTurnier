@@ -55,8 +55,7 @@ PlayermanagementWindow::~PlayermanagementWindow()
     delete _countryLabel;
     delete _nameMissingPlayersLabel;
     delete _valueMissingPlayersLabel;
-    delete _playernameEdit;
-    delete _birthdayEdit;
+    delete _playernameEdit;;
     delete _countryEdit;
     delete _allPlayerTableView;
     delete _gamePlayerTableView;
@@ -317,10 +316,7 @@ void PlayermanagementWindow::connecting()
                                             const QString &)), this, SLOT(enableAddPlayerButton()));
     connect(_countryEdit, SIGNAL(textChanged(
                                          const QString &)), this, SLOT(enableAddPlayerButton()));
-    connect(_birthdayEdit, SIGNAL(textChanged(
-                                          const QString &)), this, SLOT(enableAddPlayerButton()));
-    connect(_birthdayEdit, SIGNAL(textChanged(
-                                          const QString &)), this, SLOT(setPlayerDateBackground()));
+
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));
     connect(_addPhoto, SIGNAL(released()), this, SLOT(addPhotoWithButton()));
 
@@ -336,33 +332,6 @@ void PlayermanagementWindow::enableAddPlayerButton()
     _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty());
 }
 
-/*!
- * \brief Färbe Hintergrund rot, wenn das Datum ungültig ist
- *
- * Der hintergrunf der Datumseingabe wird rot gefärbt und es wird ein Tooltip hinzugefügt, damit man erkennt das
- * das eingegebene Datum ungültig ist.
- * Wenn das Datum gültig ist wird der Hintergrund grün gefärbt.
- */
-void PlayermanagementWindow::setPlayerDateBackground()
-{
-    QDate date = QDate::fromString(_birthdayEdit->text(), "yyyy-MM-dd");
-
-    QPalette palette = _birthdayEdit->palette();
-
-    if (date.isValid())
-    {
-        palette.setColor(_birthdayEdit->backgroundRole(), Qt::green);
-        _birthdayEdit->setToolTip("");
-    }
-    else
-    {
-        palette.setColor(_birthdayEdit->backgroundRole(), Qt::red);
-        _birthdayEdit->setToolTip("Ungültiges Datum");
-    }
-
-    _birthdayEdit->setAutoFillBackground(true);
-    _birthdayEdit->setPalette(palette);
-}
 
 void PlayermanagementWindow::createWidges()
 {
@@ -399,7 +368,6 @@ void PlayermanagementWindow::createWidges()
 
     _playernameEdit = new WindowEdit("Max Mustermann", DataType::name);
     _playernameEdit->setMaxLength(20);
-    _birthdayEdit = new WindowEdit("1990-01-30", DataType::date);
     _countryEdit = new WindowEdit("DE", DataType::country);
     _countryEdit->setMaxLength(3);
 

@@ -55,7 +55,6 @@ public slots:
     void addPhotoWithButton(void);
     void addPlayerToDatabase(void);
     void enableAddPlayerButton(void);
-    void setPlayerDateBackground(void);
 
     void showDeletedPlayers(void);
 
@@ -99,11 +98,9 @@ private:
 
 
     WindowEdit*     _playernameEdit             = nullptr;
-    WindowEdit*     _birthdayEdit               = nullptr;
     WindowEdit*     _countryEdit                = nullptr;
     WindowButton*   _addPhoto                   = nullptr;
 
-    QCalendarWidget* _calendar                  = nullptr;
     QDateEdit*      _birthday                   = nullptr;
 
     WindowButton* _addPlayerButton          = nullptr;

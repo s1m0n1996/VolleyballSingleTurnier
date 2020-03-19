@@ -1,5 +1,5 @@
 #include "createTournamentPopup.h"
-//#include "View/mainmenu.h"
+#include <QDateEdit>
 
 CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 {
@@ -10,6 +10,23 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
     _dateLabel = new WindowLabel("Turnierdatum");
     _dateEdit = new WindowEdit((QDate::currentDate().toString("yyyy-MM-dd")), DataType::date);
     _dateEdit->setText(QDate::currentDate().toString("yyyy-MM-dd"));
+
+    _date = new QDateEdit();
+    _date->setCalendarPopup(true);
+    _date->setStyleSheet("QDateEdit::drop-down {"
+                             "image:url(:/img/calendar.png);"
+                             "spacing:5px;"
+                             "width:60px;"
+                             "height:25px;"
+                             "subcontrol-position: right top;"
+                             "subcontrol-origin:margin; }"
+                             "QDateEdit{"
+                             "font-size: 20px;"
+                             "font-family: Candara;"
+                             "spacing: 5px;}"
+                             "QCalendarWidget{"
+                             "font-size: 20px;"
+                             "font-family: Candara;}");
 
     _nameLabel = new WindowLabel("Turniername");
     _nameEdit = new WindowEdit("Turniername", DataType::name);
@@ -23,7 +40,7 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
     QGridLayout* layout = new QGridLayout;
 
     layout->addWidget(_dateLabel, 0, 0);
-    layout->addWidget(_dateEdit, 0, 1);
+    layout->addWidget(_date, 0, 1);
     layout->addWidget(_nameLabel, 1, 0);
     layout->addWidget(_nameEdit, 1, 1);
     layout->addWidget(_createTournament, 2, 2);

@@ -10,6 +10,7 @@
 #include "View/windowLabel.h"
 #include <QDebug>
 #include "Model/gameManagement.h"
+class QDateEdit;
 
 class CreateTournamentPopUp : public QWidget
 {
@@ -23,6 +24,7 @@ public slots:
 
 private:
     WindowLabel* _dateLabel = nullptr;
+    QDateEdit* _date        = nullptr;;
     WindowEdit* _dateEdit = nullptr;
 
     WindowLabel* _nameLabel = nullptr;
