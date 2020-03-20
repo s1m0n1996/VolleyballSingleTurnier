@@ -479,3 +479,8 @@ library.  If this is what you want to do, use the
 instead of this License.
 </p>
 
+<p>
+The icons are from the internatepage :
+'https://www.flaticon.com'
+</p>
+
