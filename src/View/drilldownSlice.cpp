@@ -27,7 +27,7 @@
 **
 ****************************************************************************/
 
-#include "drilldownSlice.h"
+#include "View/drilldownSlice.h"
 
 QT_CHARTS_USE_NAMESPACE
 

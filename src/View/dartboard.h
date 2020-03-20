@@ -1,14 +1,9 @@
 #ifndef DARTBOARD_H
 #define DARTBOARD_H
 
-#include <QWidget>
 #include <QLabel>
-#include <QMouseEvent>
-#include <QEvent>
-#include <QDebug>
-#include <QWidget>
 #include <QPixmap>
-#include <QResizeEvent>
+#include <QWidget>
 
 class Dartboard : public QLabel
 {

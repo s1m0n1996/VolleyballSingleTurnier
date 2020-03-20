@@ -3,9 +3,12 @@
 * \brief Diese Klasse besitzt die Informationen zu den Edits
 * \author Lea Kesselmeier
 */
-#include "windowEdit.h"
+
 #include <QRegExp>
 #include <QRegExpValidator>
+
+#include "View/windowEdit.h"
+
 
 /*!
  * \brief WindowEdit::WindowEdit ist Konstruktor der Klasse WindowEdit

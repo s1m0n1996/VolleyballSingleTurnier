@@ -3,8 +3,13 @@
 * \brief Diese Klasse ist ein Popup welches für den Richter dient
 * \author Nico Meyer
 */
+#include <QGridLayout>
 
-#include "refereePopupBustLeg.h"
+#include "View/refereePopupBustLeg.h"
+#include <View/tournamentWindow.h>
+#include "View/windowButton.h"
+#include "View/windowEdit.h"
+#include "View/windowLabel.h"
 
 RefereePopupBustLeg::RefereePopupBustLeg(QWidget *parent) : QWidget(parent)
 {

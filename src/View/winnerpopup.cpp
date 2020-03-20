@@ -3,12 +3,15 @@
 * \brief Diese Klasse erzeugt ein Fenster mit dem Namen des Gewinner eines Spieles und eines Turniers
 * \author Lea Kesselmeier
 */
-#include "winnerpopup.h"
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <utility>
+#include "View/winnerpopup.h"
+
+
 /*!
  * \brief WinnerPopup::WinnerPopup ist Konstruktor der Klasse WinnerPopup
  * \param[in] winnerName ist der Name des Gewinner, welcher anzeigen werden soll, der Default ist leer

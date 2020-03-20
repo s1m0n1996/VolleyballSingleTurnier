@@ -1,6 +1,8 @@
 #ifndef WINNERPOPUP_H
 #define WINNERPOPUP_H
+
 #include <QWidget>
+
 class WindowLabel;
 class WindowButton;
 

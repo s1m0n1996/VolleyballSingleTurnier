@@ -4,7 +4,7 @@
 * \author Lea Kesselmeier
 */
 
-#include "windowButton.h"
+#include "View/windowButton.h"
 
 /*!
  * \brief WindowButton::WindowButton ist Konstruktor der Klasse WindowButtons

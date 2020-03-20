@@ -1,4 +1,4 @@
-#include "viewer.h"
+#include "Model/viewer.h"
 
 Viewer::Viewer()
 {

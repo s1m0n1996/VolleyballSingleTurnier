@@ -1,12 +1,11 @@
+#include <QEnterEvent>
+#include <QLabel>
 #include <QMouseEvent>
-#include "dartboard.h"
+#include <QPixmap>
+
+#include "View/dartboard.h"
 #include "View/refereeWindow.h"
 #include "ui_refereewindow.h"
-#include <QImage>
-#include <QPixmap>
-#include <QWidget>
-#include <QLabel>
-#include <QEnterEvent>
 
 
 Dartboard::Dartboard(QWidget *parent) : QLabel(parent)

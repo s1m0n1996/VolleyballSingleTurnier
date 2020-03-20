@@ -3,14 +3,12 @@
 
 #include <QMainWindow>
 #include <QObject>
-#include <QJsonObject>
-#include <QFile>
-#include <QGraphicsScene>
 
-
-#include "Model/referee.h"
-#include "Model/viewer.h"
-#include "View/dartboardViewer.h"
+class DartboardViewer;
+class Player;
+class QGraphicsScene;
+class Referee;
+class Viewer;
 
 namespace Ui {
 class ViewerWindow;
@@ -29,19 +27,18 @@ public slots:
     void remainingThrowsAreZeroInLeg(void);
 
 private:
-    Ui::ViewerWindow *ui;
-    Referee* _referee;
-    Viewer* _viewer;
-    QList<QString> _listWithHowToFinishLeg;
-    QGraphicsScene* scene = new QGraphicsScene;
-
-    DartboardViewer* _dartboard = new DartboardViewer(_referee);
-
     void connecting(void);
     void setPhoto(Player playerA, Player playerB);
     void setAktionPlayer1(void);
     void setAktionPlayer2(void);
     void modifiWidgets(void);
+
+    Ui::ViewerWindow *ui;
+    Referee* _referee;
+    Viewer* _viewer;
+    QList<QString> _listWithHowToFinishLeg;
+    QGraphicsScene* _scene = nullptr;
+    DartboardViewer* _dartboard = nullptr;
 
     int _player1 = 0;
     int _player2 = 0;

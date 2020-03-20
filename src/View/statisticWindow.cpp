@@ -1,43 +1,43 @@
-#include "statisticWindow.h"
+#include <QAbstractItemView>
+#include <QAction>
+#include <QComboBox>
+#include <QDateTime>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QHeaderView>
 #include <QIcon>
 #include <QLabel>
-
-#include <QHeaderView>
-#include <QAction>
-#include <QAbstractItemView>
-#include <QModelIndex>
-#include <QMenu>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QIcon>
-#include <QWidget>
-#include <QComboBox>
-#include <QRadioButton>
 #include <QList>
-#include <QGroupBox>
+#include <QMenu>
+#include <QModelIndex>
+#include <QRadioButton>
 #include <QStandardItem>
-#include <QTableView>
-#include <QDateTime>
 #include <QSplineSeries>
+#include <QTableView>
+#include <QWidget>
 #include <QValueAxis>
+
+#include <QtCharts/QChartView>
+#include <QtCharts/QLegend>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
-#include <QtCharts/QChartView>
-#include <QtCharts/QPieSeries>
-#include <QtCharts/QPieSlice>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QLegend>
+
 
 QT_CHARTS_USE_NAMESPACE
+#include "Model/playerManagement.h"
+#include "Model/player.h"
+#include "Model/playerStatistics.h"
 
+#include "View/statisticWindow.h"
 #include "View/tabelView.h"
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
-#include "Model/playerManagement.h"
-#include "Model/player.h"
-#include "Model/playerStatistics.h"
 
 StatisticWindow::StatisticWindow(QWidget* parent) :
         QMainWindow(parent)

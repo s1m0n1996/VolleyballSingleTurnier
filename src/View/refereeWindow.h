@@ -4,16 +4,17 @@
 * \author Nico Meyer
 */
 
-
 #ifndef REFEREEWINDOW_H
 #define REFEREEWINDOW_H
 
 #include <QMainWindow>
+
 #include "Model/referee.h"
-#include "Model/viewer.h"
+
 #include "View/refereePopupWinningLeg.h"
 #include "View/refereePopupBustLeg.h"
-#include "View/winnerpopup.h"
+class Viewer;
+class WinnerPopup;
 
 
 QT_BEGIN_NAMESPACE

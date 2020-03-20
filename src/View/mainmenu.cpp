@@ -6,27 +6,34 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QMenuBar>
+#include <QSizePolicy>
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include "Model/gameManagement.h"
 #include "Model/playerManagement.h"
 #include "Model/sqliteConnector.h"
+
+#include "View/createTournamentPopup.h"
 #include "View/mainmenu.h"
+#include "View/loadTournamentPopup.h"
 #include "View/playerManagementWindow.h"
 #include "View/refereeWindow.h"
-#include "View/statisticWindow.h"
 #include "View/refereePopupWinningLeg.h"
+#include "View/statisticWindow.h"
 #include "View/tournamentWindow.h"
-#include "View/createTournamentPopup.h"
 #include "View/viewerWindow.h"
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
-#include "Model/gameManagement.h"
-#include "View/loadTournamentPopup.h"
 
-#include <QDebug>
-#include <QSizePolicy>
 
+/*!
+ * \brief MainMenu::MainMenu ist Konstruktor der Klasse MainMenu
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Das Fenster wird im Konstruktor erstellt
+ */
 MainMenu::MainMenu(QMainWindow* parent) :
         QMainWindow(parent)
 {
@@ -40,7 +47,6 @@ MainMenu::MainMenu(QMainWindow* parent) :
     connecting();
 
     setButtonEnableState();
-
 }
 
 MainMenu::~MainMenu()
@@ -109,7 +115,7 @@ void MainMenu::openStatisticWindow(void)
 void MainMenu::createDatabase(void)
 {
     QString path = QFileDialog::getSaveFileName(this,
-                                                tr("Datenbank anlegen"), "",
+                                                tr("Datenbank erstellen"), "",
                                                 tr("Database File (*.sqlite) ;; All Files (*.*)"));
 
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();
@@ -207,7 +213,7 @@ void MainMenu::setTournamentName(void)
 {
     if (_gameManagement->getTournamentId() < 0)
     {
-        _noteTournament->setText("Bitte zuerst ein Turnier erstellen oder Laden");
+        _noteTournament->setText("Bitte zuerst ein Turnier erstellen oder laden");
         _noteTournament->setNotStartTournamentStyle();
     } else
     {
@@ -247,7 +253,7 @@ void MainMenu::createWidgets(void)
     _title = new WindowLabel("Hauptmenü - DartsTurnier");
     _title->setMainTitleStyle();
 
-    _noteDatabase = new WindowLabel("Zu beginn muss eine Datei erstellt oder geladen werden");
+    _noteDatabase = new WindowLabel("Zu Beginn muss eine Datei erstellt oder geladen werden");
     _noteDatabase->setNotStartTournamentStyle();
 
     _noteTournament = new WindowLabel("Aktuelles Turnier");

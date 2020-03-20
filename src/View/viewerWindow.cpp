@@ -1,8 +1,16 @@
-#include "viewerWindow.h"
-#include "ui_viewerWindow.h"
-#include "Model/statistics.h"
-#include "View/dartboardViewer.h"
+
+#include <QJsonObject>
+#include <QFile>
 #include <QGraphicsScene>
+
+#include "Model/statistics.h"
+#include "Model/referee.h"
+#include "Model/viewer.h"
+
+#include "View/dartboardViewer.h"
+#include "View/viewerWindow.h"
+#include "ui_viewerWindow.h"
+
 
 ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +18,8 @@ ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
     _referee(referee),
     _viewer(viewer)
 {
+    _scene = new QGraphicsScene();
+    _dartboard = new DartboardViewer(_referee);
     Viewer* viewers = new Viewer;
     _viewer = viewers;    
 
@@ -60,9 +70,9 @@ void ViewerWindow::modifiWidgets()
     ui->graphicsView->setStyleSheet("border: none");
 
     _dartboard->setPos(0, 0);
-    scene->addItem(_dartboard);
+    _scene->addItem(_dartboard);
 
-    ui->graphicsView->setScene(scene);
+    ui->graphicsView->setScene(_scene);
     ui->graphicsView->scale(0.8,0.8);
 }
 
@@ -78,7 +88,7 @@ void ViewerWindow::modifiWidgets()
  */
 void ViewerWindow::writeScore()
 {   
-    scene->update(0,0,20,10);
+    _scene->update(0,0,20,10);
 
     _player1 = _referee->getAllPlayersForViewer()[0];
     _player2 = _referee->getAllPlayersForViewer()[1];

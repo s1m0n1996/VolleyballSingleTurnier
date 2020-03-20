@@ -9,12 +9,9 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include <QGridLayout>
 
-#include "View/windowButton.h"
-#include "View/windowEdit.h"
-#include "View/windowLabel.h"
-#include <QDebug>
+class WindowButton;
+class WindowLabel;
 
 class RefereepopupWinningLeg : public QWidget
 {

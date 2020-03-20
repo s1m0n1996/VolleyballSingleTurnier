@@ -1,10 +1,14 @@
-
-#include <QStandardItemModel>
-#include <QTableView>
 #include <QComboBox>
 #include <QHeaderView>
+#include <QGridLayout>
+#include <QStandardItemModel>
+#include <QTableView>
 
-#include "loadTournamentPopup.h"
+#include "Model/gameManagement.h"
+
+#include "View/loadTournamentPopup.h"
+#include "View/windowButton.h"
+#include "View/windowLabel.h"
 
 /*!
  * \brief Konstruktor
@@ -38,7 +42,7 @@ LoadTournamentPopup::~LoadTournamentPopup()
  */
 void LoadTournamentPopup::_createWidgets()
 {
-    setWindowTitle("Turnier Laden");
+    setWindowTitle("Turnier laden");
     setWindowIcon(QIcon(":/img/darts.png"));
 
     _informationLabel = new WindowLabel("Bitte ein Turnier auswählen");
@@ -53,7 +57,7 @@ void LoadTournamentPopup::_createWidgets()
                              "font-size: 30px;"
                              "font-family: Arial Nova Light;}");
 
-    _loadButton = new WindowButton("Turnier Laden");
+    _loadButton = new WindowButton("Turnier laden");
 
 
     _loadAllTournamentsFromDatabase();

@@ -1,5 +1,6 @@
-#include "dartboardViewer.h"
 #include <QtWidgets>
+
+#include "View/dartboardViewer.h"
 
 DartboardViewer::DartboardViewer(Referee* referee, QGraphicsItem *parent) :
     _referee(referee)

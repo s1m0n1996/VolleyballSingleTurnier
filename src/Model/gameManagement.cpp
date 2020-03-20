@@ -1,8 +1,8 @@
-
-#include <QString>
 #include <QList>
+#include <QString>
 
-#include "gameManagement.h"
+
+#include "Model/gameManagement.h"
 
 GameManagement::GameManagement(void)
 {

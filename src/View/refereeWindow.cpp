@@ -4,14 +4,16 @@
 * \author Nico Meyer
 */
 
-#include "View/refereeWindow.h"
-#include "ui_refereewindow.h"
-#include "View/dartboard.h"
-#include "Model/gameManagement.h"
 #include <QtMath>
-#include <QtDebug>
 #include <QResizeEvent>
 
+#include "Model/viewer.h"
+#include "Model/gameManagement.h"
+
+#include "View/dartboard.h"
+#include "View/refereeWindow.h"
+#include "ui_refereewindow.h"
+#include "View/winnerpopup.h"
 
 RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinningLeg, RefereePopupBustLeg *popupBustLeg, QWidget *parent) :
     QMainWindow(parent),

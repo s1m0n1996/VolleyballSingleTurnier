@@ -1,5 +1,13 @@
-#include "createTournamentPopup.h"
 #include <QDateEdit>
+#include <QGridLayout>
+
+#include "Model/gameManagement.h"
+
+#include "View/createTournamentPopup.h"
+#include <View/tournamentWindow.h>
+#include "View/windowButton.h"
+#include "View/windowEdit.h"
+#include "View/windowLabel.h"
 
 CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 {

@@ -3,14 +3,12 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include <QGridLayout>
-#include <View/tournamentWindow.h>
-#include "View/windowButton.h"
-#include "View/windowEdit.h"
-#include "View/windowLabel.h"
-#include <QDebug>
-#include "Model/gameManagement.h"
+
+class GameManagement;
 class QDateEdit;
+class WindowButton;
+class WindowEdit;
+class WindowLabel;
 
 class CreateTournamentPopUp : public QWidget
 {
@@ -37,8 +35,6 @@ private:
     WindowEdit* _nameEdit = nullptr;
 
     WindowButton* _createTournament = nullptr;
-
-
 };
 
 #endif // TOURNEMENTNAMEPOPUP_H

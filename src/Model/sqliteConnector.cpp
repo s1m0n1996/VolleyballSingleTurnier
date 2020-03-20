@@ -1,5 +1,5 @@
 
-#include "sqliteConnector.h"
+#include "Model/sqliteConnector.h"
 
 SqliteConnector::SqliteConnector(void)
 {

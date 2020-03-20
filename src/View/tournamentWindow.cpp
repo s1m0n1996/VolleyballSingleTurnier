@@ -1,14 +1,22 @@
-#include "tournamentWindow.h"
-#include <QPen>
-#include <QPainter>
+#include <QAbstractScrollArea>
+#include <QGraphicsTextItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsWidget>
 #include <QGridLayout>
-#include <qdebug.h>
-#include <QRectF>
-#include <QLineF>
-#include <QList>
-#include <QtMath>
 #include <QIcon>
 #include <QLabel>
+#include <QLineF>
+#include <QList>
+#include <QPainter>
+#include <QPen>
+#include <QRectF>
+#include <QtMath>
+
+#include "Model/playerManagement.h"
+#include "Model/referee.h"
+
+#include "View/tournamentWindow.h"
 #include <View/windowButton.h>
 #include <View/windowLabel.h>
 
@@ -18,6 +26,8 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     _referee(referee),
     _playerManagement(playerManagement)
 {
+    _gameBoard = new QGraphicsScene();
+
     createWidgets();
     createRects();
     createLines();

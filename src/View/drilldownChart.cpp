@@ -26,8 +26,8 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include "drilldownChart.h"
-#include "drilldownSlice.h"
+#include "View/drilldownChart.h"
+#include "View/drilldownSlice.h"
 
 QT_CHARTS_USE_NAMESPACE
 

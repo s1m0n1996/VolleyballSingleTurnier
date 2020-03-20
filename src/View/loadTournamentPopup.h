@@ -4,12 +4,11 @@
 
 #include <QWidget>
 #include <QComboBox>
-#include <QWindow>
-#include <QGridLayout>
 
-#include "View/windowLabel.h"
-#include "View/windowButton.h"
-#include "Model/gameManagement.h"
+class GameManagement;
+class WindowButton;
+class WindowLabel;
+class QComboBox;
 
 /*!
  * \file loadTournamentPopup.h

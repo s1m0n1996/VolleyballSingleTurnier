@@ -1,9 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
+
 #include "Model/player.h"
-#include "Model/sqliteConnector.h"
-#include "Model/gameManagement.h"
-#include "Model/playerManagement.h"
+
+class GameManagement;
+class PlayerManagement;
+class SqliteConnector;
+
 
 
 class Game : public QObject
@@ -38,16 +41,12 @@ private:
     void setWinnerPlayerBinDatabase(int winnerId);
     void setWinnerToPrepareFinal(int winnerId);
 
-
     SqliteConnector* _db;
-    GameManagement* _gameManagement;
-    int _gameId;
+    GameManagement* _gameManagement;    
     Player* _playerA = nullptr;
     Player* _playerB = nullptr;
     QList<QString> _allPlayers;
-
-//signals:
-    //void gameListChanged(void);
+    int _gameId;
 
 };
 

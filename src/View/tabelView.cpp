@@ -3,8 +3,10 @@
 * \brief Diese Klasse besitzt Informationen über das Aussehen eines TabelViews
 * \author Lea Kesselmeier
 */
-#include "tabelView.h"
 #include <QHeaderView>
+
+#include "View/tabelView.h"
+
 /*!
  * \brief TabelView::TabelView ist Konstruktor der Klasse TabelView
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen

@@ -1,4 +1,4 @@
-#include "gameboard.h"
+#include "Model/gameboard.h"
 
 Gameboard::Gameboard(QList <Player> players)
 {

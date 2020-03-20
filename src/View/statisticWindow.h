@@ -70,7 +70,6 @@ private:
     QComboBox* _chooseCategoryComboBox = nullptr;
     QComboBox* _choosePlayerComboBox = nullptr;
     QComboBox* _chooseTournamentComboBox = nullptr;
-    // QComboBox* _chooseGameComboBox = nullptr;
 
     Player* _selectedPlayer = nullptr;
 

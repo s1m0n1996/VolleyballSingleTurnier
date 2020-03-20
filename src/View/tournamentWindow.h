@@ -2,16 +2,14 @@
 #define TOURNEMENTWINDOW_H
 
 #include <QWidget>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QAbstractScrollArea>
-#include <QGraphicsWidget>
-#include <QGraphicsTextItem>
-#include "Model/referee.h"
-#include "Model/playerManagement.h"
+
+class QGraphicsScene;
+class PlayerManagement;
+class QLabel;
+class Referee;
 class WindowLabel;
 class WindowButton;
-class QLabel;
+
 
 class TournamentWindow : public QWidget
 {
@@ -52,7 +50,7 @@ private:
 
     WindowLabel* _title= nullptr;
     WindowButton* _startGame= nullptr;
-    QGraphicsScene* _gameBoard = new QGraphicsScene();
+    QGraphicsScene* _gameBoard = nullptr;
 
     QList<QString> winner;
 
