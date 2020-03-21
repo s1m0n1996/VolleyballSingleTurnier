@@ -21,8 +21,7 @@
  * Das Fenster zeigt im Konstrukto den Gewinner eines Spieles an und kann mit einer Funltion den Gewinner eines Turnier anzeigen.
  * über dem Gewinnnernamen erschien eine Krone.
  */
-
-WinnerPopup::WinnerPopup(QString winnerName, QWidget *parent) : QWidget(parent)
+WinnerPopup::WinnerPopup(QString winnerName, QWidget* parent) : QWidget(parent)
 {
     setWindowTitle("Gewinner");
     setWindowIcon(QIcon(":/img/crowns.png"));
@@ -65,7 +64,7 @@ void WinnerPopup::createWidgets(QString winnerName)
     _winner->setWinnerStyle();
 
     _crown = new WindowLabel("");
-    _crown->setPixmap(QPixmap(":/img/crowns.png").scaled(300,300,Qt::KeepAspectRatio));
+    _crown->setPixmap(QPixmap(":/img/crowns.png").scaled(300, 300, Qt::KeepAspectRatio));
 
     _okButton = new WindowButton("OK");
 
@@ -77,15 +76,16 @@ void WinnerPopup::setwholeLayout()
     QHBoxLayout* layoutButton = new QHBoxLayout;
 
 
-    layoutButton->addWidget(_okButton,Qt::AlignRight, Qt::AlignRight);
+    layoutButton->addWidget(_okButton, Qt::AlignRight, Qt::AlignRight);
 
     layout->addWidget(_title, 0, Qt::AlignCenter);
     layout->addWidget(_crown, 1, Qt::AlignCenter);
-    layout->addWidget(_winner,2, Qt::AlignCenter);
+    layout->addWidget(_winner, 2, Qt::AlignCenter);
     layout->addLayout(layoutButton);
     setLayout(layout);
 }
+
 void WinnerPopup::connecting()
 {
-    connect(_okButton,SIGNAL(released()), this , SLOT(closeRefereeWindow()));
+    connect(_okButton, SIGNAL(released()), this, SLOT(closeRefereeWindow()));
 }

@@ -31,9 +31,9 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-DrilldownChart::DrilldownChart(QGraphicsItem *parent, Qt::WindowFlags wFlags)
-    : QChart(QChart::ChartTypeCartesian, parent, wFlags),
-      m_currentSeries(0)
+DrilldownChart::DrilldownChart(QGraphicsItem* parent, Qt::WindowFlags wFlags)
+        : QChart(QChart::ChartTypeCartesian, parent, wFlags),
+          m_currentSeries(0)
 {
 
 }
@@ -43,7 +43,7 @@ DrilldownChart::~DrilldownChart()
 
 }
 
-void DrilldownChart::changeSeries(QAbstractSeries *series)
+void DrilldownChart::changeSeries(QAbstractSeries* series)
 {
     // NOTE: if the series is owned by the chart it will be deleted
     // here the "window" owns the series...
@@ -55,9 +55,9 @@ void DrilldownChart::changeSeries(QAbstractSeries *series)
     setFont(QFont("Arial Nova Light"));
 }
 
-void DrilldownChart::handleSliceClicked(QPieSlice *slice)
+void DrilldownChart::handleSliceClicked(QPieSlice* slice)
 {
-    DrilldownSlice *drilldownSlice = static_cast<DrilldownSlice *>(slice);
+    DrilldownSlice* drilldownSlice = static_cast<DrilldownSlice*>(slice);
     changeSeries(drilldownSlice->drilldownSeries());
 }
 

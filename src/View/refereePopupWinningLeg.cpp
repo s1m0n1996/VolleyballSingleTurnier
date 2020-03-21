@@ -15,8 +15,7 @@
 #include "View/winnerpopup.h"
 
 
-
-RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget *parent) : QWidget(parent)
+RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget* parent) : QWidget(parent)
 {
     setWindowIcon(QIcon(":/img/referee.png"));
     setWindowTitle("Richteransicht");
@@ -59,13 +58,13 @@ void RefereepopupWinningLeg::setAllLayout(void)
     QGridLayout* layout = new QGridLayout;
     QHBoxLayout* buttonLayout = new QHBoxLayout;
 
-    buttonLayout -> addWidget(_legWin);
-    buttonLayout -> addWidget(_undoLastThrow);
+    buttonLayout->addWidget(_legWin);
+    buttonLayout->addWidget(_undoLastThrow);
 
 
-    layout -> addWidget(_refereeInformation,0,0);
-    layout -> addWidget(_refereeAction,1,0);
-    layout ->  addLayout(buttonLayout,2,1);
+    layout->addWidget(_refereeInformation, 0, 0);
+    layout->addWidget(_refereeAction, 1, 0);
+    layout->addLayout(buttonLayout, 2, 1);
 
     setLayout(layout);
 }

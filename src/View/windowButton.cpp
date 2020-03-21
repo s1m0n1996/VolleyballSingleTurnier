@@ -19,7 +19,7 @@ WindowButton::WindowButton(QString text, QWidget* parent) : QPushButton(parent)
     int fixSizeX = 30;
     int fixSizeY = 200;
 
-    setFixedSize(fixSizeY,fixSizeX);
+    setFixedSize(fixSizeY, fixSizeX);
 
     setStyleSheet("QPushButton{"
                   "color: #dcdcdc;"
@@ -35,7 +35,7 @@ WindowButton::WindowButton(QString text, QWidget* parent) : QPushButton(parent)
 
                   "QPushButton:disabled{"
                   "background-color: #acacac;}"
-                  );
+    );
 
     setText(text);
     setToolTip(text);
@@ -50,12 +50,12 @@ WindowButton::WindowButton(QString text, QWidget* parent) : QPushButton(parent)
  *
  * Dieser kosntruktor wurde für die Widgets, die in der ui erzeugt werden erstellt, denn diese haben eines parent
  */
-WindowButton::WindowButton(QWidget* parent,QString text) : QPushButton(parent)
+WindowButton::WindowButton(QWidget* parent, QString text) : QPushButton(parent)
 {
     int fixSizeX = 35;
     int fixSizeY = 225;
 
-    setFixedSize(fixSizeY,fixSizeX);
+    setFixedSize(fixSizeY, fixSizeX);
 
     setStyleSheet("QPushButton{"
                   "color: #dcdcdc;"
@@ -71,12 +71,13 @@ WindowButton::WindowButton(QWidget* parent,QString text) : QPushButton(parent)
 
                   "QPushButton:disabled{"
                   "background-color: #acacac;}"
-                  );
+    );
 
     setText(text);
     setToolTip(text);
 
 }
+
 /*!
  * \brief setzt das StyleSheet, wenn der Button nicht drüchbar ist
  * \param[in] void
@@ -99,7 +100,7 @@ void WindowButton::setEnableStyle()
 
                   "QPushButton:disabled{"
                   "background-color: #acacac;}"
-                  );
+    );
 }
 
 /*!
@@ -113,7 +114,7 @@ void WindowButton::mainMenuStyle()
     int fixSizeX = 50;
     int fixSizeY = 250;
 
-    setFixedSize(fixSizeY,fixSizeX);
+    setFixedSize(fixSizeY, fixSizeX);
 
     setStyleSheet("QPushButton{"
                   "color: #dcdcdc;"
@@ -129,7 +130,7 @@ void WindowButton::mainMenuStyle()
 
                   "QPushButton:disabled{"
                   "background-color: #acacac;}"
-                  );
+    );
 
     setEnabled(false);
 }

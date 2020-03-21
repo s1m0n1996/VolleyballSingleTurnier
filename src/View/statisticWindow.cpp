@@ -29,6 +29,7 @@
 
 
 QT_CHARTS_USE_NAMESPACE
+
 #include "Model/playerManagement.h"
 #include "Model/player.h"
 #include "Model/playerStatistics.h"
@@ -163,8 +164,8 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle eine Kategorie"));
     groupBox->setStyleSheet("QGroupBox{"
-                             "font-size: 20px;"
-                             "font-family: Arial Nova Light;}");
+                            "font-size: 20px;"
+                            "font-family: Arial Nova Light;}");
     _chooseCategoryComboBox = new QComboBox;
     _chooseCategoryComboBox->setStyleSheet("QComboBox{"
                                            "font-size: 20px;"
@@ -196,12 +197,12 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle einen Spieler"));
     groupBox->setStyleSheet("QGroupBox{"
-                             "font-size: 20px;"
-                             "font-family: Arial Nova Light;}");
+                            "font-size: 20px;"
+                            "font-family: Arial Nova Light;}");
     _choosePlayerComboBox = new QComboBox;
     _choosePlayerComboBox->setStyleSheet("QComboBox{"
-                                           "font-size: 20px;"
-                                           "font-family: Arial Nova Light;}");
+                                         "font-size: 20px;"
+                                         "font-family: Arial Nova Light;}");
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
@@ -249,14 +250,14 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
 {
     QGroupBox* groupBox = new QGroupBox(tr("Wähle ein Turnier aus"));
     groupBox->setStyleSheet("QGroupBox{"
-                             "font-size: 20px;"
-                             "font-family: Arial Nova Light;}");
+                            "font-size: 20px;"
+                            "font-family: Arial Nova Light;}");
 
     // create tournament combo box
     _chooseTournamentComboBox = new QComboBox;
     _chooseTournamentComboBox->setStyleSheet("QComboBox{"
-                                           "font-size: 20px;"
-                                           "font-family: Arial Nova Light;}");
+                                             "font-size: 20px;"
+                                             "font-family: Arial Nova Light;}");
     _chooseTournamentComboBox->setMinimumWidth(400);
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);

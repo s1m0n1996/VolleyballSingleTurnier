@@ -76,7 +76,7 @@ void Game::loadNextGame()
  */
 bool Game::wasFinal()
 {
-    return getNumberOfGamesInTournament()-getNumberOfWinnerInTournament() == 1;
+    return getNumberOfGamesInTournament() - getNumberOfWinnerInTournament() == 1;
 }
 
 
@@ -92,7 +92,7 @@ bool Game::wasFinal()
  */
 void Game::setNextWinner(int winnerId)
 {
-    if(!wasFinal())
+    if (!wasFinal())
     {
         prepareNextGame(winnerId);
     }
@@ -127,11 +127,11 @@ void Game::setNextWinner(int winnerId)
  */
 void Game::prepareNextGame(int winnerId)
 {
-    int counter = getNumberOfWinnerInTournament()%4;
+    int counter = getNumberOfWinnerInTournament() % 4;
 
-    if(getNumberOfGamesInTournament() - getNumberOfWinnerInTournament()!=3)
+    if (getNumberOfGamesInTournament() - getNumberOfWinnerInTournament() != 3)
     {
-        if(counter == 0 or counter == 1)
+        if (counter == 0 or counter == 1)
         {
             setWinnerPlayerAinDatabase(winnerId);
         }
@@ -181,7 +181,7 @@ void Game::setWinnerToPrepareFinal(int winnerId)
     QList<QList<QVariant>> newGame = _db->sqlQuery(sqlQuery);
 
 
-    if(newGame.isEmpty())
+    if (newGame.isEmpty())
     {
         setWinnerPlayerAinDatabase(winnerId);
     }
@@ -338,7 +338,7 @@ int Game::getNumberOfGamesInTournament()
  */
 QList<QString> Game::getAllPlayersForGameboardView()
 {
-    QList <QString> allPlayers;
+    QList<QString> allPlayers;
     qDebug() << "vorher";
 
     QString sqlPrepare = R"(
@@ -366,12 +366,12 @@ QList<QString> Game::getAllPlayersForGameboardView()
     qDebug() << allGames;
 
     int iCounter;
-    for (iCounter=0; iCounter < (numberOfGames-1); iCounter+=2)
+    for (iCounter = 0; iCounter < (numberOfGames - 1); iCounter += 2)
     {
         allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][0].toInt()));
-        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter+1][0].toInt()));
+        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter + 1][0].toInt()));
         allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][1].toInt()));
-        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter+1][1].toInt()));
+        allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter + 1][1].toInt()));
 
     }
 
@@ -406,7 +406,7 @@ QList<QString> Game::getAllWinnersInTournament()
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
 
-    for(const QVariant liste : nextGames)
+    for (const QVariant liste : nextGames)
     {
         Player player(liste.toList()[1].toInt());
         winnerList.append(player.getName());

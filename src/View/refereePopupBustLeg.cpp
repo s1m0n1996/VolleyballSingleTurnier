@@ -11,7 +11,7 @@
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
 
-RefereePopupBustLeg::RefereePopupBustLeg(QWidget *parent) : QWidget(parent)
+RefereePopupBustLeg::RefereePopupBustLeg(QWidget* parent) : QWidget(parent)
 {
     setWindowIcon(QIcon(":/img/referee.png"));
     setWindowTitle("Richteransicht");
@@ -56,12 +56,12 @@ void RefereePopupBustLeg::setAllLayout(void)
     QGridLayout* layout = new QGridLayout;
     QHBoxLayout* buttonLayout = new QHBoxLayout;
 
-    buttonLayout -> addWidget(_nextPlayer);
-    buttonLayout -> addWidget(_undoLastThrow);
+    buttonLayout->addWidget(_nextPlayer);
+    buttonLayout->addWidget(_undoLastThrow);
 
-    layout -> addWidget(_refereeInformation,0,0);
-    layout -> addWidget(_refereeAction,1,0);
-    layout -> addLayout(buttonLayout,2,1);
+    layout->addWidget(_refereeInformation, 0, 0);
+    layout->addWidget(_refereeAction, 1, 0);
+    layout->addLayout(buttonLayout, 2, 1);
 
     setLayout(layout);
 }

@@ -57,11 +57,11 @@ void Referee::updatePlayer()
 void Referee::resetAllStats()
 {
     //writeLegIntoDatabase();                   Wo musst du hin??
-    _winningLegCounter  = {0,0};
+    _winningLegCounter = {0, 0};
     _throwCounter = 0;
-    _allThrows = {0,0,0};
-    _allThrowsWithoutMulti = {0,0,0};
-    _remainScore = {501,501};
+    _allThrows = {0, 0, 0};
+    _allThrowsWithoutMulti = {0, 0, 0};
+    _remainScore = {501, 501};
     _wasLastThrowInLegToWin = false;            //TODO: Muss geguckt werden ob die rein müssen oder nicht
     _wasLastThrowInLegToBust = false;
 }
@@ -79,9 +79,9 @@ void Referee::nextPlayer()
 {
     if (_wasLastThrowInLegToBust)
     {
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
-           undoThrow();
+            undoThrow();
         }
         _wasLastThrowInLegToBust = false;
     }
@@ -108,14 +108,14 @@ void Referee::nextPlayer()
  */
 void Referee::nextPlayerAfterWinningLeg()
 {
-        _remainScore[0] = 501;
-        _remainScore[1] = 501;
-        _throwCounter = 0;
-        _allThrows[0] = 0;
-        _allThrows[1] = 0;
-        _allThrows[2] = 0;
-        _wasLastThrowInLegToWin = false;
-        _wasLastThrowInLegToBust = false;
+    _remainScore[0] = 501;
+    _remainScore[1] = 501;
+    _throwCounter = 0;
+    _allThrows[0] = 0;
+    _allThrows[1] = 0;
+    _allThrows[2] = 0;
+    _wasLastThrowInLegToWin = false;
+    _wasLastThrowInLegToBust = false;
 
     if (_winningLegCounter[0] < 3 and _winningLegCounter[1] < 3)
     {
@@ -149,7 +149,7 @@ void Referee::nextPlayerAfterWinningLeg()
  */
 int Referee::getAktivePlayer()
 {
-   return _allPlayers[_player];
+    return _allPlayers[_player];
 }
 
 /*!
@@ -178,7 +178,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
                              )";
         QSqlQuery sqlQuery;
         sqlQuery.prepare(sqlPrepare);
-        sqlQuery.bindValue(":throwId", (getLastLegIdInSameGame()+1));
+        sqlQuery.bindValue(":throwId", (getLastLegIdInSameGame() + 1));
         sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
         sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
         sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
@@ -188,7 +188,7 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
         sqlQuery.bindValue(":time", QDateTime::currentDateTime());
         sqlQuery.bindValue(":valueTypeId", valueMultiplikator);
 
-        if(valueMultiplikator == 0)
+        if (valueMultiplikator == 0)
         {
             sqlQuery.bindValue(":value", 0);
         }
@@ -285,7 +285,6 @@ void Referee::legWinningCondition()
 void Referee::scoreIsUnder170InLeg()
 {
     if ((_remainScore[_player] <= 170 and _remainScore[_player] >= 0) and _remainingThrows > 0)
-
     {
         emit scoreIsUnder170();
     }
@@ -365,7 +364,7 @@ void Referee::undoThrow()
         // last throw is actual throw - 1
         _remainScore[_player] = _remainScore[_player] + _allThrows[_throwCounter - 1];
         _allThrows[_throwCounter - 1] = 0;
-         _allThrowsWithoutMulti[_throwCounter - 1] = 0;
+        _allThrowsWithoutMulti[_throwCounter - 1] = 0;
         _throwCounter--;
     }
 
@@ -393,7 +392,7 @@ int Referee::getGameStart()
 
 int Referee::getThrowScore()
 {
-    return _throwScore = _allThrows[0] + _allThrows[1] +_allThrows[2];
+    return _throwScore = _allThrows[0] + _allThrows[1] + _allThrows[2];
 }
 
 int Referee::getRemainingThrows()
@@ -404,12 +403,12 @@ int Referee::getRemainingThrows()
 
 QList<int> Referee::getRemainScoreForViewer()
 {
-    return  _remainScore;
+    return _remainScore;
 }
 
 QList<int> Referee::getAllPlayersForViewer()
 {
-    return  _allPlayers;
+    return _allPlayers;
 }
 
 /*!
@@ -443,7 +442,7 @@ int Referee::getLastLegIdInSameGame()
 
     QList<QList<QVariant>> id = _db->sqlQuery(sqlQuery);
     int lastId;
-    if(id.isEmpty())
+    if (id.isEmpty())
     {
         lastId = 0;
     }
@@ -480,7 +479,7 @@ int Referee::getNumberOfCurrentLeg()
  */
 void Referee::setActivePlayer(int activePlayerId)
 {
-    if(activePlayerId == _allPlayers[1])
+    if (activePlayerId == _allPlayers[1])
     {
         _player = 1;
     }
@@ -497,7 +496,8 @@ void Referee::setActivePlayer(int activePlayerId)
  *
  *
  */
-void Referee::loadLastGame(){
+void Referee::loadLastGame()
+{
     QString sqlPrepare = R"(
                          SELECT punkte, player_id, game_board_id, tournament_id
                          FROM (SELECT SUM(value * value_type_id) as punkte, player_id, game_board_id, tournament_id
@@ -512,65 +512,66 @@ void Referee::loadLastGame(){
     sqlQuery.bindValue(":gameId", _gameId);   //_gameId
     QList<QList<QVariant>> legPoints = _db->sqlQuery(sqlQuery);
 
-    if(legPoints.isEmpty())                                         //gibt es keine zuvor gemachten Würfe wird rausgesprungen
+    if (legPoints.isEmpty())                                         //gibt es keine zuvor gemachten Würfe wird rausgesprungen
     {
         return;
     }
 
 
-    int straightLegPointsSize = legPoints.size()%2;                 //Testen ob es eine gerade Anzahl an Punktergebnissen gibt
+    int straightLegPointsSize =
+            legPoints.size() % 2;                 //Testen ob es eine gerade Anzahl an Punktergebnissen gibt
 
-    for (int i=0 ; i < (legPoints.size()-straightLegPointsSize) ; i+=2)
+    for (int i = 0; i < (legPoints.size() - straightLegPointsSize); i += 2)
     {
-        if(legPoints[i][0]==501)
+        if (legPoints[i][0] == 501)
         {
-            if(legPoints[i][1] == _allPlayers[0])
+            if (legPoints[i][1] == _allPlayers[0])
             {
-                _winningLegCounter[0]+=1;
+                _winningLegCounter[0] += 1;
 
             }
             else
             {
-                _winningLegCounter[1]+=1;
+                _winningLegCounter[1] += 1;
             }
         }
-        if(legPoints[i+1][0]==501)
+        if (legPoints[i + 1][0] == 501)
         {
-            if(legPoints[i+1][1] == _allPlayers[0])
+            if (legPoints[i + 1][1] == _allPlayers[0])
             {
-                 _winningLegCounter[0]+=1;
+                _winningLegCounter[0] += 1;
 
             }
             else
             {
-                 _winningLegCounter[1]+=1;
+                _winningLegCounter[1] += 1;
             }
         }
-        if(legPoints[i][0]!=501 && legPoints[i+1][0]!=501)
+        if (legPoints[i][0] != 501 && legPoints[i + 1][0] != 501)
         {
             loadLastThrows();
-            if(_allPlayers[0]<_allPlayers[1])
+            if (_allPlayers[0] < _allPlayers[1])
             {
                 _remainScore[0] = 501 - legPoints[i][0].toInt();
-                _remainScore[1] = 501 - legPoints[i+1][0].toInt();
+                _remainScore[1] = 501 - legPoints[i + 1][0].toInt();
             }
             else
             {
                 _remainScore[1] = 501 - legPoints[i][0].toInt();
-                _remainScore[0] = 501 - legPoints[i+1][0].toInt();
+                _remainScore[0] = 501 - legPoints[i + 1][0].toInt();
             }
         }
     }
 
-    if(straightLegPointsSize == 1)                                   //Bei ungerader Listenlänge
+    if (straightLegPointsSize == 1)                                   //Bei ungerader Listenlänge
     {
-        if(legPoints[legPoints.size()-1][1] == _allPlayers[0])
+        if (legPoints[legPoints.size() - 1][1] == _allPlayers[0])
         {
-            _remainScore[0] = 501 - legPoints[legPoints.size()-1][0].toInt();
+            _remainScore[0] = 501 - legPoints[legPoints.size() - 1][0].toInt();
         }
         else
         {
-            _remainScore[1] = 501 - legPoints[legPoints.size()-1][0].toInt();
+            _remainScore[1] = 501 - legPoints[legPoints.size() - 1][0].toInt();
         }
         loadLastThrows();
     }
@@ -599,21 +600,22 @@ void Referee::loadLastThrows()
     sqlQuery.bindValue(":gameId", _gameId);
     QList<QList<QVariant>> lastThrows = _db->sqlQuery(sqlQuery);
 
-    int legIdPerfectToThree = (lastThrows.size()/3)*3;
+    int legIdPerfectToThree = (lastThrows.size() / 3) * 3;
     int throws = 0;
 
-    for (int i = legIdPerfectToThree; i < lastThrows.size(); i++)           //Alle die größer als Bsp.: 13 /3*3 = 12 sind, throwcounter wird rauf gesetzt
+    for (int i = legIdPerfectToThree; i <
+                                      lastThrows.size(); i++)           //Alle die größer als Bsp.: 13 /3*3 = 12 sind, throwcounter wird rauf gesetzt
     {                                                                       //außerdem wird der aktuelle Spieler ermittelt
         setActivePlayer(lastThrows[i][6].toInt());
-        _allThrows[throws] =  (lastThrows[i][9].toInt() * lastThrows[i][8].toInt());
+        _allThrows[throws] = (lastThrows[i][9].toInt() * lastThrows[i][8].toInt());
         _throwCounter++;
         throws++;
     }
 
-    if((lastThrows.size()/3) == 0)
+    if ((lastThrows.size() / 3) == 0)
     {
-        int lastPlayer = lastThrows[(lastThrows.size()-1)][6].toInt();
-        if(lastPlayer == _allPlayers[0])
+        int lastPlayer = lastThrows[(lastThrows.size() - 1)][6].toInt();
+        if (lastPlayer == _allPlayers[0])
         {
             setActivePlayer(_allPlayers[1]);
         }
@@ -636,11 +638,11 @@ void Referee::createAllPossibleLegs()
     sqlQuery.bindValue(":gameId", _gameId);
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> leglist = _db->sqlQuery(sqlQuery);
-    if(leglist.isEmpty())
+    if (leglist.isEmpty())
     {
-        for (int i= 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
-            writeLegIntoDatabase(i+1);
+            writeLegIntoDatabase(i + 1);
         }
     }
 }

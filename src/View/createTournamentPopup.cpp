@@ -33,6 +33,7 @@ void CreateTournamentPopUp::enableCreateTournamentButton(void)
     }
 
 }
+
 void CreateTournamentPopUp::openTournamentWindow(void)
 {
     setWindowFlags(Qt::Window);
@@ -52,19 +53,19 @@ void CreateTournamentPopUp::createWidgets(void)
     _date = new QDateEdit();
     _date->setCalendarPopup(true);
     _date->setStyleSheet("QDateEdit::drop-down {"
-                             "image:url(:/img/calendar.png);"
-                             "spacing:5px;"
-                             "width:60px;"
-                             "height:25px;"
-                             "subcontrol-position: right top;"
-                             "subcontrol-origin:margin; }"
-                             "QDateEdit{"
-                             "font-size: 20px;"
-                             "font-family: Arial Nova Light;"
-                             "spacing: 5px;}"
-                             "QCalendarWidget{"
-                             "font-size: 20px;"
-                             "font-family: Arial Nova Light;}");
+                         "image:url(:/img/calendar.png);"
+                         "spacing:5px;"
+                         "width:60px;"
+                         "height:25px;"
+                         "subcontrol-position: right top;"
+                         "subcontrol-origin:margin; }"
+                         "QDateEdit{"
+                         "font-size: 20px;"
+                         "font-family: Arial Nova Light;"
+                         "spacing: 5px;}"
+                         "QCalendarWidget{"
+                         "font-size: 20px;"
+                         "font-family: Arial Nova Light;}");
     QDate currentDate = QDate::currentDate();
     _date->setDate(currentDate);
 
@@ -94,6 +95,8 @@ void CreateTournamentPopUp::setAllLayout(void)
 void CreateTournamentPopUp::connecting(void)
 {
     connect(_createTournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
-    connect(_dateEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableCreateTournamentButton()));
-    connect(_nameEdit,SIGNAL(textChanged(const QString &)), this, SLOT(enableCreateTournamentButton()));
+    connect(_dateEdit, SIGNAL(textChanged(
+                                      const QString &)), this, SLOT(enableCreateTournamentButton()));
+    connect(_nameEdit, SIGNAL(textChanged(
+                                      const QString &)), this, SLOT(enableCreateTournamentButton()));
 }

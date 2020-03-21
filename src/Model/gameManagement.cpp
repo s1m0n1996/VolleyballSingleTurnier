@@ -227,7 +227,8 @@ WHERE sport_type_id = :sportTypeId
  * in der game_board_list Tabelle eingetragen sind. Dies ist der Fall, sobalt in der Meldestelle auf
  * Turnier erstellen geklickt wird.
  */
-bool GameManagement::isTournamentStarted() {
+bool GameManagement::isTournamentStarted()
+{
     QString sqlPrepare = R"(
 SELECT count(*)
 FROM game_board_list

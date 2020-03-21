@@ -106,12 +106,12 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
 void PlayermanagementWindow::addPlayerToDatabase()
 {
     Player* newPlayer = new Player(_playernameEdit->text(),
-                                  _birthday->date(), _countryEdit->text());
+                                   _birthday->date(), _countryEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newPlayer);
 
 
     _playernameEdit->clear();
-    _birthday->setDate(QDate(1990,10,21));
+    _birthday->setDate(QDate(1990, 10, 21));
     _countryEdit->clear();
 
 
@@ -331,7 +331,7 @@ void PlayermanagementWindow::showDeletedPlayers(void)
 void PlayermanagementWindow::createDeleteMenu()
 {
     QAction* deletePlayer = new QAction("Löschen", this);
-    _addPhotoAction       = new QAction("Foto hinzufügen");
+    _addPhotoAction = new QAction("Foto hinzufügen");
     connect(deletePlayer, SIGNAL(triggered()), this, SLOT(deletePlayer()));
     connect(_addPhotoAction, SIGNAL(triggered()), this, SLOT(addPhotoWithSelection()));
 
@@ -393,11 +393,10 @@ void PlayermanagementWindow::createWidges()
     _countryEdit = new WindowEdit("DE", DataType::country);
     _countryEdit->setMaxLength(3);
 
-    _playernameLabel    = new WindowLabel("Spielername");
-    _birthdayLabel      = new WindowLabel("Geburtsdatum");
-    _countryLabel       = new WindowLabel("Land");
-    _photoLabel         = new WindowLabel("Foto");
-
+    _playernameLabel = new WindowLabel("Spielername");
+    _birthdayLabel = new WindowLabel("Geburtsdatum");
+    _countryLabel = new WindowLabel("Land");
+    _photoLabel = new WindowLabel("Foto");
 
 
     _birthday = new QDateEdit();
@@ -416,7 +415,7 @@ void PlayermanagementWindow::createWidges()
                              "QCalendarWidget{"
                              "font-size: 20px;"
                              "font-family: Arial Nova Light;}");
-    _birthday->setDate(QDate(1990,10,21));
+    _birthday->setDate(QDate(1990, 10, 21));
 
     _addPhoto = new WindowButton("Foto hinzufügen");
     _addPhoto->setIcon(QIcon(":/img/addPhoto.png"));
@@ -456,7 +455,7 @@ void PlayermanagementWindow::createWidges()
 
 void PlayermanagementWindow::showTable()
 {
-    _allPlayerTableView  = new TableView;
+    _allPlayerTableView = new TableView;
     _gamePlayerTableView = new TableView;
     _deletedPlayersTableView = new TableView;
 
@@ -485,16 +484,16 @@ void PlayermanagementWindow::setAllLayout()
     setCentralWidget(widget);
     widget->setStyleSheet("background: white;");
 
-    QVBoxLayout* mainLayout             = new QVBoxLayout;
-    QHBoxLayout* titleTabelViewLayout   = new QHBoxLayout;
-    QVBoxLayout* maxPlayerLayout        = new QVBoxLayout;
-    QHBoxLayout* tabelViewLayout        = new QHBoxLayout;
-    QVBoxLayout* addDeleteLayout        = new QVBoxLayout;
-    QHBoxLayout* bottomLayout           = new QHBoxLayout;
-    QVBoxLayout* labelLayout            = new QVBoxLayout;
-    QVBoxLayout* editLayout             = new QVBoxLayout;
-    QGridLayout* addPlayerLayout        = new QGridLayout;
-    QGridLayout* tournamentStartLayout  = new QGridLayout;
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    QHBoxLayout* titleTabelViewLayout = new QHBoxLayout;
+    QVBoxLayout* maxPlayerLayout = new QVBoxLayout;
+    QHBoxLayout* tabelViewLayout = new QHBoxLayout;
+    QVBoxLayout* addDeleteLayout = new QVBoxLayout;
+    QHBoxLayout* bottomLayout = new QHBoxLayout;
+    QVBoxLayout* labelLayout = new QVBoxLayout;
+    QVBoxLayout* editLayout = new QVBoxLayout;
+    QGridLayout* addPlayerLayout = new QGridLayout;
+    QGridLayout* tournamentStartLayout = new QGridLayout;
 
     mainLayout->addWidget(_title);
 

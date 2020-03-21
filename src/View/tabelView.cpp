@@ -17,19 +17,19 @@
  */
 TableView::TableView(QWidget* parent) : QTableView(parent)
 {
-     setAlternatingRowColors(true);
-     setStyleSheet("color: black;"
-                   "background-color: white;"
-                   "selection-color: black;"
-                   "selection-background-color: #40b946;"
-                   "alternate-background-color: #F2F2F2;"
-                   "background-color: white;"
-                   "font: Arial Nova Light");
+    setAlternatingRowColors(true);
+    setStyleSheet("color: black;"
+                  "background-color: white;"
+                  "selection-color: black;"
+                  "selection-background-color: #40b946;"
+                  "alternate-background-color: #F2F2F2;"
+                  "background-color: white;"
+                  "font: Arial Nova Light");
 
-     setSelectionBehavior(QAbstractItemView::SelectRows);
-     setSelectionMode(QAbstractItemView::MultiSelection);
-     horizontalHeader()->setFont(QFont("Arial Nova Light", 15));
-     setContextMenuPolicy(Qt::CustomContextMenu);
-     setMouseTracking(true);
-     viewport()->setAttribute(Qt::WA_Hover,true);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+    setSelectionMode(QAbstractItemView::MultiSelection);
+    horizontalHeader()->setFont(QFont("Arial Nova Light", 15));
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    setMouseTracking(true);
+    viewport()->setAttribute(Qt::WA_Hover, true);
 }

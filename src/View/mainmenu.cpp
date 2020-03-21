@@ -75,7 +75,7 @@ MainMenu::~MainMenu()
 void MainMenu::openPlayermanagmentWindow(void)
 {
     PlayermanagementWindow* playermanagment = new PlayermanagementWindow(_playerManagementModel);
-     playermanagment->showMaximized();
+    playermanagment->showMaximized();
 }
 
 void MainMenu::openTournamentWindow(void)
@@ -215,7 +215,8 @@ void MainMenu::setTournamentName(void)
     {
         _noteTournament->setText("Bitte zuerst ein Turnier erstellen oder laden");
         _noteTournament->setNotStartTournamentStyle();
-    } else
+    }
+    else
     {
         _noteTournament->setText("Aktuelles Turnier " + _gameManagement->getTournamentName()
                                  + " vom " + _gameManagement->getTournamentDate());

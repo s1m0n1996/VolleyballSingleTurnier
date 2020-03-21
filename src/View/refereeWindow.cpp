@@ -15,12 +15,13 @@
 #include "ui_refereewindow.h"
 #include "View/winnerpopup.h"
 
-RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg *popupWinningLeg, RefereePopupBustLeg *popupBustLeg, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::RefereeWindow),
-    _referee(referee),
-    _popupWinningLeg(popupWinningLeg),
-    _popupBustLeg(popupBustLeg)
+RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg* popupWinningLeg,
+                             RefereePopupBustLeg* popupBustLeg, QWidget* parent) :
+        QMainWindow(parent),
+        ui(new Ui::RefereeWindow),
+        _referee(referee),
+        _popupWinningLeg(popupWinningLeg),
+        _popupBustLeg(popupBustLeg)
 {
     _gameManagement = &GameManagement::instance();
     RefereepopupWinningLeg* winLeg = new RefereepopupWinningLeg;
@@ -72,8 +73,8 @@ int RefereeWindow::valueMultiplikator()
 
     // Prüfen in welchen Bereich man sich befindet.
     if ((areaPercentage >= 3 and areaPercentage <= 6) or
-            (areaPercentage >= 7 and areaPercentage <= 42) or
-            (areaPercentage >= 49 and areaPercentage <= 69))
+        (areaPercentage >= 7 and areaPercentage <= 42) or
+        (areaPercentage >= 49 and areaPercentage <= 69))
     {
         multiplikator = _single;
     }
@@ -91,7 +92,7 @@ int RefereeWindow::valueMultiplikator()
         multiplikator = _miss;
     }
 
-    return  multiplikator;
+    return multiplikator;
 }
 
 /*!
@@ -114,17 +115,17 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
     {
         angle = 90 - qRadiansToDegrees(qAtan(deltaY / deltaX));
     }
-    // Quadrant 2
+        // Quadrant 2
     else if (deltaX <= 0 and deltaY >= 0)
     {
         angle = 270 + qAbs(qRadiansToDegrees(qAtan(deltaY / deltaX)));
     }
-    // Quadrant 3
+        // Quadrant 3
     else if (deltaX >= 0 and deltaY <= 0)
     {
         angle = 90 + qAbs(qRadiansToDegrees(qAtan(deltaY / deltaX)));
     }
-    // Quadrant 4
+        // Quadrant 4
     else if (deltaX <= 0 and deltaY <= 0)
     {
         angle = 270 - qRadiansToDegrees(qAtan(deltaY / deltaX));
@@ -259,7 +260,7 @@ void RefereeWindow::writeScore()
         ui->DartboardView->setEnabled(true);
     }
 
-     ui->undoLastThrow->setEnabled(true);
+    ui->undoLastThrow->setEnabled(true);
 
     writeNextPlayer();
 }
@@ -288,22 +289,23 @@ void RefereeWindow::modifiWidgets(void)
     ui->DartboardView->setPixmap(*pix);
 
 }
+
 void RefereeWindow::connecting(void)
 {
-    connect(ui->DartboardView,SIGNAL(mousePos()),this, SLOT(mouseCurrentPos()));
-    connect(ui->DartboardView,SIGNAL(mouseReleasedOnDartboard()),this, SLOT(mouseReleasedOnDartboard()));
+    connect(ui->DartboardView, SIGNAL(mousePos()), this, SLOT(mouseCurrentPos()));
+    connect(ui->DartboardView, SIGNAL(mouseReleasedOnDartboard()), this, SLOT(mouseReleasedOnDartboard()));
 
-    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
-    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(nextPlayer()));
-    connect(ui->undoLastThrow,SIGNAL(released()),this, SLOT(undoLastThrow()));
-    connect(ui->nextPlayer,SIGNAL(released()),this, SLOT(writeNextPlayer()));
+    connect(_referee, SIGNAL(valueChanged()), this, SLOT(writeScore()));
+    connect(ui->nextPlayer, SIGNAL(released()), this, SLOT(nextPlayer()));
+    connect(ui->undoLastThrow, SIGNAL(released()), this, SLOT(undoLastThrow()));
+    connect(ui->nextPlayer, SIGNAL(released()), this, SLOT(writeNextPlayer()));
 
-    connect(_referee,SIGNAL(playerWinsLeg()),this, SLOT(playerWinsLeg()));
-    connect(_popupWinningLeg,SIGNAL(playerWonLeg()),this,SLOT(nextPlayerAfterWinningLeg()));
-    connect(_popupWinningLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+    connect(_referee, SIGNAL(playerWinsLeg()), this, SLOT(playerWinsLeg()));
+    connect(_popupWinningLeg, SIGNAL(playerWonLeg()), this, SLOT(nextPlayerAfterWinningLeg()));
+    connect(_popupWinningLeg, SIGNAL(undoLastThrow()), this, SLOT(undoLastThrow()));
 
-    connect(_referee,SIGNAL(playerBust()),this, SLOT(playerBust()));
-    connect(_popupBustLeg,SIGNAL(playerBustLeg()),this,SLOT(nextPlayer()));
-    connect(_popupBustLeg,SIGNAL(undoLastThrow()),this,SLOT(undoLastThrow()));
+    connect(_referee, SIGNAL(playerBust()), this, SLOT(playerBust()));
+    connect(_popupBustLeg, SIGNAL(playerBustLeg()), this, SLOT(nextPlayer()));
+    connect(_popupBustLeg, SIGNAL(undoLastThrow()), this, SLOT(undoLastThrow()));
     connect(_referee, SIGNAL(tournamentFinished()), this, SLOT (tournamentIsWon()));
 }

@@ -12,16 +12,16 @@
 #include "ui_viewerWindow.h"
 
 
-ViewerWindow::ViewerWindow(Referee *referee, Viewer* viewer, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::ViewerWindow),
-    _referee(referee),
-    _viewer(viewer)
+ViewerWindow::ViewerWindow(Referee* referee, Viewer* viewer, QWidget* parent) :
+        QMainWindow(parent),
+        ui(new Ui::ViewerWindow),
+        _referee(referee),
+        _viewer(viewer)
 {
     _scene = new QGraphicsScene();
     _dartboard = new DartboardViewer(_referee);
     Viewer* viewers = new Viewer;
-    _viewer = viewers;    
+    _viewer = viewers;
 
     setWindowIcon(QIcon(":/img/viewer.png"));
     ui->setupUi(this);
@@ -40,10 +40,10 @@ ViewerWindow::~ViewerWindow()
 
 void ViewerWindow::connecting(void)
 {
-    connect(_referee,SIGNAL(valueChanged()),this, SLOT(writeScore()));
-    connect(_referee,SIGNAL(scoreIsUnder170()),this, SLOT(scoreIsUnder170InLeg()));
-    connect(_referee,SIGNAL(remainingThrowsAreZero()),this, SLOT(remainingThrowsAreZeroInLeg()));
-    connect(_viewer,SIGNAL(howToFinishLeg()),this,SLOT(possibleWayToFinishLeg()));
+    connect(_referee, SIGNAL(valueChanged()), this, SLOT(writeScore()));
+    connect(_referee, SIGNAL(scoreIsUnder170()), this, SLOT(scoreIsUnder170InLeg()));
+    connect(_referee, SIGNAL(remainingThrowsAreZero()), this, SLOT(remainingThrowsAreZeroInLeg()));
+    connect(_viewer, SIGNAL(howToFinishLeg()), this, SLOT(possibleWayToFinishLeg()));
 
 }
 
@@ -73,7 +73,7 @@ void ViewerWindow::modifiWidgets()
     _scene->addItem(_dartboard);
 
     ui->graphicsView->setScene(_scene);
-    ui->graphicsView->scale(0.8,0.8);
+    ui->graphicsView->scale(0.8, 0.8);
 }
 
 
@@ -87,8 +87,8 @@ void ViewerWindow::modifiWidgets()
  *
  */
 void ViewerWindow::writeScore()
-{   
-    _scene->update(0,0,20,10);
+{
+    _scene->update(0, 0, 20, 10);
 
     _player1 = _referee->getAllPlayersForViewer()[0];
     _player2 = _referee->getAllPlayersForViewer()[1];
@@ -209,10 +209,10 @@ void ViewerWindow::setPhoto(Player playerA, Player playerB)
 //    QTransform rotate2;
 //    rotate2.rotate(270);
 
-    pixmapA = pixmapA.scaled(wA,hA,Qt::KeepAspectRatio);
+    pixmapA = pixmapA.scaled(wA, hA, Qt::KeepAspectRatio);
 //    pixmapA = pixmapA.transformed(rotate1);
 
-    pixmapB = pixmapB.scaled(wB,hB,Qt::KeepAspectRatio);
+    pixmapB = pixmapB.scaled(wB, hB, Qt::KeepAspectRatio);
 //    pixmapB = pixmapB.transformed(rotate2);
 
     ui->photoPlayer1->setPixmap(pixmapA);

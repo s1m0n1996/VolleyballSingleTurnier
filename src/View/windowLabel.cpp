@@ -4,6 +4,7 @@
 * \author Lea Kesselmeier
 */
 #include "windowLabel.h"
+
 /*!
  * \brief WindowLabel::WindowLabel ist Konstruktor der Klasse WindowLabel
  * \param[in] text ist der Text, den das Label anzeigen soll, der Default ist leer
@@ -13,8 +14,7 @@
  * Normalen Stlye wird im Konstsruktor festgelegt.
  * verschiedene Versionen werden in Funktionen festgelegt.
  */
-
-WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
+WindowLabel::WindowLabel(QString text, QWidget* parent) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
@@ -30,7 +30,7 @@ WindowLabel::WindowLabel(QString text, QWidget *parent) : QLabel(parent)
  *
  *Dieser kosntruktor wurde für die Widgets, die in der ui erzeugt werden erstellt, denn diese haben eines parent
  */
-WindowLabel::WindowLabel(QWidget *parent, QString text) : QLabel(parent)
+WindowLabel::WindowLabel(QWidget* parent, QString text) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
@@ -89,9 +89,9 @@ void WindowLabel::setBold()
 void WindowLabel::setWinnerStyle(void)
 {
     setStyleSheet("QLabel{"
-                               "font-size: 40px;"
-                               "font-family: Candara;"
-                               "font-weight: bold;}");
+                  "font-size: 40px;"
+                  "font-family: Candara;"
+                  "font-weight: bold;}");
 
 }
 

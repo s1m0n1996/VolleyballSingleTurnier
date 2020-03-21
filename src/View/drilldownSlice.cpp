@@ -31,9 +31,9 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries *drilldownSeries)
-    : m_drilldownSeries(drilldownSeries),
-      m_prefix(prefix)
+DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries* drilldownSeries)
+        : m_drilldownSeries(drilldownSeries),
+          m_prefix(prefix)
 {
     setValue(value);
     updateLabel();
@@ -47,7 +47,7 @@ DrilldownSlice::~DrilldownSlice()
 
 }
 
-QAbstractSeries *DrilldownSlice::drilldownSeries() const
+QAbstractSeries* DrilldownSlice::drilldownSeries() const
 {
     return m_drilldownSeries;
 }
