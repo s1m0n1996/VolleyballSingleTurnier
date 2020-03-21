@@ -1,8 +1,3 @@
-/*!
-* \file mainmenu.cpp
-* \brief Diese Klasse ist die View Klasse des Hauptmenüs
-* \author Lea Kesselmeier
-*/
 #include <QAction>
 #include <QFileDialog>
 #include <QMenuBar>
@@ -26,6 +21,11 @@
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
 
+/*!
+* \file mainmenu.cpp
+* \brief Diese Klasse ist die View Klasse des Hauptmenüs
+* \author Lea Kesselmeier
+*/
 
 /*!
  * \brief MainMenu::MainMenu ist Konstruktor der Klasse MainMenu

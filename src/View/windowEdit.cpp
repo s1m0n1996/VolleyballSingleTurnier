@@ -1,14 +1,13 @@
-/*!
-* \file windowedit.cpp
-* \brief Diese Klasse besitzt die Informationen zu den Edits
-* \author Lea Kesselmeier
-*/
-
 #include <QRegExp>
 #include <QRegExpValidator>
 
 #include "View/windowEdit.h"
 
+/*!
+* \file windowedit.cpp
+* \brief Diese Klasse besitzt die Informationen zu den Edits
+* \author Lea Kesselmeier
+*/
 
 /*!
  * \brief WindowEdit::WindowEdit ist Konstruktor der Klasse WindowEdit

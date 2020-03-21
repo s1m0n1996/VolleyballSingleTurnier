@@ -1,4 +1,3 @@
-
 #include "Model/game.h"
 #include "Model/gameManagement.h"
 #include "Model/playerManagement.h"

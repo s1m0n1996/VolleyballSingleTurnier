@@ -2,6 +2,7 @@
 #define WINDOWLABEL_H
 
 #include <QLabel>
+
 /*!
  * \file windowlabel.h
  * \brief Die Klasse WindowLabel erzeugt Labels

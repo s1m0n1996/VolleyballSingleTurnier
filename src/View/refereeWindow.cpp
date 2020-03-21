@@ -1,9 +1,3 @@
-/*!
-* \file refereewindow.cpp
-* \brief Diese Klasse ist die View Klasse des Richters
-* \author Nico Meyer
-*/
-
 #include <QtMath>
 #include <QResizeEvent>
 
@@ -14,6 +8,12 @@
 #include "View/refereeWindow.h"
 #include "ui_refereewindow.h"
 #include "View/winnerpopup.h"
+
+/*!
+* \file refereewindow.cpp
+* \brief Diese Klasse ist die View Klasse des Richters
+* \author Nico Meyer
+*/
 
 /*!
  * \brief RefereeWindow::RefereeWindow ist Konstruktor der Klasse RefereeWindow

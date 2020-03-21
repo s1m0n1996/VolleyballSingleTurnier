@@ -18,16 +18,15 @@ class WindowLabel;
 
 /*!
  * \file playermanagmentWindow.h
- * \brief Die Klasse playermanagmentWindow erzeugt die Meldestelle, in der neue Spieler einer gesamt Datenbank,
- * als auch einem neuen Spiel hinzu gefügt oder gelöscht werden
+ * \brief Die Klasse playermanagmentWindow erzeugt die Meldestelle, in der neue Spieler einer Gesamtdatenbank,
+ * als auch einem neuen Spiel hinzugefügt oder gelöscht werden
  * \author Lea Kesselmeier
  *
- * Zwei TabelViews zeigt die gesamt Spielerdatenbank als auch die aktuelle Spielerdatenbank für ein Turnier
- * Darunter wird die benötigte Spieleranzahl für ein Turnier angezeigt
- * DArunter kann man neue Spieler hinzufügen (Name, Geburtsdatum, Land)
- * Ein Turnier beginnt man wenn die Spieleranzahl entsprechend ist
+ * Zwei TabelViews zeigen die Gesamtspielerdatenbank als auch die aktuelle Spielerdatenbank für ein Turnier.
+ * Darunter wird die benötigte Spieleranzahl für ein Turnier angezeigt.
+ * Unter kann man neue Spieler hinzufügen (Name, Geburtsdatum, Land, Photo).
+ * Ein Turnier beginnt man wenn die Spieleranzahl entsprechend ist.
 */
-
 class PlayermanagementWindow : public QMainWindow
 {
     Q_OBJECT

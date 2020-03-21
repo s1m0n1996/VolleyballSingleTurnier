@@ -23,12 +23,13 @@ class LoadTournamentPopup;
 
 /*!
  * \file mainmenu.h
- * \brief Die Klasse MainMenu erzeugt ein Hauptmenu aus dem die verschieden Fenster geöffnet werden können
+ * \brief Die Klasse MainMenu erzeugt ein Hauptmenü, aus dem die verschieden Fenster geöffnet werden können
  * \author Lea Kesselmeier
  *
  * In der Menüleiste lassen sich Spielerdatenbanken und Turniere erstellen oder starten
- * Eine Warnung erscheint, wenn keine Datenbank geöfnnet ist und welches Turnier gerade laden ist
- * Über die verschiedenen Buttons gelangt man zu der Meldestelle, dem Spielplan, der Zuschaueransicht und dem Richterfenster
+ * Eine Warnung erscheint, wenn keine Datenbank geöffnet ist und welches Turnier gerade laden ist
+ * Über die verschiedenen Buttons gelangt man zu der Meldestelle, dem Spielplan, der Zuschaueransicht,
+ * dem Richteransicht und dem Statistikfenster
 */
 
 class MainMenu : public QMainWindow

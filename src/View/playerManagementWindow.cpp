@@ -1,9 +1,3 @@
-/*!
-* \file playermanagment.cpp
-* \brief Diese Klasse ist die View Klasse der Meldestelle
-* \author Lea Kesselmeier
-*/
-
 #include <QAction>
 #include <QAbstractItemView>
 #include <QCalendarWidget>
@@ -28,6 +22,12 @@
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
+
+/*!
+* \file playermanagment.cpp
+* \brief Diese Klasse ist die View Klasse der Meldestelle
+* \author Lea Kesselmeier
+*/
 
 /*!
  * \brief PlayermanagementWindow::PlayermanagementWindow ist Konstruktor der Klasse PlayermanagementWindow

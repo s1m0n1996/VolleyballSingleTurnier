@@ -1,9 +1,10 @@
+#include "windowLabel.h"
+
 /*!
 * \file windowedit.cpp
 * \brief Diese Klasse besitzt die Informationen zu den Edits
 * \author Lea Kesselmeier
 */
-#include "windowLabel.h"
 
 /*!
  * \brief WindowLabel::WindowLabel ist Konstruktor der Klasse WindowLabel

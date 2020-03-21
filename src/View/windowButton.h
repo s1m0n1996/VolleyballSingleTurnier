@@ -12,7 +12,6 @@
  * Wenn der Button nicht drückbar sein soll, bekommt er ein anders StyleSheet
  * Wenn der Button ein Menü Button sein soll, bekommt er ein aderes StylseSheet und eine andere Größe
 */
-
 class WindowButton : public QPushButton
 {
     Q_OBJECT

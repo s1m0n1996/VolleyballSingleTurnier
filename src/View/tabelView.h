@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTableView>
+
 /*!
  * \file tabelview.h
  * \brief Die Klasse TabelView erzeugt TabelViews

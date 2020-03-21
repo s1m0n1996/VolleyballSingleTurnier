@@ -1,10 +1,10 @@
+#include "View/windowButton.h"
+
 /*!
 * \file mainmenu.cpp
 * \brief Diese Klasse ist die View Klasse des Hauptmenüs
 * \author Lea Kesselmeier
 */
-
-#include "View/windowButton.h"
 
 /*!
  * \brief WindowButton::WindowButton ist Konstruktor der Klasse WindowButtons

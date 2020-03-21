@@ -1,8 +1,3 @@
-/*!
-* \file refereepopupbustleg.cpp
-* \brief Diese Klasse ist ein Popup welches für den Richter dient
-* \author Nico Meyer
-*/
 #include <QGridLayout>
 
 #include "View/refereePopupBustLeg.h"
@@ -10,6 +5,12 @@
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
+
+/*!
+* \file refereepopupbustleg.cpp
+* \brief Diese Klasse ist ein Popup welches für den Richter dient
+* \author Nico Meyer
+*/
 
 /*!
  * \brief RefereePopupBustLeg::RefereePopupBustLeg ist Konstruktor der Klasse RefereePopupBustLeg

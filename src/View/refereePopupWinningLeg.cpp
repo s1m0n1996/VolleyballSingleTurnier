@@ -1,8 +1,3 @@
-/*!
-* \file refereepopupwinningleg.cpp
-* \brief Diese Klasse ist ein Popup welches für den Richter dient
-* \author Nico Meyer
-*/
 #include <QGridLayout>
 
 #include "Model/referee.h"
@@ -13,6 +8,12 @@
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
 #include "View/winnerpopup.h"
+
+/*!
+* \file refereepopupwinningleg.cpp
+* \brief Diese Klasse ist ein Popup welches für den Richter dient
+* \author Nico Meyer
+*/
 
 /*!
  * \brief RefereepopupWinningLeg::RefereepopupWinningLeg ist Konstruktor der Klasse RefereepopupWinningLeg

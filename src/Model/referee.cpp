@@ -1,13 +1,14 @@
+#include <QDateTime>
+
+#include "Model/referee.h"
+#include "Model/gameManagement.h"
+
 /*!
 * \file referee.cpp
 * \brief Diese Klasse repräsentiert den Richter der das Dartspiel leitet
 * \author Nico Meyer
 */
 
-#include <QDateTime>
-
-#include "Model/referee.h"
-#include "Model/gameManagement.h"
 
 Referee::Referee()
 {

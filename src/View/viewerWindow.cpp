@@ -1,4 +1,3 @@
-
 #include <QJsonObject>
 #include <QFile>
 #include <QGraphicsScene>

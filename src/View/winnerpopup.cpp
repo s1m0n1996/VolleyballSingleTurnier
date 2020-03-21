@@ -1,9 +1,3 @@
-/*!
-* \file winnerpopup.cpp
-* \brief Diese Klasse erzeugt ein Fenster mit dem Namen des Gewinner eines Spieles und eines Turniers
-* \author Lea Kesselmeier
-*/
-
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
@@ -11,6 +5,11 @@
 #include "View/windowLabel.h"
 #include "View/winnerpopup.h"
 
+/*!
+* \file winnerpopup.cpp
+* \brief Diese Klasse erzeugt ein Fenster mit dem Namen des Gewinner eines Spieles und eines Turniers
+* \author Lea Kesselmeier
+*/
 
 /*!
  * \brief WinnerPopup::WinnerPopup ist Konstruktor der Klasse WinnerPopup
