@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include <QString>
-#include <QDebug>
 #include "Model/sqliteConnector.h"
 
 /*!

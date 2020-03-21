@@ -1,7 +1,6 @@
 #include <QList>
 #include <QString>
 
-
 #include "Model/gameManagement.h"
 
 GameManagement::GameManagement(void)

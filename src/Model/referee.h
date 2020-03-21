@@ -3,7 +3,6 @@
 
 #include <QList>
 #include <QObject>
-#include <QDebug>
 
 #include "Model/sqliteConnector.h"
 #include "Model/game.h"
