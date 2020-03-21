@@ -11,7 +11,18 @@
 #include "View/viewerWindow.h"
 #include "ui_viewerWindow.h"
 
-
+/*!
+ * \brief RefereeWindow::RefereeWindow ist Konstruktor der Klasse RefereeWindow
+ * \param[in] referee ist das dazugehörige Model
+ * \param[in] viewer ist das dazugehörige Model
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Es wird ein Objekt einer QGraphicsScene erstellt.
+ * Es wird ein Objekt eines DartboardViewer erstellt.
+ * Es wird ein Objekt von einem Viewer erstellt.
+ * Die Ui Datei wird zugewiesen
+ */
 ViewerWindow::ViewerWindow(Referee* referee, Viewer* viewer, QWidget* parent) :
         QMainWindow(parent),
         ui(new Ui::ViewerWindow),

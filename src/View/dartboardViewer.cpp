@@ -2,6 +2,14 @@
 
 #include "View/dartboardViewer.h"
 
+/*!
+ * \brief DartboardViewer::DartboardViewer ist Konstruktor der Klasse DartboardViewer
+ * \param[in] referee ist das dazugehörige Model
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Da das parent nicht benötigt wird,wird es hier als unused deklariert.
+ */
 DartboardViewer::DartboardViewer(Referee* referee, QGraphicsItem* parent) :
         _referee(referee)
 {

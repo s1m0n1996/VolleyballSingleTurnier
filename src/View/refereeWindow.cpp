@@ -15,6 +15,16 @@
 #include "ui_refereewindow.h"
 #include "View/winnerpopup.h"
 
+/*!
+ * \brief RefereeWindow::RefereeWindow ist Konstruktor der Klasse RefereeWindow
+ * \param[in] referee ist das dazugehörige Model
+ * \param[in] popupWinningLeg ist das dazugehörige Model für das gewonnen Popup
+ * \param[in] popupBustLeg ist das dazugehörige Model für das überworfene Popup
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Es werden 2 Popup Objekte erstellt und die Ui wird zugewiesen
+ */
 RefereeWindow::RefereeWindow(Referee* referee, RefereepopupWinningLeg* popupWinningLeg,
                              RefereePopupBustLeg* popupBustLeg, QWidget* parent) :
         QMainWindow(parent),

@@ -14,7 +14,13 @@
 #include "View/windowLabel.h"
 #include "View/winnerpopup.h"
 
-
+/*!
+ * \brief RefereepopupWinningLeg::RefereepopupWinningLeg ist Konstruktor der Klasse RefereepopupWinningLeg
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Erstellt das Popup als unter Fenster
+ */
 RefereepopupWinningLeg::RefereepopupWinningLeg(QWidget* parent) : QWidget(parent)
 {
     setWindowIcon(QIcon(":/img/referee.png"));

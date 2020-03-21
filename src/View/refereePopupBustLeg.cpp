@@ -11,6 +11,13 @@
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
 
+/*!
+ * \brief RefereePopupBustLeg::RefereePopupBustLeg ist Konstruktor der Klasse RefereePopupBustLeg
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Erstellt das Popup als unter Fenster
+ */
 RefereePopupBustLeg::RefereePopupBustLeg(QWidget* parent) : QWidget(parent)
 {
     setWindowIcon(QIcon(":/img/referee.png"));
