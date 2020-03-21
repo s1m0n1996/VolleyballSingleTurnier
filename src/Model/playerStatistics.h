@@ -1,5 +1,6 @@
 #ifndef PLAYERSTATISTICS_H
 #define PLAYERSTATISTICS_H
+
 #include "QList"
 #include "Model/sqliteConnector.h"
 #include "Model/player.h"

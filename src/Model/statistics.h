@@ -1,5 +1,6 @@
 #ifndef STATISTICS_H
 #define STATISTICS_H
+
 #include "Model/sqliteConnector.h"
 #include "Model/player.h"
 #include "Model/gameManagement.h"

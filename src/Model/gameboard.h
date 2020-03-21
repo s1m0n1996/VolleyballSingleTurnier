@@ -21,7 +21,7 @@ private:
     QList <int> _gameIds;
     SqliteConnector* _db;
     int getLastGameIdInSameTournament(void);
-    void createFirstGames();
+    void createFirstGames(void);
     void prepareGameRandomly(void);
     void getNewTournamentId(void);
     void randomInitialisation(void);

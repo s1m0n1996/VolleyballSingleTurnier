@@ -4,6 +4,13 @@
 #include <QObject>
 #include <QMainWindow>
 
+#include <QtWidgets/QWidget>
+#include <QtCharts/QChartGlobal>
+#include <QtCharts/QLineSeries>
+#include <QValueAxis>
+#include <View/drilldownChart.h>
+#include <View/drilldownSlice.h>
+
 class GameManagement;
 class PlayerStatistics;
 class PlayerManagement;
@@ -14,15 +21,6 @@ class QLabel;
 class WindowButton;
 class WindowEdit;
 class WindowLabel;
-
-#include <QtWidgets/QWidget>
-#include <QtCharts/QChartGlobal>
-#include <QtCharts/QLineSeries>
-#include <QValueAxis>
-#include <View/drilldownChart.h>
-#include <View/drilldownSlice.h>
-
-
 
 QT_CHARTS_BEGIN_NAMESPACE
 class QChartView;

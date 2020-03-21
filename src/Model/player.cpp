@@ -64,7 +64,7 @@ WHERE id = :id;
 
     if (rawData.length() <= 0)
     {
-        qWarning() << "no player with id: " << id << " found";
+        qWarning() << "No player with id: " << id << " found";
         return;
     }
     QList<QVariant> player = rawData[0];
@@ -148,7 +148,7 @@ AND country = :country
     QList<QList<QVariant>> rawData = _db->sqlQuery(sqlQuery);
     if (rawData.isEmpty())
     {
-        qWarning() << "can't get the id from the player because the player does not exists.";
+        qWarning() << "Can't get the id from the player because the player does not exists.";
         return -1;
     }
     return rawData[0][0].toInt();
@@ -230,7 +230,6 @@ WHERE player_list.id = :playerId
 
     if (rawData.isEmpty())
     {
-        // TODO: default Bild laden???
         return QByteArray();
     }
 

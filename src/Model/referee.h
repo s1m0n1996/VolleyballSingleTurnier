@@ -8,7 +8,6 @@
 #include "Model/sqliteConnector.h"
 #include "Model/game.h"
 
-
 /*!
  * \file referee.h
  * \author Nico Meyer
@@ -22,26 +21,26 @@ public:
     Referee();
 
     void singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplikator);
-    void undoThrow();
-    void nextPlayer();
-    void nextPlayerAfterWinningLeg();
-    void legWinningCondition();
+    void undoThrow(void);
+    void nextPlayer(void);
+    void nextPlayerAfterWinningLeg(void);
+    void legWinningCondition(void);
 
-    int getAktivePlayer();              //TODO: Name des Spielers
-    QList<int> getThrows();
-    int getRemainScore();
-    int getCountOfWinningLegs();
-    int getGameStart();
-    int getThrowScore();
-    int getRemainingThrows();
+    int getAktivePlayer(void);              //TODO: Name des Spielers
+    QList<int> getThrows(void);
+    int getRemainScore(void);
+    int getCountOfWinningLegs(void);
+    int getGameStart(void);
+    int getThrowScore(void);
+    int getRemainingThrows(void);
 
     // Methoden für den Zuschauer
-    void scoreIsUnder170InLeg();
-    void remainingThrowsAreZeroInLeg();
-    int getValueMultiplikator();
-    QList<int> getAllThrowsWithoutMultiplikator();
-    QList<int> getRemainScoreForViewer();
-    QList<int> getAllPlayersForViewer();
+    void scoreIsUnder170InLeg(void);
+    void remainingThrowsAreZeroInLeg(void);
+    int getValueMultiplikator(void);
+    QList<int> getAllThrowsWithoutMultiplikator(void);
+    QList<int> getRemainScoreForViewer(void);
+    QList<int> getAllPlayersForViewer(void);
 
 signals:
     void valueChanged(void);
@@ -53,11 +52,20 @@ signals:
     void tournamentFinished(void);
 
 public slots:
-    void updatePlayer();
+    void updatePlayer(void);
 
-private:
-    void setRemainScore();
-    void setWinner();
+private:   
+    int getLastLegIdInSameGame(void);
+    int getNumberOfCurrentLeg(void);
+    void setRemainScore(void);
+    void setWinner(void);
+    void setActivePlayer(int activePlayerId);
+    void resetAllStats(void);
+    void loadLastGame(void);
+    void loadLastThrows(void);
+    void setLegWinner(int winnerId);
+    void createAllPossibleLegs(void);
+    void writeLegIntoDatabase(int legId);
 
      int _valueMultiplikator        = 0;
      int _throwScoreWithoutMulti    = 0;
@@ -80,15 +88,6 @@ private:
      SqliteConnector* _db;
      GameManagement* _gameManagement;
 
-    int getLastLegIdInSameGame();
-    int getNumberOfCurrentLeg();
-    void setActivePlayer(int activePlayerId);
-    void resetAllStats();
-    void loadLastGame();
-    void loadLastThrows();
-    void setLegWinner(int winnerId);
-    void createAllPossibleLegs();
-    void writeLegIntoDatabase(int legId);
 };
 
 #endif // REFEREE_H

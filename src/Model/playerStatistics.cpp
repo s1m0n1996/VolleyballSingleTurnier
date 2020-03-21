@@ -458,7 +458,7 @@ ORDER BY game_board_id, leg_id, id
  *
  * \param[in] sqlQuery sqlQuery mit den entsprechenden Daten
  *
- * \return Die 10 am meisten Getroffenen Felder
+ * \return Die 10 am meisten getroffenen Felder
  *
  */
 QMap<QString, double> PlayerStatistics::_convert10MostHittingFields(QSqlQuery& sqlQuery)
@@ -486,7 +486,7 @@ QMap<QString, double> PlayerStatistics::_convert10MostHittingFields(QSqlQuery& s
 /*!
  * \brief Gibt die 10 am meisten getroffene Felder
  *
- * \return Die 10 am meisten Getroffenen Felder
+ * \return Die 10 am meisten getroffenen Felder
  *
  */
 QMap<QString, double> PlayerStatistics::get10MostHittingFields()
@@ -511,7 +511,7 @@ LIMIT :limit
  *
  * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
  *
- * \return Die 10 am meisten Getroffenen Felder
+ * \return Die 10 am meisten getroffenen Felder
  *
  */
 QMap<QString, double> PlayerStatistics::get10MostHittingFields(const Player* player)
@@ -538,7 +538,7 @@ LIMIT :limit
  *
  * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
  *
- * \return Die 10 am meisten Getroffenen Felder
+ * \return Die 10 am meisten getroffenen Felder
  *
  */
 QMap<QString, double> PlayerStatistics::get10MostHittingFields(const int tournamentId)
@@ -566,7 +566,7 @@ LIMIT :limit
  * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
  * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
  *
- * \return Die 10 am meisten Getroffenen Felder
+ * \return Die 10 am meisten getroffenen Felder
  *
  */
 QMap<QString, double> PlayerStatistics::get10MostHittingFields(const Player* player, const int tournamentId)
