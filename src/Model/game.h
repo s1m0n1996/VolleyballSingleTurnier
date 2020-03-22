@@ -8,6 +8,15 @@ class PlayerManagement;
 class SqliteConnector;
 
 
+/*!
+* \file game.h
+* \brief Diese Klasse verarbeitet die Eingaben vom Richter und schreibt die Gewinner in die Datenbank
+* \author Philipp Wietfeld
+*
+* Diese Klasse lädt und erstellt Spiele, die aus den Gewinnern resultieren. Außerdem bearbeitet sie die Spielerliste
+* aus der Datenbank so, dass sie auf den Turnierplan angepasst ist
+*/
+
 
 class Game : public QObject
 {
