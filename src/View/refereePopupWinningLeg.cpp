@@ -34,8 +34,6 @@ void RefereepopupWinningLeg::openRefereeWinningLeg(void)
 {
     emit playerWonLeg();
     setWindowFlags(Qt::SubWindow);
-//    WinnerPopup* winnerpopup = new WinnerPopup(aktivePlayer);
-//    winnerpopup->show();
 }
 
 void RefereepopupWinningLeg::openRefereeUndoLastThrow(void)

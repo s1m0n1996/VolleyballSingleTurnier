@@ -65,7 +65,7 @@ private:
 
     PlayerManagement* _playerManagementModel = nullptr;
 
-    QByteArray* _byteArray                   = nullptr;
+    QByteArray* _playerPicture               = nullptr;
 
     WindowLabel*    _title      = nullptr;
 

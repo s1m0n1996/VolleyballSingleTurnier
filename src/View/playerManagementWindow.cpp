@@ -110,17 +110,13 @@ void PlayermanagementWindow::addPlayerToDatabase(void)
     _birthday->setDate(QDate(1990, 10, 21));
     _countryEdit->clear();
 
-
     _playerManagementModel->refreshDatabasePlayerTable();
 
-    if (!(_byteArray->isEmpty()))
+    if (!(_playerPicture->isEmpty()))
     {
-
-        newPlayer->savePicture(*_byteArray);
-
-        QByteArray data = newPlayer->loadPicture();
+        newPlayer->savePicture(*_playerPicture);
     }
-    _byteArray->clear();
+    _playerPicture->clear();
 
 }
 
@@ -144,7 +140,7 @@ void PlayermanagementWindow::addPhotoWithButton(void)
     {
 
         file.open(QIODevice::ReadOnly);
-        *_byteArray = file.readAll();
+        *_playerPicture = file.readAll();
         file.close();
     }
 
@@ -210,7 +206,8 @@ void PlayermanagementWindow::dropPlayerForNewGame(void)
  * \param[in] void
  * \return void
  *
- * Alle markierten Splaten werden einem neuen Player Objekt übergebn, welcher dann über eine Funtkion aus der Model gelöscht wird
+ * Alle markierten Splaten werden einem neuen Player Objekt übergebn, welcher dann über eine Funtkion aus der
+ * Model gelöscht wird
  */
 void PlayermanagementWindow::deletePlayer(void)
 {
@@ -447,7 +444,7 @@ void PlayermanagementWindow::createWidgets(void)
         _startTournamentButton->setEnabled(true);
     }
 
-    _byteArray = new QByteArray();
+    _playerPicture = new QByteArray();
 }
 
 void PlayermanagementWindow::showTable(void)
