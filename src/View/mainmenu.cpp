@@ -94,7 +94,6 @@ void MainMenu::openRefereeWindow(void)
     refereeWindow->show();
 }
 
-
 void MainMenu::openStatisticWindow(void)
 {
     StatisticWindow* statisticWindow = new StatisticWindow();
@@ -150,6 +149,13 @@ void MainMenu::loadDatabase(void)
     _noteDatabase->setVisible(false);
 }
 
+/*!
+ * \brief Aktualisiere Datenbank
+ *
+ * Wenn keine Datenbank geladen ist werden die meisten klickbaren Objekte deaktiviert.
+ * Wenn eine Datenbank geladen ist werden die Objekte aktiviert und es wird der Datenbankname der aktuellen Datanbenk
+ * aktualisiert.
+ */
 void MainMenu::refreshDatabase(void)
 {
     if (!_sqliteConnector->isDatabaseOpen())
@@ -178,7 +184,11 @@ void MainMenu::refreshDatabase(void)
     connect(_refereeModel, SIGNAL(tournamentFinished()), this, SLOT(setButtonEnableState()));
 }
 
-
+/*!
+ * \brief Setze den Klickbaren Status der Buttons
+ *
+ * Es werden alle buttins aktiviert oder deaktiviert je nachdem welche man gerade anklichen darf.
+ */
 void MainMenu::setButtonEnableState(void)
 {
     SqliteConnector* sqliteConnector = &SqliteConnector::instance();

@@ -9,6 +9,11 @@
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
 
+/*!
+ * \brief Konstruktor
+ *
+ * Initialisiert die Klasse
+ */
 CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 {
     _gameManagement = &GameManagement::instance();
@@ -23,6 +28,11 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
     connecting();
 }
 
+/*!
+ * \brief Setze enable Status vom tournier erstellen Button
+ *
+ * Das Turnier kann erst erstellt werden, wenn in beiden Feldern etwas eingegeben wurde
+ */
 void CreateTournamentPopUp::enableCreateTournamentButton(void)
 {
     QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
@@ -31,9 +41,13 @@ void CreateTournamentPopUp::enableCreateTournamentButton(void)
     {
         _createTournament->setEnabled(true);
     }
-
 }
 
+/*!
+ * \brief Öffne das Fenster um ein anderes Turnuer zu laden
+ *
+ * Es wird das aktuell ausgewählte Turnier Geladen.
+ */
 void CreateTournamentPopUp::openTournamentWindow(void)
 {
     setWindowFlags(Qt::Window);
@@ -44,6 +58,11 @@ void CreateTournamentPopUp::openTournamentWindow(void)
     _gameManagement->loadOtherTournament(tournamentName, tournamentDate);
 }
 
+/*!
+ * \brief Erstelle alle Objekte die Benötigt werden
+ *
+ * Es werden Objekte erstellt, die für die Klasse benötigt werden.
+ */
 void CreateTournamentPopUp::createWidgets(void)
 {
     _dateLabel = new WindowLabel("Turnierdatum");

@@ -1,6 +1,10 @@
 #include "Model/playerManagement.h"
 
-
+/*!
+ * \brief Konstruktor
+ *
+ * Initialisiert die Klasse
+ */
 PlayerManagement::PlayerManagement(void)
 {
     _db = &SqliteConnector::instance();
