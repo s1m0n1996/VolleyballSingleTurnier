@@ -281,9 +281,12 @@ void RefereeWindow::tournamentIsWon(void)
 
 void RefereeWindow::gameIsWon(void)
 {
-    Player player(_referee->getAktivePlayer());
-    WinnerPopup* winnerPopUp = new WinnerPopup(player.getName());
-    winnerPopUp->show();
+    if (!_gameManagement->isTournamentFinished())
+    {
+        Player player(_referee->getAktivePlayer());
+        WinnerPopup* winnerPopUp = new WinnerPopup(player.getName());
+        winnerPopUp->show();
+    }
 }
 
 void RefereeWindow::modifiWidgets(void)
