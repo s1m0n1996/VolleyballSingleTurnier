@@ -312,7 +312,7 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
  * In dieser Methode wird die Membervariable des aktuellen Spielers  Aktualisiert.
  * Es wird der wert des Drop down Menüs in die Membervariable geschrieben.
  */
-void StatisticWindow::_refreshSelectedPlayer()
+void StatisticWindow::_refreshSelectedPlayer(void)
 {
     if (_selectedPlayer)
     {

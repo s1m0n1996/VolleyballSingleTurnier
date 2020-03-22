@@ -21,10 +21,10 @@ public:
 
     Player(const int id);
 
-    int getId() const { return _id; }
-    QString getName() const { return _name; }
-    QDate getBirthday() const { return _birthday; }
-    QString getCountry() const { return _country; }
+    int getId(void) const { return _id; }
+    QString getName(void) const { return _name; }
+    QDate getBirthday(void) const { return _birthday; }
+    QString getCountry(void) const { return _country; }
     QByteArray loadPicture(void);
     void savePicture(const QByteArray& picture);
 
@@ -35,9 +35,9 @@ private:
     QDate _birthday;
     QString _country;
 
-    int _getPlayerIdFromDatabase();
-    void _addPlayerToDatabase();
-    bool _isPlayerUnknown();
+    int _getPlayerIdFromDatabase(void);
+    void _addPlayerToDatabase(void);
+    bool _isPlayerUnknown(void);
 };
 
 #endif // PLAYER_H

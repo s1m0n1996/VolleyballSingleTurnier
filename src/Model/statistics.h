@@ -18,7 +18,7 @@
 class Statistics
 {
 public:
-    Statistics();
+    Statistics(void);
 
     double getAverageOfPlayerInCurrentLeg(const Player& player, const int legId);
     double getAverageOfPlayerInCurrentGame(const Player& player);

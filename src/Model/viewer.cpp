@@ -32,7 +32,7 @@ void Viewer::createJsonDocument(int throwCounter, int remainScore)
     emit howToFinishLeg();
 }
 
-QList<QString> Viewer::getHowToFinishLeg()
+QList<QString> Viewer::getHowToFinishLeg(void)
 {
     return _listWithHowToFinishLeg;
 }

@@ -18,7 +18,7 @@ class ViewerWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit ViewerWindow(Referee* referee, Viewer* viewer = nullptr, QWidget *parent = nullptr);
-    ~ViewerWindow();
+    ~ViewerWindow(void);
 
 public slots:
     void writeScore(void);

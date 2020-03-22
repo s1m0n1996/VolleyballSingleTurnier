@@ -42,17 +42,17 @@ DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries* dri
     connect(this, &DrilldownSlice::hovered, this, &DrilldownSlice::showHighlight);
 }
 
-DrilldownSlice::~DrilldownSlice()
+DrilldownSlice::~DrilldownSlice(void)
 {
 
 }
 
-QAbstractSeries* DrilldownSlice::drilldownSeries() const
+QAbstractSeries* DrilldownSlice::drilldownSeries(void) const
 {
     return m_drilldownSeries;
 }
 
-void DrilldownSlice::updateLabel()
+void DrilldownSlice::updateLabel(void)
 {
     QString label = m_prefix;
     label += ": ";

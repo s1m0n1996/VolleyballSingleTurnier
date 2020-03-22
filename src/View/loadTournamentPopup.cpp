@@ -40,7 +40,7 @@ LoadTournamentPopup::~LoadTournamentPopup()
  *
  * In dieser Methode werden alle widget objekte erzeugt.
  */
-void LoadTournamentPopup::_createWidgets()
+void LoadTournamentPopup::_createWidgets(void)
 {
     setWindowTitle("Turnier laden");
     setWindowIcon(QIcon(":/img/darts.png"));
@@ -68,7 +68,7 @@ void LoadTournamentPopup::_createWidgets()
  *
  * In dieser Methode wird das Layout für das komplette Fester gesetzt.
  */
-void LoadTournamentPopup::_setAllLayout()
+void LoadTournamentPopup::_setAllLayout(void)
 {
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(_informationLabel);
@@ -94,7 +94,7 @@ void LoadTournamentPopup::_setAllLayout()
  *
  * In dieser Methode werden buttons mit funktionen verbunden
  */
-void LoadTournamentPopup::_connect()
+void LoadTournamentPopup::_connect(void)
 {
     connect(_loadButton, SIGNAL(released()), this, SLOT(_loadTournamentForGame()));
 }
@@ -105,7 +105,7 @@ void LoadTournamentPopup::_connect()
  * In dieser Methode werden alle verfügbaren Tourniere der aktuellen Sportart geladen
  * und der comboBox hinzugefügt
  */
-void LoadTournamentPopup::_loadAllTournamentsFromDatabase()
+void LoadTournamentPopup::_loadAllTournamentsFromDatabase(void)
 {
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
@@ -143,7 +143,7 @@ void LoadTournamentPopup::_loadAllTournamentsFromDatabase()
  * Dadurch werden die Membervariablen der Singleton-Klasse GameboardManagement mit dem des Aktuellen Toutnieres
  * überschrieben, und das Programm holt sich die Daten für das jetzt ausgewählte Tournier.
  */
-void LoadTournamentPopup::_loadTournamentForGame()
+void LoadTournamentPopup::_loadTournamentForGame(void)
 {
     QAbstractItemModel* tournamentModel = _comboBox->view()->model();
 

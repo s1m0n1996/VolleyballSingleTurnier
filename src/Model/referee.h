@@ -17,7 +17,7 @@ class Referee : public QObject
 {
     Q_OBJECT
 public:
-    Referee();
+    Referee(void);
 
     void singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplikator);
     void undoThrow(void);

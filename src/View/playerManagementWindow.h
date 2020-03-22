@@ -33,7 +33,7 @@ class PlayermanagementWindow : public QMainWindow
 
 public:
     explicit PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget *parent = nullptr);
-    ~PlayermanagementWindow();
+    ~PlayermanagementWindow(void);
 
 signals:
 private slots:

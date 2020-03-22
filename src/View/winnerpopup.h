@@ -18,7 +18,7 @@ class WinnerPopup : public QWidget
     Q_OBJECT
 public:
     WinnerPopup(QString winnerName, QWidget* parent = nullptr);
-    ~WinnerPopup();
+    ~WinnerPopup(void);
     void setWinnerLeg(void);
     void setWinnerTournament(void);
 

@@ -25,7 +25,7 @@ Q_OBJECT
 
 public:
     LoadTournamentPopup(void);
-    ~LoadTournamentPopup();
+    ~LoadTournamentPopup(void);
 
 private slots:
 

@@ -24,7 +24,7 @@ class PlayerManagement : public QObject{
 
     Q_OBJECT
 public:
-    PlayerManagement();
+    PlayerManagement(void);
 
     QList<Player> getAllStoredPlayers(bool onlyAvailable = true);
 

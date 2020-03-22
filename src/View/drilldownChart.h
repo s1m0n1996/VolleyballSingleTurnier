@@ -43,7 +43,7 @@ class DrilldownChart : public QChart
     Q_OBJECT
 public:
     explicit DrilldownChart(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
-    ~DrilldownChart();
+    ~DrilldownChart(void);
     void changeSeries(QAbstractSeries *series);
 
 public Q_SLOTS:

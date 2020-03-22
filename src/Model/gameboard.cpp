@@ -22,7 +22,7 @@ Gameboard::Gameboard(QList<Player> players)
  * \return void
  *
  */
-void Gameboard::prepareGameRandomly()
+void Gameboard::prepareGameRandomly(void)
 {
     randomInitialisation();
     int i = 0;
@@ -43,7 +43,7 @@ void Gameboard::prepareGameRandomly()
  * Schreibt die ersten Spiele in die Datenbank
  *
  */
-void Gameboard::createFirstGames()
+void Gameboard::createFirstGames(void)
 {
     for (int i = 1; i < _players.size(); i = i + 2)
     {
@@ -72,7 +72,7 @@ void Gameboard::createFirstGames()
  * erzeugt werden. Das heißt die Spiele, bei denen noch keine Spieler feststehen.
  *
  */
-void Gameboard::createRemainingGames()
+void Gameboard::createRemainingGames(void)
 {
     int numberOfGames = 0;
     for (int i = _players.size(); i > 1; i = i / 2)
@@ -106,7 +106,7 @@ void Gameboard::createRemainingGames()
  * noch kein erstelltes Spiel gibt, gibt die Methode 0 wieder.
  *
  */
-int Gameboard::getLastGameIdInSameTournament()
+int Gameboard::getLastGameIdInSameTournament(void)
 {
     QString sqlPrepare = R"(SELECT id
                          FROM game_board_list
@@ -133,7 +133,7 @@ int Gameboard::getLastGameIdInSameTournament()
     return lastId;
 }
 
-void Gameboard::randomInitialisation()
+void Gameboard::randomInitialisation(void)
 {
     srand(static_cast<unsigned int>(time(nullptr)));
     rand();

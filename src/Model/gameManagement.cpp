@@ -226,7 +226,7 @@ WHERE sport_type_id = :sportTypeId
  * in der game_board_list Tabelle eingetragen sind. Dies ist der Fall, sobalt in der Meldestelle auf
  * Turnier erstellen geklickt wird.
  */
-bool GameManagement::isTournamentStarted()
+bool GameManagement::isTournamentStarted(void)
 {
     QString sqlPrepare = R"(
 SELECT count(*)
@@ -255,7 +255,7 @@ WHERE sport_type_id = :sportTypeId
  * Gibt zurück ob das Turnier beendet ist. Das Turnier wird als beendet erkannt, sobalt kein Feld
  * in der game_board_list Tabelle NULL ist.
  */
-bool GameManagement::isTournamentFinished()
+bool GameManagement::isTournamentFinished(void)
 {
     QString sqlPrepare = R"(
 SELECT count(*)
@@ -284,7 +284,7 @@ WHERE sport_type_id = :sportTypeId
  *
  * Wenn es keinen Gewinner gibt, stürzt das Programm ab.
  */
-Player GameManagement::getTournamentWinner()
+Player GameManagement::getTournamentWinner(void)
 {
     QString sqlPrepare = R"(
 SELECT winner_id

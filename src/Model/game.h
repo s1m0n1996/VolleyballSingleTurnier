@@ -22,10 +22,10 @@ class Game : public QObject
 {
     Q_OBJECT
 public:
-    explicit Game();
+    explicit Game(void);
 
-    int getPlayerAId(){return _playerA->getId();}
-    int getPlayerBId(){return _playerB->getId();}
+    int getPlayerAId(void){return _playerA->getId();}
+    int getPlayerBId(void){return _playerB->getId();}
     int getGameId(){return _gameId;}
 
     void loadNextGame(void);

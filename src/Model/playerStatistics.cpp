@@ -489,7 +489,7 @@ QMap<QString, double> PlayerStatistics::_convert10MostHittingFields(QSqlQuery& s
  * \return Die 10 am meisten getroffenen Felder
  *
  */
-QMap<QString, double> PlayerStatistics::get10MostHittingFields()
+QMap<QString, double> PlayerStatistics::get10MostHittingFields(void)
 {
     QString sqlPrepare = R"(
 SELECT value_type_id, value, count(*) AS count

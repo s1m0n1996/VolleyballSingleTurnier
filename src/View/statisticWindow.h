@@ -41,7 +41,7 @@ class StatisticWindow :  public QMainWindow
     Q_OBJECT
 public:
     explicit StatisticWindow(QWidget *parent = nullptr);
-    ~StatisticWindow();
+    ~StatisticWindow(void);
 
 signals:
 public slots:

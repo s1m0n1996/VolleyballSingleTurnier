@@ -80,7 +80,7 @@ WHERE id = :id;
  * ob es den Spieler bereits gibt, da die Methode nur ausgeführt werden darf, wenn der Spieler noch nicht
  * in der Datenbank vorhanden ist.
  */
-void Player::_addPlayerToDatabase()
+void Player::_addPlayerToDatabase(void)
 {
 
     QString sqlPrepare = R"(
@@ -102,7 +102,7 @@ VALUES (:name, :birthday, :country);
  * \return true wenn es den Spieler noch nicht gibt und false wenn der Spieler bereits vorhanden ist
  *
  */
-bool Player::_isPlayerUnknown()
+bool Player::_isPlayerUnknown(void)
 {
     QString sqlPrepare = R"(
 SELECT *
@@ -129,7 +129,7 @@ AND country = :country
  * Datenbank geladen.
  * Bei Aufruf der Methode muss der Spieler bereits in der Datenbank vorhanden sein.
  */
-int Player::_getPlayerIdFromDatabase()
+int Player::_getPlayerIdFromDatabase(void)
 {
     QString sqlPrepare = R"(
 SELECT id

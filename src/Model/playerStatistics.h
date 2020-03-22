@@ -19,7 +19,7 @@
 class PlayerStatistics
 {
 public:
-    PlayerStatistics();
+    PlayerStatistics(void);
 
     QMap<QString, double> getWinningStatistic(void);
     QMap<QString, double> getWinningStatistic(const Player* player);

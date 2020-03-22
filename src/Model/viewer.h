@@ -11,9 +11,9 @@ class Viewer : public QObject
 {
     Q_OBJECT
 public:
-    Viewer();
+    Viewer(void);
     void createJsonDocument(int throwCounter, int remainScore);
-    QList<QString> getHowToFinishLeg();
+    QList<QString> getHowToFinishLeg(void);
     QJsonDocument _loadDoc;
 
 signals:

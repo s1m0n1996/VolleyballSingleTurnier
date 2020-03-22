@@ -38,9 +38,9 @@ class MainMenu : public QMainWindow
 
 public:
     MainMenu(QMainWindow* parent = nullptr);
-    ~MainMenu();
+    ~MainMenu(void);
 
-    WindowLabel* getNote(){return _noteDatabase;}
+    WindowLabel* getNote(void){return _noteDatabase;}
 
 
 private slots:

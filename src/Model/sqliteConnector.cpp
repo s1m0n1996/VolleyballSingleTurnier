@@ -225,7 +225,7 @@ void SqliteConnector::_saveLastPath(QString& path)
  * Es wird die letzte Benutzte Datenbank geladen.
  * Dazu wird der letzte pfad aus der .temp datei geladen, welcher in der Methode _saveLastPath gespeichert wurde.
  */
-bool SqliteConnector::_loadLastDatabase()
+bool SqliteConnector::_loadLastDatabase(void)
 {
     QFile file;
     file.setFileName(_lastOpenedDbFilePath);
@@ -277,7 +277,7 @@ QList<QList<QVariant>> SqliteConnector::_convertReturnedData(QSqlQuery& sqlQuery
  * \return aktuellen Namen der Datenbank
  *
  */
-QString SqliteConnector::getDatabaseName()
+QString SqliteConnector::getDatabaseName(void)
 {
     QString path = _db.databaseName();
 

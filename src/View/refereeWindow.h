@@ -38,7 +38,7 @@ class RefereeWindow : public QMainWindow
 public:
     explicit RefereeWindow(Referee* referee, RefereepopupWinningLeg* popupWinningLeg = nullptr,
                            RefereePopupBustLeg* popupBustLeg = nullptr, QWidget *parent = nullptr);
-    ~RefereeWindow();
+    ~RefereeWindow(void);
 
 private slots:
     void mouseCurrentPos(void);

@@ -11,7 +11,7 @@
  * Erstellt ein Spiel und lädt das nächste zu spielende Spiel aus der Datenbank
  *
  */
-Game::Game()
+Game::Game(void)
 {
     _db = &SqliteConnector::instance();
     _gameManagement = &GameManagement::instance();
@@ -26,7 +26,7 @@ Game::Game()
  * Schreibt die ersten Spiele in die Datenbank
  *
  */
-void Game::loadNextGame()
+void Game::loadNextGame(void)
 {
 
     QString sqlPrepare = R"(SELECT id, player_a_id, player_b_id
@@ -77,7 +77,7 @@ void Game::loadNextGame()
  *
  *
  */
-bool Game::wasFinal()
+bool Game::wasFinal(void)
 {
     return getNumberOfGamesInTournament() - getNumberOfWinnerInTournament() == 1;
 }
@@ -305,7 +305,7 @@ int Game::getNumberOfWinnerInTournament(void)
  * \return int
  *
  */
-int Game::getNumberOfGamesInTournament()
+int Game::getNumberOfGamesInTournament(void)
 {
     QString sqlPrepare = R"(
                          SELECT MAX(id)
@@ -330,7 +330,7 @@ int Game::getNumberOfGamesInTournament()
  * \return QList<QString>
  *
  */
-QList<QString> Game::getAllPlayersForGameboardView()
+QList<QString> Game::getAllPlayersForGameboardView(void)
 {
     QList<QString> allPlayers;
 
@@ -376,7 +376,7 @@ QString Game::getNameOfPlayerForGameView(int playerId)
     return playerId > 0 ? Player(playerId).getName() : "";
 }
 
-QList<QString> Game::getAllWinnersInTournament()
+QList<QString> Game::getAllWinnersInTournament(void)
 {
     QList<QString> winnerList;
     QString sqlPrepare = R"(
