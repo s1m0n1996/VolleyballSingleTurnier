@@ -23,6 +23,7 @@ WinnerPopup::WinnerPopup(QString winnerName, QWidget* parent) : QWidget(parent)
     setStyleSheet("background: white;");
     createWidgets(std::move(winnerName));
     setwholeLayout();
+    connecting();
 }
 
 WinnerPopup::~WinnerPopup()

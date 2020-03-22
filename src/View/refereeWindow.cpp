@@ -247,7 +247,7 @@ void RefereeWindow::writeScore(void)
     ui->throw1->setText(QString::number(_referee->getThrows()[0]));
     ui->throw2->setText(QString::number(_referee->getThrows()[1]));
     ui->throw3->setText(QString::number(_referee->getThrows()[2]));
-    ui->gesmatpunkte->setText(QString::number(_referee->getThrowScore()));
+    ui->gesamtpunkte->setText(QString::number(_referee->getThrowScore()));
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
     ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
     ui->remainingThrows->setText(QString::number(_referee->getRemainingThrows()));
@@ -276,7 +276,14 @@ void RefereeWindow::tournamentIsWon(void)
     _winnerPopup = new WinnerPopup(_gameManagement->getTournamentWinner().getName());
     _winnerPopup->setWinnerTournament();
     _winnerPopup->show();
-    close();
+
+}
+
+void RefereeWindow::gameIsWon(void)
+{
+    Player player(_referee->getAktivePlayer());
+    WinnerPopup* winnerPopUp = new WinnerPopup(player.getName());
+    winnerPopUp->show();
 }
 
 void RefereeWindow::modifiWidgets(void)
@@ -313,5 +320,6 @@ void RefereeWindow::connecting(void)
     connect(_referee, SIGNAL(playerBust()), this, SLOT(playerBust()));
     connect(_popupBustLeg, SIGNAL(playerBustLeg()), this, SLOT(nextPlayer()));
     connect(_popupBustLeg, SIGNAL(undoLastThrow()), this, SLOT(undoLastThrow()));
-    connect(_referee, SIGNAL(tournamentFinished()), this, SLOT (tournamentIsWon()));
+    connect(_referee, SIGNAL(tournamentFinished()), this, SLOT(tournamentIsWon()));
+    connect(_referee, SIGNAL(gameFinished()), this , SLOT(gameIsWon()));
 }

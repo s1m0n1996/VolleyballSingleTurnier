@@ -49,6 +49,7 @@ signals:
     void remainingThrowsAreZero(void);
     void gameListChanged(void);
     void tournamentFinished(void);
+    void gameFinished(void);
 
 public slots:
     void updatePlayer(void);

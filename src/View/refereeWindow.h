@@ -51,6 +51,7 @@ private slots:
     void playerWinsLeg(void);
     void nextPlayerAfterWinningLeg(void);
     void tournamentIsWon(void);
+    void gameIsWon(void);
 
 
 private:

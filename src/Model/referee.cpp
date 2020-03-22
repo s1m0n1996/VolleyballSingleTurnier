@@ -227,6 +227,7 @@ void Referee::setWinner(void)
         _winner = _player;
         Game game;
         game.setNextWinner(getAktivePlayer());
+        emit gameFinished();
         game.loadNextGame();
         updatePlayer();
         emit gameListChanged();

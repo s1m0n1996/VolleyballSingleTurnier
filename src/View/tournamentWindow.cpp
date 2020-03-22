@@ -349,7 +349,7 @@ void TournamentWindow::createTexts(void)
     QList<QRectF> allRects;
     QList<QString> allPlayersForAllGames;
 
-    winner = game.getAllWinnersInTournament();
+    _winner = game.getAllWinnersInTournament();
 
     allPlayersForAllGames = game.getAllPlayersForGameboardView();
     _texts = allPlayersForAllGames;
@@ -418,12 +418,12 @@ void TournamentWindow::createColours(void)
     {
         for (int i = 0; i < _rects[m].size(); i++)
         {
-            for (int t = 0; t < winner.size(); t++)
+            for (int t = 0; t < _winner.size(); t++)
             {
-                if (winner[t] == test[m][i] and winner[t] != "")
+                if (_winner[t] == test[m][i] and _winner[t] != "")
                 {
                     _gameBoard->addRect(_rects[m][i], QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-                    winner.removeAt(t);
+                    _winner.removeAt(t);
                     break;
                 }
             }

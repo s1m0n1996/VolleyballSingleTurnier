@@ -60,7 +60,7 @@ private:
     WindowButton* _startGame= nullptr;
     QGraphicsScene* _gameBoard = nullptr;
 
-    QList<QString> winner;
+    QList<QString> _winner;
 
 };
 
