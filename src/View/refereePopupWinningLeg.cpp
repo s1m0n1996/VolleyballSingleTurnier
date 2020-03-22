@@ -1,13 +1,11 @@
 #include <QGridLayout>
 
-#include "Model/referee.h"
 #include "Model/player.h"
 
 #include "View/refereePopupWinningLeg.h"
 #include "View/windowButton.h"
 #include "View/windowEdit.h"
 #include "View/windowLabel.h"
-#include "View/winnerpopup.h"
 
 
 /*!

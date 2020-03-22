@@ -46,7 +46,6 @@ void Game::loadNextGame(void)
 
     if (newGame.isEmpty())
     {
-        qDebug() << "Was last game in Tournament";
         emit tournamentFinishes();
         return;
     }
