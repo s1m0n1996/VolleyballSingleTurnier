@@ -276,7 +276,7 @@ void RefereeWindow::tournamentIsWon(void)
     _winnerPopup = new WinnerPopup(_gameManagement->getTournamentWinner().getName());
     _winnerPopup->setWinnerTournament();
     _winnerPopup->show();
-
+    close();
 }
 
 void RefereeWindow::gameIsWon(void)
