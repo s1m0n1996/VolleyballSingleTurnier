@@ -120,6 +120,7 @@ void PlayermanagementWindow::addPlayerToDatabase(void)
 
         QByteArray data = newPlayer->loadPicture();
     }
+    _byteArray->clear();
 
 }
 
