@@ -221,7 +221,7 @@ void MainMenu::setTournamentName(void)
 {
     if (_gameManagement->getTournamentId() < 0)
     {
-        _noteTournament->setText("Bitte zuerst ein Turnier erstellen oder laden");
+        _noteTournament->setText("Bitte zuerst ein Turnier neu erstellen oder öffnen");
         _noteTournament->setNotStartTournamentStyle();
     }
     else
@@ -262,7 +262,7 @@ void MainMenu::createWidgets(void)
     _title = new WindowLabel("Hauptmenü - DartsTurnier");
     _title->setMainTitleStyle();
 
-    _noteDatabase = new WindowLabel("Zu Beginn muss eine Datei erstellt oder geladen werden");
+    _noteDatabase = new WindowLabel("Bitte zuerst eine Datei neu erstellen oder öffnen");
     _noteDatabase->setNotStartTournamentStyle();
 
     _noteTournament = new WindowLabel("Aktuelles Turnier");

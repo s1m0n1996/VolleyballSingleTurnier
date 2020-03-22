@@ -47,10 +47,10 @@ void RefereepopupWinningLeg::createWidgets(void)
     _refereeInformation = new WindowLabel("Der Spieler hat das Leg gewonnen,\n");
     _refereeInformation->setTitleStyle();
     _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde 'Leg gewonnen',\n"
-                                     "ansonsten 'Letzten Wurf rückgänig'");
+                                     "ansonsten 'Wurf rückgänig'");
 
     _legWin = new WindowButton("Leg gewonnen");
-    _undoLastThrow = new WindowButton("Letzten Wurf rückgänig");
+    _undoLastThrow = new WindowButton("Wurf rückgänig");
 
 }
 

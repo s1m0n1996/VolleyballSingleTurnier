@@ -47,10 +47,10 @@ void RefereePopupBustLeg::createWidgets(void)
 
     _refereeInformation->setTitleStyle();
     _refereeAction = new WindowLabel("Wenn der Wurf richtig eingegeben wurde 'Nächster Spieler'\n"
-                                     "ansonsten 'Letzter Wurf rückgänig'");
+                                     "ansonsten 'Wurf rückgänig'");
 
     _nextPlayer = new WindowButton("Nächster Spieler");
-    _undoLastThrow = new WindowButton("Letzter Wurf rückgänig");
+    _undoLastThrow = new WindowButton("Wurf rückgänig");
 }
 
 void RefereePopupBustLeg::setAllLayout(void)
