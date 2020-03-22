@@ -23,13 +23,13 @@ public:
     void setNextWinner(int winnerId);
     void prepareNextGame(int winnerId);
     bool wasFinal(void);
-    QList<QString> getAllGamesWithNames();
-    QList<QString> getAllPlayersForGameboardView();
-    QList<QString> getAllWinnersInTournament();
+    QList<QString> getAllGamesWithNames(void);
+    QList<QString> getAllPlayersForGameboardView(void);
+    QList<QString> getAllWinnersInTournament(void);
 
 
 signals:
-    void tournamentFinishes();
+    void tournamentFinishes(void);
 
 private:
     QString getNameOfPlayerForGameView(int playerId);

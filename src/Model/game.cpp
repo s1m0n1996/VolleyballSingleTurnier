@@ -3,7 +3,24 @@
 #include "Model/playerManagement.h"
 #include "Model/sqliteConnector.h"
 
+/*!
+* \file game.cpp
+* \brief Diese Klasse verarbeitet die Eingaben vom Richter und schreibt die Gewinner in die Datenbank
+* \author Philipp Wietfeld
+*
+* Diese Klasse lädt und erstellt Spiele, die aus den Gewinnern resultieren. Außerdem bearbeitet sie die Spielerliste
+* aus der Datenbank so, dass sie auf den Turnierplan angepasst ist
+*/
 
+
+/*!
+ * \brief Erstellt ein Spiel
+ *
+ * \return void
+ *
+ * Erstellt ein Spiel und lädt das nächste zu spielende Spiel aus der Datenbank
+ *
+ */
 Game::Game()
 {
     _db = &SqliteConnector::instance();
@@ -11,7 +28,6 @@ Game::Game()
     loadNextGame();
 }
 
-//TODO: GameId muss noch aus der Datenbank entnommen werden
 
 
 /*!
@@ -42,7 +58,7 @@ void Game::loadNextGame()
 
     if (newGame.isEmpty())
     {
-        qDebug() << "Was last game in Tournament";          //TODO: Die Dartscheibe unable setzten!!
+        qDebug() << "Was last game in Tournament";
         emit tournamentFinishes();
         return;
     }
@@ -338,7 +354,6 @@ int Game::getNumberOfGamesInTournament()
 QList<QString> Game::getAllPlayersForGameboardView()
 {
     QList<QString> allPlayers;
-    qDebug() << "vorher";
 
     QString sqlPrepare = R"(
                          SELECT MAX(id)
@@ -361,9 +376,6 @@ QList<QString> Game::getAllPlayersForGameboardView()
     sqlQuery2.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> allGames = _db->sqlQuery(sqlQuery2);
 
-    qDebug() << "Anzahl Spiele:" << numberOfGames;
-    qDebug() << allGames;
-
     int iCounter;
     for (iCounter = 0; iCounter < (numberOfGames - 1); iCounter += 2)
     {
@@ -377,7 +389,6 @@ QList<QString> Game::getAllPlayersForGameboardView()
     allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][0].toInt()));
     allPlayers.append(getNameOfPlayerForGameView(allGames[iCounter][1].toInt()));
 
-    qDebug() << "AlleSpieler" << allPlayers;
     return allPlayers;
 }
 

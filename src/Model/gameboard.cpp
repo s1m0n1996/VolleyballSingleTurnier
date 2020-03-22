@@ -1,5 +1,11 @@
 #include "Model/gameboard.h"
 
+/*!
+ * \brief Mischt die Spielerliste zufällig
+ *
+ * \return void
+ *
+ */
 Gameboard::Gameboard(QList<Player> players)
 {
     _db = &SqliteConnector::instance();

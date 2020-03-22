@@ -6,9 +6,8 @@
 /*!
 * \file referee.cpp
 * \brief Diese Klasse repräsentiert den Richter der das Dartspiel leitet
-* \author Nico Meyer
+* \author Nico Meyer, Philipp Wietfeld
 */
-
 
 Referee::Referee()
 {

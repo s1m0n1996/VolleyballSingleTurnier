@@ -9,7 +9,7 @@
 
 /*!
  * \file referee.h
- * \author Nico Meyer
+ * \author Nico Meyer, Philipp Wietfeld
  * \brief Eine Klasse für den Richter
  *
 */

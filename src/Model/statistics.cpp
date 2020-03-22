@@ -6,7 +6,13 @@ Statistics::Statistics()
     _gameManagement = &GameManagement::instance();
 }
 
-
+/*!
+ * \brief Gibt den Average von einem Spieler zurück
+ * \param[in] einen Player
+ * \return double
+ *
+ * Gibt den Average eines Spielers für das aktuelle Spiel aus
+ */
 double Statistics::getAverageOfPlayerInCurrentGame(const Player& player)
 {
     Game game;
@@ -31,6 +37,13 @@ WHERE sport_type_id = :sportTypeId
 }
 
 
+/*!
+ * \brief Gibt den Average von einem Spieler zurück
+ * \param[in] einen Player
+ * \return double
+ *
+ * Gibt den Average eines Spielers aus
+ */
 double Statistics::getAverageOfPlayerEver(const Player& player)
 {
     QString sqlPrepare = R"(
@@ -49,7 +62,14 @@ WHERE sport_type_id = :sportTypeId
     return _db->sqlQuery(sqlQuery)[0][0].toDouble();
 }
 
-
+/*!
+ * \brief Gibt den Average von einem Spieler zurück
+ * \param[in] einen Player
+ * \param[in] LegID
+ * \return double
+ *
+ * Gibt den Average eines Spielers aus dem als Parameter übergebenen Leg aus
+ */
 double Statistics::getAverageOfPlayerInCurrentLeg(const Player& player, const int legId)
 {
     Game game;
@@ -75,6 +95,12 @@ WHERE sport_type_id = :sportTypeId
     return _db->sqlQuery(sqlQuery)[0][0].toDouble();
 }
 
+/*!
+ * \brief Gibt die Anzahl von gewonnenen Spielen eines Spielers zurück
+ * \param[in] einen Player
+ * \return int
+ *
+ */
 int Statistics::getWonGamesOfPlayer(const Player& player)
 {
     QString sqlPrepare = R"(
@@ -89,7 +115,13 @@ int Statistics::getWonGamesOfPlayer(const Player& player)
     return list.size();
 }
 
-
+/*!
+ * \brief Gibt die Anzahl von 180er Würfen eines Spielers in einem eingegebenen Spiel zurück
+ * \param[in] einen Player
+ * \param[in] die GameID des gefragten Spiels
+ * \return int
+ *
+ */
 int Statistics::getCountOfHundretEightyInGame(const Player& player, const int gameId)
 {
     QString sqlPrepare = R"(
@@ -116,7 +148,12 @@ int Statistics::getCountOfHundretEightyInGame(const Player& player, const int ga
     return list.size();
 }
 
-
+/*!
+ * \brief Gibt die Anzahl von 180er Würfen eines Spielers aus dem aktuellen Turniers zurück
+ * \param[in] einen Player
+ * \return int
+ *
+ */
 int Statistics::getCountOfHundretEightyInTournament(const Player& player)
 {
     QString sqlPrepare = R"(

@@ -6,6 +6,15 @@
 #include "Model/gameManagement.h"
 #include "Model/game.h"
 
+/*!
+ * \file statistics.h
+ * \author Philipp Wietfeld
+ * \brief Eine Klasse für die Zuschaueransicht
+ *
+ * Stellt der Zuschaueransicht die Daten aus der Datenbank wie Average und andere nützliche
+ * Informationen zum Turnier und Spieler zur Verfügung
+*/
+
 class Statistics
 {
 public:

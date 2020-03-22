@@ -420,7 +420,7 @@ ORDER BY game_board_id, leg_id, id
  * \param[in] player Spieler, von dem die Statistik angezeigt werden soll.
  * \param[in] tournamentId id des Turniers, von dem die Daten angezeigt werden sollen
  *
- * \return alle geworfenen Würfe mit zeitstempel
+ * \return alle geworfenen Würfe mit Zeitstempel
  *
  */
 QMap<int, QMap<int, double>> PlayerStatistics::getAverageHistory(const Player* player, const int tournamentId)

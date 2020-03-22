@@ -8,6 +8,15 @@
 #include "QDate"
 #include "Model/gameManagement.h"
 
+/*!
+ * \file gameboard.h
+ * \author Philipp Wietfeld
+ * \brief Eine Klasse zur Erstellung der ersten Spiele in dem Turnier
+ *
+ * Bereitet die Datenbank auf ein neues Turnier vor, indem es die TurnierId erzeugt und alle
+ * möglichen Spiele des Turniers vorbereitend in die Datenbank schreibt
+ *
+*/
 
 class Gameboard
 {
@@ -25,7 +34,7 @@ private:
     void prepareGameRandomly(void);
     void getNewTournamentId(void);
     void randomInitialisation(void);
-    void createRemainingGames();
+    void createRemainingGames(void);
     void createNewTournament(QString tournamentName);
 };
 
