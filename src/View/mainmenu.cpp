@@ -47,7 +47,7 @@ MainMenu::MainMenu(QMainWindow* parent) :
     setButtonEnableState();
 }
 
-MainMenu::~MainMenu()
+MainMenu::~MainMenu(void)
 {
     delete _playerData;
     delete _loadPlayer;
@@ -150,7 +150,7 @@ void MainMenu::loadDatabase(void)
     _noteDatabase->setVisible(false);
 }
 
-void MainMenu::refreshDatabase()
+void MainMenu::refreshDatabase(void)
 {
     if (!_sqliteConnector->isDatabaseOpen())
     {

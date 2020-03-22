@@ -49,7 +49,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
 
 }
 
-PlayermanagementWindow::~PlayermanagementWindow()
+PlayermanagementWindow::~PlayermanagementWindow(void)
 {
     delete _addPlayerButton;
     delete _startTournamentButton;
@@ -76,7 +76,7 @@ PlayermanagementWindow::~PlayermanagementWindow()
  * Das Label mit der Überschrift und der Spieleranzahl wird erzeugt, und aktualisiert
  * Der Button zum Start wird, freigeschlatet oder bleibt nicht drückbar, wenn die benötigte Spieleranzahl Null beträgt
  */
-void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
+void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel(void)
 {
     _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _startTournamentButton->setEnabled(false);
@@ -99,7 +99,7 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel()
  * Dieser wird dann sowohl dem aktuellen Spiel als auch der gesamten Spielerdatenabnk hinzugefügt
  * Die Edits der Namen,Geburtstag und Land werden wieder frei beschreibbar gemacht
  */
-void PlayermanagementWindow::addPlayerToDatabase()
+void PlayermanagementWindow::addPlayerToDatabase(void)
 {
     Player* newPlayer = new Player(_playernameEdit->text(),
                                    _birthday->date(), _countryEdit->text());
@@ -131,7 +131,7 @@ void PlayermanagementWindow::addPlayerToDatabase()
  *
  * Das in ein ByteArray gespeicherte Foto wird dem gerade erzeugten Spieler sofort hinzugefügt
  */
-void PlayermanagementWindow::addPhotoWithButton()
+void PlayermanagementWindow::addPhotoWithButton(void)
 {
     QString path = QFileDialog::getOpenFileName(this,
                                                 tr("Bild laden"), "",
@@ -158,7 +158,7 @@ void PlayermanagementWindow::addPhotoWithButton()
  * Die Indices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
  * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
  */
-void PlayermanagementWindow::addPlayerForNewGame()
+void PlayermanagementWindow::addPlayerForNewGame(void)
 {
     QAbstractItemModel* modelAll = _allPlayerTableView->model();
     QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
@@ -182,7 +182,7 @@ void PlayermanagementWindow::addPlayerForNewGame()
  * Die Indices der markierten Reihen werden dem Model übergeben und dort weiter verarbeitet
  * Die ausgewählten Reihen werden wieder nicht markiert angezeigt
  */
-void PlayermanagementWindow::dropPlayerForNewGame()
+void PlayermanagementWindow::dropPlayerForNewGame(void)
 {
     QAbstractItemModel* modelGame = _gamePlayerTableView->model();
     QModelIndexList selectedRows = _gamePlayerTableView->selectionModel()->selectedRows();
@@ -211,7 +211,7 @@ void PlayermanagementWindow::dropPlayerForNewGame()
  *
  * Alle markierten Splaten werden einem neuen Player Objekt übergebn, welcher dann über eine Funtkion aus der Model gelöscht wird
  */
-void PlayermanagementWindow::deletePlayer()
+void PlayermanagementWindow::deletePlayer(void)
 {
     QAbstractItemModel* modelGame = _allPlayerTableView->model();
     QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
@@ -241,7 +241,7 @@ void PlayermanagementWindow::deletePlayer()
  *
  *
  */
-void PlayermanagementWindow::restorePlayer()
+void PlayermanagementWindow::restorePlayer(void)
 {
     QAbstractItemModel* deletedPlayersModel = _deletedPlayersTableView->model();
     QModelIndexList selectedRows = _deletedPlayersTableView->selectionModel()->selectedRows();
@@ -270,7 +270,7 @@ void PlayermanagementWindow::restorePlayer()
  *
  * Durch makieren eines Spielers wird das ausgewählte Foto, welches in einem Bytearray gespeichert ist, diesem Spieler hinzugefügt
  */
-void PlayermanagementWindow::addPhotoWithSelection()
+void PlayermanagementWindow::addPhotoWithSelection(void)
 {
     QAbstractItemModel* modelAll = _allPlayerTableView->model();
     QModelIndexList selectedRows = _allPlayerTableView->selectionModel()->selectedRows();
@@ -306,7 +306,7 @@ void PlayermanagementWindow::addPhotoWithSelection()
  * Diese Methode startet das eigentiche Turnier. Dadurh wird der Spielplan erstellt und das Spiel geht in den
  * Zustand, das es gestartet ist.
  */
-void PlayermanagementWindow::startTournament()
+void PlayermanagementWindow::startTournament(void)
 {
     Gameboard gameBoard(_playerManagementModel->getPlayersForNextGame());
     window()->close();
@@ -314,7 +314,7 @@ void PlayermanagementWindow::startTournament()
     gameManagement->tournamentChanged();
 }
 
-void PlayermanagementWindow::enableAddPlayerButton()
+void PlayermanagementWindow::enableAddPlayerButton(void)
 {
     _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty());
 }
@@ -324,7 +324,7 @@ void PlayermanagementWindow::showDeletedPlayers(void)
     _deletedPlayersTableView->show();
 }
 
-void PlayermanagementWindow::createDeleteMenu()
+void PlayermanagementWindow::createDeleteMenu(void)
 {
     QAction* deletePlayer = new QAction("Löschen", this);
     _addPhotoAction = new QAction("Foto hinzufügen");
@@ -339,7 +339,7 @@ void PlayermanagementWindow::createDeleteMenu()
     deleteMenu->exec(QCursor::pos());
 }
 
-void PlayermanagementWindow::createRestoreMenu()
+void PlayermanagementWindow::createRestoreMenu(void)
 {
     QAction* restorePlayer = new QAction("Wiederherstellen", this);
     connect(restorePlayer, SIGNAL(triggered()), this, SLOT(restorePlayer()));
@@ -350,7 +350,7 @@ void PlayermanagementWindow::createRestoreMenu()
     restoreMenu->exec(QCursor::pos());
 }
 
-void PlayermanagementWindow::createWidges()
+void PlayermanagementWindow::createWidges(void)
 {
     _title = new WindowLabel("Meldestelle");
     _title->setMainTitleStyle();
@@ -449,7 +449,7 @@ void PlayermanagementWindow::createWidges()
     _byteArray = new QByteArray();
 }
 
-void PlayermanagementWindow::showTable()
+void PlayermanagementWindow::showTable(void)
 {
     _allPlayerTableView = new TableView;
     _gamePlayerTableView = new TableView;
@@ -474,7 +474,7 @@ void PlayermanagementWindow::showTable()
     _deletedPlayersTableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 }
 
-void PlayermanagementWindow::setAllLayout()
+void PlayermanagementWindow::setAllLayout(void)
 {
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
@@ -536,7 +536,7 @@ void PlayermanagementWindow::setAllLayout()
     widget->setLayout(mainLayout);
 }
 
-void PlayermanagementWindow::connecting()
+void PlayermanagementWindow::connecting(void)
 {
     connect(_playerManagementModel, SIGNAL(valueChanged()), this, SLOT(setMissingPlayersForNewTournamentLabel()));
 

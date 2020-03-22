@@ -79,7 +79,7 @@ WindowButton::WindowButton(QWidget* parent, QString text) : QPushButton(parent)
  * \return void
  *
  */
-void WindowButton::setEnableStyle()
+void WindowButton::setEnableStyle(void)
 {
     setStyleSheet("QPushButton{"
                   "color: #dcdcdc;"
@@ -104,7 +104,7 @@ void WindowButton::setEnableStyle()
  * \return void
  *
  */
-void WindowButton::mainMenuStyle()
+void WindowButton::mainMenuStyle(void)
 {
     int fixSizeX = 50;
     int fixSizeY = 250;
