@@ -63,7 +63,7 @@ RefereeWindow::~RefereeWindow()
  * wird der Multiplikator bestimmt.
  *
  */
-int RefereeWindow::valueMultiplikator()
+int RefereeWindow::valueMultiplikator(void)
 {
     int multiplikator = 0;
     _centralPointXY = ui->DartboardView->pixmap()->width() / 2;
@@ -108,7 +108,7 @@ int RefereeWindow::valueMultiplikator()
  * Diese Metohde gibt anhand der Position wo die Maus auf der Dartscheibe geklickt wurde einen Zahlenwert aus.
  *
  */
-int RefereeWindow::valueScoreWithoutMultiplikator()
+int RefereeWindow::valueScoreWithoutMultiplikator(void)
 {
     double angle = 0.0;
     double deltaX = _centralPointXY - ui->DartboardView->x;
@@ -159,27 +159,27 @@ int RefereeWindow::valueScoreWithoutMultiplikator()
 
 }
 
-void RefereeWindow::mouseCurrentPos()
+void RefereeWindow::mouseCurrentPos(void)
 {
 
 }
 
-void RefereeWindow::nextPlayer()
+void RefereeWindow::nextPlayer(void)
 {
     _referee->nextPlayer();
 }
 
-void RefereeWindow::nextPlayerAfterWinningLeg()
+void RefereeWindow::nextPlayerAfterWinningLeg(void)
 {
     _referee->nextPlayerAfterWinningLeg();
 }
 
-void RefereeWindow::undoLastThrow()
+void RefereeWindow::undoLastThrow(void)
 {
     _referee->undoThrow();
 }
 
-void RefereeWindow::writeNextPlayer()
+void RefereeWindow::writeNextPlayer(void)
 {
     Player player(_referee->getAktivePlayer());
     ui->playerName->setText(player.getName());
@@ -194,7 +194,7 @@ void RefereeWindow::writeNextPlayer()
  * unenable gesetzt.
  *
  */
-void RefereeWindow::playerBust()
+void RefereeWindow::playerBust(void)
 {
     _popupBustLeg->show();
     ui->DartboardView->setEnabled(false);
@@ -211,7 +211,7 @@ void RefereeWindow::playerBust()
  * unenable gesetzt.
  *
  */
-void RefereeWindow::playerWinsLeg()
+void RefereeWindow::playerWinsLeg(void)
 {
     _popupWinningLeg->show();
     ui->DartboardView->setEnabled(false);
@@ -219,7 +219,7 @@ void RefereeWindow::playerWinsLeg()
     ui->nextPlayer->setEnabled(false);
 }
 
-void RefereeWindow::mouseReleasedOnDartboard()
+void RefereeWindow::mouseReleasedOnDartboard(void)
 {
     _valueMultiplikator = valueMultiplikator();
     _valueScoreWithoutMultiplikator = valueScoreWithoutMultiplikator();
@@ -243,7 +243,7 @@ void RefereeWindow::mouseReleasedOnDartboard()
  * mehr hat.
  *
  */
-void RefereeWindow::writeScore()
+void RefereeWindow::writeScore(void)
 {
     ui->throw1->setText(QString::number(_referee->getThrows()[0]));
     ui->throw2->setText(QString::number(_referee->getThrows()[1]));

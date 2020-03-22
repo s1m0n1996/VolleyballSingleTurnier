@@ -39,13 +39,13 @@ int Dartboard::heightForWidth(int width) const
     return pix.isNull() ? this->height() : ((qreal) pix.height() * width) / pix.width();
 }
 
-QSize Dartboard::sizeHint() const
+QSize Dartboard::sizeHint(void) const
 {
     int w = this->width();
     return QSize(w, heightForWidth(w));
 }
 
-QPixmap Dartboard::scaledPixmap() const
+QPixmap Dartboard::scaledPixmap(void) const
 {
     return pix.scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }

@@ -26,7 +26,7 @@ Referee::Referee()
  * in die Membervariable
  *
  */
-void Referee::updatePlayer()
+void Referee::updatePlayer(void)
 {
     if (_gameManagement->isTournamentStarted() and !_gameManagement->isTournamentFinished())
     {
@@ -54,7 +54,7 @@ void Referee::updatePlayer()
  *Setzt alle Spielwerte auf den Anfangswert
  *
  */
-void Referee::resetAllStats()
+void Referee::resetAllStats(void)
 {
     _winningLegCounter = {0, 0};
     _throwCounter = 0;
@@ -74,7 +74,7 @@ void Referee::resetAllStats()
  * und gibt dieses als Signal an das View weiter
  *
  */
-void Referee::nextPlayer()
+void Referee::nextPlayer(void)
 {
     if (_wasLastThrowInLegToBust)
     {
@@ -105,7 +105,7 @@ void Referee::nextPlayer()
  * und gibt dieses als Signal an das View weiter
  *
  */
-void Referee::nextPlayerAfterWinningLeg()
+void Referee::nextPlayerAfterWinningLeg(void)
 {
     _remainScore[0] = 501;
     _remainScore[1] = 501;
@@ -146,7 +146,7 @@ void Referee::nextPlayerAfterWinningLeg()
  * Diese Metohde gibt die Id des Spielers der aktuell am Zug ist zurück
  *
  */
-int Referee::getAktivePlayer()
+int Referee::getAktivePlayer(void)
 {
     return _allPlayers[_player];
 }
@@ -202,12 +202,12 @@ void Referee::singleThrowScore(int valueMultiplikator, int scoreWithoutMultiplik
     }
 }
 
-QList<int> Referee::getThrows()
+QList<int> Referee::getThrows(void)
 {
     return _allThrows;
 }
 
-void Referee::setRemainScore()
+void Referee::setRemainScore(void)
 {
     _remainScore[_player] = _remainScore[_player] - _singleThrowScore;
 }
@@ -221,7 +221,7 @@ void Referee::setRemainScore()
  * übergibt ihn an das Spiel
  *
  */
-void Referee::setWinner()
+void Referee::setWinner(void)
 {
     if (_winningLegCounter[_player] == 3)
     {
@@ -247,7 +247,7 @@ void Referee::setWinner()
  * In beiden Fällen wird ein Signal an das View rausgegebn.
  *
  */
-void Referee::legWinningCondition()
+void Referee::legWinningCondition(void)
 {
     if (_remainScore[_player] == 0 and _valueMultiplikator == 2
         and _throwCounter <= 3 and _winningLegCounter[_player] < 3)
@@ -263,8 +263,8 @@ void Referee::legWinningCondition()
              or (_remainScore[_player] < 0 and _throwCounter <= 3)
              or _remainScore[_player] == 1)
     {
-        // es soll sich ein Popup öffnen indem man auswählen kann ob man UNDO auswählen möchte oder
-        //nächster Spieler wegen Bust dort muss dann der letzte Wurf zurück gesetzt werden.
+        // es öffnet sich ein Popup  wo man auswählen kann ob man UNDO auswählen möchte oder
+        //nächster Spieler wegen Bust dort wird dann der letzte Wurf zurückgesetzt.
         _wasLastThrowInLegToBust = true;
         _wasLastThrowInLegToWin = false;
         emit valueChanged();
@@ -281,7 +281,7 @@ void Referee::legWinningCondition()
  * der Fall ist, dann wird ein Singal rausgegeben.
  *
  */
-void Referee::scoreIsUnder170InLeg()
+void Referee::scoreIsUnder170InLeg(void)
 {
     if ((_remainScore[_player] <= 170 and _remainScore[_player] >= 0) and _remainingThrows > 0)
     {
@@ -298,7 +298,7 @@ void Referee::scoreIsUnder170InLeg()
  * Wurf mehr zurverfügung hat.
  *
  */
-void Referee::remainingThrowsAreZeroInLeg()
+void Referee::remainingThrowsAreZeroInLeg(void)
 {
     if (_remainingThrows == 0)
     {
@@ -306,12 +306,12 @@ void Referee::remainingThrowsAreZeroInLeg()
     }
 }
 
-int Referee::getValueMultiplikator()
+int Referee::getValueMultiplikator(void)
 {
     return _valueMultiplikator;
 }
 
-QList<int> Referee::getAllThrowsWithoutMultiplikator()
+QList<int> Referee::getAllThrowsWithoutMultiplikator(void)
 {
     return _allThrowsWithoutMulti;
 }
@@ -324,7 +324,7 @@ QList<int> Referee::getAllThrowsWithoutMultiplikator()
  * Diese Metohde setzt den zuletzt geworfenen Pfeil zurück und gibt ein Signal an das View heraus.
  *
  */
-void Referee::undoThrow()
+void Referee::undoThrow(void)
 {
     if (_wasLastThrowInLegToWin)
     {
@@ -373,39 +373,39 @@ void Referee::undoThrow()
     emit valueChanged();
 }
 
-int Referee::getRemainScore()
+int Referee::getRemainScore(void)
 {
     return _remainScore[_player];
 }
 
 
-int Referee::getCountOfWinningLegs()
+int Referee::getCountOfWinningLegs(void)
 {
     return _winningLegCounter[_player];
 }
 
-int Referee::getGameStart()
+int Referee::getGameStart(void)
 {
     return _player;
 }
 
-int Referee::getThrowScore()
+int Referee::getThrowScore(void)
 {
     return _throwScore = _allThrows[0] + _allThrows[1] + _allThrows[2];
 }
 
-int Referee::getRemainingThrows()
+int Referee::getRemainingThrows(void)
 {
     return _remainingThrows = 3 - _throwCounter;
 }
 
 
-QList<int> Referee::getRemainScoreForViewer()
+QList<int> Referee::getRemainScoreForViewer(void)
 {
     return _remainScore;
 }
 
-QList<int> Referee::getAllPlayersForViewer()
+QList<int> Referee::getAllPlayersForViewer(void)
 {
     return _allPlayers;
 }
@@ -419,7 +419,7 @@ QList<int> Referee::getAllPlayersForViewer()
  * die letzte Leg Id im gleichen Spiel
  *
  */
-int Referee::getLastLegIdInSameGame()
+int Referee::getLastLegIdInSameGame(void)
 {
     QString sqlPrepare = R"(SELECT id
                          FROM leg_history_list
@@ -458,7 +458,7 @@ int Referee::getLastLegIdInSameGame()
  * \return int
  *
  */
-int Referee::getNumberOfCurrentLeg()
+int Referee::getNumberOfCurrentLeg(void)
 {
     int legId = 1;
     for (int i = 0; i < 2; i++)
@@ -495,7 +495,7 @@ void Referee::setActivePlayer(int activePlayerId)
  *
  *
  */
-void Referee::loadLastGame()
+void Referee::loadLastGame(void)
 {
     QString sqlPrepare = R"(
                          SELECT punkte, player_id, game_board_id, tournament_id
@@ -582,7 +582,7 @@ void Referee::loadLastGame()
  * \return void
  *
  */
-void Referee::loadLastThrows()
+void Referee::loadLastThrows(void)
 {
     QString sqlPrepare = R"(
                          SELECT * FROM leg_history_list
@@ -621,7 +621,7 @@ void Referee::loadLastThrows()
     }
 }
 
-void Referee::createAllPossibleLegs()
+void Referee::createAllPossibleLegs(void)
 {
     QString sqlPrepare = R"(
                          SELECT * FROM leg_list

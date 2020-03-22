@@ -16,7 +16,7 @@ DartboardViewer::DartboardViewer(Referee* referee, QGraphicsItem* parent) :
     Q_UNUSED(parent);
 }
 
-QRectF DartboardViewer::boundingRect() const
+QRectF DartboardViewer::boundingRect(void) const
 {
     return QRectF();
 }
