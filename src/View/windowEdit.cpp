@@ -4,12 +4,6 @@
 #include "View/windowEdit.h"
 
 /*!
-* \file windowedit.cpp
-* \brief Diese Klasse besitzt die Informationen zu den Edits
-* \author Lea Kesselmeier
-*/
-
-/*!
  * \brief WindowEdit::WindowEdit ist Konstruktor der Klasse WindowEdit
  * \param[in] placeholder ist der Text, den das Edit anzeigen soll, der Default ist leer
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
@@ -47,7 +41,7 @@ WindowEdit::WindowEdit(QString placeholder, DataType dataType, QWidget* parent) 
     setValidator(validator);
 }
 
-void WindowEdit::setTournamentPopUpStyle()
+void WindowEdit::setTournamentPopUpStyle(void)
 {
     QRegExpValidator* validator = new QRegExpValidator();
     QRegExp re("[a-zA-Z 0-9]*");

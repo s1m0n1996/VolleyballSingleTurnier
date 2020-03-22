@@ -6,12 +6,6 @@
 #include "View/winnerpopup.h"
 
 /*!
-* \file winnerpopup.cpp
-* \brief Diese Klasse erzeugt ein Fenster mit dem Namen des Gewinner eines Spieles und eines Turniers
-* \author Lea Kesselmeier
-*/
-
-/*!
  * \brief WinnerPopup::WinnerPopup ist Konstruktor der Klasse WinnerPopup
  * \param[in] winnerName ist der Name des Gewinner, welcher anzeigen werden soll, der Default ist leer
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
@@ -37,18 +31,18 @@ WinnerPopup::~WinnerPopup()
 }
 
 
-void WinnerPopup::setWinnerLeg()
+void WinnerPopup::setWinnerLeg(void)
 {
     _title->setText("Der Gewinner des Legs ist");
 }
 
-void WinnerPopup::setWinnerTournament()
+void WinnerPopup::setWinnerTournament(void)
 {
     _title->setText("Der Gewinner des Turniers ist");
 }
 
 
-void WinnerPopup::closeRefereeWindow()
+void WinnerPopup::closeRefereeWindow(void)
 {
     emit clickedOk();
     close();
@@ -69,7 +63,7 @@ void WinnerPopup::createWidgets(QString winnerName)
 
 }
 
-void WinnerPopup::setwholeLayout()
+void WinnerPopup::setwholeLayout(void)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     QHBoxLayout* layoutButton = new QHBoxLayout;
@@ -84,7 +78,7 @@ void WinnerPopup::setwholeLayout()
     setLayout(layout);
 }
 
-void WinnerPopup::connecting()
+void WinnerPopup::connecting(void)
 {
     connect(_okButton, SIGNAL(released()), this, SLOT(closeRefereeWindow()));
 }

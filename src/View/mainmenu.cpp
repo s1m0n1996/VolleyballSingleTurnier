@@ -21,18 +21,16 @@
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
 
-/*!
-* \file mainmenu.cpp
-* \brief Diese Klasse ist die View Klasse des Hauptmenüs
-* \author Lea Kesselmeier
-*/
 
 /*!
  * \brief MainMenu::MainMenu ist Konstruktor der Klasse MainMenu
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
- * Das Fenster wird im Konstruktor erstellt
+ * Das Fenster wird im Konstruktor erstellt. Ein Icon wird gesetzt, die Widgets werden gesetzt
+ * und in das Layout eingefügt. Die Datendank wird aktualisiert und die Buttons,
+ * je nach Stauts drückbar gemacht.
+ * Die Connections werden auch im Konstruktor gesetzt
  */
 MainMenu::MainMenu(QMainWindow* parent) :
         QMainWindow(parent)

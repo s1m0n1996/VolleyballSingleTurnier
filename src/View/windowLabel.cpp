@@ -1,12 +1,6 @@
 #include "windowLabel.h"
 
 /*!
-* \file windowedit.cpp
-* \brief Diese Klasse besitzt die Informationen zu den Edits
-* \author Lea Kesselmeier
-*/
-
-/*!
  * \brief WindowLabel::WindowLabel ist Konstruktor der Klasse WindowLabel
  * \param[in] text ist der Text, den das Label anzeigen soll, der Default ist leer
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
@@ -40,7 +34,7 @@ WindowLabel::WindowLabel(QWidget* parent, QString text) : QLabel(parent)
 }
 
 
-void WindowLabel::setNotStartTournamentStyle()
+void WindowLabel::setNotStartTournamentStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
@@ -48,14 +42,14 @@ void WindowLabel::setNotStartTournamentStyle()
                   "color: red;}");
 }
 
-void WindowLabel::setStartTournamentStyle()
+void WindowLabel::setStartTournamentStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
                   "font-family: Arial Nova Light;}");
 }
 
-void WindowLabel::setTitleStyle()
+void WindowLabel::setTitleStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
@@ -65,7 +59,7 @@ void WindowLabel::setTitleStyle()
 
 }
 
-void WindowLabel::setMainTitleStyle()
+void WindowLabel::setMainTitleStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 55px;"
@@ -79,7 +73,7 @@ void WindowLabel::setMainTitleStyle()
 
 }
 
-void WindowLabel::setBold()
+void WindowLabel::setBold(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"

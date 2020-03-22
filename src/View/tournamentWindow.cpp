@@ -60,7 +60,7 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
 }
 
 
-void TournamentWindow::createWidgets()
+void TournamentWindow::createWidgets(void)
 {
     setWindowTitle("Spielplan");
     setWindowIcon(QIcon(":/img/gameplan.png"));
@@ -79,7 +79,7 @@ void TournamentWindow::createWidgets()
  * Anzahl an Rechtecken.
  *
  */
-void TournamentWindow::createRects()
+void TournamentWindow::createRects(void)
 {
     double numberOfPlayer = _playerManagement->countSelectedPlayersForNewGame();
     double numberOfPlayerIntern = numberOfPlayer;
@@ -200,7 +200,7 @@ void TournamentWindow::createRects()
  * berechnet wurde die passende Anzahl an Verbindungslininen ziwschen den einezelnen Rechtecken.
  *
  */
-void TournamentWindow::createLines()
+void TournamentWindow::createLines(void)
 {
     for (double i = 0.0; i < _numberOfColumn; i++)
     {
@@ -332,7 +332,7 @@ void TournamentWindow::createLines()
  * Das endgültige Layout für das Fenster wird hier festgelegt.
  *
  */
-void TournamentWindow::createTexts()
+void TournamentWindow::createTexts(void)
 {
     Game game;
     QList<QRectF> allRects;
@@ -375,7 +375,7 @@ void TournamentWindow::createTexts()
  * Diese Methode färbt den Rahmen der Rechtecke grün, wenn dieser Spieler das Spiel gewonnen hat.
  *
  */
-void TournamentWindow::createColours()
+void TournamentWindow::createColours(void)
 {
     QList<QList<QString>> test;
 

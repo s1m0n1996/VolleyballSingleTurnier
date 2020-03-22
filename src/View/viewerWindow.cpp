@@ -42,7 +42,7 @@ ViewerWindow::ViewerWindow(Referee* referee, Viewer* viewer, QWidget* parent) :
 }
 
 
-ViewerWindow::~ViewerWindow()
+ViewerWindow::~ViewerWindow(void)
 {
     delete ui;
 }
@@ -58,7 +58,7 @@ void ViewerWindow::connecting(void)
 }
 
 
-void ViewerWindow::modifiWidgets()
+void ViewerWindow::modifiWidgets(void)
 {
     ui->title->setMainTitleStyle();
     ui->nameOfPlayer1->setBold();
@@ -96,7 +96,7 @@ void ViewerWindow::modifiWidgets()
  * Es wird das Foto des jewailigen Spielers aus der Datenbank geladen und angezeigt.
  *
  */
-void ViewerWindow::writeScore()
+void ViewerWindow::writeScore(void)
 {
     _scene->update(0, 0, 20, 10);
 
@@ -230,7 +230,7 @@ void ViewerWindow::setPhoto(Player playerA, Player playerB)
 }
 
 
-void ViewerWindow::scoreIsUnder170InLeg()
+void ViewerWindow::scoreIsUnder170InLeg(void)
 {
     _viewer->createJsonDocument(_referee->getRemainingThrows(), _referee->getRemainScore());
 }
@@ -245,7 +245,7 @@ void ViewerWindow::scoreIsUnder170InLeg()
  * in die Ui rein.
  *
  */
-void ViewerWindow::possibleWayToFinishLeg()
+void ViewerWindow::possibleWayToFinishLeg(void)
 {
     _aktivePlayer = _referee->getAktivePlayer();
 
@@ -277,7 +277,7 @@ void ViewerWindow::possibleWayToFinishLeg()
  * das kein Wurf mehr verfügbar ist.
  *
  */
-void ViewerWindow::remainingThrowsAreZeroInLeg()
+void ViewerWindow::remainingThrowsAreZeroInLeg(void)
 {
     if (_aktivePlayer == _player1)
     {

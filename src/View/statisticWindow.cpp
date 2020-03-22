@@ -385,7 +385,7 @@ statistic::type StatisticWindow::_getSelectedChartType(void)
  *
  * In dieser Methode wird die aktuell ausgewählte Turnier Id des Drop down Menüs zurückgegeben.
  */
-int StatisticWindow::_getSelectedTournamentId()
+int StatisticWindow::_getSelectedTournamentId(void)
 {
     // no tournament selected
     if (_chooseTournamentComboBox->currentIndex() == 0)

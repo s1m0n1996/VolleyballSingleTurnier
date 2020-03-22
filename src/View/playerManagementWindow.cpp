@@ -24,18 +24,14 @@
 #include "View/windowLabel.h"
 
 /*!
-* \file playermanagment.cpp
-* \brief Diese Klasse ist die View Klasse der Meldestelle
-* \author Lea Kesselmeier
-*/
-
-/*!
  * \brief PlayermanagementWindow::PlayermanagementWindow ist Konstruktor der Klasse PlayermanagementWindow
  * \param[in] playerManagementModel ist das dazugehörige Model
  * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
  * \return void
  *
- * Das Fenster wird im Konstruktor erstellt
+ * Das Fenster wird im Konstruktor erstellt. Ein Icon wird gesetzt, die Widgets werden gesetzt
+ * und in das Layout eingefügt.
+ * Die Connections werden auch im Konstruktor gesetzt
  */
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget* parent) :
         QMainWindow(parent)
