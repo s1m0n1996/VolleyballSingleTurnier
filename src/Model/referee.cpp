@@ -56,13 +56,12 @@ void Referee::updatePlayer()
  */
 void Referee::resetAllStats()
 {
-    //writeLegIntoDatabase();                   Wo musst du hin??
     _winningLegCounter = {0, 0};
     _throwCounter = 0;
     _allThrows = {0, 0, 0};
     _allThrowsWithoutMulti = {0, 0, 0};
     _remainScore = {501, 501};
-    _wasLastThrowInLegToWin = false;            //TODO: Muss geguckt werden ob die rein müssen oder nicht
+    _wasLastThrowInLegToWin = false;
     _wasLastThrowInLegToBust = false;
 }
 
