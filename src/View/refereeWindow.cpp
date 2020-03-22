@@ -247,7 +247,7 @@ void RefereeWindow::writeScore(void)
     ui->throw1->setText(QString::number(_referee->getThrows()[0]));
     ui->throw2->setText(QString::number(_referee->getThrows()[1]));
     ui->throw3->setText(QString::number(_referee->getThrows()[2]));
-    ui->gesamtpunkte->setText(QString::number(_referee->getThrowScore()));
+    ui->totalScore->setText(QString::number(_referee->getThrowScore()));
     ui->remainScore->setText(QString::number(_referee->getRemainScore()));
     ui->countWinningLegs->setText(QString::number(_referee->getCountOfWinningLegs()));
     ui->remainingThrows->setText(QString::number(_referee->getRemainingThrows()));
