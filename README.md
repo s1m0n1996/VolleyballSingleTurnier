@@ -17,9 +17,9 @@ mit Ergebnissen.
 # Version
 Das Programm befindet sich in der Version: **v1.0**
 
-# Benutzte Bibliotheken/Frameworks
+# Benötigte Bibliotheken/Frameworks
 
-* [QT](https://www.qt.io/) - Framework (erstellt mit Qt 5.12.6)
+* [QT](https://www.qt.io/) 5.14.1
 
 
 # Projektbeteiligte

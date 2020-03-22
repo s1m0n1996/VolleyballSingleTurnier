@@ -6,7 +6,7 @@ project(Sportveranstaltung)
 set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_PREFIX_PATH "C:\\Qt\\5.12.6\\mingw73_64")
+set(CMAKE_PREFIX_PATH "C:\\Qt\\5.14.1\\mingw73_64")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
