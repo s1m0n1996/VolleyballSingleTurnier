@@ -105,10 +105,12 @@ void ViewerWindow::writeScore(void)
     Statistics statisticsPlayerA;
     Statistics statisticsPlayerB;
 
-    ui->nameOfPlayer1->setText(playerA.getName());
-    ui->nameOfPlayer2->setText(playerB.getName());
-
-    setPhoto(playerA, playerB);
+    if (ui->nameOfPlayer1->text() != playerA.getName() or ui->nameOfPlayer2->text() != playerB.getName())
+    {
+        ui->nameOfPlayer1->setText(playerA.getName());
+        ui->nameOfPlayer2->setText(playerB.getName());
+        setPhoto(playerA, playerB);
+    }
 
     _aktivePlayer = _referee->getAktivePlayer();
     Player aktivePlayer(_aktivePlayer);
