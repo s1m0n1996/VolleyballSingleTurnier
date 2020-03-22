@@ -18,8 +18,6 @@ Game::Game()
     loadNextGame();
 }
 
-
-
 /*!
  * \brief Lädt das nächste Spiel aus der Datenbank
  *
@@ -84,7 +82,6 @@ bool Game::wasFinal()
     return getNumberOfGamesInTournament() - getNumberOfWinnerInTournament() == 1;
 }
 
-
 /*!
  * \brief Erzeugt die ersten Spiele des Turniers
  *
@@ -119,7 +116,6 @@ void Game::setNextWinner(int winnerId)
     _db->sqlQuery(sqlQuery);
 }
 
-
 /*!
  * \brief Schreibt die Gewinner in die Folgespiele
  *
@@ -151,7 +147,6 @@ void Game::prepareNextGame(int winnerId)
         setWinnerToPrepareFinal(winnerId);
     }
 }
-
 
 /*!
  * \brief Schreibt die Gewinner für das Finale in die Datenbank
@@ -196,7 +191,6 @@ void Game::setWinnerToPrepareFinal(int winnerId)
     }
 }
 
-
 void Game::setWinnerPlayerAinDatabase(int winnerId)
 {
     QString sqlPrepare2 = R"(
@@ -216,7 +210,6 @@ void Game::setWinnerPlayerAinDatabase(int winnerId)
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     _db->sqlQuery(sqlQuery);
 }
-
 
 void Game::setWinnerPlayerBinDatabase(int winnerId)
 {
@@ -238,7 +231,6 @@ void Game::setWinnerPlayerBinDatabase(int winnerId)
     _db->sqlQuery(sqlQuery);
 }
 
-
 int Game::getNextGameIdForPlayerA(void)
 {
     QString sqlPrepare = R"(
@@ -259,7 +251,6 @@ int Game::getNextGameIdForPlayerA(void)
     QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
     return nextGames[0][0].toInt();
 }
-
 
 int Game::getNextGameIdForPlayerB(void)
 {
@@ -308,7 +299,6 @@ int Game::getNumberOfWinnerInTournament(void)
     return nextGames[0][0].toInt();
 }
 
-
 /*!
  * \brief Gibt die Anzahl von Spielen des aktuellen Turniers wieder
  *
@@ -333,7 +323,6 @@ int Game::getNumberOfGamesInTournament()
     QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
     return nextGames[0][0].toInt();
 }
-
 
 /*!
  * \brief Erzeugt eine Spielerliste in der angepassten Reihenfolge für den Turnierplan
@@ -382,12 +371,10 @@ QList<QString> Game::getAllPlayersForGameboardView()
     return allPlayers;
 }
 
-
 QString Game::getNameOfPlayerForGameView(int playerId)
 {
     return playerId > 0 ? Player(playerId).getName() : "";
 }
-
 
 QList<QString> Game::getAllWinnersInTournament()
 {
@@ -413,4 +400,3 @@ QList<QString> Game::getAllWinnersInTournament()
     }
     return winnerList;
 }
-

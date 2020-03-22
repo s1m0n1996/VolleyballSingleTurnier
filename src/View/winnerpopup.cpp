@@ -30,7 +30,6 @@ WinnerPopup::~WinnerPopup()
 
 }
 
-
 void WinnerPopup::setWinnerLeg(void)
 {
     _title->setText("Der Gewinner des Legs ist");
@@ -40,7 +39,6 @@ void WinnerPopup::setWinnerTournament(void)
 {
     _title->setText("Der Gewinner des Turniers ist");
 }
-
 
 void WinnerPopup::closeRefereeWindow(void)
 {

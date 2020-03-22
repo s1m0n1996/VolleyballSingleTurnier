@@ -71,7 +71,6 @@ TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerMan
     connect(_referee, SIGNAL(gameListChanged()), this, SLOT(createTexts()));
 }
 
-
 void TournamentWindow::createWidgets(void)
 {
     setWindowTitle("Spielplan");

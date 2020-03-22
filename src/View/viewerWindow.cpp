@@ -41,12 +41,10 @@ ViewerWindow::ViewerWindow(Referee* referee, Viewer* viewer, QWidget* parent) :
     connecting();
 }
 
-
 ViewerWindow::~ViewerWindow(void)
 {
     delete ui;
 }
-
 
 void ViewerWindow::connecting(void)
 {
@@ -56,7 +54,6 @@ void ViewerWindow::connecting(void)
     connect(_viewer, SIGNAL(howToFinishLeg()), this, SLOT(possibleWayToFinishLeg()));
 
 }
-
 
 void ViewerWindow::modifiWidgets(void)
 {
@@ -85,7 +82,6 @@ void ViewerWindow::modifiWidgets(void)
     ui->graphicsView->setScene(_scene);
     ui->graphicsView->scale(0.8, 0.8);
 }
-
 
 /*!
  * \brief Schreibt alle Werte in die Ui rein.
@@ -134,7 +130,6 @@ void ViewerWindow::writeScore(void)
     ui->averageOfPlayer1->setText(QString::number(statisticsPlayerA.getAverageOfPlayerInCurrentGame(playerA)));
     ui->averageOfPlayer2->setText(QString::number(statisticsPlayerB.getAverageOfPlayerInCurrentGame(playerB)));
 }
-
 
 /*!
  * \brief Schreibt alle Werte für den ersten Spieler in die Ui.
@@ -229,12 +224,10 @@ void ViewerWindow::setPhoto(Player playerA, Player playerB)
     ui->photoPlayer2->setPixmap(pixmapB);
 }
 
-
 void ViewerWindow::scoreIsUnder170InLeg(void)
 {
     _viewer->createJsonDocument(_referee->getRemainingThrows(), _referee->getRemainScore());
 }
-
 
 /*!
  * \brief Schreibt den möglichen Weg ein Leg zu gewinnen in die Ui.
@@ -266,7 +259,6 @@ void ViewerWindow::possibleWayToFinishLeg(void)
     }
 
 }
-
 
 /*!
  * \brief Setzt den möglichen Weg das Leg zu gewinnen auf einen leeren String zurück

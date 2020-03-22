@@ -36,14 +36,3 @@ QList<QString> Viewer::getHowToFinishLeg()
 {
     return _listWithHowToFinishLeg;
 }
-
-
-
-
-
-
-
-
-
-
-

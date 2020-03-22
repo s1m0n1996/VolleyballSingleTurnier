@@ -58,7 +58,7 @@ private slots:
     void createRestoreMenu(void);
 
 private:
-    void createWidges(void);
+    void createWidgets(void);
     void showTable(void);
     void setAllLayout(void);
     void connecting(void);

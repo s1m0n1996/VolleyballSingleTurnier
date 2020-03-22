@@ -231,7 +231,6 @@ void RefereeWindow::mouseReleasedOnDartboard(void)
 
 }
 
-
 /*!
  * \brief Schreibt alle Werte aus dem Model in die vorhergesehnen Felder rein.
  *

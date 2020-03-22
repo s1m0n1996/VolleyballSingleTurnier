@@ -5,7 +5,6 @@ SqliteConnector::SqliteConnector(void)
     _loadLastDatabase();
 }
 
-
 /*!
  * \brief Erstelle eine neue Datenbank.
  *

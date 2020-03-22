@@ -36,7 +36,6 @@ WHERE sport_type_id = :sportTypeId
     return _db->sqlQuery(sqlQuery)[0][0].toDouble();
 }
 
-
 /*!
  * \brief Gibt den Average von einem Spieler zurück
  * \param[in] einen Player

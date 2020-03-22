@@ -33,7 +33,6 @@ WindowLabel::WindowLabel(QWidget* parent, QString text) : QLabel(parent)
     setText(text);
 }
 
-
 void WindowLabel::setNotStartTournamentStyle(void)
 {
     setStyleSheet("QLabel{"
@@ -89,5 +88,3 @@ void WindowLabel::setWinnerStyle(void)
                   "font-weight: bold;}");
 
 }
-
-

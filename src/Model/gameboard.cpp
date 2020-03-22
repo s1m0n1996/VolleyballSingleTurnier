@@ -16,7 +16,6 @@ Gameboard::Gameboard(QList<Player> players)
     createRemainingGames();
 }
 
-
 /*!
  * \brief Mischt die Spielerliste zufällig
  *
@@ -35,7 +34,6 @@ void Gameboard::prepareGameRandomly()
         i++;
     }
 }
-
 
 /*!
  * \brief Erzeugt die ersten Spiele des Turniers
@@ -64,7 +62,6 @@ void Gameboard::createFirstGames()
         _db->sqlQuery(sqlQuery);
     }
 }
-
 
 /*!
  * \brief Erzeugt die Spiele des Turniers nach der ersten Runde
@@ -99,7 +96,6 @@ void Gameboard::createRemainingGames()
         _db->sqlQuery(sqlQuery);
     }
 }
-
 
 /*!
  * \brief Gibt die Game Id aus einem Turnier wieder
@@ -136,7 +132,6 @@ int Gameboard::getLastGameIdInSameTournament()
     }
     return lastId;
 }
-
 
 void Gameboard::randomInitialisation()
 {

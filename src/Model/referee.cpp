@@ -137,7 +137,6 @@ void Referee::nextPlayerAfterWinningLeg(void)
     }
 }
 
-
 /*!
  * \brief Gibt die Player Id des aktiven Spielers wieder
  *
@@ -378,7 +377,6 @@ int Referee::getRemainScore(void)
     return _remainScore[_player];
 }
 
-
 int Referee::getCountOfWinningLegs(void)
 {
     return _winningLegCounter[_player];
@@ -398,7 +396,6 @@ int Referee::getRemainingThrows(void)
 {
     return _remainingThrows = 3 - _throwCounter;
 }
-
 
 QList<int> Referee::getRemainScoreForViewer(void)
 {

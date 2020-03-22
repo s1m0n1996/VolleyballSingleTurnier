@@ -43,7 +43,7 @@ PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagemen
     _playerManagementModel->refreshDatabasePlayerTable();
     _playerManagementModel->refreshNextGamePlayerTable();
 
-    createWidges();
+    createWidgets();
     setAllLayout();
     connecting();
 
@@ -350,7 +350,7 @@ void PlayermanagementWindow::createRestoreMenu(void)
     restoreMenu->exec(QCursor::pos());
 }
 
-void PlayermanagementWindow::createWidges(void)
+void PlayermanagementWindow::createWidgets(void)
 {
     _title = new WindowLabel("Meldestelle");
     _title->setMainTitleStyle();
