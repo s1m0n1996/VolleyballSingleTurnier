@@ -12,8 +12,9 @@ enum DataType {name, country, date};
  *
  * Jedes Edit bekommt das selbe StyleSheet und die selbe Größe beim Erzeugen
  * Wenn nur ein Name vom Benutzter eingegeben werden darf, können nur Buchstaben und Leerzeichen eingegebn werden
+ * Wenn nur ein Land vom Benutzter eingegeben werden darf, können nur Buchstaben und Leerzeichen eingegebn werden
  * Wenn nur ein Datum vom Benutzter eingegeben werden darf, können nur Nummern und Querstriche eingegeben werden
-*/
+ */
 class WindowEdit: public QLineEdit
 {
 public:

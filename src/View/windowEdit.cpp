@@ -24,7 +24,7 @@ WindowEdit::WindowEdit(QString placeholder, DataType dataType, QWidget* parent) 
 
     if (dataType == DataType::name)
     {
-        QRegExp re("[a-zA-Z ]*");
+        QRegExp re("[a-zA-Z ö,ä,ü]*");
         validator->setRegExp(re);
     }
     else if (dataType == DataType::country)
