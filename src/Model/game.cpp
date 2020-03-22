@@ -393,10 +393,14 @@ QList<QString> Game::getAllWinnersInTournament(void)
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
     QList<QList<QVariant>> nextGames = _db->sqlQuery(sqlQuery);
 
-    for (const QVariant liste : nextGames)
+    for (const QList<QVariant> game : nextGames)
     {
-        Player player(liste.toList()[1].toInt());
-        winnerList.append(player.getName());
+        int winnerId = game[1].toInt();
+        if (0 < winnerId)
+        {
+            Player player(game[1].toInt());
+            winnerList.append(player.getName());
+        }
     }
     return winnerList;
 }
