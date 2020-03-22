@@ -37,7 +37,7 @@ DrilldownSlice::DrilldownSlice(qreal value, QString prefix, QAbstractSeries* dri
 {
     setValue(value);
     updateLabel();
-    setLabelFont(QFont("Arial Nova Light", 8));
+    setLabelFont(QFont("Arial", 8));
     connect(this, &DrilldownSlice::percentageChanged, this, &DrilldownSlice::updateLabel);
     connect(this, &DrilldownSlice::hovered, this, &DrilldownSlice::showHighlight);
 }

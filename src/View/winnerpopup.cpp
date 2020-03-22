@@ -59,7 +59,6 @@ void WinnerPopup::createWidgets(QString winnerName)
     _crown->setPixmap(QPixmap(":/img/crowns.png").scaled(300, 300, Qt::KeepAspectRatio));
 
     _okButton = new WindowButton("OK");
-
 }
 
 void WinnerPopup::setwholeLayout(void)

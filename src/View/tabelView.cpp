@@ -20,11 +20,11 @@ TableView::TableView(QWidget* parent) : QTableView(parent)
                   "selection-background-color: #40b946;"
                   "alternate-background-color: #F2F2F2;"
                   "background-color: white;"
-                  "font: Arial Nova Light");
+                  "font: Arial");
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::MultiSelection);
-    horizontalHeader()->setFont(QFont("Arial Nova Light", 15));
+    horizontalHeader()->setFont(QFont("Arial", 15));
     setContextMenuPolicy(Qt::CustomContextMenu);
     setMouseTracking(true);
     viewport()->setAttribute(Qt::WA_Hover, true);

@@ -80,11 +80,11 @@ void CreateTournamentPopUp::createWidgets(void)
                          "subcontrol-origin:margin; }"
                          "QDateEdit{"
                          "font-size: 20px;"
-                         "font-family: Arial Nova Light;"
+                         "font-family: Arial;"
                          "spacing: 5px;}"
                          "QCalendarWidget{"
                          "font-size: 20px;"
-                         "font-family: Arial Nova Light;}");
+                         "font-family: Arial;}");
     QDate currentDate = QDate::currentDate();
     _date->setDate(currentDate);
 

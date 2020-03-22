@@ -52,7 +52,7 @@ void DrilldownChart::changeSeries(QAbstractSeries* series)
     m_currentSeries = series;
     addSeries(series);
     setTitle(series->name());
-    setFont(QFont("Arial Nova Light"));
+    setFont(QFont("Arial"));
 }
 
 void DrilldownChart::handleSliceClicked(QPieSlice* slice)

@@ -48,9 +48,9 @@ StatisticWindow::StatisticWindow(QWidget* parent) :
     _gameManagement = &GameManagement::instance();
 
     _axisX = new QValueAxis;
-    _axisX->setLabelsFont(QFont("Arial Nova Light"));
+    _axisX->setLabelsFont(QFont("Arial"));
     _axisY = new QValueAxis;
-    _axisY->setLabelsFont(QFont("Arial Nova Light"));
+    _axisY->setLabelsFont(QFont("Arial"));
 
     setWindowTitle("Statistik");
     setWindowIcon(QIcon(":/img/statistic.png"));
@@ -98,7 +98,7 @@ void StatisticWindow::_createWidgets(void)
     _chart->legend()->setMarkerShape(QLegend::MarkerShapeRectangle);
     _chart->legend()->setVisible(true);
     _chart->legend()->setAlignment(Qt::AlignRight);
-    _chart->legend()->setFont(QFont("Arial Nova Light"));
+    _chart->legend()->setFont(QFont("Arial"));
     _chart->series().setSharable(true);
 
     _chart->addAxis(_axisY, Qt::AlignLeft);
@@ -115,7 +115,7 @@ void StatisticWindow::_setLayout(void)
 
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
-    widget->setStyleSheet("background: white;");
+    //widget->setStyleSheet("background: white;");
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     QGridLayout* chartLayout = new QGridLayout;
@@ -165,11 +165,11 @@ QGroupBox* StatisticWindow::_createSelectCategoryGroupBox(void)
     QGroupBox* groupBox = new QGroupBox(tr("Wähle eine Kategorie"));
     groupBox->setStyleSheet("QGroupBox{"
                             "font-size: 20px;"
-                            "font-family: Arial Nova Light;}");
+                            "font-family: Arial;}");
     _chooseCategoryComboBox = new QComboBox;
     _chooseCategoryComboBox->setStyleSheet("QComboBox{"
                                            "font-size: 20px;"
-                                           "font-family: Arial Nova Light;}");
+                                           "font-family: Arial;}");
     _chooseCategoryComboBox->setMinimumWidth(400);
 
     _chooseCategoryComboBox->addItem("Gewinner");
@@ -198,11 +198,11 @@ QGroupBox* StatisticWindow::_createSelectPlayerGroupBox(void)
     QGroupBox* groupBox = new QGroupBox(tr("Wähle einen Spieler"));
     groupBox->setStyleSheet("QGroupBox{"
                             "font-size: 20px;"
-                            "font-family: Arial Nova Light;}");
+                            "font-family: Arial;}");
     _choosePlayerComboBox = new QComboBox;
     _choosePlayerComboBox->setStyleSheet("QComboBox{"
                                          "font-size: 20px;"
-                                         "font-family: Arial Nova Light;}");
+                                         "font-family: Arial;}");
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);
 
@@ -251,13 +251,13 @@ QGroupBox* StatisticWindow::_createFilterGroupBox(void)
     QGroupBox* groupBox = new QGroupBox(tr("Wähle ein Turnier aus"));
     groupBox->setStyleSheet("QGroupBox{"
                             "font-size: 20px;"
-                            "font-family: Arial Nova Light;}");
+                            "font-family: Arial;}");
 
     // create tournament combo box
     _chooseTournamentComboBox = new QComboBox;
     _chooseTournamentComboBox->setStyleSheet("QComboBox{"
                                              "font-size: 20px;"
-                                             "font-family: Arial Nova Light;}");
+                                             "font-family: Arial;}");
     _chooseTournamentComboBox->setMinimumWidth(400);
 
     QStandardItemModel* model = new QStandardItemModel(0, 3);

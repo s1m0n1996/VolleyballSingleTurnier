@@ -370,7 +370,7 @@ void TournamentWindow::createTexts(void)
     {
         QGraphicsTextItem* allPlayernames = new QGraphicsTextItem(allPlayersForAllGames[i]);
         allPlayernames->setPos(allRects[i].x(), allRects[i].y());
-        allPlayernames->setFont(QFont("Arial Nova Light", 10));
+        allPlayernames->setFont(QFont("Arial", 10));
         _gameBoard->addItem(allPlayernames);
     }
 

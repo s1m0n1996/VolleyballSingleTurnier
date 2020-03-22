@@ -18,7 +18,7 @@ WindowEdit::WindowEdit(QString placeholder, DataType dataType, QWidget* parent) 
 
     setStyleSheet("QLineEdit{"
                   "font-size: 20px;"
-                  "font-family: Arial Nova Light;}");
+                  "font-family: Arial;}");
 
     QRegExpValidator* validator = new QRegExpValidator();
 

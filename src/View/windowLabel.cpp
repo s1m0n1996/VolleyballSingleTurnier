@@ -13,7 +13,7 @@ WindowLabel::WindowLabel(QString text, QWidget* parent) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Arial Nova Light;}");
+                  "font-family: Arial;}");
     setText(text);
 }
 
@@ -29,7 +29,7 @@ WindowLabel::WindowLabel(QWidget* parent, QString text) : QLabel(parent)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Arial Nova Light;}");
+                  "font-family: Arial;}");
     setText(text);
 }
 
@@ -37,7 +37,7 @@ void WindowLabel::setNotStartTournamentStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Arial Nova Light;"
+                  "font-family: Arial;"
                   "color: red;}");
 }
 
@@ -45,14 +45,14 @@ void WindowLabel::setStartTournamentStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
-                  "font-family: Arial Nova Light;}");
+                  "font-family: Arial;}");
 }
 
 void WindowLabel::setTitleStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 30px;"
-                  "font-family: Arial Nova Light;}");
+                  "font-family: Arial;}");
 
     setAlignment(Qt::AlignCenter);
 
@@ -62,7 +62,7 @@ void WindowLabel::setMainTitleStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 55px;"
-                  "font-family: Arial Nova Light;"
+                  "font-family: Arial;"
                   "border-bottom-width: 1px;"
                   "border-bottom-style: solid;"
                   "border-radius: 0px;"
@@ -76,7 +76,7 @@ void WindowLabel::setBold(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 25px;"
-                  "font-family: Arial Nova Light;"
+                  "font-family: Arial;"
                   "font-weight: bold;}");
 }
 

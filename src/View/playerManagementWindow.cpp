@@ -378,7 +378,7 @@ void PlayermanagementWindow::createWidgets(void)
     _addPlayer->setTitle("Spieler zum aktuellen Spiel hinzufügen:");
     _addPlayer->setStyleSheet("QGroupBox{"
                               "font-size: 25px;"
-                              "font-family: Arial Nova Light;} ");
+                              "font-family: Arial;} ");
 
 
     _playernameEdit = new WindowEdit("Max Mustermann", DataType::name);
@@ -404,11 +404,11 @@ void PlayermanagementWindow::createWidgets(void)
                              "subcontrol-origin:margin; }"
                              "QDateEdit{"
                              "font-size: 20px;"
-                             "font-family: Arial Nova Light;"
+                             "font-family: Arial;"
                              "spacing: 5px;}"
                              "QCalendarWidget{"
                              "font-size: 20px;"
-                             "font-family: Arial Nova Light;}");
+                             "font-family: Arial;}");
     _birthday->setDate(QDate(1990, 10, 21));
 
     _addPhoto = new WindowButton("Foto hinzufügen");
