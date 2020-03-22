@@ -8,6 +8,15 @@ QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
 QT_END_NAMESPACE
 
+/*!
+ * \file dartboardviewer.cpp
+ * \author Nico Meyer
+ * \brief Eine Klasse für die Dartscheibe beim Zuschauer
+ *
+ * Wenn vom Model ein Signal kommt das etwas geworfen wurde, dann färbt sich
+ * die Dartscheibe an der Stelle ein.
+ *
+*/
 class DartboardViewer: public QGraphicsObject
 {
 public:

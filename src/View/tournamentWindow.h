@@ -10,7 +10,15 @@ class Referee;
 class WindowLabel;
 class WindowButton;
 
-
+/*!
+* \file tournamentwindow.h
+* \brief Diese Klasse erstellt einen Spielplan
+* \author Nico Meyer
+*
+* Anhand der vorhanden Spieler wird ein Spielplan ertsellt. Sobald ein Spieler gewonnen hat,
+* wird der Gewinner in die nächste Partie eingetragen und in vorheriegen Spiel grün markiert.
+*
+*/
 class TournamentWindow : public QWidget
 {
     Q_OBJECT

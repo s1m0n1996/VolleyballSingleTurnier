@@ -5,6 +5,17 @@
 #include <QPixmap>
 #include <QWidget>
 
+
+/*!
+ * \file dartboard.cpp
+ * \author Nico Meyer
+ * \brief Eine Klasse für die Dartscheibe beim Richter
+ *
+ * Zeigt eine normale Dartscheibe ein. Auf dieser Dartscheibe kann mit der Maus geklickt
+ * werden und anhand der Mausposition wird dann der geworfene Wert des Dartpfeils ermittelt
+ * und zurückgegebn. Die Dartscheibe lässt sich automatisch skalieren.
+ *
+*/
 class Dartboard : public QLabel
 {
     Q_OBJECT

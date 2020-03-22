@@ -21,6 +21,16 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class RefereeWindow; }
 QT_END_NAMESPACE
 
+
+/*!
+* \file refereewindow.cpp
+* \brief Diese Klasse ist die View Klasse des Richters
+* \author Nico Meyer
+*
+* Es wird ein Fenster erstellt, wo der Richter auf einer Dartscheibe den geworfenen Wurf
+* anklicken kann. Es ist möglich diesen Wurf wieder rückgängig zumachen.
+*
+*/
 class RefereeWindow : public QMainWindow
 {
     Q_OBJECT

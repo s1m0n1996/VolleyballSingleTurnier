@@ -21,6 +21,18 @@
 #include <View/windowLabel.h>
 
 
+/*!
+ * \brief TournamentWindow::TournamentWindow ist Konstruktor der Klasse TournamentWindow
+ * \param[in] referee ist das dazugehörige Model
+ * \param[in] playerManagement ist das dazugehörige Model um an die aktiven Spieler zu kommen.
+ * \param[in] parent bietet die Möglichkeit ein Objekt abhänig vom rufenden Objekt zu erzeugen
+ * \return void
+ *
+ * Es wird eine QGraphicsScene ertsellt in welcher dann die Rechtecke, welche die Spiele repräsentieren,
+ * die Verbindungslinien und die Spielernamen eingetragen werden. Diese QGraphicsScene wird dann in der
+ * neu erstellten QGraphicsView dargestellt.
+ *
+ */
 TournamentWindow::TournamentWindow(Referee* referee, PlayerManagement* playerManagement, QWidget* parent) :
         QWidget(parent),
         _referee(referee),

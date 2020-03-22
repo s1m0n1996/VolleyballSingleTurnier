@@ -8,11 +8,10 @@ class WindowButton;
 class WindowLabel;
 
 /*!
-* \file refereepopupwinningleg.h
+* \file refereepopupwinningleg.cpp
 * \brief Diese Klasse ist ein Popup welches für den Richter dient
 * \author Nico Meyer
 */
-
 class RefereepopupWinningLeg : public QWidget
 {
     Q_OBJECT
