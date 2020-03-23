@@ -191,6 +191,7 @@ void ViewerWindow::setAktionPlayer2(void)
  * \return void
  *
  * Die Fotos der Spieler werden aus der Datenbank geholt und dann in der Ui angezeigt.
+ * Das Auskommentierte ist für die manuelle Drehung des Bildes vorgesehen
  *
  */
 void ViewerWindow::setPhoto(Player playerA, Player playerB)

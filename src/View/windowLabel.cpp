@@ -84,7 +84,7 @@ void WindowLabel::setWinnerStyle(void)
 {
     setStyleSheet("QLabel{"
                   "font-size: 40px;"
-                  "font-family: Candara;"
+                  "font-family: Arial;"
                   "font-weight: bold;}");
 
 }
