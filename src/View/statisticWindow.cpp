@@ -331,7 +331,8 @@ void StatisticWindow::_refreshSelectedPlayer(void)
     _selectedPlayer = new Player(
             playerModel->index(_choosePlayerComboBox->currentIndex(), 0).data().toString(),
             playerModel->index(_choosePlayerComboBox->currentIndex(), 1).data().toDate(),
-            playerModel->index(_choosePlayerComboBox->currentIndex(), 2).data().toString()
+            playerModel->index(_choosePlayerComboBox->currentIndex(), 2).data().toString(),
+            playerModel->index(_choosePlayerComboBox->currentIndex(), 3).data().toString()
     );
 }
 

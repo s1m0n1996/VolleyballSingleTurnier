@@ -101,12 +101,12 @@ void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel(void)
  */
 void PlayermanagementWindow::addPlayerToDatabase(void)
 {
-    Player* newPlayer = new Player(_playernameEdit->text(),
-                                   _birthday->date(), _countryEdit->text());
+    Player* newPlayer = new Player(_playernameEdit->text(), _birthday->date(), _countryEdit->text(), _genderEdit->text());
     _playerManagementModel->addPlayerForNewGame(*newPlayer);
 
 
     _playernameEdit->clear();
+    _genderEdit->clear();
     _birthday->setDate(QDate(1990, 10, 21));
     _countryEdit->clear();
 
@@ -165,7 +165,10 @@ void PlayermanagementWindow::addPlayerForNewGame(void)
         _playerManagementModel->addPlayerForNewGame(Player(
                 modelAll->index(index.row(), 0).data().toString(),
                 modelAll->index(index.row(), 1).data().toDate(),
-                modelAll->index(index.row(), 2).data().toString()));
+                modelAll->index(index.row(), 2).data().toString(),
+                modelAll->index(index.row(), 3).data().toString()
+
+                ));
     }
     _allPlayerTableView->selectionModel()->clearSelection();
 }
@@ -189,7 +192,9 @@ void PlayermanagementWindow::dropPlayerForNewGame(void)
         players.append(Player(
                 modelGame->index(index.row(), 0).data().toString(),
                 modelGame->index(index.row(), 1).data().toDate(),
-                modelGame->index(index.row(), 2).data().toString()));
+                modelGame->index(index.row(), 2).data().toString(),
+                modelGame->index(index.row(), 3).data().toString()
+                ));
     }
 
     for (Player& player: players)
@@ -219,7 +224,9 @@ void PlayermanagementWindow::deletePlayer(void)
         players.append(Player(
                 modelGame->index(index.row(), 0).data().toString(),
                 modelGame->index(index.row(), 1).data().toDate(),
-                modelGame->index(index.row(), 2).data().toString()));
+                modelGame->index(index.row(), 2).data().toString(),
+                modelGame->index(index.row(), 3).data().toString()
+                ));
     }
 
     for (Player& player: players)
@@ -249,7 +256,9 @@ void PlayermanagementWindow::restorePlayer(void)
         players.append(Player(
                 deletedPlayersModel->index(index.row(), 0).data().toString(),
                 deletedPlayersModel->index(index.row(), 1).data().toDate(),
-                deletedPlayersModel->index(index.row(), 2).data().toString()));
+                deletedPlayersModel->index(index.row(), 2).data().toString(),
+                deletedPlayersModel->index(index.row(), 3).data().toString()
+                ));
     }
 
     for (Player& player: players)
@@ -281,7 +290,8 @@ void PlayermanagementWindow::addPhotoWithSelection(void)
         Player player(
                 modelAll->index(selectedRows[0].row(), 0).data().toString(),
                 modelAll->index(selectedRows[0].row(), 1).data().toDate(),
-                modelAll->index(selectedRows[0].row(), 2).data().toString()
+                modelAll->index(selectedRows[0].row(), 2).data().toString(),
+                modelAll->index(selectedRows[0].row(), 3).data().toString()
         );
         // save file in database
         QFile file(path);
@@ -314,7 +324,7 @@ void PlayermanagementWindow::startTournament(void)
 
 void PlayermanagementWindow::enableAddPlayerButton(void)
 {
-    _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty());
+    _addPlayerButton->setEnabled(!_countryEdit->text().isEmpty() && !_genderEdit->text().isEmpty());
 }
 
 void PlayermanagementWindow::showDeletedPlayers(void)
@@ -384,6 +394,9 @@ void PlayermanagementWindow::createWidgets(void)
     _playernameEdit = new WindowEdit("Max Mustermann", DataType::name);
     _playernameEdit->setMaxLength(20);
 
+    _genderEdit = new WindowEdit("m/w", DataType::name);
+    _genderEdit->setMaxLength(20);
+
     _countryEdit = new WindowEdit("DE", DataType::country);
     _countryEdit->setMaxLength(3);
 
@@ -391,6 +404,7 @@ void PlayermanagementWindow::createWidgets(void)
     _birthdayLabel = new WindowLabel("Geburtsdatum");
     _countryLabel = new WindowLabel("Land");
     _photoLabel = new WindowLabel("Foto");
+    _genderLabel = new WindowLabel("Geschlecht");
 
 
     _birthday = new QDateEdit();
@@ -508,11 +522,13 @@ void PlayermanagementWindow::setAllLayout(void)
     labelLayout->addWidget(_birthdayLabel);
     labelLayout->addWidget(_countryLabel);
     labelLayout->addWidget(_photoLabel);
+    labelLayout->addWidget(_genderLabel);
 
     editLayout->addWidget(_playernameEdit);
     editLayout->addWidget(_birthday);
     editLayout->addWidget(_countryEdit);
     editLayout->addWidget(_addPhoto);
+    editLayout->addWidget(_genderEdit);
 
     addPlayerLayout->addLayout(labelLayout, 0, 0);
     addPlayerLayout->addLayout(editLayout, 0, 1);
@@ -546,6 +562,8 @@ void PlayermanagementWindow::connecting(void)
     connect(_playernameEdit, SIGNAL(textChanged(
                                             const QString &)), this, SLOT(enableAddPlayerButton()));
     connect(_countryEdit, SIGNAL(textChanged(
+                                         const QString &)), this, SLOT(enableAddPlayerButton()));
+    connect(_genderEdit, SIGNAL(textChanged(
                                          const QString &)), this, SLOT(enableAddPlayerButton()));
 
     connect(_addPlayerButton, SIGNAL(released()), this, SLOT(addPlayerToDatabase()));

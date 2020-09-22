@@ -17,7 +17,8 @@ class Player
 public:
     Player(const QString name,
            const QDate birthday,
-           const QString country);
+           const QString country,
+           const QString gender);
 
     Player(const int id);
 
@@ -34,6 +35,8 @@ private:
     QString _name;
     QDate _birthday;
     QString _country;
+    QString _gender;
+    int _playedGames;
 
     int _getPlayerIdFromDatabase(void);
     void _addPlayerToDatabase(void);

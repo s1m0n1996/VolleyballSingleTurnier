@@ -33,6 +33,7 @@ CREATE TABLE player_list
     name         TEXT    NOT NULL,
     birthday     TEXT,
     country      TEXT,
+    gender       TEXT,
     is_available INT     DEFAULT 1 NOT NULL,
     picture_id   INTEGER DEFAULT 1 NOT NULL
         REFERENCES player_pictures_list,

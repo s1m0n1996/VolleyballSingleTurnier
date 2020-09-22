@@ -92,12 +92,14 @@ private:
     WindowLabel* _birthdayLabel             = nullptr;
     WindowLabel* _countryLabel              = nullptr;
     WindowLabel* _photoLabel                = nullptr;
+    WindowLabel* _genderLabel                = nullptr;
 
 
     WindowEdit*     _playernameEdit             = nullptr;
     QCalendarWidget* _calendar                  = nullptr;
     QDateEdit*      _birthday                   = nullptr;
     WindowEdit*     _countryEdit                = nullptr;
+    WindowEdit*     _genderEdit                = nullptr;
     WindowButton*   _addPhoto                   = nullptr;
 
 

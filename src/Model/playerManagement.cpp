@@ -188,6 +188,7 @@ WHERE sport_type_id = :sportTypeId
  */
 int PlayerManagement::countMissingPlayersForNewGame(void)
 {
+    return countSelectedPlayersForNewGame();
     int nActualPlayers = countSelectedPlayersForNewGame();
 
     // the calculation not works with 0 because the log(<1) is negative.
@@ -219,11 +220,12 @@ int PlayerManagement::countMissingPlayersForNewGame(void)
  */
 void PlayerManagement::refreshDatabasePlayerTable(void)
 {
-    _databasePlayerTable->setQuery("SELECT name, birthday, country FROM player_list where is_available >= 1");
+    _databasePlayerTable->setQuery("SELECT name, birthday, country, gender FROM player_list where is_available >= 1");
 
     _databasePlayerTable->setHeaderData(0, Qt::Horizontal, tr("Name"));
     _databasePlayerTable->setHeaderData(1, Qt::Horizontal, tr("Geburtstag"));
     _databasePlayerTable->setHeaderData(2, Qt::Horizontal, tr("Land"));
+    _databasePlayerTable->setHeaderData(3, Qt::Horizontal, tr("Geschlecht"));
 }
 
 /*!
@@ -236,7 +238,7 @@ void PlayerManagement::refreshNextGamePlayerTable(void)
     QSqlQuery sqlQuery;
 
     QString sqlPrepare = R"(
-SELECT pl.name, pl.birthday, pl.country
+SELECT pl.name, pl.birthday, pl.country, pl.gender
 FROM tournament_players_list
          INNER JOIN player_list pl ON tournament_players_list.player_id = pl.id
 WHERE sport_type_id = :sportTypeId
@@ -255,6 +257,7 @@ WHERE sport_type_id = :sportTypeId
     _nextGamePlayerTableModel->setHeaderData(0, Qt::Horizontal, tr("Name"));
     _nextGamePlayerTableModel->setHeaderData(1, Qt::Horizontal, tr("Geburtstag"));
     _nextGamePlayerTableModel->setHeaderData(2, Qt::Horizontal, tr("Land"));
+    _nextGamePlayerTableModel->setHeaderData(3, Qt::Horizontal, tr("Geschlecht"));
 }
 
 /*!

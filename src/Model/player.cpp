@@ -16,7 +16,7 @@
  * Wenn der Spieler bereits vorhanden ist wird die Membervariable _id aus der Datenbank geladen.
  *
  */
-Player::Player(const QString name, const QDate birthday, const QString country)
+Player::Player(const QString name, const QDate birthday, const QString country, const QString gender)
 {
     if (!birthday.isValid())
     {
@@ -27,6 +27,7 @@ Player::Player(const QString name, const QDate birthday, const QString country)
     _name = name;
     _birthday = birthday;
     _country = country;
+    _gender = gender;
     if (_isPlayerUnknown())
     {
         _addPlayerToDatabase();
@@ -71,6 +72,7 @@ WHERE id = :id;
     _name = player[1].toString();
     _birthday = player[2].toDate();
     _country = player[3].toString();
+    _gender = player[4].toString();
 }
 
 /*!
@@ -84,14 +86,15 @@ void Player::_addPlayerToDatabase(void)
 {
 
     QString sqlPrepare = R"(
-INSERT INTO player_list (name, birthday, country)
-VALUES (:name, :birthday, :country);
+INSERT INTO player_list (name, birthday, country, gender)
+VALUES (:name, :birthday, :country, :gender);
 )";
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
     sqlQuery.bindValue(":name", _name);
     sqlQuery.bindValue(":birthday", _birthday);
     sqlQuery.bindValue(":country", _country);
+    sqlQuery.bindValue(":gender", _gender);
 
     _db->sqlQuery(sqlQuery);
 }
