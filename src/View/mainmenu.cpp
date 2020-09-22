@@ -45,6 +45,8 @@ MainMenu::MainMenu(QMainWindow* parent) :
     connecting();
 
     setButtonEnableState();
+
+    hideForVolleyball();
 }
 
 MainMenu::~MainMenu(void)
@@ -259,7 +261,7 @@ void MainMenu::createWidgets(void)
     _tournamentData->addAction(_loadTournament);
 
 
-    _title = new WindowLabel("Hauptmenü - DartsTurnier");
+    _title = new WindowLabel("Hauptmenü");
     _title->setMainTitleStyle();
 
     _noteDatabase = new WindowLabel("Bitte zuerst eine Datei neu erstellen oder öffnen");
@@ -291,6 +293,11 @@ void MainMenu::createWidgets(void)
     _statitsic->mainMenuStyle();
     _statitsic->setIcon(QIcon(":/img/statistic.png"));
     _statitsic->setIconSize(QSize(65, 65));
+
+    _volleyballGameBoard = new WindowButton("Spielplan");
+    _volleyballGameBoard->mainMenuStyle();
+    //_volleyballGameBoard->setIcon(QIcon(":/img/statistic.png"));
+    _volleyballGameBoard->setIconSize(QSize(65, 65));
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
 
@@ -324,6 +331,7 @@ void MainMenu::setAllLayout(void)
     layout->addWidget(_viewer, 0, Qt::AlignCenter);
     layout->addWidget(_referee, 0, Qt::AlignCenter);
     layout->addWidget(_statitsic, 0, Qt::AlignCenter);
+    layout->addWidget(_volleyballGameBoard, 0, Qt::AlignCenter);
 
     widget->setLayout(layout);
 }
@@ -340,4 +348,12 @@ void MainMenu::connecting(void)
     connect(_newTournament, SIGNAL(triggered()), this, SLOT(createTournament()));
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
     connect(_sqliteConnector, SIGNAL(databaseChanged()), this, SLOT(refreshDatabase()));
+}
+
+void MainMenu::hideForVolleyball()
+{
+    _tournament->hide();
+    _viewer->hide();
+    _referee->hide();
+    _statitsic->hide();
 }

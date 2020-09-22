@@ -64,6 +64,7 @@ private:
     void connecting(void);
     void createWidgets(void);
     void setAllLayout(void);
+    void hideForVolleyball();
 
     Model*      _model = nullptr;
 
@@ -93,6 +94,7 @@ private:
     WindowButton* _viewer             = nullptr;
     WindowButton* _referee            = nullptr;
     WindowButton* _statitsic          = nullptr;
+    WindowButton* _volleyballGameBoard= nullptr;
 
 
 
