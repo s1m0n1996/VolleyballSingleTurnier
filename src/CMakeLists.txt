@@ -6,7 +6,7 @@ project(Sportveranstaltung)
 set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_PREFIX_PATH "C:\\Qt\\5.14.1\\mingw73_64")
+set(CMAKE_PREFIX_PATH "C:\\Qt\\5.14.2\\mingw73_64")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -98,10 +98,11 @@ set(UIS
 # set ressources
 set(RESOURCES
         ../rsrc/resources.qrc
+        ../rsrc/resources.rc
         )
 
 
-add_executable(Sportveranstaltung
+add_executable(Sportveranstaltung WIN32
         ${RESOURCES}
         ${SOURCES}
         ${MOC_SRCS}

@@ -1,0 +1,6 @@
+#ifndef _resources_re
+#define _resources_re
+
+MAINICON ICON "img/darts.ico"
+
+#endif // _resources_re
