@@ -379,7 +379,7 @@ void PlayermanagementWindow::createWidgets(void)
     _deletePlayerForNewTournament->setIconSize(QSize(65, 65));
 
 
-    _nameMissingPlayersLabel = new WindowLabel("noch zu benötigte Spieler:");
+    _nameMissingPlayersLabel = new WindowLabel("Anzahl Spieler:");
     _valueMissingPlayersLabel = new WindowLabel(
             QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
