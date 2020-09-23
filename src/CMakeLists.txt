@@ -53,6 +53,7 @@ set(MOC_HEADERS
         View/windowLabel.h
         View/loadTournamentPopup.h
         View/winnerpopup.h
+        Model/create_volleyball_game_board.h
         )
 
 # set .cpp files
@@ -86,6 +87,7 @@ set(SOURCES
         View/windowLabel.cpp
         View/loadTournamentPopup.cpp
         View/winnerpopup.cpp
+        Model/create_volleyball_game_board.cpp
         main.cpp
         )
 
@@ -102,7 +104,7 @@ set(RESOURCES
         )
 
 
-add_executable(Sportveranstaltung WIN32
+add_executable(Sportveranstaltung #WIN32
         ${RESOURCES}
         ${SOURCES}
         ${MOC_SRCS}
