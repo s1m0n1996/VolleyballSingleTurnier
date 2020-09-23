@@ -1,4 +1,5 @@
 #include <QSqlQuery>
+#include "Model/gameManagement.h"
 
 #include "Model/player.h"
 
@@ -24,6 +25,7 @@ Player::Player(const QString name, const QDate birthday, const QString country, 
         return;
     }
     _db = &SqliteConnector::instance();
+    _gameManagement = &GameManagement::instance();
     _name = name;
     _birthday = birthday;
     _country = country;
@@ -50,6 +52,7 @@ Player::Player(const QString name, const QDate birthday, const QString country, 
 Player::Player(const int id)
 {
     _db = &SqliteConnector::instance();
+    _gameManagement = &GameManagement::instance();
     _id = id;
     QString sqlPrepare = R"(
 SELECT *
@@ -239,4 +242,35 @@ WHERE player_list.id = :playerId
     QByteArray picture = rawData[0][0].toByteArray();
 
     return picture;
+}
+
+/*!
+ * \brief Gespielte spiele im aktuellen turnier
+ *
+ *
+ * Diese Methode zählt alle gespielten spiele in dem aktuelle tuenier
+ */
+const int Player::getPlayedGames() const
+{
+    const QString sqlPrepare = R"(
+SELECT count(*)
+FROM game_player_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+  AND player_id = :playerId
+)";
+
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":playerId", getId());
+
+
+    QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
+
+    const int count = raw[0][0].toInt();
+    return count;
 }

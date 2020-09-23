@@ -4,6 +4,8 @@
 #include <QString>
 #include "Model/sqliteConnector.h"
 
+class GameManagement;
+
 /*!
  * \file player.h
  * \author Simon Flörke
@@ -26,11 +28,14 @@ public:
     QString getName(void) const { return _name; }
     QDate getBirthday(void) const { return _birthday; }
     QString getCountry(void) const { return _country; }
+    QString getGender(void) const { return _gender; }
+    const int getPlayedGames() const;
     QByteArray loadPicture(void);
     void savePicture(const QByteArray& picture);
 
 private:
     SqliteConnector* _db;
+    GameManagement* _gameManagement;
     int _id;
     QString _name;
     QDate _birthday;
