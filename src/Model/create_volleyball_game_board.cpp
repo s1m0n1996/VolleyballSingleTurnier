@@ -6,7 +6,7 @@
 #include <utility>
 
 
-CreateVolleyballGameBoard::CreateVolleyballGameBoard(QList <Player>& players)
+CreateVolleyballGameBoard::CreateVolleyballGameBoard(QList<Player>& players)
 {
     _gamePlayers = std::move(players);
     _db = &SqliteConnector::instance();
@@ -207,5 +207,89 @@ GROUP BY gender
     else
     {
         return false;
+    }
+}
+
+/*!
+ * \brief Gebe den besten spieler zurück
+ *
+ * Es werden einige algorythmen durchlaufen und dadurch wird der optimale spieler ausgesucht
+ */
+Player CreateVolleyballGameBoard::getRandomBestPlayer()
+{
+    const int maxTry = 1000;
+
+    int nTry = 0;
+
+    while (true)
+    {
+        // Bedingungen die unbedingt erfüllt seinj müssen
+        Player randomPlayer = getRandomPlayer();
+
+        if (!isPlayerAvailable(randomPlayer))
+        {
+            continue;
+        }
+
+        // optionale bedingungen nach wichtigkeit geordnet
+        nTry++;
+
+        if (nTry > maxTry)
+        {
+            return randomPlayer;
+        }
+
+        if (!isDifferentPlaysOkWhenPlayerPlays(randomPlayer))
+        {
+            continue;
+        }
+
+        const int maxGenderDifferent = abs(nTry / 100);
+        if (!isMaleFemaleAllocationOk(randomPlayer, maxGenderDifferent))
+        {
+            continue;
+        }
+        return randomPlayer;
+    }
+}
+
+/*!
+ * \brief Erstelle Spiel
+ *
+ * Erstelle ein Spiel
+ */
+void CreateVolleyballGameBoard::createOneGame()
+{
+    const QList<int> teams = {1, 2};
+
+    for (const int& team : teams)
+    {
+        for (int i = 0; i < _nPlayersPerTeam; i++)
+        {
+            // todo game id als parameter übergeben
+            Player nextPlayer = getRandomBestPlayer();
+
+            const QString sqlPrepare = R"(
+INSERT INTO game_player_list (id, game_board_id, sport_type_id, game_mode_id, tournament_id, player_id, team_id)
+VALUES ((SELECT count(id) + 1
+         FROM game_player_list
+         WHERE game_board_id = :gameBoardId
+           AND sport_type_id = :sportTypeId
+           AND game_mode_id = :gameModeId
+           AND tournament_id = :tournamentId), :gameBoardId, :sportTypeId, :gameModeId, :tournamentId, :playerId,
+        :teamId);
+)";
+
+            QSqlQuery sqlQuery;
+            sqlQuery.prepare(sqlPrepare);
+            sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+            sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+            sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+            sqlQuery.bindValue(":gameBoardId", getCurrentGameId());
+            sqlQuery.bindValue(":playerId", nextPlayer.getId());
+            sqlQuery.bindValue(":teamId", team);
+
+            QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
+        }
     }
 }

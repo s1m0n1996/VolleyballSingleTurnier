@@ -29,10 +29,13 @@ public:
 
     int getCurrentGameId();
 
+    void createOneGame();
 
 
 private:
 
+
+    Player getRandomBestPlayer();
     void initRand();
     Player getRandomPlayer();
     bool isPlayerAvailable(Player& player);
