@@ -162,7 +162,7 @@ ORDER BY count
     const int minGames = raw.first()[1].toInt();
     const int maxGames = raw.last()[1].toInt();
 
-    return (playedGames - minGames) <= 1;
+    return (playedGames - minGames) <= 2;
 }
 
 /*!
@@ -222,7 +222,7 @@ GROUP BY gender
  */
 Player CreateVolleyballGameBoard::getRandomBestPlayer()
 {
-    const int maxTry = 1000;
+    const int maxTry = 2000;
 
     int nTry = 0;
 
@@ -249,7 +249,7 @@ Player CreateVolleyballGameBoard::getRandomBestPlayer()
             continue;
         }
 
-        const int maxGenderDifferent = abs(nTry / 200);
+        const int maxGenderDifferent = abs(nTry / 500) + 1;
         if (!isMaleFemaleAllocationOk(randomPlayer, maxGenderDifferent))
         {
             continue;
