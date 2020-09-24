@@ -36,7 +36,7 @@
 PlayermanagementWindow::PlayermanagementWindow(PlayerManagement* playerManagementModel, QWidget* parent) :
         QMainWindow(parent)
 {
-    setWindowIcon(QIcon(":/img/darts.png"));
+    setWindowIcon(QIcon(":/img/favicon.png"));
     setWindowTitle("Meldestelle");
 
     _playerManagementModel = playerManagementModel;

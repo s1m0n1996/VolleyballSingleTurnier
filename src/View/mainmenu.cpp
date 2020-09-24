@@ -246,7 +246,7 @@ void MainMenu::setTournamentName(void)
 
 void MainMenu::createWidgets(void)
 {
-    setWindowIcon(QIcon(":/img/darts.png"));
+    setWindowIcon(QIcon(":/img/favicon.png"));
 
     _playerData = new QMenu();
     _playerData = menuBar()->addMenu(tr("Datei"));

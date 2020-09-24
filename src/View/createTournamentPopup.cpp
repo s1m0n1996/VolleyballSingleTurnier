@@ -18,7 +18,7 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
 {
     _gameManagement = &GameManagement::instance();
     setWindowTitle("Turnier erstellen");
-    setWindowIcon(QIcon(":/img/darts.png"));
+    setWindowIcon(QIcon(":/img/favicon.png"));
     setWindowFlags(Qt::WindowStaysOnTopHint | Qt::WindowCloseButtonHint);
 
     createWidgets();

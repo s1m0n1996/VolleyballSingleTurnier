@@ -43,7 +43,7 @@ LoadTournamentPopup::~LoadTournamentPopup()
 void LoadTournamentPopup::_createWidgets(void)
 {
     setWindowTitle("Turnier laden");
-    setWindowIcon(QIcon(":/img/darts.png"));
+    setWindowIcon(QIcon(":/img/favicon.png"));
 
     _informationLabel = new WindowLabel("Bitte ein Turnier auswählen");
     _informationLabel->setTitleStyle();

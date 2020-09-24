@@ -18,5 +18,6 @@
         <file>img/backgroundGamePlan.png</file>
         <file>img/crowns.png</file>
         <file>img/calendar.png</file>
+        <file>img/favicon.png</file>
     </qresource>
 </RCC>

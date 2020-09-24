@@ -11,6 +11,7 @@ VolleyballGamePlane::VolleyballGamePlane(CreateVolleyballGameBoard* model, QWidg
     QMainWindow(parent),
     ui(new Ui::VolleyballGamePlane)
 {
+    setWindowIcon(QIcon(":/img/favicon.png"));
     ui->setupUi(this);
 
     _volleyballGameBoardModel = model;
