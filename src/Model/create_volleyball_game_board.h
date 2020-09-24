@@ -41,6 +41,7 @@ private:
     QList<Player> _gamePlayers;
     SqliteConnector* _db;
     GameManagement* _gameManagement;
+    const int _nPlayersPerTeam = 4;
 
 };
 

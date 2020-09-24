@@ -16,7 +16,6 @@ CreateVolleyballGameBoard::CreateVolleyballGameBoard(QList <Player>& players)
 }
 
 
-
 int CreateVolleyballGameBoard::getCurrentGameId()
 {
     QString sqlPrepare = R"(
@@ -35,8 +34,35 @@ WHERE sport_type_id = :sportTypeId
 
     QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
 
-    const int currentGameId = raw[0][0].toInt();
+    int currentGameId = raw[0][0].toInt();
 
+    if (currentGameId == 0)
+    {
+        return 1;
+    }
+
+    sqlPrepare = R"(
+SELECT count(*)
+FROM game_player_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+  AND game_board_id = :gameBoardId
+)";
+    sqlQuery.clear();
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+    sqlQuery.bindValue(":gameBoardId", currentGameId);
+
+
+    const int cPlayersForGame = _db->sqlQuery(sqlQuery)[0][0].toInt();
+
+    if (cPlayersForGame >= _nPlayersPerTeam * 2)
+    {
+        currentGameId += 1;
+    }
     return currentGameId;
 }
 
@@ -50,7 +76,7 @@ Player CreateVolleyballGameBoard::getRandomPlayer()
 {
     // zufallszahl von >= start bis <= end
     const int start = 0;
-    const int end = _gamePlayers.length();
+    const int end = _gamePlayers.length() - 1;
     const int randomNumber = rand() % (end + 1 - start) + start;
 
     return _gamePlayers[randomNumber];
@@ -119,6 +145,11 @@ ORDER BY count
     sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
 
     QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
+    // wenn liste leer ist ist alles erlaubt
+    if (raw.isEmpty())
+    {
+        return true;
+    }
 
     const int minGames = raw.first()[1].toInt();
     const int maxGames = raw.last()[1].toInt();
