@@ -24,12 +24,20 @@ Q_OBJECT
 
 public:
     CreateVolleyballGameBoard(QList <Player>& players);
+    CreateVolleyballGameBoard();
 
     void randomGame();
 
     int getCurrentGameId();
 
     void createOneGame();
+
+signals:
+    void refreshGameBoard();
+
+
+public slots:
+    void refreshPlayers();
 
 
 private:

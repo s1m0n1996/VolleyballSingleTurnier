@@ -15,6 +15,10 @@ CreateVolleyballGameBoard::CreateVolleyballGameBoard(QList<Player>& players)
     initRand();
 }
 
+CreateVolleyballGameBoard::CreateVolleyballGameBoard()
+{
+    refreshPlayers();
+}
 
 int CreateVolleyballGameBoard::getCurrentGameId()
 {
@@ -291,5 +295,31 @@ VALUES ((SELECT count(id) + 1
 
             QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
         }
+    }
+
+    emit refreshGameBoard();
+}
+
+void CreateVolleyballGameBoard::refreshPlayers()
+{
+    const QString sqlPrepare = R"(
+SELECT player_id
+FROM tournament_players_list
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+
+    QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
+
+    _gamePlayers.clear();
+    for (QList<QVariant> row : raw)
+    {
+        _gamePlayers.append(Player(row[0].toInt()));
     }
 }
