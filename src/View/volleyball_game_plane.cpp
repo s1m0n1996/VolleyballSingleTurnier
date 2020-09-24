@@ -5,15 +5,18 @@
 
 #include <QDebug>
 
-VolleyballGamePlane::VolleyballGamePlane(QWidget *parent) :
+VolleyballGamePlane::VolleyballGamePlane(CreateVolleyballGameBoard* model, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::VolleyballGamePlane)
 {
     ui->setupUi(this);
+
+    _volleyballGameBoardModel = model;
     _gameManagement = &GameManagement::instance();
+
+    _connect();
     refreshCountGamesPerPlayer();
     setCountGamesPerPlayerTable();
-
 }
 
 VolleyballGamePlane::~VolleyballGamePlane()
@@ -31,7 +34,7 @@ WHERE sport_type_id = :sportTypeId
   AND game_mode_id = :gameModeId
   AND tournament_id = :tournamentId
 GROUP BY player_id
-ORDER BY count
+ORDER BY pl.name
 )";
     QSqlQuery sqlQuery;
     sqlQuery.prepare(sqlPrepare);
@@ -51,4 +54,21 @@ void VolleyballGamePlane::setCountGamesPerPlayerTable()
     ui->playedGamesTable->setModel(_countGamesPerPlayerTableModel);
     ui->playedGamesTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->playedGamesTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+}
+
+void VolleyballGamePlane::createNewGame()
+{
+    const int cGames = ui->nNewGames->value();
+    ui->nNewGames->setValue(1);
+
+    for (int i = 0 ; i < cGames; i++)
+    {
+        _volleyballGameBoardModel->createOneGame();
+    }
+}
+
+void VolleyballGamePlane::_connect()
+{
+    connect(ui->createGamesButton, SIGNAL(released()), this, SLOT(createNewGame()));
+    connect(_volleyballGameBoardModel, SIGNAL(refreshGameBoard()), this, SLOT(refreshCountGamesPerPlayer()));
 }

@@ -10,6 +10,7 @@
 #include "Model/playerManagement.h"
 #include "Model/sqliteConnector.h"
 #include "constantstorage.h"
+#include "Model/create_volleyball_game_board.h"
 
 #include "View/createTournamentPopup.h"
 #include "View/mainmenu.h"
@@ -22,7 +23,6 @@
 #include "View/viewerWindow.h"
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
-#include "View/volleyball_game_plane.h"
 
 
 /*!
@@ -107,7 +107,7 @@ void MainMenu::openStatisticWindow(void)
 
 void MainMenu::openVolleyballGamePlanWindow(void)
 {
-    auto* gamePlan = new VolleyballGamePlane();
+    auto* gamePlan = new VolleyballGamePlane(_volleyballGameBoardModel);
     gamePlan->showMaximized();
 }
 

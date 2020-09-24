@@ -17,6 +17,10 @@ CreateVolleyballGameBoard::CreateVolleyballGameBoard(QList<Player>& players)
 
 CreateVolleyballGameBoard::CreateVolleyballGameBoard()
 {
+    _db = &SqliteConnector::instance();
+    _gameManagement = &GameManagement::instance();
+
+    initRand();
     refreshPlayers();
 }
 

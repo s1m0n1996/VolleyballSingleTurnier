@@ -2,6 +2,7 @@
 #define MAINMENU_H
 
 #include <QMainWindow>
+#include "View/volleyball_game_plane.h"
 
 class Model;
 class PlayermanagementWindow;
@@ -101,7 +102,7 @@ private:
     WindowButton* _referee            = nullptr;
     WindowButton* _statitsic          = nullptr;
     WindowButton* _volleyballGameBoard= nullptr;
-
+    CreateVolleyballGameBoard* _volleyballGameBoardModel = new CreateVolleyballGameBoard();
 
 
 };
