@@ -22,6 +22,7 @@ public:
 
 private slots:
     void refreshCountGamesPerPlayer();
+    void refreshGameBoard();
     void createNewGame();
 private:
     Ui::VolleyballGamePlane *ui;

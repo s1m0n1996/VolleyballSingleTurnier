@@ -31,6 +31,7 @@ public:
     int getCurrentGameId();
 
     void createOneGame();
+    QMap<int, QMap<int, QString>> getGames();
 
 signals:
     void refreshGameBoard();

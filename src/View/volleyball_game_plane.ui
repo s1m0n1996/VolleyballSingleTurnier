@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1095</width>
+    <width>1377</width>
     <height>600</height>
    </rect>
   </property>
@@ -91,19 +91,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QWidget" name="gameBoardWidget" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-       </widget>
+       <widget class="QTableWidget" name="gamesTableWidget"/>
       </item>
      </layout>
     </item>
@@ -114,8 +102,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1095</width>
-     <height>27</height>
+     <width>1377</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

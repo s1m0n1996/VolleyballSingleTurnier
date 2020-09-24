@@ -252,7 +252,7 @@ Player CreateVolleyballGameBoard::getRandomBestPlayer()
             continue;
         }
 
-        const int maxGenderDifferent = abs(nTry / 100);
+        const int maxGenderDifferent = abs(nTry / 200);
         if (!isMaleFemaleAllocationOk(randomPlayer, maxGenderDifferent))
         {
             continue;
@@ -326,4 +326,34 @@ WHERE sport_type_id = :sportTypeId
     {
         _gamePlayers.append(Player(row[0].toInt()));
     }
+}
+
+QMap<int, QMap<int, QString>> CreateVolleyballGameBoard::getGames()
+{
+    const QString sqlPrepare = R"(
+SELECT game_board_id, pl.name, team_id
+FROM game_player_list
+         INNER JOIN player_list pl ON pl.id = game_player_list.player_id
+WHERE sport_type_id = :sportTypeId
+  AND game_mode_id = :gameModeId
+  AND tournament_id = :tournamentId
+)";
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare(sqlPrepare);
+    sqlQuery.bindValue(":sportTypeId", _gameManagement->getSportTypeId());
+    sqlQuery.bindValue(":gameModeId", _gameManagement->getGameModeId());
+    sqlQuery.bindValue(":tournamentId", _gameManagement->getTournamentId());
+
+    QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
+
+    QMap<int, QMap<int, QString>> teams;
+    for (QList<QVariant> row : raw)
+    {
+        const int gameId = row[0].toInt();
+        const int team = row[2].toInt();
+        const QString name = row[1].toString();
+
+        teams[gameId][team] += "\n" + name;
+    }
+    return teams;
 }

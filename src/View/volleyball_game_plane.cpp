@@ -2,6 +2,8 @@
 #include "ui_volleyball_game_plane.h"
 
 #include "Model/gameManagement.h"
+#include <QTableWidgetItem>
+#include <QTextEdit>
 
 #include <QDebug>
 
@@ -17,6 +19,7 @@ VolleyballGamePlane::VolleyballGamePlane(CreateVolleyballGameBoard* model, QWidg
     _connect();
     refreshCountGamesPerPlayer();
     setCountGamesPerPlayerTable();
+    refreshGameBoard();
 }
 
 VolleyballGamePlane::~VolleyballGamePlane()
@@ -71,4 +74,36 @@ void VolleyballGamePlane::_connect()
 {
     connect(ui->createGamesButton, SIGNAL(released()), this, SLOT(createNewGame()));
     connect(_volleyballGameBoardModel, SIGNAL(refreshGameBoard()), this, SLOT(refreshCountGamesPerPlayer()));
+    connect(_volleyballGameBoardModel, SIGNAL(refreshGameBoard()), this, SLOT(refreshGameBoard()));
+}
+
+void VolleyballGamePlane::refreshGameBoard()
+{
+    QMap<int, QMap<int, QString>> games =  _volleyballGameBoardModel->getGames();
+
+    ui->gamesTableWidget->clear();
+    ui->gamesTableWidget->clear();
+
+    while (ui->gamesTableWidget->columnCount() < 2)
+    {
+        ui->gamesTableWidget->insertColumn(0);
+    }
+
+    for (const int gameId : games.keys())
+    {
+        if (ui->gamesTableWidget->rowCount() < gameId)
+        {
+            ui->gamesTableWidget->insertRow( ui->gamesTableWidget->rowCount());
+        }
+
+        auto* teamA = new QTableWidgetItem(games[gameId][1]);
+        auto* teamB = new QTableWidgetItem(games[gameId][2]);
+
+        ui->gamesTableWidget->setItem(gameId - 1, 0, teamA);
+        ui->gamesTableWidget->setItem(gameId - 1, 1, teamB);
+
+        ui->gamesTableWidget->setRowHeight(gameId - 1, 80);
+    }
+
+    ui->gamesTableWidget->show();
 }

@@ -79,7 +79,7 @@ PlayermanagementWindow::~PlayermanagementWindow(void)
 void PlayermanagementWindow::setMissingPlayersForNewTournamentLabel(void)
 {
     _valueMissingPlayersLabel->setText(QString::number(_playerManagementModel->countMissingPlayersForNewGame()));
-    _startTournamentButton->setEnabled(false);
+    //_startTournamentButton->setEnabled(false);
     _valueMissingPlayersLabel->setNotStartTournamentStyle();
 
     if (_valueMissingPlayersLabel->text() == "0")
@@ -316,7 +316,7 @@ void PlayermanagementWindow::addPhotoWithSelection(void)
  */
 void PlayermanagementWindow::startTournament(void)
 {
-    Gameboard gameBoard(_playerManagementModel->getPlayersForNextGame());
+    //Gameboard gameBoard(_playerManagementModel->getPlayersForNextGame());
     window()->close();
     GameManagement* gameManagement = &GameManagement::instance();
     gameManagement->tournamentChanged();
@@ -436,7 +436,7 @@ void PlayermanagementWindow::createWidgets(void)
 
 
     _startTournamentButton = new WindowButton("Turnier starten");
-    _startTournamentButton->setEnabled(false);
+    //_startTournamentButton->setEnabled(false);
     _startTournamentButton->setEnableStyle();
     _startTournamentButton->setIcon(QIcon(":/img/createDart.png"));
     _startTournamentButton->setIconSize(QSize(65, 65));
