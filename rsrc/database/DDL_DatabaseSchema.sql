@@ -1,4 +1,3 @@
-
 -- PRAGMA foreign_keys = ON
 
 -- #####################################################################################################################
@@ -37,8 +36,8 @@ CREATE TABLE player_list
     is_available INT     DEFAULT 1 NOT NULL,
     picture_id   INTEGER DEFAULT 1 NOT NULL
         REFERENCES player_pictures_list,
-    constraint player_list_pk_2
-        unique (name, birthday, country)
+    CONSTRAINT player_list_pk_2
+        UNIQUE (name, birthday, country)
 );
 
 -- #####################################################################################################################
@@ -49,8 +48,8 @@ CREATE TABLE player_list
 --
 CREATE TABLE sport_type
 (
-    id   INTEGER  NOT NULL,
-    name TEXT NOT NULL,
+    id   INTEGER NOT NULL,
+    name TEXT    NOT NULL,
     CONSTRAINT sport_type_pk
         PRIMARY KEY (id)
 );
@@ -83,9 +82,9 @@ CREATE TABLE game_mode_type
 --
 CREATE TABLE history_value_type
 (
-    id            INTEGER  NOT NULL,
-    sport_type_id INTEGER  NOT NULL,
-    name          TEXT NOT NULL,
+    id            INTEGER NOT NULL,
+    sport_type_id INTEGER NOT NULL,
+    name          TEXT    NOT NULL,
     description   TEXT,
     CONSTRAINT history_value_type_pk
         PRIMARY KEY (id, sport_type_id),
@@ -101,17 +100,17 @@ CREATE TABLE history_value_type
 --
 CREATE TABLE tournament_list
 (
-    id            INTEGER  NOT NULL,
-    sport_type_id INTEGER  NOT NULL,
-    game_mode_id  INTEGER  NOT NULL,
-    name          TEXT NOT NULL,
-    date          TEXT NOT NULL,
+    id            INTEGER NOT NULL,
+    sport_type_id INTEGER NOT NULL,
+    game_mode_id  INTEGER NOT NULL,
+    name          TEXT    NOT NULL,
+    date          TEXT    NOT NULL,
     CONSTRAINT tournament_list_pk
         PRIMARY KEY (id, sport_type_id, game_mode_id),
     CONSTRAINT tournament_list_game_mode_type_sport_type_id_game_mode_id_sport_type_id_fk
         FOREIGN KEY (sport_type_id, game_mode_id) REFERENCES game_mode_type (sport_type_id, id),
-    constraint tournament_list_pk2
-        unique (sport_type_id, game_mode_id, name, date)
+    CONSTRAINT tournament_list_pk2
+        UNIQUE (sport_type_id, game_mode_id, name, date)
 
 );
 
@@ -123,12 +122,12 @@ CREATE TABLE tournament_list
 --
 CREATE TABLE game_board_list
 (
-    id              INTEGER  NOT NULL,
-    sport_type_id   INTEGER  NOT NULL,
-    game_mode_id    INTEGER  NOT NULL,
-    tournament_id   INTEGER  NOT NULL,
-    game_board_time TEXT NOT NULL,
-    player_a_id     INTEGER,
+    id              INTEGER NOT NULL,
+    sport_type_id   INTEGER NOT NULL,
+    game_mode_id    INTEGER NOT NULL,
+    tournament_id   INTEGER NOT NULL,
+    game_board_time TEXT    NOT NULL,
+    player_a_id     INTEGER, -- player = team
     player_b_id     INTEGER,
     winner_id       INTEGER,
     CONSTRAINT game_board_list_pk
@@ -137,6 +136,29 @@ CREATE TABLE game_board_list
         FOREIGN KEY (sport_type_id, game_mode_id, tournament_id) REFERENCES tournament_list (sport_type_id, game_mode_id, id),
     CONSTRAINT game_board_list_player_list_fk
         FOREIGN KEY (player_a_id, player_b_id, winner_id) REFERENCES player_list (id, id, id)
+);
+
+-- #####################################################################################################################
+-- create game_player table
+-- #####################################################################################################################
+--
+-- on this table are all game players for every game from the game_board.
+--
+CREATE TABLE game_player_list
+(
+    id            INTEGER NOT NULL,
+    game_board_id INTEGER NOT NULL,
+    sport_type_id INTEGER NOT NULL,
+    game_mode_id  INTEGER NOT NULL,
+    tournament_id INTEGER NOT NULL,
+    player_id     INTEGER,
+    team_id       INTEGER, -- only 0, 1 for different teams
+    CONSTRAINT leg_list_pk
+        PRIMARY KEY (id, game_board_id, sport_type_id, game_mode_id, tournament_id),
+    CONSTRAINT leg_list_game_board_list_fk
+        FOREIGN KEY (game_board_id, sport_type_id, game_mode_id, tournament_id) REFERENCES game_board_list (id, sport_type_id, game_mode_id, tournament_id),
+    CONSTRAINT leg_list_player_list
+        FOREIGN KEY (player_id) REFERENCES player_list (id)
 );
 
 -- #####################################################################################################################
@@ -169,16 +191,16 @@ CREATE TABLE leg_list
 --
 CREATE TABLE leg_history_list
 (
-    id            INTEGER  NOT NULL,
-    sport_type_id INTEGER  NOT NULL,
-    game_mode_id  INTEGER  NOT NULL,
-    tournament_id INTEGER  NOT NULL,
-    game_board_id INTEGER  NOT NULL,
-    leg_id        INTEGER  NOT NULL,
-    player_id     INTEGER  NOT NULL,
-    time          TEXT NOT NULL,
-    value_type_id INTEGER  NOT NULL,
-    value         INTEGER  NOT NULL,
+    id            INTEGER NOT NULL,
+    sport_type_id INTEGER NOT NULL,
+    game_mode_id  INTEGER NOT NULL,
+    tournament_id INTEGER NOT NULL,
+    game_board_id INTEGER NOT NULL,
+    leg_id        INTEGER NOT NULL,
+    player_id     INTEGER NOT NULL,
+    time          TEXT    NOT NULL,
+    value_type_id INTEGER NOT NULL,
+    value         INTEGER NOT NULL,
     CONSTRAINT history_list_pk
         PRIMARY KEY (id, sport_type_id, game_mode_id, tournament_id, game_board_id, leg_id),
     CONSTRAINT leg_history_list_leg_list_fk
@@ -195,16 +217,16 @@ CREATE TABLE leg_history_list
 --
 -- on this table are the players for the next tournier. So you can select and store players without start a game.
 --
-create table tournament_players_list
+CREATE TABLE tournament_players_list
 (
-    player_id INTEGER not null
-        references player_list,
-    sport_type_id integer not null,
-    game_mode_id INTEGER not null,
-    tournament_id INTEGER not null,
-    constraint tournament_players_list_pk
-        primary key (player_id, sport_type_id, game_mode_id, tournament_id),
-    constraint tournament_players_list_tournament_list_sport_type_id_game_mode_id_id_fk
-        foreign key (sport_type_id, game_mode_id, tournament_id) references tournament_list (sport_type_id, game_mode_id, id)
+    player_id     INTEGER NOT NULL
+        REFERENCES player_list,
+    sport_type_id INTEGER NOT NULL,
+    game_mode_id  INTEGER NOT NULL,
+    tournament_id INTEGER NOT NULL,
+    CONSTRAINT tournament_players_list_pk
+        PRIMARY KEY (player_id, sport_type_id, game_mode_id, tournament_id),
+    CONSTRAINT tournament_players_list_tournament_list_sport_type_id_game_mode_id_id_fk
+        FOREIGN KEY (sport_type_id, game_mode_id, tournament_id) REFERENCES tournament_list (sport_type_id, game_mode_id, id)
 );
 
