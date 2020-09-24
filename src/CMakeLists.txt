@@ -107,12 +107,25 @@ set(RESOURCES
         )
 
 
-add_executable(Sportveranstaltung #WIN32
-        ${RESOURCES}
-        ${SOURCES}
-        ${MOC_SRCS}
-        ${UI_HEADERS}
-        )
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message("debug mode")
+    add_executable(Sportveranstaltung
+            ${RESOURCES}
+            ${SOURCES}
+            ${MOC_SRCS}
+            ${UI_HEADERS}
+            ${LIBARY}
+            )
+else ()
+    message("release mode")
+    add_executable(Sportveranstaltung WIN32
+            ${RESOURCES}
+            ${SOURCES}
+            ${MOC_SRCS}
+            ${UI_HEADERS}
+            ${LIBARY}
+            )
+ENDIF()
 
 
 target_link_libraries(Sportveranstaltung Qt5::Widgets)
