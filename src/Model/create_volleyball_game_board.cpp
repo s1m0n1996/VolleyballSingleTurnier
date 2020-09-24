@@ -194,6 +194,8 @@ GROUP BY gender
     QList<QList<QVariant>> raw = _db->sqlQuery(sqlQuery);
 
     QMap<QString, int> genderAllocation;
+    genderAllocation["m"] = 0;
+    genderAllocation["w"] = 0;
     for (QList<QVariant> row : raw)
     {
         genderAllocation[row[0].toString()] = row[1].toInt();
@@ -206,11 +208,6 @@ GROUP BY gender
     {
         const int different = abs(genderAllocation[genders[0]] - genderAllocation[genders[1]]);
         return different <= maxDifference;
-    }
-    // at the first iterate only one player is in
-    else if (genders.length() == 1)
-    {
-        return true;
     }
     else
     {
