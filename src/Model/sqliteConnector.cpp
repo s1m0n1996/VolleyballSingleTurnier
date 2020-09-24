@@ -165,7 +165,7 @@ QList<QList<QVariant>> SqliteConnector::_executeQuery(QSqlQuery& sqlQueryObject)
 
         // wenn das programm hier abstürzt muss die sqlQuery überprüft werden. Um erst einmal weiter
         // zu machen kann das qFatal zu QWarning geändert werden. Dann gibt es lediglich eine warnung
-        qFatal("%s", errorMsg.toLatin1().constData());
+        qWarning("%s", errorMsg.toLatin1().constData());
     }
 
     // convert the returned data in a pretty 2-dimensional list

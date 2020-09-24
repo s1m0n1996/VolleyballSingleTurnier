@@ -60,6 +60,8 @@ private slots:
 
     void setButtonEnableState(void);
 
+    void _openAbout();
+
 private:
     void connecting(void);
     void createWidgets(void);
@@ -81,6 +83,9 @@ private:
     QMenu*      _tournamentData    = nullptr;
     QAction*    _loadTournament    = nullptr;
     QAction*    _newTournament     = nullptr;
+
+    QMenu*      _help           = nullptr;
+    QAction*    _actionAbout    = nullptr;
 
     WindowLabel* _title = nullptr;
 

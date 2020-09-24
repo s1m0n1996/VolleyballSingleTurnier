@@ -4,10 +4,12 @@
 #include <QSizePolicy>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QMessageBox>
 
 #include "Model/gameManagement.h"
 #include "Model/playerManagement.h"
 #include "Model/sqliteConnector.h"
+#include "constantstorage.h"
 
 #include "View/createTournamentPopup.h"
 #include "View/mainmenu.h"
@@ -260,6 +262,11 @@ void MainMenu::createWidgets(void)
     _tournamentData->addAction(_newTournament);
     _tournamentData->addAction(_loadTournament);
 
+    _help = new QMenu();
+    _help = menuBar()->addMenu(tr("Hilfe"));
+
+    _actionAbout = new QAction("Über");
+    _help->addAction(_actionAbout);
 
     _title = new WindowLabel("Hauptmenü");
     _title->setMainTitleStyle();
@@ -348,6 +355,7 @@ void MainMenu::connecting(void)
     connect(_newTournament, SIGNAL(triggered()), this, SLOT(createTournament()));
     connect(_loadTournament, SIGNAL(triggered()), this, SLOT(loadTournament()));
     connect(_sqliteConnector, SIGNAL(databaseChanged()), this, SLOT(refreshDatabase()));
+    connect(_actionAbout, SIGNAL(triggered()), this, SLOT(_openAbout()));
 }
 
 void MainMenu::hideForVolleyball()
@@ -356,4 +364,29 @@ void MainMenu::hideForVolleyball()
     _viewer->hide();
     _referee->hide();
     _statitsic->hide();
+}
+
+/*!
+ * @brief Open About
+ *
+ * Open the About popup
+ */
+void MainMenu::_openAbout()
+{
+    auto* aboutWindow = new QMessageBox;
+    aboutWindow->setIcon(QMessageBox::Information);
+    aboutWindow->setInformativeText(
+            QString(Constants::projectName) + "\n"
+                                                                   "v" + Constants::version + "\n\n"
+                                                                                         "Basiert auf Qt " +
+                    Constants::qtVersion + "\n\n"
+                              "Erstellt am " + Constants::buildDate + "\n\n"
+                                                                 "Author: " + Constants::author
+    );
+
+    aboutWindow->show();
+
+    aboutWindow->exec();
+
+    delete aboutWindow;
 }
