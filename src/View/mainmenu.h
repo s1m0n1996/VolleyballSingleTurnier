@@ -49,6 +49,7 @@ private slots:
     void openViewerWindow(void);
     void openRefereeWindow(void);
     void openStatisticWindow(void);
+    void openVolleyballGamePlanWindow(void);
 
     void createDatabase(void);
     void loadDatabase(void);

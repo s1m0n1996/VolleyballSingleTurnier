@@ -22,6 +22,7 @@
 #include "View/viewerWindow.h"
 #include "View/windowButton.h"
 #include "View/windowLabel.h"
+#include "View/volleyball_game_plane.h"
 
 
 /*!
@@ -102,6 +103,12 @@ void MainMenu::openStatisticWindow(void)
 {
     StatisticWindow* statisticWindow = new StatisticWindow();
     statisticWindow->showMaximized();
+}
+
+void MainMenu::openVolleyballGamePlanWindow(void)
+{
+    auto* gamePlan = new VolleyballGamePlane();
+    gamePlan->showMaximized();
 }
 
 /*!
@@ -305,6 +312,7 @@ void MainMenu::createWidgets(void)
     _volleyballGameBoard->mainMenuStyle();
     //_volleyballGameBoard->setIcon(QIcon(":/img/statistic.png"));
     _volleyballGameBoard->setIconSize(QSize(65, 65));
+    _volleyballGameBoard->setEnabled(true);
 
     SqliteConnector* sqlitConnector = &SqliteConnector::instance();
 
@@ -350,6 +358,7 @@ void MainMenu::connecting(void)
     connect(_viewer, SIGNAL(released()), this, SLOT(openViewerWindow()));
     connect(_referee, SIGNAL(released()), this, SLOT(openRefereeWindow()));
     connect(_statitsic, SIGNAL(released()), this, SLOT(openStatisticWindow()));
+    connect(_volleyballGameBoard, SIGNAL(released()), this, SLOT(openVolleyballGamePlanWindow()));
     connect(_newPlayer, SIGNAL(triggered()), this, SLOT(createDatabase()));
     connect(_loadPlayer, SIGNAL(triggered()), this, SLOT(loadDatabase()));
     connect(_newTournament, SIGNAL(triggered()), this, SLOT(createTournament()));

@@ -54,6 +54,7 @@ set(MOC_HEADERS
         View/loadTournamentPopup.h
         View/winnerpopup.h
         Model/create_volleyball_game_board.h
+        View/volleyball_game_plane.h
         )
 
 # set .cpp files
@@ -88,6 +89,7 @@ set(SOURCES
         View/loadTournamentPopup.cpp
         View/winnerpopup.cpp
         Model/create_volleyball_game_board.cpp
+        View/volleyball_game_plane.cpp
         main.cpp
         )
 
@@ -95,6 +97,7 @@ set(SOURCES
 set(UIS
         View/refereeWindow.ui
         View/viewerWindow.ui
+        View/volleyball_game_plane.ui
         )
 
 # set ressources

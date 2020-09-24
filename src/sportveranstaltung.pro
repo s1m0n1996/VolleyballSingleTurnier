@@ -41,6 +41,7 @@ SOURCES += \
     View/tabelView.cpp \
     View/tournamentWindow.cpp \
     View/viewerWindow.cpp \
+    View/volleyball_game_plane.cpp \
     View/windowButton.cpp \
     View/windowEdit.cpp \
     View/windowLabel.cpp \
@@ -73,6 +74,7 @@ HEADERS += \
     View/tabelView.h \
     View/tournamentWindow.h \
     View/viewerWindow.h \
+    View/volleyball_game_plane.h \
     View/windowButton.h \
     View/windowEdit.h \
     View/windowLabel.h \
@@ -81,7 +83,8 @@ HEADERS += \
 
 FORMS += \
     View/refereewindow.ui \
-    View/viewerWindow.ui
+    View/viewerWindow.ui \
+    View/volleyball_game_plane.ui
 
 TRANSLATIONS += \
     spotveranstaltung_de_DE.ts
