@@ -267,6 +267,8 @@ void CreateVolleyballGameBoard::createOneGame()
 {
     const QList<int> teams = {1, 2};
 
+    refreshPlayers();
+
     for (const int& team : teams)
     {
         for (int i = 0; i < _nPlayersPerTeam; i++)
