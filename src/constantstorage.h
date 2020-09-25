@@ -15,7 +15,7 @@ namespace Constants
     //  https://riptutorial.com/cmake/example/32603/using-cmake-to-define-the-version-number-for-cplusplus-usage
     constexpr char projectName[] = "Volleyball Turnier";
     constexpr char author[] = "Simon Flörke";
-    constexpr char version[] = "1.0.0";
+    constexpr char version[] = "1.0.1";
     constexpr char qtVersion[] = "5.14.2";
     constexpr char buildDate[] = __DATE__  " "  __TIME__;
     static const QString standardDocumentPath =
