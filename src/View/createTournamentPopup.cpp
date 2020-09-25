@@ -35,9 +35,7 @@ CreateTournamentPopUp::CreateTournamentPopUp(QWidget* parent) : QWidget(parent)
  */
 void CreateTournamentPopUp::enableCreateTournamentButton(void)
 {
-    QRegExp re(R"(^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$)");
-
-    if ((re.exactMatch(_dateEdit->text())) && !(_nameEdit->text().isEmpty()))
+    if (!_nameEdit->text().isEmpty())
     {
         _createTournament->setEnabled(true);
     }
@@ -51,8 +49,8 @@ void CreateTournamentPopUp::enableCreateTournamentButton(void)
 void CreateTournamentPopUp::openTournamentWindow(void)
 {
     setWindowFlags(Qt::Window);
-    QString tournamentName = _nameEdit->text();
-    QDate tournamentDate = QDate::fromString(_dateEdit->text(), "yyyy-MM-dd");
+    const QString tournamentName = _nameEdit->text();
+    const QDate tournamentDate = _date->date();
 
     _gameManagement->createNewTournament(tournamentName, tournamentDate);
     _gameManagement->loadOtherTournament(tournamentName, tournamentDate);
@@ -66,8 +64,6 @@ void CreateTournamentPopUp::openTournamentWindow(void)
 void CreateTournamentPopUp::createWidgets(void)
 {
     _dateLabel = new WindowLabel("Turnierdatum");
-    _dateEdit = new WindowEdit((QDate::currentDate().toString("yyyy-MM-dd")), DataType::date);
-    _dateEdit->setText(QDate::currentDate().toString("yyyy-MM-dd"));
 
     _date = new QDateEdit();
     _date->setCalendarPopup(true);
@@ -114,8 +110,6 @@ void CreateTournamentPopUp::setAllLayout(void)
 void CreateTournamentPopUp::connecting(void)
 {
     connect(_createTournament, SIGNAL(released()), this, SLOT(openTournamentWindow()));
-    connect(_dateEdit, SIGNAL(textChanged(
-                                      const QString &)), this, SLOT(enableCreateTournamentButton()));
     connect(_nameEdit, SIGNAL(textChanged(
                                       const QString &)), this, SLOT(enableCreateTournamentButton()));
 }

@@ -29,7 +29,6 @@ private:
 
     WindowLabel* _dateLabel = nullptr;
     QDateEdit* _date        = nullptr;;
-    WindowEdit* _dateEdit = nullptr;
 
     WindowLabel* _nameLabel = nullptr;
     WindowEdit* _nameEdit = nullptr;
